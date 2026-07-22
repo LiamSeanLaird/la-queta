@@ -1,0 +1,218 @@
+[
+  {
+    "id": "soc001",
+    "catalan": "si us plau",
+    "pronunciation": "see oos PLOW",
+    "english": "please",
+    "hint": "literally 'if it pleases you' — formal/informal",
+    "tags": ["social", "essentials"],
+    "pos": "phrase"
+  },
+  {
+    "id": "soc002",
+    "catalan": "gràcies",
+    "pronunciation": "GRAH-syehs",
+    "english": "thank you",
+    "hint": "",
+    "tags": ["social", "essentials"],
+    "pos": "phrase"
+  },
+  {
+    "id": "soc003",
+    "catalan": "moltes gràcies",
+    "pronunciation": "MOL-tes GRAH-syehs",
+    "english": "thank you very much",
+    "hint": "moltes = many",
+    "tags": ["social", "essentials"],
+    "pos": "phrase"
+  },
+  {
+    "id": "soc004",
+    "catalan": "de res",
+    "pronunciation": "deh REHS",
+    "english": "you're welcome",
+    "hint": "literally 'of nothing'",
+    "tags": ["social", "essentials"],
+    "pos": "phrase"
+  },
+  {
+    "id": "soc005",
+    "catalan": "perdona",
+    "pronunciation": "per-DOH-nah",
+    "english": "excuse me / sorry (informal)",
+    "hint": "use with family and friends",
+    "tags": ["social", "essentials"],
+    "pos": "phrase"
+  },
+  {
+    "id": "soc006",
+    "catalan": "perdoni",
+    "pronunciation": "per-DOH-nee",
+    "english": "excuse me / sorry (formal)",
+    "hint": "use with elders or strangers",
+    "tags": ["social", "essentials"],
+    "pos": "phrase"
+  },
+  {
+    "id": "soc007",
+    "catalan": "ho sento",
+    "pronunciation": "oh SEN-toh",
+    "english": "I'm sorry",
+    "hint": "for genuine apologies, not just excuse me",
+    "tags": ["social", "essentials"],
+    "pos": "phrase"
+  },
+  {
+    "id": "soc008",
+    "catalan": "no hi ha problema",
+    "pronunciation": "noh ee ah proh-BLEH-mah",
+    "english": "no problem",
+    "hint": "",
+    "tags": ["social", "essentials"],
+    "pos": "phrase"
+  },
+  {
+    "id": "soc009",
+    "catalan": "d'acord",
+    "pronunciation": "dah-KOR",
+    "english": "okay / agreed",
+    "hint": "the everyday 'ok' in Catalan",
+    "tags": ["social", "essentials"],
+    "pos": "phrase"
+  },
+  {
+    "id": "soc010",
+    "catalan": "molt bé",
+    "pronunciation": "mol BEH",
+    "english": "very good / great",
+    "hint": "also used as 'alright then'",
+    "tags": ["social", "essentials"],
+    "pos": "phrase"
+  },
+  {
+    "id": "soc011",
+    "catalan": "no ho entenc",
+    "pronunciation": "noh oh en-TENK",
+    "english": "I don't understand",
+    "hint": "you will use this a lot",
+    "tags": ["social", "survival"],
+    "pos": "phrase"
+  },
+  {
+    "id": "soc012",
+    "catalan": "pots parlar més a poc a poc?",
+    "pronunciation": "pots par-LAR mehs ah pok ah pok",
+    "english": "can you speak more slowly?",
+    "hint": "a poc a poc = little by little",
+    "tags": ["social", "survival"],
+    "pos": "phrase"
+  },
+  {
+    "id": "soc013",
+    "catalan": "pots repetir?",
+    "pronunciation": "pots reh-peh-TEER",
+    "english": "can you repeat that?",
+    "hint": "",
+    "tags": ["social", "survival"],
+    "pos": "phrase"
+  },
+  {
+    "id": "soc014",
+    "catalan": "no sé",
+    "pronunciation": "noh SEH",
+    "english": "I don't know",
+    "hint": "",
+    "tags": ["social", "survival"],
+    "pos": "phrase"
+  },
+  {
+    "id": "soc015",
+    "catalan": "puc ajudar?",
+    "pronunciation": "pook ah-zhoo-DAR",
+    "english": "can I help?",
+    "hint": "great to offer help around the house",
+    "tags": ["social", "helpful"],
+    "pos": "phrase"
+  },
+  {
+    "id": "soc016",
+    "catalan": "necessites ajuda?",
+    "pronunciation": "neh-seh-SEE-tes ah-ZHOO-dah",
+    "english": "do you need help?",
+    "hint": "",
+    "tags": ["social", "helpful"],
+    "pos": "phrase"
+  },
+  {
+    "id": "soc017",
+    "catalan": "estic bé",
+    "pronunciation": "es-TEEK BEH",
+    "english": "I'm fine / I'm okay",
+    "hint": "",
+    "tags": ["social", "states"],
+    "pos": "phrase"
+  },
+  {
+    "id": "soc018",
+    "catalan": "tinc gana",
+    "pronunciation": "teengk GAH-nah",
+    "english": "I'm hungry",
+    "hint": "literally 'I have hunger'",
+    "tags": ["social", "states"],
+    "pos": "phrase"
+  },
+  {
+    "id": "soc019",
+    "catalan": "tinc set",
+    "pronunciation": "teengk SET",
+    "english": "I'm thirsty",
+    "hint": "literally 'I have thirst'",
+    "tags": ["social", "states"],
+    "pos": "phrase"
+  },
+  {
+    "id": "soc020",
+    "catalan": "estic cansat / cansada",
+    "pronunciation": "es-TEEK kan-SAT / kan-SAH-dah",
+    "english": "I'm tired",
+    "hint": "cansat (m) / cansada (f)",
+    "tags": ["social", "states"],
+    "pos": "phrase"
+  },
+  {
+    "id": "soc021",
+    "catalan": "és clar",
+    "pronunciation": "ehs KLAR",
+    "english": "of course",
+    "hint": "",
+    "tags": ["social", "essentials"],
+    "pos": "phrase"
+  },
+  {
+    "id": "soc022",
+    "catalan": "potser",
+    "pronunciation": "pot-SEH",
+    "english": "maybe / perhaps",
+    "hint": "",
+    "tags": ["social", "essentials"],
+    "pos": "adv"
+  },
+  {
+    "id": "soc023",
+    "catalan": "bon profit!",
+    "pronunciation": "bon proh-FEET",
+    "english": "enjoy your meal!",
+    "hint": "said before eating — you'll hear this every day",
+    "tags": ["social", "meals"],
+    "pos": "phrase"
+  },
+  {
+    "id": "soc024",
+    "catalan": "estava molt bo",
+    "pronunciation": "es-TAH-vah mol BOH",
+    "english": "it was very good",
+    "hint": "say this after meals to compliment the cook",
+    "tags": ["social", "meals"],
+    "pos": "phrase"
+  }
+]

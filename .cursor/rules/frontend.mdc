@@ -1,0 +1,14 @@
+---
+description: HTML/CSS/JS and visual design conventions
+globs: templates/**/*.html,static/**/*
+alwaysApply: false
+---
+
+# Frontend conventions
+
+- Product brand in UI: **La Queta** (see `STYLE_GUIDE.md` §5).
+- Vanilla HTML/CSS/JS only — no React/Vue/Tailwind/Bootstrap/HTMX.
+- Tokens and visual rules live in `STYLE_GUIDE.md` §4–5 (Senyera accents, teal actions, serif display / sans UI).
+- One job per screen; cards only for interactive study/exercise surfaces.
+- Mobile-first; keep motion minimal and intentional.
+- Prefer extending `static/app.css` / `static/app.js` over new frameworks.

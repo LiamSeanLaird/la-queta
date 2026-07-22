@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Català</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f7f3ec;
+      color: #1a1a1a;
+      min-height: 100vh;
+    }
+
+    /* Senyera stripe bar — 4 red stripes on gold, like the flag */
+    .senyera-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 14px;
+      background: #FCCC12;
+      display: flex;
+      z-index: 100;
+    }
+    .senyera-bar span {
+      flex: 1;
+      height: 100%;
+    }
+    /* 4 red stripes evenly spaced across gold — simplified Senyera */
+    .senyera-bar {
+      background: repeating-linear-gradient(
+        90deg,
+        #FCCC12 0px,
+        #FCCC12 calc(12.5% - 2px),
+        #C1001F calc(12.5% - 2px),
+        #C1001F calc(12.5% + 2px),
+        #FCCC12 calc(12.5% + 2px),
+        #FCCC12 calc(25% - 2px),
+        #C1001F calc(25% - 2px),
+        #C1001F calc(25% + 2px),
+        #FCCC12 calc(25% + 2px),
+        #FCCC12 calc(37.5% - 2px),
+        #C1001F calc(37.5% - 2px),
+        #C1001F calc(37.5% + 2px),
+        #FCCC12 calc(37.5% + 2px),
+        #FCCC12 calc(50% - 2px),
+        #C1001F calc(50% - 2px),
+        #C1001F calc(50% + 2px),
+        #FCCC12 calc(50% + 2px),
+        #FCCC12 calc(62.5% - 2px),
+        #C1001F calc(62.5% - 2px),
+        #C1001F calc(62.5% + 2px),
+        #FCCC12 calc(62.5% + 2px),
+        #FCCC12 calc(75% - 2px),
+        #C1001F calc(75% - 2px),
+        #C1001F calc(75% + 2px),
+        #FCCC12 calc(75% + 2px),
+        #FCCC12 calc(87.5% - 2px),
+        #C1001F calc(87.5% - 2px),
+        #C1001F calc(87.5% + 2px),
+        #FCCC12 calc(87.5% + 2px),
+        #FCCC12 100%
+      );
+    }
+
+    .screen { display: none; }
+    .screen.active { display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 62px 24px 64px; }
+
+    /* ── Nav tabs ── */
+    .tab-bar {
+      display: flex;
+      gap: 0;
+      margin-bottom: 36px;
+      background: #eceae4;
+      border-radius: 10px;
+      padding: 3px;
+      width: 100%;
+      max-width: 340px;
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 8px 0;
+      border: none;
+      background: none;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #aaa;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .tab-btn.active { background: #fff; color: #1a1a1a; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+
+    /* ── Shared ── */
+    .back-btn {
+      align-self: flex-start;
+      background: none;
+      border: none;
+      color: #aaa;
+      font-size: 0.85rem;
+      cursor: pointer;
+      padding: 0;
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .back-btn:hover { color: #555; }
+
+    h1.site-title {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #C1001F;
+      margin-bottom: 4px;
+    }
+    .site-tagline {
+      font-size: 0.75rem;
+      color: #bba870;
+      letter-spacing: 0.04em;
+      margin-bottom: 28px;
+    }
+
+    /* ── Deck list ── */
+    .deck-list {
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .deck-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .deck-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+    .deck-card h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: 6px; }
+    .deck-meta { display: flex; gap: 16px; font-size: 0.78rem; color: #aaa; }
+    .deck-meta span b { color: #555; font-weight: 600; }
+    .pill { display: inline-block; padding: 2px 9px; border-radius: 99px; font-size: 0.7rem; font-weight: 600; background: #f0ede8; color: #aaa; margin-left: 8px; vertical-align: middle; }
+    .pill.done { background: #e6f4ec; color: #4caf7d; }
+
+    /* ── Lesson list ── */
+    .lesson-list {
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .lesson-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .lesson-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+    .lesson-num {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: #f0ede8;
+      color: #aaa;
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .lesson-num.done { background: #e6f4ec; color: #4caf7d; }
+    .lesson-info h3 { font-size: 1rem; font-weight: 600; margin-bottom: 3px; }
+    .lesson-info p { font-size: 0.78rem; color: #aaa; line-height: 1.4; }
+    .lesson-score { margin-left: auto; font-size: 0.75rem; color: #bbb; white-space: nowrap; flex-shrink: 0; }
+
+    /* ── Deck detail ── */
+    .deck-detail-header { width: 100%; max-width: 480px; margin-bottom: 32px; }
+    .deck-detail-header h2 { font-size: 1.6rem; font-weight: 700; margin-bottom: 6px; }
+    .deck-detail-header .meta { font-size: 0.85rem; color: #aaa; }
+    .mode-btns { width: 100%; max-width: 480px; display: flex; gap: 12px; }
+    .mode-btn { flex: 1; padding: 20px; border: none; border-radius: 14px; background: #fff; box-shadow: 0 2px 12px rgba(0,0,0,0.06); cursor: pointer; text-align: left; transition: transform 0.15s, box-shadow 0.15s; }
+    .mode-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+    .mode-btn .icon { font-size: 1.6rem; margin-bottom: 8px; }
+    .mode-btn h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; }
+    .mode-btn p { font-size: 0.78rem; color: #aaa; line-height: 1.4; }
+    .mode-btn.primary { background: #C1001F; color: #fff; }
+    .mode-btn.primary p { color: rgba(255,255,255,0.7); }
+
+    .dir-btn {
+      flex: 1; padding: 10px 6px; border: 2px solid #e8e6e0; border-radius: 10px;
+      background: #fafaf8; font-size: 0.78rem; font-weight: 600; cursor: pointer;
+      transition: border-color 0.15s, background 0.15s; color: #555;
+    }
+    .dir-btn:hover { border-color: #C1001F; }
+    .dir-btn.selected { border-color: #C1001F; background: #fff0f0; color: #C1001F; }
+
+    /* ── Study ── */
+    .progress-wrap { width: 100%; max-width: 480px; margin-bottom: 28px; }
+    .progress-label { display: flex; justify-content: space-between; font-size: 0.8rem; color: #999; margin-bottom: 6px; }
+    .progress-bar { height: 4px; background: #e0ddd8; border-radius: 2px; overflow: hidden; }
+    .progress-fill { height: 100%; background: #C1001F; border-radius: 2px; transition: width 0.4s ease; width: 0%; }
+    .card-scene { width: 100%; max-width: 480px; height: 260px; perspective: 900px; cursor: pointer; }
+    .card { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.45s ease; }
+    .card.flipped { transform: rotateY(180deg); }
+    .card-face { position: absolute; inset: 0; background: #fff; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+    .card-face.back { transform: rotateY(180deg); background: #fafaf8; }
+    .card-lang { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #bbb; margin-bottom: 12px; }
+    .card-word { font-size: 2rem; font-weight: 600; text-align: center; line-height: 1.2; }
+    .card-hint { margin-top: 10px; font-size: 0.82rem; color: #aaa; font-style: italic; }
+    .card-pronunciation { margin-top: 8px; font-size: 0.82rem; color: #bba870; letter-spacing: 0.03em; }
+    .card-tap { margin-top: 16px; font-size: 0.75rem; color: #ccc; letter-spacing: 0.05em; }
+    .copy-btn {
+      position: absolute;
+      top: 12px; right: 12px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #ddd;
+      font-size: 0.9rem;
+      padding: 4px 6px;
+      border-radius: 6px;
+      transition: color 0.15s, background 0.15s;
+      line-height: 1;
+    }
+    .copy-btn:hover { color: #aaa; background: #f0ede8; }
+    .copy-btn.copied { color: #4caf7d; }
+    .card-grammar { margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+    .gram-pill {
+      display: inline-block; padding: 2px 8px; border-radius: 99px;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .gram-pill.gender-m { background: #e8f0fe; color: #3a5bbf; }
+    .gram-pill.gender-f { background: #fce8f0; color: #bf3a72; }
+    .gram-pill.pos     { background: #f0ede8; color: #888; }
+    .gram-pill.plural  { background: #f5f4f0; color: #aaa; font-weight: 600; text-transform: none; font-size: 0.72rem; }
+    .card-verb-forms { margin-top: 8px; font-size: 0.75rem; color: #aaa; font-style: italic; }
+    .card-tag { margin-top: 12px; display: inline-block; padding: 3px 10px; border-radius: 99px; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; background: #f0ede8; color: #aaa; }
+    .actions { display: flex; gap: 12px; margin-top: 24px; width: 100%; max-width: 480px; }
+    .actions button { flex: 1; padding: 14px; border: none; border-radius: 10px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: opacity 0.15s; }
+    .actions button:hover { opacity: 0.85; }
+    .actions button:disabled { opacity: 0.3; cursor: default; }
+    #btn-next { background: #C1001F; color: #fff; }
+    #btn-flip { background: #e8e6e0; color: #1a1a1a; }
+    .key-hint { font-size: 0.72rem; color: #ccc; margin-top: 10px; }
+
+    /* ── Done ── */
+    #done-screen.active { justify-content: center; text-align: center; }
+    .done-inner { display: flex; flex-direction: column; align-items: center; }
+    .done-inner h2 { font-size: 1.8rem; font-weight: 700; margin-bottom: 8px; }
+    .done-inner p { color: #888; margin-bottom: 28px; max-width: 320px; line-height: 1.5; }
+    .done-inner button { padding: 14px 32px; border: none; border-radius: 10px; font-size: 0.95rem; font-weight: 600; cursor: pointer; background: #C1001F; color: #fff; margin-bottom: 12px; width: 220px; }
+    .done-inner .secondary-btn { background: #e8e6e0; color: #1a1a1a; }
+
+    /* ── Browse ── */
+    .browse-header { width: 100%; max-width: 640px; display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 20px; }
+    .browse-header h2 { font-size: 1.3rem; font-weight: 700; }
+    .browse-header span { font-size: 0.82rem; color: #aaa; }
+    .vocab-table { width: 100%; max-width: 640px; background: #fff; border-radius: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); overflow: hidden; }
+    .vocab-table .row { display: grid; grid-template-columns: 1fr 1fr 120px; align-items: center; padding: 14px 20px; border-bottom: 1px solid #f0ede8; gap: 16px; min-height: 58px; }
+    .vocab-table .row:last-child { border-bottom: none; }
+    .vocab-table .row.header { background: #f8f7f4; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #bbb; padding: 10px 20px; min-height: unset; }
+    .vocab-table .catalan { font-weight: 600; }
+    .vocab-table .english { color: #666; }
+    .hint-text { font-size: 0.75rem; color: #bbb; font-style: italic; margin-top: 2px; }
+    .tag-chip { display: inline-block; padding: 2px 8px; border-radius: 99px; font-size: 0.68rem; font-weight: 600; text-transform: uppercase; background: #f0ede8; color: #bbb; }
+
+    /* ── Lesson page ── */
+    .lesson-page { width: 100%; max-width: 600px; }
+    .lesson-page h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 6px; }
+    .lesson-page .lesson-summary { font-size: 0.9rem; color: #888; margin-bottom: 32px; line-height: 1.5; }
+
+    .section { margin-bottom: 24px; }
+
+    .section-text {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: #333;
+    }
+
+    .section-rule {
+      background: #fffbee;
+      border-left: 4px solid #FCCC12;
+      border-radius: 0 10px 10px 0;
+      padding: 14px 18px;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #4a3800;
+    }
+
+    .examples-table { width: 100%; border-collapse: collapse; }
+    .examples-table td { padding: 9px 12px; font-size: 0.88rem; border-bottom: 1px solid #f0ede8; }
+    .examples-table tr:last-child td { border-bottom: none; }
+    .examples-table .ex-catalan { font-weight: 600; width: 40%; }
+    .examples-table .ex-english { color: #666; width: 35%; }
+    .examples-table .ex-note { color: #bbb; font-style: italic; font-size: 0.78rem; }
+    .examples-wrap { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+
+    /* Exercise */
+    .exercise-block {
+      background: #fff;
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    .exercise-block .ex-question {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+    .ex-options { display: flex; flex-direction: column; gap: 10px; }
+    .ex-option {
+      padding: 12px 16px;
+      border: 2px solid #e8e6e0;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      text-align: left;
+      background: #fafaf8;
+    }
+    .ex-option:hover:not(:disabled) { border-color: #C1001F; background: #fff; }
+    .ex-option.correct { border-color: #4caf7d; background: #e6f4ec; color: #1a6e3c; }
+    .ex-option.wrong { border-color: #e05a3a; background: #fdecea; color: #8b2010; }
+    .ex-option:disabled { cursor: default; }
+    .ex-explanation {
+      margin-top: 14px;
+      padding: 12px 14px;
+      background: #f8f7f4;
+      border-radius: 8px;
+      font-size: 0.83rem;
+      color: #555;
+      line-height: 1.5;
+      display: none;
+    }
+    .ex-explanation.visible { display: block; }
+
+    .lesson-finish-bar {
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid #e8e6e0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .lesson-finish-bar .score { font-size: 0.85rem; color: #888; }
+    .btn-primary {
+      padding: 13px 32px;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: #C1001F;
+      color: #fff;
+      transition: opacity 0.15s;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+    .btn-primary:disabled { opacity: 0.35; cursor: default; }
+  </style>
+</head>
+<body>
+
+  <div class="senyera-bar"></div>
+
+  <!-- HOME: VOCAB TAB -->
+  <div class="screen active" id="home-screen">
+    <h1 class="site-title">🫏 Català</h1>
+    <p class="site-tagline">aprèn català — learn catalan</p>
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab('vocab')">Vocab</button>
+      <button class="tab-btn" onclick="switchTab('learn')">Learn</button>
+    </div>
+
+    <div id="tab-vocab" style="width:100%;max-width:480px;">
+      <div class="deck-list" id="deck-list"></div>
+    </div>
+
+    <div id="tab-learn" style="width:100%;max-width:480px;display:none;">
+      <div class="lesson-list" id="lesson-list"></div>
+    </div>
+  </div>
+
+  <!-- DECK DETAIL -->
+  <div class="screen" id="detail-screen">
+    <button class="back-btn" onclick="showHome('vocab')">← All decks</button>
+    <div class="deck-detail-header" id="detail-header"></div>
+    <div class="mode-btns">
+      <button class="mode-btn primary" onclick="toggleDirectionPicker()">
+        <div class="icon">🎴</div>
+        <h3>Study</h3>
+        <p>Flip through active cards</p>
+      </button>
+      <button class="mode-btn" onclick="startBrowse()">
+        <div class="icon">📋</div>
+        <h3>Browse</h3>
+        <p>View full vocab list</p>
+      </button>
+    </div>
+
+    <div id="direction-picker" style="display:none; width:100%; max-width:480px; margin-top:16px;">
+      <p style="font-size:0.78rem; color:#aaa; text-align:center; margin-bottom:12px;">Show which side first?</p>
+      <div style="display:flex; gap:10px;">
+        <button class="dir-btn" id="dir-mixed"   onclick="setDirection('mixed')"      >🔀 Mixed</button>
+        <button class="dir-btn" id="dir-en_to_ca" onclick="setDirection('en_to_ca')">🇬🇧 English first</button>
+        <button class="dir-btn" id="dir-ca_to_en" onclick="setDirection('ca_to_en')">🟡 Català first</button>
+      </div>
+      <button onclick="startStudy()" style="margin-top:14px; width:100%; padding:13px; border:none; border-radius:10px; background:#C1001F; color:#fff; font-size:0.95rem; font-weight:700; cursor:pointer;">Start →</button>
+    </div>
+  </div>
+
+  <!-- STUDY -->
+  <div class="screen" id="study-screen">
+    <button class="back-btn" onclick="showDetail()">← Back to deck</button>
+    <div class="progress-wrap">
+      <div class="progress-label">
+        <span id="prog-text"></span>
+        <span id="prog-count"></span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="prog-fill"></div></div>
+    </div>
+    <div class="card-scene" onclick="flipCard()">
+      <div class="card" id="card">
+        <div class="card-face front">
+          <button class="copy-btn" id="copy-btn-front" onclick="copyCardWord(event, 'front')" title="Copy">⧉</button>
+          <div class="card-lang" id="front-lang"></div>
+          <div class="card-word" id="front-word"></div>
+          <div class="card-pronunciation" id="front-pronunciation"></div>
+          <div class="card-grammar" id="front-grammar"></div>
+          <div class="card-verb-forms" id="front-verb-forms"></div>
+          <div class="card-tap" id="front-tap">tap or press Enter to reveal</div>
+        </div>
+        <div class="card-face back">
+          <button class="copy-btn" id="copy-btn-back" onclick="copyCardWord(event, 'back')" title="Copy">⧉</button>
+          <div class="card-lang" id="back-lang"></div>
+          <div class="card-word" id="back-word"></div>
+          <div class="card-pronunciation" id="back-pronunciation"></div>
+          <div class="card-grammar" id="back-grammar"></div>
+          <div class="card-verb-forms" id="back-verb-forms"></div>
+          <div class="card-hint" id="back-hint"></div>
+        </div>
+      </div>
+    </div>
+    <div class="actions">
+      <button id="btn-back" onclick="prevCard()" disabled>← Back</button>
+      <button id="btn-next" onclick="nextCard()" disabled>Next →</button>
+    </div>
+    <div class="key-hint">Enter to reveal · ← → to navigate</div>
+  </div>
+
+  <!-- DONE -->
+  <div class="screen" id="done-screen">
+    <div class="done-inner">
+      <h2>All done!</h2>
+      <p id="done-sub"></p>
+      <button onclick="startStudy()">Study again</button>
+      <button class="secondary-btn" onclick="startBrowse()">Browse vocab</button>
+      <button class="secondary-btn" onclick="showHome('vocab')" style="margin-top:4px">← All decks</button>
+    </div>
+  </div>
+
+  <!-- BROWSE -->
+  <div class="screen" id="browse-screen">
+    <button class="back-btn" onclick="showDetail()">← Back to deck</button>
+    <div class="browse-header">
+      <h2 id="browse-title"></h2>
+      <span id="browse-count"></span>
+    </div>
+    <div class="vocab-table">
+      <div class="row header"><span>Català</span><span>English</span><span>Grammar</span></div>
+      <div id="vocab-rows"></div>
+    </div>
+  </div>
+
+  <!-- LESSON PAGE -->
+  <div class="screen" id="lesson-screen">
+    <button class="back-btn" onclick="showHome('learn')">← All lessons</button>
+    <div class="lesson-page" id="lesson-content"></div>
+  </div>
+
+  <script>
+    let currentDeck = null;
+    let studyDeck = [];
+    let studyIndex = 0;
+    let flipped = false;
+    let studyTotal = 0;
+    let currentTab = 'vocab';
+    let studyDirection = 'mixed'; // 'mixed' | 'en_to_ca' | 'ca_to_en'
+
+    function show(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    // ── Home / tabs ──
+    function showHome(tab) {
+      show('home-screen');
+      switchTab(tab || currentTab);
+    }
+
+    function switchTab(tab) {
+      currentTab = tab;
+      document.querySelectorAll('.tab-btn').forEach((b, i) => {
+        b.classList.toggle('active', (i === 0 && tab === 'vocab') || (i === 1 && tab === 'learn'));
+      });
+      document.getElementById('tab-vocab').style.display = tab === 'vocab' ? 'block' : 'none';
+      document.getElementById('tab-learn').style.display = tab === 'learn' ? 'block' : 'none';
+      if (tab === 'vocab') loadDeckList();
+      if (tab === 'learn') loadLessonList();
+    }
+
+    async function loadDeckList() {
+      const res = await fetch('/api/decks');
+      const decks = await res.json();
+      document.getElementById('deck-list').innerHTML = decks.map(d => {
+        return `<div class="deck-card" onclick="selectDeck('${d.slug}')">
+          <h2>${d.name}</h2>
+          <div class="deck-meta"><span><b>${d.total}</b> cards</span></div>
+        </div>`;
+      }).join('');
+    }
+
+    async function loadLessonList() {
+      const res = await fetch('/api/lessons');
+      const lessons = await res.json();
+      document.getElementById('lesson-list').innerHTML = lessons.map(l => {
+        return `<div class="lesson-card" onclick="openLesson('${l.id}')">
+          <div class="lesson-num">${l.order}</div>
+          <div class="lesson-info">
+            <h3>${l.title}</h3>
+            <p>${l.summary}</p>
+          </div>
+          <div class="lesson-score">${l.exercise_count} exercises</div>
+        </div>`;
+      }).join('');
+    }
+
+    // ── Deck detail ──
+    async function selectDeck(slug) {
+      currentDeck = slug;
+      const res = await fetch('/api/decks');
+      const decks = await res.json();
+      const d = decks.find(x => x.slug === slug);
+      document.getElementById('detail-header').innerHTML = `
+        <h2>${d.name}</h2>
+        <div class="meta">${d.total} cards</div>`;
+      show('detail-screen');
+    }
+
+    function showDetail() { selectDeck(currentDeck); }
+
+    function toggleDirectionPicker() {
+      const picker = document.getElementById('direction-picker');
+      const visible = picker.style.display !== 'none';
+      picker.style.display = visible ? 'none' : 'block';
+      if (!visible) setDirection(studyDirection); // highlight current selection
+    }
+
+    function setDirection(dir) {
+      studyDirection = dir;
+      ['mixed', 'en_to_ca', 'ca_to_en'].forEach(d => {
+        document.getElementById(`dir-${d}`)?.classList.toggle('selected', d === dir);
+      });
+    }
+
+    // ── Study ──
+    async function startStudy() {
+      document.getElementById('direction-picker').style.display = 'none';
+      const res = await fetch(`/api/decks/${currentDeck}/session`);
+      studyDeck = await res.json();
+      studyTotal = studyDeck.length;
+      studyIndex = 0;
+      if (studyTotal === 0) { showDone(); return; }
+      show('study-screen');
+      showCard();
+    }
+
+    function copyCardWord(e, face) {
+      e.stopPropagation(); // don't flip the card
+      const word = studyDeck[studyIndex]?.catalan;
+      if (!word) return;
+      navigator.clipboard.writeText(word).then(() => {
+        const btn = document.getElementById(`copy-btn-${face}`);
+        btn.textContent = '✓';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = '⧉'; btn.classList.remove('copied'); }, 1500);
+      });
+    }
+
+    function buildGrammarHtml(card) {
+      const pills = [];
+      if (card.pos && card.pos !== 'phrase') {
+        const posLabels = { noun: 'noun', verb: 'verb', adjective: 'adj', adverb: 'adv', number: 'num', interjection: 'interj' };
+        pills.push(`<span class="gram-pill pos">${posLabels[card.pos] || card.pos}</span>`);
+      }
+      if (card.gender === 'm') pills.push(`<span class="gram-pill gender-m">masculine</span>`);
+      if (card.gender === 'f') pills.push(`<span class="gram-pill gender-f">feminine</span>`);
+      if (card.plural && card.plural !== '—') pills.push(`<span class="gram-pill plural">pl: ${card.plural}</span>`);
+      return pills.join('');
+    }
+
+    function buildVerbFormsHtml(card) {
+      if (card.pos !== 'verb' || !card.forms || !card.forms.length) return '';
+      const [gerund, pp] = card.forms;
+      return `${gerund} · ${pp}`;
+    }
+
+    function showCard() {
+      const card = studyDeck[studyIndex];
+      flipped = false;
+      document.getElementById('card').classList.remove('flipped');
+      document.getElementById('btn-next').disabled = true;
+      document.getElementById('btn-back').disabled = studyIndex === 0;
+      const showCatalanFirst = studyDirection === 'ca_to_en' ? true
+                             : studyDirection === 'en_to_ca' ? false
+                             : Math.random() < 0.5;
+      document.getElementById('front-lang').textContent = showCatalanFirst ? 'Català' : 'English';
+      document.getElementById('front-word').textContent = showCatalanFirst ? card.catalan : card.english;
+      document.getElementById('front-pronunciation').textContent = showCatalanFirst ? (card.pronunciation || '') : '';
+      document.getElementById('back-lang').textContent = showCatalanFirst ? 'English' : 'Català';
+      document.getElementById('back-word').textContent = showCatalanFirst ? card.english : card.catalan;
+      document.getElementById('back-pronunciation').textContent = showCatalanFirst ? '' : (card.pronunciation || '');
+      document.getElementById('back-hint').textContent = card.hint || '';
+
+      // Grammar — only on the Catalan side
+      const gramHtml = buildGrammarHtml(card);
+      const verbHtml = buildVerbFormsHtml(card);
+      if (showCatalanFirst) {
+        document.getElementById('front-grammar').innerHTML = gramHtml;
+        document.getElementById('front-verb-forms').innerHTML = verbHtml;
+        document.getElementById('back-grammar').innerHTML = '';
+        document.getElementById('back-verb-forms').innerHTML = '';
+      } else {
+        document.getElementById('front-grammar').innerHTML = '';
+        document.getElementById('front-verb-forms').innerHTML = '';
+        document.getElementById('back-grammar').innerHTML = gramHtml;
+        document.getElementById('back-verb-forms').innerHTML = verbHtml;
+      }
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const pct = studyTotal > 0 ? (studyIndex / studyTotal) * 100 : 0;
+      document.getElementById('prog-fill').style.width = pct + '%';
+      document.getElementById('prog-text').textContent = `Card ${studyIndex + 1} of ${studyTotal}`;
+      document.getElementById('prog-count').textContent = `${studyTotal - studyIndex} remaining`;
+    }
+
+    function flipCard() {
+      if (flipped) return;
+      flipped = true;
+      document.getElementById('card').classList.add('flipped');
+      document.getElementById('btn-next').disabled = false;
+    }
+
+    function prevCard() {
+      if (studyIndex === 0) return;
+      studyIndex--;
+      showCard();
+    }
+
+    function nextCard() {
+      if (!flipped) return;
+      studyIndex++;
+      if (studyIndex >= studyDeck.length) showDone();
+      else showCard();
+    }
+
+    function showDone() {
+      show('done-screen');
+      document.getElementById('done-sub').textContent = `You went through all ${studyTotal} cards in this deck.`;
+    }
+
+    // ── Browse ──
+    async function startBrowse() {
+      const res = await fetch(`/api/decks/${currentDeck}/cards`);
+      const cards = await res.json();
+      document.getElementById('browse-title').textContent =
+        currentDeck.replace('_', ' ').replace(/\b\w/g, c => c.toUpperCase()) + ' Deck';
+      document.getElementById('browse-count').textContent = `${cards.length} words`;
+      document.getElementById('vocab-rows').innerHTML = cards.map(c => {
+        const gramPills = buildGrammarHtml(c);
+        const verbForms = buildVerbFormsHtml(c);
+        return `<div class="row">
+          <div><div class="catalan">${c.catalan}</div>${c.pronunciation ? `<div class="hint-text">${c.pronunciation}</div>` : ''}${c.hint ? `<div class="hint-text">${c.hint}</div>` : ''}</div>
+          <div><div class="english">${c.english}</div>${(c.tags||[]).map(t => `<span class="tag-chip">${t}</span>`).join(' ')}</div>
+          <div style="display:flex;flex-direction:column;gap:4px">${gramPills}${verbForms ? `<span class="hint-text" style="font-style:italic">${verbForms}</span>` : ''}</div>
+        </div>`;
+      }).join('');
+      show('browse-screen');
+    }
+
+    // ── Lessons ──
+    let lessonExerciseAnswers = {}; // index → true/false
+
+    async function openLesson(id) {
+      const res = await fetch(`/api/lessons/${id}`);
+      const lesson = await res.json();
+      lessonExerciseAnswers = {};
+      renderLesson(lesson);
+      show('lesson-screen');
+    }
+
+    function renderLesson(lesson) {
+      let exerciseIndex = 0;
+      const sectionsHtml = lesson.sections.map(s => {
+        if (s.type === 'text') {
+          return `<div class="section section-text">${s.content}</div>`;
+        }
+        if (s.type === 'rule') {
+          return `<div class="section section-rule">${s.content}</div>`;
+        }
+        if (s.type === 'examples') {
+          const rows = s.items.map(item => `
+            <tr>
+              <td class="ex-catalan">${item.catalan}</td>
+              <td class="ex-english">${item.english}</td>
+              <td class="ex-note">${item.note || ''}</td>
+            </tr>`).join('');
+          return `<div class="section examples-wrap"><table class="examples-table">${rows}</table></div>`;
+        }
+        if (s.type === 'exercise') {
+          const idx = exerciseIndex++;
+          const opts = s.options.map((opt, oi) =>
+            `<button class="ex-option" onclick="answerExercise('${lesson.id}', ${idx}, '${opt.replace(/'/g,"\\'")}', '${s.answer.replace(/'/g,"\\'")}', this)">${opt}</button>`
+          ).join('');
+          return `<div class="section exercise-block" id="ex-${lesson.id}-${idx}">
+            <div class="ex-question">Exercise: ${s.question}</div>
+            <div class="ex-options">${opts}</div>
+            <div class="ex-explanation" id="expl-${lesson.id}-${idx}">${s.explanation}</div>
+          </div>`;
+        }
+        return '';
+      }).join('');
+
+      const totalExercises = exerciseIndex;
+
+      document.getElementById('lesson-content').innerHTML = `
+        <h2>${lesson.title}</h2>
+        <p class="lesson-summary">${lesson.summary}</p>
+        ${sectionsHtml}
+        <div class="lesson-finish-bar">
+          <div class="score" id="lesson-score-${lesson.id}"></div>
+          <button class="btn-primary" id="finish-btn-${lesson.id}" onclick="finishLesson()" disabled>
+            Mark as complete
+          </button>
+          <button class="back-btn" onclick="showHome('learn')" style="margin:0">← Back to lessons</button>
+        </div>`;
+
+      // Store for score tracking
+      window._currentLesson = { id: lesson.id, total: totalExercises };
+    }
+
+    function answerExercise(lessonId, idx, chosen, correct, btn) {
+      const block = document.getElementById(`ex-${lessonId}-${idx}`);
+      const expl = document.getElementById(`expl-${lessonId}-${idx}`);
+      const buttons = block.querySelectorAll('.ex-option');
+
+      buttons.forEach(b => {
+        b.disabled = true;
+        if (b.textContent === correct) b.classList.add('correct');
+      });
+      const isCorrect = chosen === correct;
+      if (!isCorrect) btn.classList.add('wrong');
+      expl.classList.add('visible');
+
+      lessonExerciseAnswers[idx] = isCorrect;
+
+      // Update score display and enable finish once all answered
+      const l = window._currentLesson;
+      if (!l || l.id !== lessonId) return;
+      const answered = Object.keys(lessonExerciseAnswers).length;
+      const correct_count = Object.values(lessonExerciseAnswers).filter(Boolean).length;
+      document.getElementById(`lesson-score-${lessonId}`).textContent =
+        `${correct_count} / ${answered} correct so far`;
+      if (answered >= l.total) {
+        document.getElementById(`finish-btn-${lessonId}`).disabled = false;
+      }
+    }
+
+    function finishLesson() {
+      showHome('learn');
+    }
+
+    // ── Enter key ──
+    document.addEventListener('keydown', e => {
+      if (!document.getElementById('study-screen').classList.contains('active')) return;
+      if (e.key === 'Enter') { if (!flipped) flipCard(); else nextCard(); }
+      if (e.key === 'ArrowLeft') prevCard();
+      if (e.key === 'ArrowRight' && flipped) nextCard();
+    });
+
+    // Init
+    showHome('vocab');
+  </script>
+</body>
+</html>

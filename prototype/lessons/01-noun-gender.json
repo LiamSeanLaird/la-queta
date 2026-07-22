@@ -1,0 +1,74 @@
+{
+  "id": "noun-gender",
+  "title": "Noun Gender",
+  "order": 1,
+  "summary": "Every noun is either masculine or feminine — and adjectives must match.",
+  "sections": [
+    {
+      "type": "text",
+      "content": "Unlike English, every Catalan noun has a grammatical gender: masculine or feminine. This affects the articles (the/a) you use before it, and the endings of any adjectives that describe it. There is no neutral 'it'."
+    },
+    {
+      "type": "rule",
+      "content": "Most nouns ending in -a are feminine. Most nouns ending in a consonant or -o are masculine. These are patterns, not absolute rules — there are exceptions."
+    },
+    {
+      "type": "examples",
+      "items": [
+        { "catalan": "el gat", "english": "the cat", "note": "masculine" },
+        { "catalan": "la porta", "english": "the door", "note": "feminine — ends in -a" },
+        { "catalan": "el cotxe", "english": "the car", "note": "masculine — ends in -e" },
+        { "catalan": "la taula", "english": "the table", "note": "feminine — ends in -a" },
+        { "catalan": "el pa", "english": "the bread", "note": "masculine despite ending in -a — exception" },
+        { "catalan": "la mà", "english": "the hand", "note": "feminine — ends in accented -à" }
+      ]
+    },
+    {
+      "type": "text",
+      "content": "Adjectives change their ending to agree with the noun they describe. A masculine adjective often ends in a consonant or -o; the feminine form typically adds or changes to -a."
+    },
+    {
+      "type": "examples",
+      "items": [
+        { "catalan": "un gat negre / una porta negra", "english": "a black cat / a black door", "note": "adjective agrees with gender" },
+        { "catalan": "un cotxe vell / una taula vella", "english": "an old car / an old table", "note": "" }
+      ]
+    },
+    {
+      "type": "rule",
+      "content": "Tip: always learn a noun together with its article (el / la). Don't memorise 'taula', memorise 'la taula'. The article encodes the gender."
+    },
+    {
+      "type": "exercise",
+      "kind": "multiple_choice",
+      "question": "What is the gender of 'porta' (door)?",
+      "options": ["Masculine", "Feminine"],
+      "answer": "Feminine",
+      "explanation": "'Porta' ends in -a, which is the most common feminine ending. It takes 'la': la porta."
+    },
+    {
+      "type": "exercise",
+      "kind": "multiple_choice",
+      "question": "Which article goes before 'cotxe' (car)?",
+      "options": ["el", "la"],
+      "answer": "el",
+      "explanation": "'Cotxe' ends in -e and is masculine, so it takes 'el': el cotxe."
+    },
+    {
+      "type": "exercise",
+      "kind": "multiple_choice",
+      "question": "A 'gat' (cat) is masculine. How do you say 'a small cat'?",
+      "options": ["un gat petit", "un gat petita"],
+      "answer": "un gat petit",
+      "explanation": "The adjective must be masculine to agree with 'gat'. 'Petit' is the masculine form; 'petita' is feminine."
+    },
+    {
+      "type": "exercise",
+      "kind": "multiple_choice",
+      "question": "'Pa' (bread) ends in -a. What gender is it?",
+      "options": ["Masculine", "Feminine"],
+      "answer": "Masculine",
+      "explanation": "'Pa' is an exception — it ends in -a but is masculine: el pa. This is why learning the article alongside the noun matters."
+    }
+  ]
+}

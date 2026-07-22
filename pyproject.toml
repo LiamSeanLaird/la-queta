@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "la-queta"
+version = "0.2.0"
+description = "La Queta — free public Catalan learning app (A1–A2)"
+authors = ["Liam Laird"]
+packages = [{ include = "app" }]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+flask = "^3.1.0"
+flask-sqlalchemy = "^3.1.1"
+flask-migrate = "^4.1.0"
+sqlalchemy = "^2.0.36"
+gunicorn = "^23.0.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^9.1.1"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

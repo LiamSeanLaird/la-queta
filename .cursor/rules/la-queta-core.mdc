@@ -1,0 +1,15 @@
+---
+description: Core project conventions for La Queta
+alwaysApply: true
+---
+
+# La Queta — always apply
+
+- Product/repo name: **La Queta** (`la-queta`). Language taught: Catalan.
+- Follow `STYLE_GUIDE.md`, `PRODUCT.md`, and `TECHNICAL_PLAN.md`.
+- `prototype/` is frozen — read for reference only; never edit.
+- Implement by phase: failing tests → structure → behaviour → green tests → update docs/rules if conventions changed.
+- Stack: Flask + SQLAlchemy 2 + Alembic + SQLite + vanilla HTML/CSS/JS. No SPA frameworks or CSS frameworks unless plans change.
+- Levels in scope: A1 and A2 only.
+- Do not run linters unless the user asks.
+- Prefer small, phase-scoped diffs; no unrelated refactors.

@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "catalan-app",
+      "runtimeExecutable": "poetry",
+      "runtimeArgs": ["run", "python", "app.py"],
+      "port": 5001,
+      "autoPort": true
+    }
+  ]
+}

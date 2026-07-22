@@ -1,0 +1,115 @@
+{
+  "id": "numbers",
+  "title": "Numbers",
+  "order": 5,
+  "summary": "Catalan numbers follow clear patterns — learn the system, not just the words.",
+  "sections": [
+    {
+      "type": "text",
+      "content": "The numbers 1–10 are the foundation and must simply be memorised. From 11 onwards, patterns kick in that let you build any number."
+    },
+    {
+      "type": "examples",
+      "items": [
+        {"catalan": "un / una", "english": "1", "note": "masculine / feminine"},
+        {"catalan": "dos / dues", "english": "2", "note": "masculine / feminine"},
+        {"catalan": "tres", "english": "3", "note": ""},
+        {"catalan": "quatre", "english": "4", "note": ""},
+        {"catalan": "cinc", "english": "5", "note": ""},
+        {"catalan": "sis", "english": "6", "note": ""},
+        {"catalan": "set", "english": "7", "note": ""},
+        {"catalan": "vuit", "english": "8", "note": ""},
+        {"catalan": "nou", "english": "9", "note": ""},
+        {"catalan": "deu", "english": "10", "note": ""}
+      ]
+    },
+    {
+      "type": "rule",
+      "content": "11–15 are irregular and must be learned: onze, dotze, tretze, catorze, quinze. From 16 onwards the pattern is 'ten + and + unit': setze (16), disset (17), divuit (18), dinou (19)."
+    },
+    {
+      "type": "examples",
+      "items": [
+        {"catalan": "onze", "english": "11", "note": "irregular"},
+        {"catalan": "dotze", "english": "12", "note": "irregular"},
+        {"catalan": "tretze", "english": "13", "note": "irregular"},
+        {"catalan": "catorze", "english": "14", "note": "irregular"},
+        {"catalan": "quinze", "english": "15", "note": "irregular"},
+        {"catalan": "setze", "english": "16", "note": "set + ze"},
+        {"catalan": "disset", "english": "17", "note": "deu + set"},
+        {"catalan": "divuit", "english": "18", "note": "deu + vuit"},
+        {"catalan": "dinou", "english": "19", "note": "deu + nou"}
+      ]
+    },
+    {
+      "type": "rule",
+      "content": "The tens are: vint (20), trenta (30), quaranta (40), cinquanta (50), seixanta (60), setanta (70), vuitanta (80), noranta (90). To combine, use 'i' (and): vint-i-un (21), trenta-dos (32), etc. Note: only 21–29 use 'i'; from 30+ the hyphen is used without 'i'."
+    },
+    {
+      "type": "examples",
+      "items": [
+        {"catalan": "vint", "english": "20", "note": ""},
+        {"catalan": "vint-i-un", "english": "21", "note": "vint + i + un"},
+        {"catalan": "vint-i-cinc", "english": "25", "note": "vint + i + cinc"},
+        {"catalan": "trenta", "english": "30", "note": ""},
+        {"catalan": "trenta-dos", "english": "32", "note": "trenta + dos (no 'i')"},
+        {"catalan": "quaranta", "english": "40", "note": ""},
+        {"catalan": "cinquanta", "english": "50", "note": ""},
+        {"catalan": "seixanta", "english": "60", "note": ""},
+        {"catalan": "setanta", "english": "70", "note": ""},
+        {"catalan": "vuitanta", "english": "80", "note": ""},
+        {"catalan": "noranta", "english": "90", "note": ""}
+      ]
+    },
+    {
+      "type": "rule",
+      "content": "Hundreds: cent (100), dos-cents / dues-centes (200), tres-cents (300)... Note that 200+ agree in gender: dos-cents metres but dues-centes persones. Mil (1,000) and milió (1,000,000) do not change for gender."
+    },
+    {
+      "type": "examples",
+      "items": [
+        {"catalan": "cent", "english": "100", "note": ""},
+        {"catalan": "dos-cents / dues-centes", "english": "200", "note": "masc / fem"},
+        {"catalan": "cinc-cents", "english": "500", "note": ""},
+        {"catalan": "mil", "english": "1,000", "note": ""},
+        {"catalan": "un milió", "english": "1,000,000", "note": ""}
+      ]
+    },
+    {
+      "type": "text",
+      "content": "Ordinal numbers (first, second...) are used for dates, floors, and rankings. The most common ones: primer/primera (1st), segon/segona (2nd), tercer/tercera (3rd), quart/quarta (4th), cinquè/cinquena (5th)."
+    },
+    {
+      "type": "exercise",
+      "kind": "multiple_choice",
+      "question": "How do you say 17 in Catalan?",
+      "options": ["disset", "setze", "dinou", "divuit"],
+      "answer": "disset",
+      "explanation": "17 = deu (10) + set (7) = disset. Think of it as 'ten-seven'."
+    },
+    {
+      "type": "exercise",
+      "kind": "multiple_choice",
+      "question": "How do you say 25?",
+      "options": ["vint-i-cinc", "vint-cinc", "dos-cinc", "cinc-vint"],
+      "answer": "vint-i-cinc",
+      "explanation": "21–29 use 'vint-i-' + unit. So 25 = vint-i-cinc. From 30 onwards you drop the 'i': trenta-cinc."
+    },
+    {
+      "type": "exercise",
+      "kind": "multiple_choice",
+      "question": "You're buying 200 tickets (bitllets, masculine). Which form?",
+      "options": ["dos-cents bitllets", "dues-centes bitllets"],
+      "answer": "dos-cents bitllets",
+      "explanation": "'Bitllet' is masculine, so the hundred agrees: dos-cents. If the noun were feminine (e.g. persones), you'd say dues-centes."
+    },
+    {
+      "type": "exercise",
+      "kind": "multiple_choice",
+      "question": "What is the Catalan for 'first' (masculine)?",
+      "options": ["primer", "primera", "un", "onze"],
+      "answer": "primer",
+      "explanation": "The ordinal 'first' is primer (m) / primera (f). Not to be confused with 'un/una' which is the cardinal number."
+    }
+  ]
+}

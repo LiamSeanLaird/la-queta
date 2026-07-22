@@ -1,0 +1,14 @@
+---
+description: Python / Flask / SQLAlchemy conventions
+globs: app/**/*.py,tests/**/*.py,scripts/**/*.py,wsgi.py
+alwaysApply: false
+---
+
+# Python conventions
+
+- `create_app` factory; blueprints under `app/routes/`; logic in `app/services/`.
+- SQLAlchemy 2.0 (`Mapped`, `mapped_column`). Schema changes only via Alembic with SQLite batch mode.
+- Thin routes: validate → service → JSON/template.
+- API JSON: `snake_case` keys; errors `{ "error": "..." }` + proper status.
+- Tests: pytest + Flask client; in-memory SQLite; name `test_<behaviour>`.
+- Match patterns in `STYLE_GUIDE.md` §2–3.

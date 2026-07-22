@@ -1,0 +1,88 @@
+{
+  "id": "question-words",
+  "title": "Question Words",
+  "order": 6,
+  "summary": "The question words that let you ask your way through any conversation.",
+  "sections": [
+    {
+      "type": "text",
+      "content": "Question words are your most powerful tool as a beginner. Even with limited vocabulary, you can point at things, ask what they're called, ask where things are, and ask someone to slow down. Master these and you can navigate almost any situation."
+    },
+    {
+      "type": "examples",
+      "items": [
+        {"catalan": "qui?", "english": "who?", "note": "KEE"},
+        {"catalan": "què?", "english": "what?", "note": "KEH"},
+        {"catalan": "on?", "english": "where?", "note": "ON"},
+        {"catalan": "quan?", "english": "when?", "note": "KWAN"},
+        {"catalan": "com?", "english": "how?", "note": "KOM"},
+        {"catalan": "per què?", "english": "why?", "note": "per KEH"},
+        {"catalan": "quant / quanta?", "english": "how much?", "note": "KWANT / KWAN-tah"},
+        {"catalan": "quants / quantes?", "english": "how many?", "note": "KWANTS / KWAN-tes"},
+        {"catalan": "quin / quina?", "english": "which?", "note": "KIN / KEE-nah"}
+      ]
+    },
+    {
+      "type": "rule",
+      "content": "To form a question in Catalan, simply put the question word at the start. The verb order is usually: question word + verb + subject. For example: On és la cuina? (Where is the kitchen?) — on (where) + és (is) + la cuina (the kitchen)."
+    },
+    {
+      "type": "examples",
+      "items": [
+        {"catalan": "On és el bany?", "english": "Where is the bathroom?", "note": "on + és + el bany"},
+        {"catalan": "Qui és?", "english": "Who is it?", "note": "on + és"},
+        {"catalan": "Quan dinem?", "english": "When do we have lunch?", "note": "quan + dinem"},
+        {"catalan": "Com es diu això?", "english": "What is this called?", "note": "literally 'how does this call itself'"},
+        {"catalan": "Quant val?", "english": "How much does it cost?", "note": ""},
+        {"catalan": "Quin és el teu nom?", "english": "What is your name?", "note": "literally 'which is your name'"}
+      ]
+    },
+    {
+      "type": "rule",
+      "content": "Use 'puc' (can I) and 'pots' (can you) to make polite requests. These come from the verb 'poder' (to be able to). Puc usar el bany? (Can I use the bathroom?) — puc + usar + el bany. Pots repetir? (Can you repeat?) — pots + repetir."
+    },
+    {
+      "type": "examples",
+      "items": [
+        {"catalan": "Puc usar el bany?", "english": "Can I use the bathroom?", "note": "puc = can I"},
+        {"catalan": "Puc ajudar?", "english": "Can I help?", "note": ""},
+        {"catalan": "Pots repetir?", "english": "Can you repeat?", "note": "pots = can you"},
+        {"catalan": "Pots parlar més a poc a poc?", "english": "Can you speak more slowly?", "note": ""},
+        {"catalan": "Pots explicar?", "english": "Can you explain?", "note": ""},
+        {"catalan": "Què vol dir...?", "english": "What does ... mean?", "note": "vol dir = means / wants to say"}
+      ]
+    },
+    {
+      "type": "exercise",
+      "kind": "multiple_choice",
+      "question": "Which word means 'where'?",
+      "options": ["on", "quan", "qui", "com"],
+      "answer": "on",
+      "explanation": "'On' means where. 'Quan' = when, 'qui' = who, 'com' = how."
+    },
+    {
+      "type": "exercise",
+      "kind": "multiple_choice",
+      "question": "How do you ask 'Can I use the bathroom?'",
+      "options": ["Puc usar el bany?", "On és el bany?", "Quan és el bany?", "Pots el bany?"],
+      "answer": "Puc usar el bany?",
+      "explanation": "'Puc' means 'can I'. 'On és el bany?' asks where the bathroom is — also useful, but different."
+    },
+    {
+      "type": "exercise",
+      "kind": "multiple_choice",
+      "question": "Which question word asks 'how much'?",
+      "options": ["quant", "quin", "per què", "quan"],
+      "answer": "quant",
+      "explanation": "'Quant' (m) / 'quanta' (f) = how much. 'Quants/quantes' = how many. Don't confuse with 'quan' = when."
+    },
+    {
+      "type": "exercise",
+      "kind": "multiple_choice",
+      "question": "How do you ask 'what does this mean?'",
+      "options": ["Què vol dir això?", "On és això?", "Qui diu això?", "Com és això?"],
+      "answer": "Què vol dir això?",
+      "explanation": "'Què vol dir...?' literally means 'what wants to say...?' — the standard way to ask for a word's meaning. 'Això' means 'this'."
+    }
+  ]
+}

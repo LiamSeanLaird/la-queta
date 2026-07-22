@@ -1,0 +1,45 @@
+:root {
+  --bg: #f4f0e6;
+  --bg-elevated: #fffdf8;
+  --ink: #1c1917;
+  --muted: #78716c;
+  --accent: #0f766e;
+  --senyera-gold: #fccc12;
+  --senyera-red: #c1001f;
+  --danger: #b91c1c;
+  --radius: 10px;
+  --font-ui: "Source Sans 3", "Segoe UI", sans-serif;
+  --font-display: "Source Serif 4", "Iowan Old Style", Georgia, serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-ui);
+  background: var(--bg);
+  color: var(--ink);
+}
+
+main {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 3rem 1.25rem;
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--accent);
+  margin: 0 0 0.5rem;
+}
+
+p {
+  margin: 0;
+  line-height: 1.5;
+  color: var(--muted);
+}

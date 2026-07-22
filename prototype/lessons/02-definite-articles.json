@@ -1,0 +1,74 @@
+{
+  "id": "definite-articles",
+  "title": "Definite Articles",
+  "order": 2,
+  "summary": "Catalan has four words for 'the', plus a contraction before vowels.",
+  "sections": [
+    {
+      "type": "text",
+      "content": "English has one definite article: 'the'. Catalan has four, depending on the gender and number of the noun. There is also a special contracted form used before nouns starting with a vowel or silent h."
+    },
+    {
+      "type": "examples",
+      "items": [
+        { "catalan": "el gat", "english": "the cat (masculine singular)", "note": "" },
+        { "catalan": "la porta", "english": "the door (feminine singular)", "note": "" },
+        { "catalan": "els gats", "english": "the cats (masculine plural)", "note": "" },
+        { "catalan": "les portes", "english": "the doors (feminine plural)", "note": "" }
+      ]
+    },
+    {
+      "type": "rule",
+      "content": "Before a noun starting with a vowel or silent h, 'el' and 'la' contract to 'l'': l'home (the man), l'aigua (the water). Els and les do not contract."
+    },
+    {
+      "type": "examples",
+      "items": [
+        { "catalan": "l'home", "english": "the man", "note": "el + home → l'home" },
+        { "catalan": "l'aigua", "english": "the water", "note": "la + aigua → l'aigua" },
+        { "catalan": "l'estació", "english": "the station", "note": "la + estació → l'estació" },
+        { "catalan": "els homes", "english": "the men", "note": "plural — no contraction" }
+      ]
+    },
+    {
+      "type": "text",
+      "content": "Catalan also has a 'personal article' used before people's names in informal speech: en (masculine) and la/na (feminine). So a Catalan might say 'en Joan' or 'la Maria'. You'll hear this but don't need to worry about producing it yet."
+    },
+    {
+      "type": "rule",
+      "content": "To make a noun plural: nouns ending in a vowel add -s (porta → portes, gat → gats... wait, gat ends in a consonant). Nouns ending in a consonant add -s too: gat → gats, tren → trens."
+    },
+    {
+      "type": "exercise",
+      "kind": "multiple_choice",
+      "question": "How do you say 'the trains' (tren = masculine)?",
+      "options": ["els trens", "les trens", "el trens", "l'trens"],
+      "answer": "els trens",
+      "explanation": "'Tren' is masculine plural, so it takes 'els'. Plural of 'tren' is 'trens'."
+    },
+    {
+      "type": "exercise",
+      "kind": "multiple_choice",
+      "question": "Which is correct for 'the airport' (aeroport = masculine, starts with vowel)?",
+      "options": ["l'aeroport", "el aeroport", "la aeroport", "els aeroport"],
+      "answer": "l'aeroport",
+      "explanation": "'Aeroport' starts with a vowel and is masculine singular, so 'el' contracts to 'l'': l'aeroport."
+    },
+    {
+      "type": "exercise",
+      "kind": "multiple_choice",
+      "question": "How do you say 'the doors' (porta = feminine)?",
+      "options": ["les portes", "els portes", "la portes", "l'portes"],
+      "answer": "les portes",
+      "explanation": "'Porta' is feminine. The feminine plural article is 'les', and 'porta' pluralises to 'portes'."
+    },
+    {
+      "type": "exercise",
+      "kind": "multiple_choice",
+      "question": "What happens to 'la' before 'estació' (station)?",
+      "options": ["It contracts to l'", "It stays as la", "It changes to el", "It is dropped"],
+      "answer": "It contracts to l'",
+      "explanation": "'Estació' starts with a vowel, so 'la' contracts to 'l'': l'estació."
+    }
+  ]
+}

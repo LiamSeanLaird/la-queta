@@ -1,0 +1,332 @@
+[
+  {
+    "id": "hd001",
+    "catalan": "la cuina",
+    "pronunciation": "koo-EE-nah",
+    "english": "kitchen",
+    "hint": "where meals are made",
+    "tags": ["home", "rooms"],
+    "pos": "noun",
+    "gender": "f",
+    "plural": "cuines"
+  },
+  {
+    "id": "hd002",
+    "catalan": "el menjador",
+    "pronunciation": "men-zhah-DOR",
+    "english": "dining room",
+    "hint": "menjar = to eat",
+    "tags": ["home", "rooms"],
+    "pos": "noun",
+    "gender": "m",
+    "plural": "menjadors"
+  },
+  {
+    "id": "hd003",
+    "catalan": "el saló",
+    "pronunciation": "sah-LOH",
+    "english": "living room",
+    "hint": "also called sala d'estar",
+    "tags": ["home", "rooms"],
+    "pos": "noun",
+    "gender": "m",
+    "plural": "salons"
+  },
+  {
+    "id": "hd004",
+    "catalan": "el dormitori",
+    "pronunciation": "dor-mee-TOH-ree",
+    "english": "bedroom",
+    "hint": "dormir = to sleep",
+    "tags": ["home", "rooms"],
+    "pos": "noun",
+    "gender": "m",
+    "plural": "dormitoris"
+  },
+  {
+    "id": "hd005",
+    "catalan": "el bany",
+    "pronunciation": "BAHN-y",
+    "english": "bathroom",
+    "hint": "also means bath",
+    "tags": ["home", "rooms"],
+    "pos": "noun",
+    "gender": "m",
+    "plural": "banys"
+  },
+  {
+    "id": "hd006",
+    "catalan": "el lavabo",
+    "pronunciation": "lah-VAH-boh",
+    "english": "toilet / washroom",
+    "hint": "colloquially used for the room with the toilet",
+    "tags": ["home", "rooms"],
+    "pos": "noun",
+    "gender": "m",
+    "plural": "lavabos"
+  },
+  {
+    "id": "hd007",
+    "catalan": "l'entrada",
+    "pronunciation": "en-TRAH-dah",
+    "english": "entrance / hallway",
+    "hint": "entrar = to enter",
+    "tags": ["home", "rooms"],
+    "pos": "noun",
+    "gender": "f",
+    "plural": "entrades"
+  },
+  {
+    "id": "hd008",
+    "catalan": "la terrassa",
+    "pronunciation": "teh-RAH-sah",
+    "english": "terrace / balcony",
+    "hint": "outdoor space attached to the home",
+    "tags": ["home", "rooms"],
+    "pos": "noun",
+    "gender": "f",
+    "plural": "terrasses"
+  },
+  {
+    "id": "hd009",
+    "catalan": "el llit",
+    "pronunciation": "YEET",
+    "english": "bed",
+    "hint": "ll sounds like 'y'",
+    "tags": ["home", "furniture"],
+    "pos": "noun",
+    "gender": "m",
+    "plural": "llits"
+  },
+  {
+    "id": "hd010",
+    "catalan": "la taula",
+    "pronunciation": "TAH-oo-lah",
+    "english": "table",
+    "hint": "",
+    "tags": ["home", "furniture"],
+    "pos": "noun",
+    "gender": "f",
+    "plural": "taules"
+  },
+  {
+    "id": "hd011",
+    "catalan": "la cadira",
+    "pronunciation": "kah-DEE-rah",
+    "english": "chair",
+    "hint": "",
+    "tags": ["home", "furniture"],
+    "pos": "noun",
+    "gender": "f",
+    "plural": "cadires"
+  },
+  {
+    "id": "hd012",
+    "catalan": "el sofà",
+    "pronunciation": "soh-FAH",
+    "english": "sofa / couch",
+    "hint": "",
+    "tags": ["home", "furniture"],
+    "pos": "noun",
+    "gender": "m",
+    "plural": "sofàs"
+  },
+  {
+    "id": "hd013",
+    "catalan": "l'armari",
+    "pronunciation": "ar-MAH-ree",
+    "english": "wardrobe / cupboard",
+    "hint": "used for both clothes and kitchen cupboards",
+    "tags": ["home", "furniture"],
+    "pos": "noun",
+    "gender": "m",
+    "plural": "armaris"
+  },
+  {
+    "id": "hd014",
+    "catalan": "la finestra",
+    "pronunciation": "fee-NES-trah",
+    "english": "window",
+    "hint": "",
+    "tags": ["home", "furniture"],
+    "pos": "noun",
+    "gender": "f",
+    "plural": "finestres"
+  },
+  {
+    "id": "hd015",
+    "catalan": "la porta",
+    "pronunciation": "POR-tah",
+    "english": "door",
+    "hint": "",
+    "tags": ["home", "furniture"],
+    "pos": "noun",
+    "gender": "f",
+    "plural": "portes"
+  },
+  {
+    "id": "hd016",
+    "catalan": "les escales",
+    "pronunciation": "es-KAH-les",
+    "english": "stairs",
+    "hint": "always plural in Catalan",
+    "tags": ["home", "furniture"],
+    "pos": "noun",
+    "gender": "f",
+    "plural": "—"
+  },
+  {
+    "id": "hd017",
+    "catalan": "la nevera",
+    "pronunciation": "neh-VEH-rah",
+    "english": "fridge",
+    "hint": "neu = snow",
+    "tags": ["home", "appliances"],
+    "pos": "noun",
+    "gender": "f",
+    "plural": "neveres"
+  },
+  {
+    "id": "hd018",
+    "catalan": "el forn",
+    "pronunciation": "FORN",
+    "english": "oven",
+    "hint": "also means bakery",
+    "tags": ["home", "appliances"],
+    "pos": "noun",
+    "gender": "m",
+    "plural": "forns"
+  },
+  {
+    "id": "hd019",
+    "catalan": "el microones",
+    "pronunciation": "mee-kroh-OH-nes",
+    "english": "microwave",
+    "hint": "micro + ones (waves)",
+    "tags": ["home", "appliances"],
+    "pos": "noun",
+    "gender": "m",
+    "plural": "microones"
+  },
+  {
+    "id": "hd020",
+    "catalan": "la rentadora",
+    "pronunciation": "ren-tah-DOH-rah",
+    "english": "washing machine",
+    "hint": "rentar = to wash",
+    "tags": ["home", "appliances"],
+    "pos": "noun",
+    "gender": "f",
+    "plural": "rentadores"
+  },
+  {
+    "id": "hd021",
+    "catalan": "la rentavaixelles",
+    "pronunciation": "ren-tah-bah-SHEH-yes",
+    "english": "dishwasher",
+    "hint": "renta + vaixelles (washes dishes)",
+    "tags": ["home", "appliances"],
+    "pos": "noun",
+    "gender": "f",
+    "plural": "rentavaixelles"
+  },
+  {
+    "id": "hd022",
+    "catalan": "l'aixeta",
+    "pronunciation": "ah-SHEH-tah",
+    "english": "tap / faucet",
+    "hint": "x sounds like 'sh'",
+    "tags": ["home", "appliances"],
+    "pos": "noun",
+    "gender": "f",
+    "plural": "aixetes"
+  },
+  {
+    "id": "hd023",
+    "catalan": "la tovallola",
+    "pronunciation": "toh-vah-YOH-lah",
+    "english": "towel",
+    "hint": "",
+    "tags": ["home", "daily"],
+    "pos": "noun",
+    "gender": "f",
+    "plural": "tovalloles"
+  },
+  {
+    "id": "hd024",
+    "catalan": "esmorzar",
+    "pronunciation": "ez-mor-ZAR",
+    "english": "to have breakfast",
+    "hint": "also the noun: l'esmorzar = breakfast",
+    "tags": ["home", "daily"],
+    "pos": "verb",
+    "forms": {
+      "jo": "esmorzo",
+      "tu": "esmorzar",
+      "ell/ella": "esmorza",
+      "nosaltres": "esmorzem",
+      "vosaltres": "esmorzeu",
+      "ells/elles": "esmorzen"
+    }
+  },
+  {
+    "id": "hd025",
+    "catalan": "dinar",
+    "pronunciation": "dee-NAR",
+    "english": "to have lunch",
+    "hint": "also the noun: el dinar = lunch",
+    "tags": ["home", "daily"],
+    "pos": "verb",
+    "forms": {
+      "jo": "dino",
+      "tu": "dines",
+      "ell/ella": "dina",
+      "nosaltres": "dinem",
+      "vosaltres": "dineu",
+      "ells/elles": "dinen"
+    }
+  },
+  {
+    "id": "hd026",
+    "catalan": "sopar",
+    "pronunciation": "soh-PAR",
+    "english": "to have dinner",
+    "hint": "also the noun: el sopar = dinner",
+    "tags": ["home", "daily"],
+    "pos": "verb",
+    "forms": {
+      "jo": "sopo",
+      "tu": "sopes",
+      "ell/ella": "sopa",
+      "nosaltres": "sopem",
+      "vosaltres": "sopeu",
+      "ells/elles": "sopen"
+    }
+  },
+  {
+    "id": "hd027",
+    "catalan": "dutxar-se",
+    "pronunciation": "doo-CHAR-seh",
+    "english": "to have a shower",
+    "hint": "reflexive verb — tx sounds like 'ch'",
+    "tags": ["home", "daily"],
+    "pos": "verb",
+    "forms": {
+      "jo": "em dutxo",
+      "tu": "et dutxes",
+      "ell/ella": "es dutxa",
+      "nosaltres": "ens dutxem",
+      "vosaltres": "us dutxeu",
+      "ells/elles": "es dutxen"
+    }
+  },
+  {
+    "id": "hd028",
+    "catalan": "fer el llit",
+    "pronunciation": "fer el YEET",
+    "english": "to make the bed",
+    "hint": "fer = to do/make",
+    "tags": ["home", "daily"],
+    "pos": "phrase"
+  }
+]
