@@ -1,22 +1,48 @@
 from flask import Flask
+from sqlalchemy.pool import StaticPool
 
 from app.config import Config
+from app.extensions import db, migrate
 
 
 def create_app(config_overrides: dict | None = None) -> Flask:
-    app = Flask(
+    application = Flask(
         __name__,
         template_folder="../templates",
         static_folder="../static",
     )
-    app.config.from_object(Config)
+    application.config.from_object(Config)
     if config_overrides:
-        app.config.update(config_overrides)
+        application.config.update(config_overrides)
 
+    _configure_sqlite_memory(application)
+
+    db.init_app(application)
+    migrate.init_app(application, db)
+
+    # Register model metadata for Alembic (local name must not shadow package `app`).
+    import app.models  # noqa: F401
+
+    from app.routes.api_auth import bp as api_auth_bp
     from app.routes.health import bp as health_bp
     from app.routes.pages import bp as pages_bp
 
-    app.register_blueprint(health_bp)
-    app.register_blueprint(pages_bp)
+    application.register_blueprint(health_bp)
+    application.register_blueprint(pages_bp)
+    application.register_blueprint(api_auth_bp)
 
-    return app
+    return application
+
+
+def _configure_sqlite_memory(application: Flask) -> None:
+    """Share one in-memory SQLite DB across connections (needed for Alembic)."""
+    uri = application.config.get("SQLALCHEMY_DATABASE_URI", "")
+    if not isinstance(uri, str) or uri != "sqlite:///:memory:":
+        return
+    application.config.setdefault(
+        "SQLALCHEMY_ENGINE_OPTIONS",
+        {
+            "connect_args": {"check_same_thread": False},
+            "poolclass": StaticPool,
+        },
+    )

@@ -72,8 +72,8 @@ Do not invent a third progress system.
 
 ### Phase A — Foundation
 - [x] App skeleton at repo root (Flask + Poetry + pytest) — Phase 0
-- [ ] SQLite + Alembic models/migrations — Phase 1
-- [ ] Handle signup / cookie session
+- [x] SQLite + Alembic models/migrations — Phase 1
+- [x] Handle signup / cookie session
 - [ ] Level hub (A1, A2) with empty/seeded progress
 
 ### Phase B — Content & Learn
@@ -96,6 +96,8 @@ Do not invent a third progress system.
 
 ## Content sources
 Reuse and re-level material from `prototype/data/` and `prototype/lessons/`. New lessons/decks authored as seed data, not by mutating the prototype app.
+
+**Level assignment (locked):** all current prototype decks and lessons seed into **A1**. **A2** exists as an empty scaffold (level row + hub tile) until content is authored.
 
 ## Success criteria
 - A stranger can open the URL, pick a handle, start A1, complete a lesson, study vocab, return later and see progress.

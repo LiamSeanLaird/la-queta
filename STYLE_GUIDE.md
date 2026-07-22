@@ -74,8 +74,9 @@ That page renders every shared UI component (tokens, brand, type, buttons, forms
 - Mutating API endpoints: at least one happy path + one unauthenticated (`401`) case.
 
 ### Dependencies
-- Poetry only. Dev tools in `[tool.poetry.group.dev.dependencies]`.
+- Poetry only for app packages. Dev tools in `[tool.poetry.group.dev.dependencies]`.
 - Do not `poetry add` a package already constrained in `pyproject.toml` to a different major without updating the existing pin first.
+- **Conda + Poetry:** activate a **valid** env first (`la-queta` via `environment.yml`). `poetry.toml` sets `virtualenvs.create = false` so deps install into that env. A broken/empty activated env (e.g. husk `catalan` with no `python`) makes Poetry fail or recreate empties — fix/recreate the conda env, don’t leave it activated.
 
 ---
 
@@ -93,8 +94,9 @@ That page renders every shared UI component (tokens, brand, type, buttons, forms
 - No OpenAPI/Marshmallow/pydantic required — validate with small explicit checks (`if not handle: …`).
 
 ### Auth
-- Cookie session (`session_user` / Flask session). Missing or invalid session on protected routes → `401` `{ "error": "…" }`.
-- Register/claim handle: conflict on duplicate → `409`.
+- Cookie session (`session_user` = user id in signed Flask session). Missing or invalid session on protected routes → `401` `{ "error": "…" }`.
+- Register/claim handle: `POST /api/auth/register`; conflict on duplicate → `409`.
+- Handle: 3–24 chars, `[a-zA-Z0-9_-]`, case-sensitive unique.
 - Unauthenticated browsers hitting HTML progress pages redirect to the handle gate (not a JSON 401).
 
 ### HTTP & bodies

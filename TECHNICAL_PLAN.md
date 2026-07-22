@@ -124,8 +124,9 @@ complete_pct = round(100 * (0.7 * lesson_ratio + 0.3 * vocab_ratio))
 If a level has zero vocab, use lessons only (100% weight).
 
 ## Auth / session
-- `POST /api/auth/register` `{ "handle": "liam" }` → create user if free; set signed cookie `session_user`
-- Cookie: Flask `itsdangerous` or Flask session secret; HTTP-only; `SameSite=Lax`
+- `POST /api/auth/register` `{ "handle": "liam" }` → create user if free; set signed Flask session (`session_user` = user id)
+- Cookie: Flask session; HTTP-only; `SameSite=Lax`; `SECRET_KEY`-signed
+- Handle rules: 3–24 chars, `[a-zA-Z0-9_-]`, case-sensitive unique
 - Unauthenticated API calls for progress → 401; pages redirect to handle gate
 - No passwords. Handle uniqueness is the only constraint.
 
@@ -180,15 +181,15 @@ Work in vertical slices. Each phase: **failing tests → structure → behaviour
 - [x] Empty routes + health check
 - [x] pytest wired
 
-### Phase 1 — Schema & migrations
-- [ ] Models as above
-- [ ] Initial Alembic migration
-- [ ] Tests: migrate on empty DB; model constraints
+### Phase 1 — Schema & migrations ✅
+- [x] Models as above
+- [x] Initial Alembic migration
+- [x] Tests: migrate on empty DB; model constraints
 
-### Phase 2 — Auth
-- [ ] Register handle + cookie
-- [ ] `/api/me`; reject duplicate handles
-- [ ] Tests for session round-trip
+### Phase 2 — Auth ✅
+- [x] Register handle + cookie
+- [x] `/api/me`; reject duplicate handles
+- [x] Tests for session round-trip
 
 ### Phase 3 — Levels API + hub UI
 - [ ] Seed A1/A2
@@ -216,17 +217,22 @@ Work in vertical slices. Each phase: **failing tests → structure → behaviour
 
 ## Running (target)
 ```bash
+# Conda env provides Python; Poetry installs app deps into it (virtualenvs.create = false).
+conda env update -f environment.yml --prune   # once / when env spec changes
+conda activate la-queta
 poetry install
-poetry run pytest
-poetry run flask --app wsgi run -p 5001
+poetry run python -m pytest
+poetry run python -m flask --app wsgi run -p 5001
 # later phases:
-# poetry run flask --app wsgi db upgrade
+# poetry run python -m flask --app wsgi db upgrade
 # poetry run python scripts/seed.py
 ```
 
-`poetry.toml` sets `virtualenvs.in-project = true` (local `.venv`).
+Do not leave a broken conda env activated (e.g. empty `catalan` husk with no interpreter) — Poetry will error or wipe installs. Use `la-queta` from `environment.yml`.
+
 
 ## Prototype usage rules
 - **Read** `prototype/` for UI patterns and content
 - **Do not** add features to `prototype/`
 - Content copied into `content/` then seeded into SQLite; after seed, SQLite is runtime source of truth
+- **Level assignment:** all current prototype lessons + decks → **A1**; **A2** scaffold empty until new content

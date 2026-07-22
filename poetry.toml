@@ -1,2 +1,3 @@
 [virtualenvs]
-in-project = true
+# Install into the active environment (conda). Do not create a nested .venv.
+create = false
