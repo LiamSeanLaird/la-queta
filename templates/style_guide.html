@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>La Queta — Style guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+</head>
+<body>
+  <div class="senyera-bar" aria-hidden="true"></div>
+
+  <div class="sg-page">
+    <header class="brand">
+      <h1 class="brand__title">La Queta</h1>
+      <p class="brand__tagline">Style guide — living component gallery</p>
+    </header>
+
+    <p class="text-muted" style="margin-top: 1rem; text-align: center;">
+      Source of truth: <code>STYLE_GUIDE.md</code> + this page at <code>/style-guide</code>.
+      Use these classes in the app — do not invent parallel variants.
+    </p>
+
+    <ul class="sg-toc">
+      <li><a href="#tokens">Tokens</a></li>
+      <li><a href="#brand">Brand</a></li>
+      <li><a href="#type">Type</a></li>
+      <li><a href="#buttons">Buttons</a></li>
+      <li><a href="#forms">Forms</a></li>
+      <li><a href="#tabs">Tabs</a></li>
+      <li><a href="#progress">Progress</a></li>
+      <li><a href="#levels">Levels</a></li>
+      <li><a href="#lists">Lists</a></li>
+      <li><a href="#flashcard">Flashcard</a></li>
+      <li><a href="#exercise">Exercise</a></li>
+      <li><a href="#examples">Examples</a></li>
+      <li><a href="#seen">Seen dots</a></li>
+    </ul>
+
+    <section class="sg-section" id="tokens">
+      <h2 class="sg-section__title">Colour tokens</h2>
+      <div class="sg-swatches">
+        <div class="sg-swatch"><div class="sg-swatch__chip" style="background: var(--bg)"></div><div class="sg-swatch__meta">--bg</div></div>
+        <div class="sg-swatch"><div class="sg-swatch__chip" style="background: var(--bg-elevated)"></div><div class="sg-swatch__meta">--bg-elevated</div></div>
+        <div class="sg-swatch"><div class="sg-swatch__chip" style="background: var(--ink)"></div><div class="sg-swatch__meta">--ink</div></div>
+        <div class="sg-swatch"><div class="sg-swatch__chip" style="background: var(--muted)"></div><div class="sg-swatch__meta">--muted</div></div>
+        <div class="sg-swatch"><div class="sg-swatch__chip" style="background: var(--accent)"></div><div class="sg-swatch__meta">--accent</div></div>
+        <div class="sg-swatch"><div class="sg-swatch__chip" style="background: var(--senyera-gold)"></div><div class="sg-swatch__meta">--senyera-gold</div></div>
+        <div class="sg-swatch"><div class="sg-swatch__chip" style="background: var(--senyera-red)"></div><div class="sg-swatch__meta">--senyera-red</div></div>
+        <div class="sg-swatch"><div class="sg-swatch__chip" style="background: var(--danger)"></div><div class="sg-swatch__meta">--danger</div></div>
+        <div class="sg-swatch"><div class="sg-swatch__chip" style="background: var(--ok)"></div><div class="sg-swatch__meta">--ok</div></div>
+      </div>
+    </section>
+
+    <section class="sg-section" id="brand">
+      <h2 class="sg-section__title">Brand</h2>
+      <div class="sg-demo">
+        <div class="brand">
+          <p class="brand__title">La Queta</p>
+          <p class="brand__tagline">aprèn català</p>
+        </div>
+        <p class="text-small">Top of page also shows <code>.senyera-bar</code>.</p>
+      </div>
+    </section>
+
+    <section class="sg-section" id="type">
+      <h2 class="sg-section__title">Typography</h2>
+      <div class="sg-demo">
+        <h1 class="heading-1">Heading 1 — level / screen</h1>
+        <h2 class="heading-2">Heading 2 — section</h2>
+        <h3 class="heading-3">Heading 3 — subsection</h3>
+        <p class="text-body">Body text for lesson explanations and longer copy.</p>
+        <p class="text-muted">Muted supporting sentence under a title.</p>
+        <p class="text-small">Small meta / captions.</p>
+        <p class="rule-callout">Rule callout — most nouns ending in -a are feminine.</p>
+      </div>
+    </section>
+
+    <section class="sg-section" id="buttons">
+      <h2 class="sg-section__title">Buttons</h2>
+      <div class="sg-demo">
+        <div class="row">
+          <button type="button" class="btn btn--primary">Primary</button>
+          <button type="button" class="btn btn--secondary">Secondary</button>
+          <button type="button" class="btn btn--ghost">← Back</button>
+          <button type="button" class="btn btn--danger">Danger</button>
+          <button type="button" class="btn btn--primary" disabled>Disabled</button>
+        </div>
+        <button type="button" class="btn btn--primary btn--block">Block primary</button>
+      </div>
+    </section>
+
+    <section class="sg-section" id="forms">
+      <h2 class="sg-section__title">Forms</h2>
+      <div class="sg-demo">
+        <label class="field">
+          <span class="field__label">Handle</span>
+          <input class="input" type="text" placeholder="e.g. liam" value="">
+        </label>
+        <label class="field">
+          <span class="field__label">Handle (error)</span>
+          <input class="input input--error" type="text" value="taken">
+          <p class="field__error">That handle is already taken.</p>
+        </label>
+      </div>
+    </section>
+
+    <section class="sg-section" id="tabs">
+      <h2 class="sg-section__title">Tabs</h2>
+      <div class="sg-demo">
+        <div class="tab-bar" role="tablist">
+          <button type="button" class="tab-btn is-active" role="tab" aria-selected="true">Learn</button>
+          <button type="button" class="tab-btn" role="tab" aria-selected="false">Vocab</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="sg-section" id="progress">
+      <h2 class="sg-section__title">Progress</h2>
+      <div class="sg-demo">
+        <div class="progress-meta">
+          <span>Session</span>
+          <span>7 / 12</span>
+        </div>
+        <div class="progress" role="progressbar" aria-valuenow="58" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress__bar" style="width: 58%"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sg-section" id="levels">
+      <h2 class="sg-section__title">Level tiles</h2>
+      <div class="level-grid">
+        <button type="button" class="level-tile is-current">
+          <p class="level-tile__code">A1</p>
+          <p class="level-tile__meta">Beginner · current</p>
+          <div class="progress" aria-hidden="true"><div class="progress__bar" style="width: 42%"></div></div>
+        </button>
+        <button type="button" class="level-tile">
+          <p class="level-tile__code">A2</p>
+          <p class="level-tile__meta">Elementary · 0%</p>
+          <div class="progress" aria-hidden="true"><div class="progress__bar" style="width: 0%"></div></div>
+        </button>
+      </div>
+    </section>
+
+    <section class="sg-section" id="lists">
+      <h2 class="sg-section__title">List rows</h2>
+      <div class="list">
+        <a class="list-row" href="#">
+          <div>
+            <p class="list-row__title">Noun gender</p>
+            <p class="list-row__sub">Every noun is masculine or feminine.</p>
+          </div>
+          <span class="badge badge--done">Done</span>
+        </a>
+        <button type="button" class="list-row">
+          <div>
+            <p class="list-row__title">Ser vs estar</p>
+            <p class="list-row__sub">Two verbs for “to be”.</p>
+          </div>
+          <span class="badge badge--todo">Todo</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="sg-section" id="flashcard">
+      <h2 class="sg-section__title">Flashcard</h2>
+      <div class="sg-demo">
+        <div class="flashcard" role="button" tabindex="0">
+          <p class="flashcard__lang">Català</p>
+          <p class="flashcard__word">Bon dia</p>
+          <p class="flashcard__hint">Tap to flip</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="sg-section" id="exercise">
+      <h2 class="sg-section__title">Exercise options</h2>
+      <div class="option-list">
+        <button type="button" class="option">Default option</button>
+        <button type="button" class="option is-selected">Selected</button>
+        <button type="button" class="option is-correct">Correct</button>
+        <button type="button" class="option is-wrong">Wrong</button>
+      </div>
+    </section>
+
+    <section class="sg-section" id="examples">
+      <h2 class="sg-section__title">Examples table</h2>
+      <table class="examples">
+        <thead>
+          <tr>
+            <th>Català</th>
+            <th>English</th>
+            <th>Note</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="examples__ca">el gat</td>
+            <td>the cat (m)</td>
+            <td class="examples__note">ends in consonant</td>
+          </tr>
+          <tr>
+            <td class="examples__ca">la porta</td>
+            <td>the door (f)</td>
+            <td class="examples__note">ends in -a</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="sg-section" id="seen">
+      <h2 class="sg-section__title">Seen dots</h2>
+      <div class="row">
+        <span class="seen-dots" aria-label="0 of 3">
+          <span class="seen-dot"></span><span class="seen-dot"></span><span class="seen-dot"></span>
+        </span>
+        <span class="seen-dots" aria-label="2 of 3">
+          <span class="seen-dot is-filled"></span><span class="seen-dot is-filled"></span><span class="seen-dot"></span>
+        </span>
+        <span class="seen-dots" aria-label="3 of 3">
+          <span class="seen-dot is-filled"></span><span class="seen-dot is-filled"></span><span class="seen-dot is-filled"></span>
+        </span>
+      </div>
+    </section>
+
+    <p class="text-small" style="margin-top: 3rem;">
+      <a href="/">← Back to app</a>
+    </p>
+  </div>
+</body>
+</html>

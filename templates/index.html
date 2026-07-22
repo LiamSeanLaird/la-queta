@@ -4,12 +4,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>La Queta</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:wght@600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
 </head>
 <body>
-  <main>
-    <h1>La Queta</h1>
-    <p>Aprèn català — learning app scaffold (Phase 0).</p>
+  <div class="senyera-bar" aria-hidden="true"></div>
+  <main class="page">
+    <header class="brand">
+      <h1 class="brand__title">La Queta</h1>
+      <p class="brand__tagline">Aprèn català — learning app scaffold (Phase 0).</p>
+    </header>
+    <p class="text-small" style="margin-top: 2rem; text-align: center;">
+      <a href="{{ url_for('pages.style_guide') }}">Open style guide</a>
+    </p>
   </main>
 </body>
 </html>

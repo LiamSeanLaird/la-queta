@@ -5,6 +5,21 @@ If code and this doc diverge, update both in the same change.
 
 **Product:** La Queta (`la-queta`). **Language taught:** Catalan (vocab field `catalan` stays — that is content, not the brand).
 
+## Live component gallery
+
+Open **`/style-guide`** while the app is running:
+
+```bash
+poetry run flask --app wsgi run -p 5001
+# → http://127.0.0.1:5001/style-guide
+```
+
+That page renders every shared UI component (tokens, brand, type, buttons, forms, tabs, progress, level tiles, list rows, flashcard, exercise options, examples table, seen dots).
+
+- **Markup + classes:** `templates/style_guide.html`
+- **Shared styles:** `static/app.css` (gallery chrome uses `.sg-*`; app components do not)
+- When you add a UI pattern to the app, **add it to the gallery in the same change**.
+
 ---
 
 ## 1. Product & process
@@ -154,3 +169,4 @@ One job per screen. No dashboard soup.
 |---|---|
 | 2026-07-22 | Initial style guide (post Phase 0, pre Phase 1) |
 | 2026-07-22 | Rebrand to La Queta (`la-queta`) |
+| 2026-07-22 | Live component gallery at `/style-guide` |
