@@ -130,6 +130,9 @@ If a level has zero vocab, use lessons only (100% weight).
 - No passwords. Handle uniqueness is the only constraint.
 
 ## API (initial)
+
+Conventions: `STYLE_GUIDE.md` §3 (layers, statuses, error shape, POST-for-actions).
+
 | Method | Route | Description |
 |---|---|---|
 | GET | `/` | App shell |
@@ -149,6 +152,7 @@ If a level has zero vocab, use lessons only (100% weight).
 - Server-rendered shell from Flask templates
 - Vanilla JS for study/lesson interactions (port patterns from `prototype/templates/index.html`)
 - One CSS file with CSS variables; no React/Vue/Tailwind required
+- Visual SoT: `STYLE_GUIDE.md` §5 + `/style-guide` — Senyera **red + gold** palette (no flag bar); Fraunces / Figtree
 - Screens: handle gate → level hub → level home → lesson | vocab study/browse
 
 ## Migrations
@@ -156,6 +160,7 @@ If a level has zero vocab, use lessons only (100% weight).
 - Enable **batch mode** for SQLite in `migrations/env.py`
 - Never hand-edit production DB schema
 - Seed data via `scripts/seed.py` (idempotent), not via migrations, except empty `levels` rows if useful
+- Conventions (workflow, one-concern revisions, ORM/API boundaries): `STYLE_GUIDE.md` §2–3
 
 ## Hosting (Oracle Always Free)
 - Ampere ARM VM (or free-tier shape available)

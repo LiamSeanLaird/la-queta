@@ -16,3 +16,5 @@ def test_style_guide_renders(client):
     assert b"Style guide" in response.data
     assert b"btn--primary" in response.data
     assert b"flashcard" in response.data
+    assert b"senyera-bar" not in response.data
+    assert b"--senyera-gold" in response.data

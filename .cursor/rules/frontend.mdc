@@ -8,7 +8,7 @@ alwaysApply: false
 
 - Product brand in UI: **La Queta** (see `STYLE_GUIDE.md` §5).
 - Vanilla HTML/CSS/JS only — no React/Vue/Tailwind/Bootstrap/HTMX.
-- Tokens and visual rules live in `STYLE_GUIDE.md` §4–5 (Senyera accents, teal actions, serif display / sans UI).
+- Tokens and visual rules live in `STYLE_GUIDE.md` §4–5 (gold-washed surface, Senyera red CTAs, gold progress/highlights, Fraunces display / Figtree UI). No flag strip.
 - Component gallery: `/style-guide` (`templates/style_guide.html` + classes in `static/app.css`). New UI patterns must be added there in the same change.
 - One job per screen; cards only for interactive study/exercise surfaces.
 - Mobile-first; keep motion minimal and intentional.

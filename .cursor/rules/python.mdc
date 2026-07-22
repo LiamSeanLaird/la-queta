@@ -1,14 +1,37 @@
 ---
-description: Python / Flask / SQLAlchemy conventions
-globs: app/**/*.py,tests/**/*.py,scripts/**/*.py,wsgi.py
+description: Python / Flask / SQLAlchemy / API conventions
+globs: app/**/*.py,tests/**/*.py,scripts/**/*.py,wsgi.py,migrations/**/*.py
 alwaysApply: false
 ---
 
 # Python conventions
 
+Match `STYLE_GUIDE.md` §2–3. Short form:
+
+## Layout
 - `create_app` factory; blueprints under `app/routes/`; logic in `app/services/`.
-- SQLAlchemy 2.0 (`Mapped`, `mapped_column`). Schema changes only via Alembic with SQLite batch mode.
-- Thin routes: validate → service → JSON/template.
-- API JSON: `snake_case` keys; errors `{ "error": "..." }` + proper status.
-- Tests: pytest + Flask client; in-memory SQLite; name `test_<behaviour>`.
-- Match patterns in `STYLE_GUIDE.md` §2–3.
+- Models in `app/models.py` until a split is justified.
+
+## ORM
+- SQLAlchemy 2 only: `Mapped`, `mapped_column`, `select()` / `session.execute`. No `Model.query`.
+- Commit in services, not routes.
+- Return dicts (or plain structures) from services for JSON — don’t jsonify ORM instances.
+- DB constraints enforce uniqueness; `IntegrityError` → `409`.
+- JSON columns are opaque in the ORM; shape them in services.
+
+## Migrations
+- Alembic only for schema; SQLite **batch mode** on.
+- Models → `flask db migrate -m "…"` → review revision → `upgrade` → tests.
+- One concern per revision; don’t edit applied revisions; don’t seed lesson/vocab content in migrations (`scripts/seed.py` instead).
+
+## API
+- `/api/` JSON only; `snake_case` keys; errors `{ "error": "…" }`.
+- Statuses: `200` / `201` / `204` / `400` / `401` / `404` / `409` / `422`.
+- Thin routes: validate → service → jsonify.
+- Cookie session; protected → `401`. Duplicate handle → `409`.
+- Mutations via `POST` actions; `GET` is read-only.
+- No response `{ "data": … }` wrapper; no API versioning yet.
+
+## Tests
+- pytest + Flask client; in-memory SQLite; `test_<behaviour>`.
+- Mutating endpoints: happy path + `401` without session.

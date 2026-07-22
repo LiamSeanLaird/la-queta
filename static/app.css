@@ -1,18 +1,23 @@
 :root {
-  --bg: #f4f0e6;
-  --bg-elevated: #fffdf8;
-  --ink: #1c1917;
-  --muted: #78716c;
-  --accent: #0f766e;
-  --accent-hover: #0d9488;
+  --bg: #f7f1df;
+  --bg-elevated: #fffdf6;
+  --ink: #1c1412;
+  --muted: #6e5a48;
+  --accent: #c1001f;
+  --accent-hover: #9e0019;
   --senyera-gold: #fccc12;
   --senyera-red: #c1001f;
-  --danger: #b91c1c;
+  --highlight: #fccc12;
+  --danger: #9f1239;
   --ok: #15803d;
+  --border: #e5d4a0;
+  --track: #efe2b4;
+  --tab-rail: #f0e6c4;
+  --surface-solid: #ffffff;
   --radius: 10px;
-  --font-ui: "Source Sans 3", "Segoe UI", sans-serif;
-  --font-display: "Source Serif 4", "Iowan Old Style", Georgia, serif;
-  --shadow-soft: 0 1px 4px rgba(0, 0, 0, 0.08);
+  --font-ui: "Figtree", "Segoe UI", sans-serif;
+  --font-display: "Fraunces", Georgia, serif;
+  --shadow-soft: 0 1px 4px rgba(90, 40, 20, 0.1);
 }
 
 *,
@@ -25,42 +30,15 @@ body {
   margin: 0;
   min-height: 100vh;
   font-family: var(--font-ui);
-  background: var(--bg);
+  background:
+    radial-gradient(ellipse 90% 50% at 50% -10%, rgba(252, 204, 18, 0.35), transparent 55%),
+    var(--bg);
   color: var(--ink);
   line-height: 1.5;
 }
 
 a {
   color: var(--accent);
-}
-
-/* ── Senyera ─────────────────────────────────────────── */
-
-.senyera-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 10px;
-  z-index: 100;
-  background: repeating-linear-gradient(
-    90deg,
-    var(--senyera-gold) 0 11%,
-    var(--senyera-red) 11% 13%,
-    var(--senyera-gold) 13% 24%,
-    var(--senyera-red) 24% 26%,
-    var(--senyera-gold) 26% 37%,
-    var(--senyera-red) 37% 39%,
-    var(--senyera-gold) 39% 50%,
-    var(--senyera-red) 50% 52%,
-    var(--senyera-gold) 52% 63%,
-    var(--senyera-red) 63% 65%,
-    var(--senyera-gold) 65% 76%,
-    var(--senyera-red) 76% 78%,
-    var(--senyera-gold) 78% 89%,
-    var(--senyera-red) 89% 91%,
-    var(--senyera-gold) 91% 100%
-  );
 }
 
 /* ── Layout shells ───────────────────────────────────── */
@@ -105,7 +83,7 @@ a {
   font-size: clamp(2.25rem, 6vw, 3rem);
   font-weight: 600;
   letter-spacing: -0.02em;
-  color: var(--accent);
+  color: var(--senyera-red);
   margin: 0;
 }
 
@@ -159,8 +137,8 @@ a {
 .rule-callout {
   margin: 0;
   padding: 0.9rem 1rem;
-  background: var(--bg-elevated);
-  border-left: 3px solid var(--accent);
+  background: color-mix(in srgb, var(--senyera-gold) 14%, var(--bg-elevated));
+  border-left: 3px solid var(--senyera-gold);
   border-radius: 0 var(--radius) var(--radius) 0;
   font-family: var(--font-display);
   font-size: 1.05rem;
@@ -201,7 +179,7 @@ a {
 .btn--secondary {
   background: var(--bg-elevated);
   color: var(--ink);
-  border-color: #ddd6cb;
+  border-color: var(--border);
 }
 
 .btn--secondary:hover:not(:disabled) {
@@ -247,7 +225,7 @@ a {
 .input {
   width: 100%;
   padding: 0.7rem 0.85rem;
-  border: 1px solid #ddd6cb;
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--bg-elevated);
   color: var(--ink);
@@ -279,7 +257,7 @@ a {
   width: 100%;
   max-width: 22rem;
   padding: 3px;
-  background: #eceae4;
+  background: var(--tab-rail);
   border-radius: var(--radius);
 }
 
@@ -292,13 +270,13 @@ a {
   font-family: var(--font-ui);
   font-size: 0.82rem;
   font-weight: 600;
-  color: #aaa;
+  color: color-mix(in srgb, var(--muted) 70%, transparent);
   cursor: pointer;
   transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .tab-btn.is-active {
-  background: #fff;
+  background: var(--surface-solid);
   color: var(--ink);
   box-shadow: var(--shadow-soft);
 }
@@ -309,13 +287,13 @@ a {
   width: 100%;
   height: 8px;
   border-radius: 999px;
-  background: #e7e2d8;
+  background: var(--track);
   overflow: hidden;
 }
 
 .progress__bar {
   height: 100%;
-  background: var(--accent);
+  background: linear-gradient(90deg, var(--senyera-gold), #e8b400);
   border-radius: inherit;
   transition: width 0.2s ease;
 }
@@ -340,18 +318,19 @@ a {
   width: 100%;
   text-align: left;
   padding: 1.1rem 1.15rem;
-  border: 1px solid #ddd6cb;
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--bg-elevated);
   cursor: pointer;
   font: inherit;
   color: inherit;
-  transition: border-color 0.15s ease;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .level-tile:hover,
 .level-tile.is-current {
-  border-color: var(--accent);
+  border-color: var(--senyera-red);
+  box-shadow: inset 3px 0 0 var(--senyera-gold);
 }
 
 .level-tile__code {
@@ -382,7 +361,7 @@ a {
   gap: 1rem;
   width: 100%;
   padding: 0.85rem 1rem;
-  border: 1px solid #ddd6cb;
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--bg-elevated);
   text-decoration: none;
@@ -393,7 +372,7 @@ a {
 }
 
 .list-row:hover {
-  border-color: color-mix(in srgb, var(--accent) 50%, #ddd6cb);
+  border-color: color-mix(in srgb, var(--senyera-red) 45%, var(--border));
 }
 
 .list-row__title {
@@ -424,7 +403,7 @@ a {
 }
 
 .badge--todo {
-  background: #eceae4;
+  background: var(--tab-rail);
   color: var(--muted);
 }
 
@@ -436,7 +415,7 @@ a {
   padding: 1.5rem;
   border-radius: calc(var(--radius) + 4px);
   background: var(--bg-elevated);
-  border: 1px solid #ddd6cb;
+  border: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -485,7 +464,7 @@ a {
   text-align: left;
   padding: 0.85rem 1rem;
   border-radius: var(--radius);
-  border: 1px solid #ddd6cb;
+  border: 1px solid var(--border);
   background: var(--bg-elevated);
   font: inherit;
   cursor: pointer;
@@ -497,8 +476,8 @@ a {
 }
 
 .option.is-selected {
-  border-color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 8%, white);
+  border-color: var(--senyera-red);
+  background: color-mix(in srgb, var(--senyera-gold) 22%, white);
 }
 
 .option.is-correct {
@@ -523,7 +502,7 @@ a {
 .examples td {
   padding: 0.55rem 0.4rem;
   text-align: left;
-  border-bottom: 1px solid #e7e2d8;
+  border-bottom: 1px solid var(--track);
   vertical-align: top;
 }
 
@@ -555,11 +534,12 @@ a {
   width: 0.45rem;
   height: 0.45rem;
   border-radius: 50%;
-  background: #ddd6cb;
+  background: var(--border);
 }
 
 .seen-dot.is-filled {
-  background: var(--accent);
+  background: var(--senyera-gold);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--senyera-red) 35%, transparent);
 }
 
 /* ── Style-guide gallery chrome (page only) ──────────── */
@@ -587,7 +567,7 @@ a {
 .sg-section {
   margin-top: 2.75rem;
   padding-top: 1.5rem;
-  border-top: 1px solid #e7e2d8;
+  border-top: 1px solid var(--track);
 }
 
 .sg-section__title {
@@ -615,7 +595,7 @@ a {
 .sg-swatch {
   border-radius: var(--radius);
   overflow: hidden;
-  border: 1px solid #ddd6cb;
+  border: 1px solid var(--border);
   background: var(--bg-elevated);
 }
 
