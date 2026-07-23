@@ -16,7 +16,7 @@
 ### In scope (v2)
 - Public web app (no install)
 - Handle-only identity + cookie session (not security-hardened auth)
-- Levels: **A1** and **A2**
+- Levels: A1 open; A2 and B1 hub tiles exist but disabled (“coming soon”) until content ships.
 - Lessons with text / rule / examples / exercises
 - Vocab study (seen-count retirement: 3 views)
 - Level hub: start or switch levels; completeness per level

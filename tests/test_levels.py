@@ -40,8 +40,8 @@ def test_seed_levels_is_idempotent(migrated_app):
         from sqlalchemy import select
 
         levels = db.session.scalars(select(Level).order_by(Level.sort_order)).all()
-        assert [level.id for level in levels] == ["a1", "a2"]
-        assert [level.code for level in levels] == ["A1", "A2"]
+        assert [level.id for level in levels] == ["a1", "a2", "b1"]
+        assert [level.code for level in levels] == ["A1", "A2", "B1"]
 
 
 def test_levels_requires_auth(migrated_client):
@@ -49,16 +49,20 @@ def test_levels_requires_auth(migrated_client):
     assert response.status_code == 401
 
 
-def test_levels_lists_a1_a2_with_zero_pct(migrated_app, migrated_client):
+def test_levels_lists_a1_a2_b1_with_availability(migrated_app, migrated_client):
     with migrated_app.app_context():
         seed_levels()
     _register(migrated_client)
     response = migrated_client.get("/api/levels")
     assert response.status_code == 200
     levels = response.get_json()["levels"]
-    assert [row["id"] for row in levels] == ["a1", "a2"]
+    assert [row["id"] for row in levels] == ["a1", "a2", "b1"]
     assert all(row["complete_pct"] == 0 for row in levels)
     assert all(row["is_current"] is False for row in levels)
+    by_id = {row["id"]: row for row in levels}
+    assert by_id["a1"]["available"] is True
+    assert by_id["a2"]["available"] is False
+    assert by_id["b1"]["available"] is False
 
 
 def test_select_level_sets_current(migrated_app, migrated_client):
@@ -75,11 +79,23 @@ def test_select_level_sets_current(migrated_app, migrated_client):
     assert by_id["a2"]["is_current"] is False
 
 
-def test_select_unknown_level_404(migrated_app, migrated_client):
+def test_select_unavailable_level_400(migrated_app, migrated_client):
     with migrated_app.app_context():
         seed_levels()
     _register(migrated_client)
     response = migrated_client.post("/api/levels/b1/select")
+    assert response.status_code == 400
+    assert b"available" in response.data
+
+    a2 = migrated_client.post("/api/levels/a2/select")
+    assert a2.status_code == 400
+
+
+def test_select_unknown_level_404(migrated_app, migrated_client):
+    with migrated_app.app_context():
+        seed_levels()
+    _register(migrated_client)
+    response = migrated_client.post("/api/levels/c2/select")
     assert response.status_code == 404
 
 
