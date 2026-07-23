@@ -68,7 +68,7 @@ flask --app wsgi db upgrade
 echo "==> seed"
 python scripts/seed.py
 
-if systemctl list-unit-files "${SERVICE}.service" 2>/dev/null | grep -q "${SERVICE}.service"; then
+if systemctl cat "${SERVICE}.service" >/dev/null 2>&1; then
   echo "==> systemctl restart $SERVICE"
   sudo systemctl restart "$SERVICE"
   # brief settle for workers
