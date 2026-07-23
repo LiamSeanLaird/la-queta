@@ -15,7 +15,7 @@ alwaysApply: false
 - Component gallery: `/style-guide`. New UI patterns must be added there in the same change.
 - Level hub: A1 clickable; A2/B1 disabled tiles (“coming soon”). Daily vocab CTA on level page. Can-do checklist on Learn tab.
 - Study: first-load tip dialog (Don’t show again); tap / Enter / Next = flip then next (seen++); Back = previous; Retire confirm dialog (`localStorage`). Card `hint` only when pedagogical. Empty/finished session → redirect to exit URL (deck or level vocab). Daily session via `/levels/<id>/daily`.
-- Lesson: Learn | Practice tabs (`?tab=`). Teach = text/rule/examples only. Practice = MC + cloze + type-in; complete only after all correct → redirect to level Learn. Accents required on typed answers (case/space normalized).
+- Lesson: Learn | Practice tabs (`?tab=`). Practice kinds: MC, cloze, type-in, **listen_choice / listen_type / speak** (browser TTS via `speech.js`; speak is self-check, optional mic). Accents required on typed answers.
 - Deck page: retired progress bar; when fully retired, **Unretire deck** (resets seen → 0) instead of Study.
 - Browse: retired rows muted + badge; Retire button on active cards.
 - Vocab flashcards/browse show prototype meta on the Catalan side: pronunciation, grammar pills (`pos` / gender / plural), verb forms, tags. Keep study flip meta Catalan-only.

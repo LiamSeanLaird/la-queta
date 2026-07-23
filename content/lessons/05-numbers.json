@@ -321,6 +321,37 @@
         "cinquè"
       ],
       "explanation": "cinquè (accented è) / cinquena (f)."
+    },
+    {
+      "id": "nu-l01",
+      "kind": "listen_choice",
+      "speak": "quinze",
+      "question": "Which number?",
+      "options": [
+        "15",
+        "16",
+        "14"
+      ],
+      "answer": "15",
+      "explanation": "quinze = 15."
+    },
+    {
+      "id": "nu-l02",
+      "kind": "listen_type",
+      "speak": "vint-i-cinc",
+      "prompt": "Type the Catalan number you hear",
+      "answers": [
+        "vint-i-cinc"
+      ],
+      "explanation": "25."
+    },
+    {
+      "id": "nu-s01",
+      "kind": "speak",
+      "speak": "disset",
+      "prompt": "Say this aloud",
+      "hint": "17",
+      "explanation": "disset."
     }
   ]
 }

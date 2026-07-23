@@ -174,6 +174,37 @@
         "les portes"
       ],
       "explanation": "Feminine plural."
+    },
+    {
+      "id": "da-l01",
+      "kind": "listen_choice",
+      "speak": "l'estació",
+      "question": "What did you hear?",
+      "options": [
+        "the station",
+        "the school",
+        "the airport"
+      ],
+      "answer": "the station",
+      "explanation": "l'estació."
+    },
+    {
+      "id": "da-l02",
+      "kind": "listen_type",
+      "speak": "els homes",
+      "prompt": "Type the Catalan you hear",
+      "answers": [
+        "els homes"
+      ],
+      "explanation": "masculine plural."
+    },
+    {
+      "id": "da-s01",
+      "kind": "speak",
+      "speak": "l'aigua",
+      "prompt": "Say this aloud",
+      "hint": "the water",
+      "explanation": "Contraction l' + aigua."
     }
   ]
 }

@@ -166,6 +166,37 @@
         "una taula vella"
       ],
       "explanation": "Article + noun + agreeing adjective."
+    },
+    {
+      "id": "ng-l01",
+      "kind": "listen_choice",
+      "speak": "la porta",
+      "question": "What did you hear?",
+      "options": [
+        "the door",
+        "the table",
+        "the cat"
+      ],
+      "answer": "the door",
+      "explanation": "la porta = the door."
+    },
+    {
+      "id": "ng-l02",
+      "kind": "listen_type",
+      "speak": "el gat",
+      "prompt": "Type the Catalan you hear",
+      "answers": [
+        "el gat"
+      ],
+      "explanation": "el gat."
+    },
+    {
+      "id": "ng-s01",
+      "kind": "speak",
+      "speak": "la taula",
+      "prompt": "Say this aloud",
+      "hint": "the table",
+      "explanation": "Stress the first syllable: TAU-la."
     }
   ]
 }

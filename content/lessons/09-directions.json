@@ -140,6 +140,37 @@
         "A la dreta"
       ],
       "explanation": "A la dreta."
+    },
+    {
+      "id": "di-l01",
+      "kind": "listen_choice",
+      "speak": "A la dreta",
+      "question": "What did you hear?",
+      "options": [
+        "On the right",
+        "On the left",
+        "Straight ahead"
+      ],
+      "answer": "On the right",
+      "explanation": "a la dreta."
+    },
+    {
+      "id": "di-l02",
+      "kind": "listen_type",
+      "speak": "Tot recte",
+      "prompt": "Type the Catalan you hear",
+      "answers": [
+        "Tot recte"
+      ],
+      "explanation": "straight ahead."
+    },
+    {
+      "id": "di-s01",
+      "kind": "speak",
+      "speak": "On és l'estació?",
+      "prompt": "Say this aloud",
+      "hint": "Where is the station?",
+      "explanation": "On és…?"
     }
   ]
 }

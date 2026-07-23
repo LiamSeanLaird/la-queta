@@ -243,6 +243,38 @@
         "Com es diu això"
       ],
       "explanation": "Literally 'how does this call itself'."
+    },
+    {
+      "id": "qw-l01",
+      "kind": "listen_choice",
+      "speak": "On és el bany?",
+      "question": "What did you hear?",
+      "options": [
+        "Where is the bathroom?",
+        "Who is in the bathroom?",
+        "When is the bathroom?"
+      ],
+      "answer": "Where is the bathroom?",
+      "explanation": "On és…?"
+    },
+    {
+      "id": "qw-l02",
+      "kind": "listen_type",
+      "speak": "per què",
+      "prompt": "Type the Catalan you hear",
+      "answers": [
+        "per què",
+        "per què?"
+      ],
+      "explanation": "why."
+    },
+    {
+      "id": "qw-s01",
+      "kind": "speak",
+      "speak": "Quant val?",
+      "prompt": "Say this aloud",
+      "hint": "How much is it?",
+      "explanation": "price question."
     }
   ]
 }

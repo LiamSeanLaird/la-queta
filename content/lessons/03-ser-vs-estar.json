@@ -213,6 +213,37 @@
         "El restaurant està tancat"
       ],
       "explanation": "Temporary → estar; està with accent."
+    },
+    {
+      "id": "se-l01",
+      "kind": "listen_choice",
+      "speak": "Soc de Girona",
+      "question": "What did you hear?",
+      "options": [
+        "I'm from Girona",
+        "I'm in Girona",
+        "I live Girona"
+      ],
+      "answer": "I'm from Girona",
+      "explanation": "Soc de… = origin."
+    },
+    {
+      "id": "se-l02",
+      "kind": "listen_type",
+      "speak": "Estic cansat",
+      "prompt": "Type the Catalan you hear",
+      "answers": [
+        "Estic cansat"
+      ],
+      "explanation": "temporary state → estar."
+    },
+    {
+      "id": "se-s01",
+      "kind": "speak",
+      "speak": "Com estàs?",
+      "prompt": "Say this aloud",
+      "hint": "How are you?",
+      "explanation": "Accent on estàs."
     }
   ]
 }

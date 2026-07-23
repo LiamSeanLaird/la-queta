@@ -18,8 +18,8 @@ Status values: **ok** (usable), **thin** (exists but light), **gap** (missing).
 | Home / daily routine | — | `home_daily` | thin (deck only) |
 | Time / calendar | — | `days_months` | thin |
 | Travel / transport | — | `travel` | thin (vocab heavy, no dedicated lesson) |
-| Listening | — | — | gap (Phase 11+) |
-| Speaking | — | — | gap (Phase 11+) |
+| Listening | Practice `listen_*` (browser TTS) | ok (Phase 11) |
+| Speaking | Practice `speak` self-check (+ optional mic) | ok (Phase 11; LLM later) |
 
 ## Next content priorities
 1. Lessons for shopping, family, home/routine  

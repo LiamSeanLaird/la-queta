@@ -143,6 +143,37 @@
         "Encantat"
       ],
       "explanation": "Masculine form."
+    },
+    {
+      "id": "in-l01",
+      "kind": "listen_choice",
+      "speak": "Em dic Marta",
+      "question": "What did you hear?",
+      "options": [
+        "My name is Marta",
+        "I live in Marta",
+        "I'm from Marta"
+      ],
+      "answer": "My name is Marta",
+      "explanation": "Em dic…"
+    },
+    {
+      "id": "in-l02",
+      "kind": "listen_type",
+      "speak": "Visc a Barcelona",
+      "prompt": "Type the Catalan you hear",
+      "answers": [
+        "Visc a Barcelona"
+      ],
+      "explanation": "I live in Barcelona."
+    },
+    {
+      "id": "in-s01",
+      "kind": "speak",
+      "speak": "Encantat",
+      "prompt": "Say this aloud",
+      "hint": "Nice to meet you (m)",
+      "explanation": "Or Encantada if feminine."
     }
   ]
 }

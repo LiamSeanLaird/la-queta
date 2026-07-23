@@ -33,13 +33,9 @@ Snapshot at lock: **6** lessons, **7** decks, **~189** cards. Target direction: 
 
 ---
 
-## Deferred (Phase 11+)
+## Deferred (superseded)
 
-- Listening clips + item types  
-- Speaking via STT + LLM feedback  
-- Full 500–1000 lemma push  
-- SM-2  
-- A2 content  
+Listening/speaking browser slice → **`PHASE_11_LISTENING_SPEAKING.md`**. Remaining: hosted audio, LLM speaking, lemma push, SM-2, A2.
 
 ---
 

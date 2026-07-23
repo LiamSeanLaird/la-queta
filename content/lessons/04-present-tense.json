@@ -258,6 +258,37 @@
         "ell té"
       ],
       "explanation": "Irregular 3sg: té (accent)."
+    },
+    {
+      "id": "pt-l01",
+      "kind": "listen_choice",
+      "speak": "parlo",
+      "question": "What did you hear?",
+      "options": [
+        "I speak",
+        "he speaks",
+        "we speak"
+      ],
+      "answer": "I speak",
+      "explanation": "parlo = I speak."
+    },
+    {
+      "id": "pt-l02",
+      "kind": "listen_type",
+      "speak": "dormim",
+      "prompt": "Type the Catalan you hear",
+      "answers": [
+        "dormim"
+      ],
+      "explanation": "we sleep."
+    },
+    {
+      "id": "pt-s01",
+      "kind": "speak",
+      "speak": "tinc",
+      "prompt": "Say this aloud",
+      "hint": "I have",
+      "explanation": "tenir → tinc."
     }
   ]
 }

@@ -108,7 +108,9 @@ See **`PHASE_9_A1_PRACTICE.md`**. Learn \| Practice tabs; MC + cloze + type-in; 
 ### Phase G — A1 path (in progress)
 See **`PHASE_10_A1_PATH.md`**. Can-dos + daily vocab shipped; coverage matrix; more lessons/vocab started. Listening / LLM speaking deferred.
 
-**Still out of scope:** SM-2 / difficulty ratings; audio playback; OAuth; email verification / magic-link / password reset email.
+**Still out of scope:** SM-2 / difficulty ratings; hosted audio files / cloud STT / LLM speaking; OAuth; email verification / magic-link / password reset email.
+
+Browser TTS listening + speak self-check: see **`PHASE_11_LISTENING_SPEAKING.md`**.
 
 ---
 

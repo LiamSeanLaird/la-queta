@@ -253,13 +253,12 @@ See **`PHASE_9_A1_PRACTICE.md`**. Learn \| Practice tabs; cloze + type-in; pract
 - [x] Lesson Learn \| Practice tabs + drill UI
 - [x] Complete gate + docs
 
-### Phase 10 — A1 path ✅ (first slice)
-See **`PHASE_10_A1_PATH.md`**. Coverage matrix + can-dos + daily vocab + 3 lessons + shopping deck / vocab expand.
+### Phase 11 — Listening & speaking ✅ (browser first)
+See **`PHASE_11_LISTENING_SPEAKING.md`**. Practice kinds `listen_choice` / `listen_type` / `speak` via Web Speech API; LLM/hosted audio later.
 - [x] Decisions locked
-- [x] `content/a1_coverage.md` + `a1_can_dos.json`
-- [x] Daily vocab API/page
-- [x] Content fill (introductions, food-cafe, directions; +55 cards)
-- [ ] Later: more themes to 500+ lemmas; listening/speaking (Phase 11+)
+- [x] `speech.js` + practice UI
+- [x] Seed listen/speak items on all A1 lessons
+- [x] Tests + docs
 
 ## Running (target)
 ```bash

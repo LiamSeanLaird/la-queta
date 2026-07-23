@@ -140,6 +140,38 @@
         "Quant val"
       ],
       "explanation": "Quant val?"
+    },
+    {
+      "id": "fc-l01",
+      "kind": "listen_choice",
+      "speak": "Un cafè amb llet",
+      "question": "What did you hear?",
+      "options": [
+        "A coffee with milk",
+        "A tea with sugar",
+        "A beer with ice"
+      ],
+      "answer": "A coffee with milk",
+      "explanation": "cafè amb llet."
+    },
+    {
+      "id": "fc-l02",
+      "kind": "listen_type",
+      "speak": "El compte, si us plau",
+      "prompt": "Type the Catalan you hear",
+      "answers": [
+        "El compte, si us plau",
+        "El compte si us plau"
+      ],
+      "explanation": "the bill please."
+    },
+    {
+      "id": "fc-s01",
+      "kind": "speak",
+      "speak": "Gràcies",
+      "prompt": "Say this aloud",
+      "hint": "Thank you",
+      "explanation": "Accent on à."
     }
   ]
 }
