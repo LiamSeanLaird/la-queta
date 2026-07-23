@@ -170,13 +170,15 @@ Conventions: `STYLE_GUIDE.md` §3 (layers, statuses, error shape, POST-for-actio
 - Conventions (workflow, one-concern revisions, ORM/API boundaries): `STYLE_GUIDE.md` §2–3
 
 ## Hosting (Oracle Always Free)
-- Ampere ARM VM (or free-tier shape available)
-- systemd: gunicorn (`wsgi:app`)
-- nginx reverse proxy → gunicorn
-- SQLite file on persistent disk (e.g. `/var/lib/la-queta/app.db`)
-- Env: `SECRET_KEY`, `DATABASE_URL=sqlite:////var/lib/la-queta/app.db`
-- Backup: daily `cp` of `.db` (+ `-wal`/`-shm` if needed) or `sqlite3 .backup`
-- Domain optional (IP + later free DNS)
+
+**Operator runbook:** [`DEPLOY.md`](DEPLOY.md) (inventory, first-time setup, day-2 deploys, NSG/firewall, backlog). Keep that file current when IP/paths change.
+
+Summary:
+- Ubuntu VM + systemd gunicorn (`wsgi:app` on `127.0.0.1:8000`) + nginx on `:80`
+- SQLite at `/var/lib/la-queta/app.db`; env in `/etc/la-queta/env` (`SECRET_KEY`, `DATABASE_URL`)
+- OCI NSG must allow TCP **22** and **80** (else browser timeouts while SSH still works)
+- Backup: daily SQLite `.backup` / copy (see `DEPLOY.md`)
+- Domain / HTTPS optional later
 
 ## Implementation order (AI execution)
 
@@ -218,9 +220,12 @@ Work in vertical slices. Each phase: **failing tests → structure → behaviour
 - [x] Continue CTA (next incomplete lesson, then vocab with remaining)
 
 ### Phase 7 — Deploy
-- [ ] gunicorn/nginx/systemd notes or scripts
-- [ ] Seed on server; verify cookie + SQLite persistence
-- [ ] Backup cron
+- [x] First production path on OCI Always Free (gunicorn + nginx + systemd + SQLite) — details in `DEPLOY.md`
+- [ ] Confirm public HTTP after NSG TCP 80 (browser + `/api/health`)
+- [ ] Commit `deploy/` unit + nginx templates (optional; reduce heredoc drift)
+- [ ] `scripts/deploy.sh` (pull → migrate → seed → restart → health)
+- [ ] Backup cron for `/var/lib/la-queta/app.db`
+- [ ] Deploy key / stop using personal SSH private key on the VM
 
 ### Phase 8 — Vocab UX (planned)
 Current behaviour (keep):

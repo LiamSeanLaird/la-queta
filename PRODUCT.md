@@ -89,7 +89,7 @@ Do not invent a third progress system.
 ### Phase D — Polish & ship
 - [x] Multi-page UX (gate → levels → level → lesson/deck)
 - [x] Continue / switch level UX
-- [ ] Deploy to Oracle Always Free VM
+- [ ] Deploy to Oracle Always Free VM — in progress; see `DEPLOY.md` (open NSG :80, then verify)
 - [ ] Backup story for SQLite file (copy/cron)
 
 ### Phase E — Vocab UX (planned; not started)
