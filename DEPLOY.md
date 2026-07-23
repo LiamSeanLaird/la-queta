@@ -298,9 +298,9 @@ Ordered by ROI — do not jump to containers until the loop below hurts.
 
 1. [x] NSG + iptables + health documented (this file)
 2. [x] GitHub deploy key (read-only) — no personal SSH key on the box
-3. [ ] Daily SQLite backup cron installed (commands above)
-4. [ ] `scripts/deploy.sh` (pull → install → migrate → seed → restart → health)
-5. [ ] Unit/nginx templates in `deploy/`
+3. [x] Daily SQLite backup cron installed (commands above)
+4. [x] `scripts/deploy.sh` / `make deploy` (pull → install → backup → migrate → seed → restart → health)
+5. [x] Unit/nginx templates in `deploy/`
 6. Reserved public IP / DNS later; HTTPS once there is a domain
 7. CI SSH deploy later — still one VM
 8. **Skip for now:** Docker/K8s, managed Postgres, multi-instance

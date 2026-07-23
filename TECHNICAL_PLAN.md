@@ -223,9 +223,10 @@ Work in vertical slices. Each phase: **failing tests → structure → behaviour
 - [x] First production path on OCI Always Free (gunicorn + nginx + systemd + SQLite) — details in `DEPLOY.md`
 - [x] Public HTTP (NSG TCP 80 + host iptables TCP 80 + `/api/health`)
 - [x] GitHub read-only deploy key on VM (`github.com-la-queta` remote)
-- [ ] Daily SQLite backup cron (`DEPLOY.md`)
-- [ ] Commit `deploy/` unit + nginx templates (optional; reduce heredoc drift)
-- [ ] `scripts/deploy.sh` (pull → migrate → seed → restart → health)
+- [x] Daily SQLite backup cron (`DEPLOY.md`)
+- [x] `scripts/deploy.sh` / `make deploy` + `deploy/` unit & nginx templates
+- [ ] CI SSH deploy (optional later)
+- [ ] HTTPS / domain (optional later)
 
 ### Phase 8 — Vocab UX (planned)
 Current behaviour (keep):

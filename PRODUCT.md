@@ -90,7 +90,7 @@ Do not invent a third progress system.
 - [x] Multi-page UX (gate → levels → level → lesson/deck)
 - [x] Continue / switch level UX
 - [x] Deploy to Oracle Always Free VM — live; see `DEPLOY.md`
-- [ ] Backup story for SQLite file (on-VM cron; optional Mac pull)
+- [x] Backup story for SQLite file (on-VM cron; optional Mac pull)
 
 ### Phase E — Vocab UX (planned; not started)
 Study/browse polish after Phase D deploy can ship in parallel if desired:

@@ -14,4 +14,4 @@ alwaysApply: true
 - Do not run linters unless the user asks.
 - Prefer small, phase-scoped diffs; no unrelated refactors.
 - Local app: `make run` (port 5001); also `make test` / `make seed` / `make upgrade`.
-- Production: Oracle Always Free VM; do not invent a second hosting story — update `DEPLOY.md` when inventory or procedure changes.
+- Production: Oracle Always Free VM; do not invent a second hosting story — update `DEPLOY.md` when inventory or procedure changes. Day-2 ship: `./scripts/deploy.sh` (or `make deploy`) on the VM.
