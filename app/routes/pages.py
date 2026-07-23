@@ -7,7 +7,7 @@ from app.services.auth import current_user
 from app.services.errors import ServiceError
 from app.services.lessons import get_lesson, list_lessons_for_level
 from app.services.levels import list_levels_for_user, select_level
-from app.services.progress import level_completeness_pct
+from app.services.progress import continue_target, level_completeness_pct
 from app.services.vocab import list_cards_for_deck, list_decks_for_level
 
 bp = Blueprint("pages", __name__)
@@ -20,6 +20,12 @@ def _login_required():
     return user, None
 
 
+def _continue_href(target: dict) -> str:
+    if target["kind"] == "lesson":
+        return url_for("pages.lesson", lesson_id=target["lesson_id"])
+    return url_for("pages.study", slug=target["slug"])
+
+
 @bp.get("/")
 def index():
     if current_user() is not None:
@@ -27,15 +33,30 @@ def index():
     return render_template("index.html")
 
 
+@bp.get("/continue")
+def continue_learning():
+    user, bounced = _login_required()
+    if bounced:
+        return bounced
+    target = continue_target(user)
+    if target is None:
+        return redirect(url_for("pages.levels"))
+    select_level(user, target["level_id"])
+    return redirect(_continue_href(target))
+
+
 @bp.get("/levels")
 def levels():
     user, bounced = _login_required()
     if bounced:
         return bounced
+    target = continue_target(user)
     return render_template(
         "levels.html",
         user=user,
         levels=list_levels_for_user(user),
+        continue_target=target,
+        continue_href=_continue_href(target) if target else None,
     )
 
 
@@ -59,6 +80,7 @@ def level_home(level_id: str):
 
     lessons = list_lessons_for_level(user, level_id) if tab == "learn" else []
     decks = list_decks_for_level(user, level_id) if tab == "vocab" else []
+    target = continue_target(user, level_id=level_id)
     return render_template(
         "level.html",
         user=user,
@@ -67,6 +89,8 @@ def level_home(level_id: str):
         lessons=lessons,
         decks=decks,
         complete_pct=level_completeness_pct(user.id, level_id),
+        continue_target=target,
+        continue_href=_continue_href(target) if target else None,
         brand_href=url_for("pages.levels"),
     )
 
@@ -80,10 +104,20 @@ def lesson(lesson_id: str):
         lesson_data = get_lesson(user, lesson_id)
     except ServiceError:
         return redirect(url_for("pages.levels"))
+
+    next_target = None
+    next_href = None
+    if lesson_data["completed"]:
+        next_target = continue_target(user, level_id=lesson_data["level_id"])
+        if next_target is not None:
+            next_href = _continue_href(next_target)
+
     return render_template(
         "lesson.html",
         user=user,
         lesson=lesson_data,
+        next_target=next_target,
+        next_href=next_href,
         brand_href=url_for("pages.levels"),
     )
 

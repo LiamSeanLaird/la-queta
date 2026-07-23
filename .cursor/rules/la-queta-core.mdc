@@ -13,3 +13,4 @@ alwaysApply: true
 - Levels in scope: A1 and A2 only.
 - Do not run linters unless the user asks.
 - Prefer small, phase-scoped diffs; no unrelated refactors.
+- Local app: `make run` (port 5001); also `make test` / `make seed` / `make upgrade`.

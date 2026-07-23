@@ -10,6 +10,12 @@
     <p class="text-muted">{{ level.title }} · {{ complete_pct }}% complete</p>
   </div>
 
+  {% if continue_href %}
+  <a class="btn btn--primary btn--block" href="{{ continue_href }}">{{ continue_target.label }}</a>
+  {% elif complete_pct == 100 %}
+  <p class="text-muted">This level is complete — nice work.</p>
+  {% endif %}
+
   <div class="tab-bar" role="tablist">
     <a class="tab-btn{% if tab == 'learn' %} is-active{% endif %}" href="{{ url_for('pages.level_home', level_id=level.id) }}">Learn</a>
     <a class="tab-btn{% if tab == 'vocab' %} is-active{% endif %}" href="{{ url_for('pages.level_home', level_id=level.id, tab='vocab') }}">Vocab</a>

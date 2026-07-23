@@ -415,6 +415,61 @@ a.tab-btn {
   color: var(--muted);
 }
 
+.list-row--vocab {
+  align-items: flex-start;
+  cursor: default;
+}
+
+.vocab-main {
+  min-width: 0;
+  flex: 1;
+}
+
+.vocab-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.35rem;
+  flex-shrink: 0;
+}
+
+.vocab-pronunciation,
+.vocab-hint,
+.vocab-forms {
+  margin: 0.2rem 0 0;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.vocab-pronunciation {
+  color: color-mix(in srgb, var(--senyera-gold) 75%, var(--ink));
+  letter-spacing: 0.03em;
+}
+
+.vocab-forms {
+  font-style: italic;
+  text-align: right;
+}
+
+.vocab-tags {
+  margin: 0.35rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.tag-chip {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: var(--tab-rail);
+  color: var(--muted);
+}
+
 .badge {
   display: inline-flex;
   align-items: center;
@@ -474,10 +529,67 @@ a.tab-btn {
   margin: 0;
 }
 
+.flashcard__pronunciation {
+  margin: 0.45rem 0 0;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  color: color-mix(in srgb, var(--senyera-gold) 75%, var(--ink));
+}
+
+.flashcard__grammar {
+  margin: 0.65rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  justify-content: center;
+}
+
+.flashcard__forms {
+  margin: 0.45rem 0 0;
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--muted);
+}
+
 .flashcard__hint {
   margin: 0.6rem 0 0;
   color: var(--muted);
   font-size: 0.9rem;
+}
+
+.gram-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  justify-content: flex-end;
+}
+
+.gram-pill {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: var(--tab-rail);
+  color: var(--muted);
+}
+
+.gram-pill--m {
+  background: color-mix(in srgb, #3a5bbf 12%, white);
+  color: #3a5bbf;
+}
+
+.gram-pill--f {
+  background: color-mix(in srgb, #bf3a72 12%, white);
+  color: #bf3a72;
+}
+
+.gram-pill--pl {
+  text-transform: none;
+  font-weight: 600;
+  font-size: 0.72rem;
 }
 
 /* ── Exercise options ────────────────────────────────── */

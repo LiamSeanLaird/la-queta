@@ -117,8 +117,13 @@ def seed_decks(level_id: str = DEFAULT_DECK_LEVEL_ID) -> tuple[int, int]:
             card.deck_id = deck.id
             card.catalan = raw["catalan"]
             card.english = raw["english"]
+            card.pronunciation = raw.get("pronunciation") or ""
             card.hint = raw.get("hint") or ""
+            card.pos = raw.get("pos") or ""
+            card.gender = raw.get("gender")
+            card.plural = raw.get("plural")
             card.tags_json = raw.get("tags") or []
+            card.forms_json = raw.get("forms") or []
             card.grammar_lesson_id = raw.get("grammar_lesson_id")
             card_count += 1
 

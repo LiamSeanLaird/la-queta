@@ -50,6 +50,11 @@
     <button type="button" class="btn btn--primary btn--block" id="complete-lesson" {% if lesson.completed %}disabled{% endif %}>
       {% if lesson.completed %}Completed{% else %}Mark complete{% endif %}
     </button>
+    {% if next_href %}
+    <a class="btn btn--secondary btn--block" id="next-lesson" href="{{ next_href }}">{{ next_target.label }}</a>
+    {% else %}
+    <a class="btn btn--secondary btn--block" id="next-lesson" href="#" hidden></a>
+    {% endif %}
     <p class="field__error" id="lesson-error" hidden></p>
   </div>
 </section>

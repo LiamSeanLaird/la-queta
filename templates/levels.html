@@ -7,6 +7,11 @@
     <h2 class="heading-2">Your levels</h2>
     <p class="text-muted">Choose a level to study.</p>
   </div>
+
+  {% if continue_href %}
+  <a class="btn btn--primary btn--block" href="{{ continue_href }}">{{ continue_target.label }}</a>
+  {% endif %}
+
   <div class="level-grid">
     {% for level in levels %}
     <a class="level-tile{% if level.is_current %} is-current{% endif %}" href="{{ url_for('pages.level_home', level_id=level.id) }}">

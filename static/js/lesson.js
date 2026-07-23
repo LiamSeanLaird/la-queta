@@ -74,6 +74,8 @@
     }
     completed = true;
     updateCompleteButton();
+    // Reload so the server can render the Next CTA for the following lesson/deck.
+    window.location.reload();
   });
 
   updateCompleteButton();

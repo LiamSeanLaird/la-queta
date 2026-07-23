@@ -77,3 +77,27 @@ def test_browse_includes_seen(migrated_app, migrated_client):
     migrated_client.post(f"/api/cards/{cards[0]['id']}/seen")
     cards = migrated_client.get("/api/decks/starter/cards").get_json()["cards"]
     assert cards[0]["seen"] == 1
+
+
+def test_card_payload_includes_prototype_meta(migrated_app, migrated_client):
+    with migrated_app.app_context():
+        seed_all()
+    _register(migrated_client)
+
+    starter = migrated_client.get("/api/decks/starter/cards").get_json()["cards"]
+    bon_dia = next(c for c in starter if c["external_id"] == "greet_001")
+    assert bon_dia["pronunciation"] == "bohn DEE-ah"
+    assert bon_dia["pos"] == "phrase"
+    assert bon_dia["tags"] == ["greetings"]
+    assert bon_dia["forms"] == []
+
+    days = migrated_client.get("/api/decks/days_months/cards").get_json()["cards"]
+    dilluns = next(c for c in days if c["external_id"] == "dm_001")
+    assert dilluns["gender"] == "m"
+    assert dilluns["plural"] == "dilluns"
+    assert dilluns["pos"] == "noun"
+
+    browse = migrated_client.get("/decks/days_months/browse")
+    assert browse.status_code == 200
+    assert b"masculine" in browse.data
+    assert b"dee-YOONS" in browse.data

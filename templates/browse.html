@@ -11,16 +11,47 @@
   </div>
   <div class="list">
     {% for card in cards %}
-    <div class="list-row" style="cursor: default;">
-      <div>
+    <div class="list-row list-row--vocab">
+      <div class="vocab-main">
         <p class="list-row__title">{{ card.catalan }}</p>
+        {% if card.pronunciation %}
+        <p class="vocab-pronunciation">{{ card.pronunciation }}</p>
+        {% endif %}
         <p class="list-row__sub">{{ card.english }}</p>
+        {% if card.hint %}
+        <p class="vocab-hint">{{ card.hint }}</p>
+        {% endif %}
+        {% if card.tags %}
+        <p class="vocab-tags">
+          {% for tag in card.tags %}
+          <span class="tag-chip">{{ tag }}</span>
+          {% endfor %}
+        </p>
+        {% endif %}
       </div>
-      <span class="seen-dots" aria-label="{{ card.seen if card.seen < 3 else 3 }} of 3">
-        {% for i in range(3) %}
-        <span class="seen-dot{% if i < card.seen %} is-filled{% endif %}"></span>
-        {% endfor %}
-      </span>
+      <div class="vocab-meta">
+        <div class="gram-pills">
+          {% if card.pos and card.pos != 'phrase' %}
+          <span class="gram-pill gram-pill--pos">{{ card.pos }}</span>
+          {% endif %}
+          {% if card.gender == 'm' %}
+          <span class="gram-pill gram-pill--m">masculine</span>
+          {% elif card.gender == 'f' %}
+          <span class="gram-pill gram-pill--f">feminine</span>
+          {% endif %}
+          {% if card.plural and card.plural != '—' %}
+          <span class="gram-pill gram-pill--pl">pl: {{ card.plural }}</span>
+          {% endif %}
+        </div>
+        {% if card.pos == 'verb' and card.forms %}
+        <p class="vocab-forms">{{ card.forms|join(' · ') }}</p>
+        {% endif %}
+        <span class="seen-dots" aria-label="{{ card.seen if card.seen < 3 else 3 }} of 3">
+          {% for i in range(3) %}
+          <span class="seen-dot{% if i < card.seen %} is-filled{% endif %}"></span>
+          {% endfor %}
+        </span>
+      </div>
     </div>
     {% endfor %}
   </div>

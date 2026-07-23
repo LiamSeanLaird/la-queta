@@ -55,7 +55,7 @@ Home
 - Default path: continue current level / next incomplete lesson.
 - User may start A2 without finishing A1; progress per level is independent.
 - Lesson complete when all exercises answered (score stored; no forced re-test).
-- Vocab: each card shown until `seen >= 3`, then retired for that user.
+- Vocab: each card shown until `seen >= 3`, then **retired for that user** — excluded from study sessions; still visible in browse (with seen dots). Early retire (mark known) and daily unretired practice are planned next, not shipped yet.
 
 ---
 
@@ -88,9 +88,20 @@ Do not invent a third progress system.
 
 ### Phase D — Polish & ship
 - [x] Multi-page UX (gate → levels → level → lesson/deck)
-- [ ] Continue / switch level UX
+- [x] Continue / switch level UX
 - [ ] Deploy to Oracle Always Free VM
 - [ ] Backup story for SQLite file (copy/cron)
+
+### Phase E — Vocab UX (planned; not started)
+Study/browse polish after Phase D deploy can ship in parallel if desired:
+
+- [ ] Study keyboard: **Enter** (and Next button) advance + increment `seen`; **Space** (or card click) flips. Match prototype muscle memory.
+- [ ] Browse: make retirement obvious (e.g. “Retired” badge / muted row when `seen >= 3`), not only three filled dots.
+- [ ] **Retire now** control on study + browse — set that user’s card to retired without waiting for three passive views (still `seen = 3` under the hood unless we introduce an explicit flag later).
+- [ ] Later: **Daily vocab** — small random session from the level’s unretired pool (not one deck only); natural “Continue” surface. Keep out of SM-2 territory.
+- [ ] Later (optional): un-retire / reset seen for a card; filter browse active vs retired.
+
+**Still out of scope:** SM-2 / difficulty ratings; audio playback.
 
 ---
 

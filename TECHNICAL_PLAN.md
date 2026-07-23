@@ -95,8 +95,13 @@ cards
   external_id UNIQUE  -- preserve prototype ids where possible
   catalan
   english
+  pronunciation
   hint
+  pos
+  gender NULL
+  plural NULL
   tags_json
+  forms_json          -- verb gerund / past participle when present
   grammar_lesson_id FK NULL
 
 user_lesson_progress
@@ -207,15 +212,30 @@ Work in vertical slices. Each phase: **failing tests → structure → behaviour
 - [x] Session / seen / browse
 - [x] Study UI from prototype patterns
 
-### Phase 6 — Progress polish ✅ (IA)
+### Phase 6 — Progress polish ✅
 - [x] Multi-page navigation (gate → levels → level → lesson/deck)
-- [ ] Completeness % on hub (already live; keep refining)
-- [ ] Continue CTA (next incomplete lesson)
+- [x] Completeness % on hub
+- [x] Continue CTA (next incomplete lesson, then vocab with remaining)
 
 ### Phase 7 — Deploy
 - [ ] gunicorn/nginx/systemd notes or scripts
 - [ ] Seed on server; verify cookie + SQLite persistence
 - [ ] Backup cron
+
+### Phase 8 — Vocab UX (planned)
+Current behaviour (keep):
+- `seen` increments on Next; `seen >= 3` ⇒ `retired: true`
+- `GET /api/decks/<slug>/session` returns **unretired only** (shuffled)
+- Browse returns **all** cards + seen/retired flags; dots show progress toward 3
+
+Planned:
+- [ ] Study: Enter → same as Next; Space → flip (card click stays flip). Do not steal Enter while typing nowhere — study page only.
+- [ ] Browse: retired visual state (badge / muted); retire action per row
+- [ ] Study: Retire button → `POST /api/cards/<id>/retire` (set `seen = max(seen, RETIRED_SEEN)` or equivalent) then skip to next
+- [ ] Later: daily practice endpoint — sample N unretired cards across current level; hub/Continue entry
+- [ ] Later (optional): unretire; browse filter
+
+Do **not** implement Phase 8 until PRODUCT Phase E is explicitly pulled into a work slice.
 
 ## Running (target)
 ```bash
@@ -223,9 +243,15 @@ Work in vertical slices. Each phase: **failing tests → structure → behaviour
 conda env update -f environment.yml --prune   # once / when env spec changes
 conda activate la-queta
 poetry install
+
+make run          # http://127.0.0.1:5001
+make test
+make seed         # after migrate
+make migrate
+
+# Equivalent long forms:
 poetry run python -m pytest
 poetry run python -m flask --app wsgi run -p 5001
-# later phases:
 poetry run python -m flask --app wsgi db upgrade
 poetry run python scripts/seed.py
 ```

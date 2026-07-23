@@ -10,11 +10,15 @@ If code and this doc diverge, update both in the same change.
 Open **`/style-guide`** while the app is running:
 
 ```bash
-poetry run flask --app wsgi run -p 5001
+make run
 # → http://127.0.0.1:5001/style-guide
 ```
 
+(`make test`, `make seed`, `make upgrade` also available — see `TECHNICAL_PLAN.md` Running.)
+
 That page renders every shared UI component (tokens, brand, type, buttons, forms, tabs, progress, level tiles, list rows, flashcard, exercise options, examples table, seen dots).
+
+Flashcards / browse rows carry prototype vocab meta on the Catalan side: pronunciation, grammar pills (pos / gender / plural), verb forms, tags.
 
 - **Markup + classes:** `templates/style_guide.html`
 - **Shared styles:** `static/app.css` (gallery chrome uses `.sg-*`; app components do not)

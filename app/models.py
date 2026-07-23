@@ -94,8 +94,13 @@ class Card(db.Model):
     external_id: Mapped[str] = mapped_column(String(64), unique=True, nullable=False)
     catalan: Mapped[str] = mapped_column(String(200), nullable=False)
     english: Mapped[str] = mapped_column(String(200), nullable=False)
+    pronunciation: Mapped[str] = mapped_column(String(200), nullable=False, default="")
     hint: Mapped[str] = mapped_column(Text, nullable=False, default="")
+    pos: Mapped[str] = mapped_column(String(32), nullable=False, default="")
+    gender: Mapped[str | None] = mapped_column(String(8), nullable=True)
+    plural: Mapped[str | None] = mapped_column(String(120), nullable=True)
     tags_json: Mapped[list] = mapped_column(JSON, nullable=False, default=list)
+    forms_json: Mapped[list] = mapped_column(JSON, nullable=False, default=list)
     grammar_lesson_id: Mapped[str | None] = mapped_column(
         String(64),
         ForeignKey("lessons.id"),

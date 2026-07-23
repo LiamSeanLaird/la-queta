@@ -13,6 +13,7 @@ alwaysApply: false
 - Page JS under `static/js/` (`api.js` shared). Mutations still hit `/api/…`.
 - Component gallery: `/style-guide`. New UI patterns must be added there in the same change.
 - One job per screen; cards only for interactive study/exercise surfaces.
+- Vocab flashcards/browse show prototype meta on the Catalan side: pronunciation, grammar pills (`pos` / gender / plural), verb forms, tags. Keep study flip meta Catalan-only.
 - Mobile-first; keep motion minimal and intentional.
 - Prefer extending `static/app.css` / `static/js/*` over new frameworks.
 - Author CSS that sets `display` must not fight `[hidden]` — keep `[hidden] { display: none !important; }`.
