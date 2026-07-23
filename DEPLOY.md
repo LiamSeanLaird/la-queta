@@ -19,7 +19,10 @@ Operator runbook for the production Oracle Always Free VM. Product/tech intent s
 | SQLite | `/var/lib/la-queta/app.db` |
 | App process | systemd `la-queta.service` → gunicorn `127.0.0.1:8000` |
 | Edge | nginx → proxy to gunicorn on port **80** |
-| Health | `curl -s http://127.0.0.1:8000/api/health` (on box) or `http://PUBLIC_IP/api/health` |
+| Health | `curl -s http://127.0.0.1/api/health` (on box) or `http://PUBLIC_IP/api/health` |
+| Git remote | `git@github.com-la-queta:LiamSeanLaird/la-queta.git` (SSH Host alias) |
+| Deploy key | `~/.ssh/la-queta-deploy` (GitHub deploy key, read-only; no personal `id_rsa` on VM) |
+| Host firewall | iptables INPUT: allow 22 + 80, then REJECT; persisted via `netfilter-persistent` |
 
 Do **not** commit secrets, private keys, or the SQLite file.
 
@@ -28,11 +31,12 @@ Do **not** commit secrets, private keys, or the SQLite file.
 ## Architecture
 
 ```
-Internet → OCI NSG (TCP 22, 80[, 443]) → nginx :80 → gunicorn :8000 → Flask → SQLite
+Internet → OCI NSG (TCP 22, 80[, 443]) → host iptables → nginx :80 → gunicorn :8000 → Flask → SQLite
 ```
 
 - gunicorn is **localhost-only**; nginx is the public listener.
 - Content/schema: `git` + `flask db upgrade` + `python scripts/seed.py` (idempotent seed).
+- **Both** OCI NSG **and** host iptables must allow TCP 80 (OCI Ubuntu images often REJECT all non-SSH by default).
 
 ---
 
@@ -52,7 +56,7 @@ Also confirm:
 
 1. Instance has a **public IP** on the VNIC (ephemeral or reserved).
 2. Subnet route table sends `0.0.0.0/0` → **Internet Gateway**.
-3. On the VM, if `ufw` is active: `sudo ufw allow OpenSSH` and `sudo ufw allow 80/tcp`.
+3. On the VM, **iptables** must allow TCP 80 before the catch-all REJECT (see below). `ufw` is usually absent on this image.
 
 Quick checks on the VM:
 
@@ -61,9 +65,22 @@ curl -sS http://127.0.0.1:8000/api/health    # app up?
 curl -sS http://127.0.0.1/api/health         # nginx → app?
 sudo systemctl status la-queta nginx
 sudo ss -lntp | grep -E ':80|:8000'
+sudo iptables -L INPUT -n --line-numbers | grep -E '80|REJECT|22'
 ```
 
-If localhost works but the public IP times out → **fix the NSG**, not the app.
+If localhost `/api/health` works but the public IP times out → **fix NSG and/or iptables**, not the app.
+
+### Host iptables (required on this image)
+
+Typical pattern: accept established / lo / SSH 22, then REJECT everything else. Without an explicit **TCP 80** ACCEPT before REJECT, browsers time out even when nginx listens on `0.0.0.0:80`.
+
+```bash
+sudo iptables -L INPUT -n -v --line-numbers
+# insert before the REJECT line, e.g. if REJECT is line 6:
+sudo iptables -I INPUT 5 -p tcp --dport 80 -j ACCEPT
+sudo netfilter-persistent save
+# rules live in /etc/iptables/rules.v4
+```
 
 ---
 
@@ -71,12 +88,31 @@ If localhost works but the public IP times out → **fix the NSG**, not the app.
 
 Assumes Ubuntu, user `ubuntu`, public subnet + public IP already assigned.
 
-### 1. Clone
-Prefer a **deploy key** (read-only) or HTTPS; avoid copying a personal laptop private key onto the VM long-term.
+### 1. Clone via deploy key (preferred)
+
+On the VM, generate a dedicated key and add the **public** half as a GitHub **Deploy key** (read-only):
 
 ```bash
-git clone git@github.com:LiamSeanLaird/la-queta.git
+ssh-keygen -t ed25519 -C "la-queta-deploy" -f ~/.ssh/la-queta-deploy -N ""
+cat ~/.ssh/la-queta-deploy.pub   # paste into GitHub → repo Settings → Deploy keys
+```
+
+SSH config + remote (Host alias forces this key; do not use a personal laptop `id_rsa` on the VM):
+
+```bash
+cat >> ~/.ssh/config <<'EOF'
+Host github.com-la-queta
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/la-queta-deploy
+  IdentitiesOnly yes
+EOF
+chmod 600 ~/.ssh/config ~/.ssh/la-queta-deploy
+
+git clone git@github.com-la-queta:LiamSeanLaird/la-queta.git
 cd ~/la-queta
+# if already cloned with the wrong URL:
+# git remote set-url origin git@github.com-la-queta:LiamSeanLaird/la-queta.git
 ```
 
 ### 2. Packages + venv
@@ -164,8 +200,8 @@ sudo rm -f /etc/nginx/sites-enabled/default
 sudo nginx -t && sudo systemctl reload nginx
 ```
 
-### 7. Open HTTP in OCI
-Add **TCP 80** ingress on `catalaNSG`, then visit `http://PUBLIC_IP/`.
+### 7. Open HTTP in OCI + host firewall
+Add **TCP 80** ingress on `catalaNSG`, allow TCP 80 in iptables (above), `netfilter-persistent save`, then visit `http://PUBLIC_IP/`.
 
 ---
 
@@ -183,7 +219,7 @@ set -a && source /etc/la-queta/env && set +a
 flask --app wsgi db upgrade
 python scripts/seed.py              # safe / idempotent
 sudo systemctl restart la-queta
-curl -sf http://127.0.0.1:8000/api/health && echo OK
+curl -sf http://127.0.0.1/api/health && echo OK
 ```
 
 Rules:
@@ -194,14 +230,52 @@ Rules:
 
 ---
 
-## Backup (planned / do soon)
+## Backup
+
+**Primary:** daily on-VM copy (laptop asleep ≠ no backup).  
+**Secondary (optional):** pull a copy to your Mac occasionally via `scp`/`rsync`.
+
+### One-shot
 
 ```bash
-# example one-shot
-sqlite3 /var/lib/la-queta/app.db ".backup '/var/lib/la-queta/app-$(date -u +%Y%m%d).db'"
+mkdir -p /var/lib/la-queta/backups
+sqlite3 /var/lib/la-queta/app.db \
+  ".backup '/var/lib/la-queta/backups/app-$(date -u +%Y%m%dT%H%M%SZ).db'"
+ls -lt /var/lib/la-queta/backups | head
 ```
 
-Then a daily cron as `ubuntu` or root writing to `/var/lib/la-queta/backups/` (keep last N days). Document the cron line here when installed.
+### Daily cron (as `ubuntu`)
+
+```bash
+mkdir -p /var/lib/la-queta/backups
+crontab -e
+```
+
+Add:
+
+```cron
+15 3 * * * sqlite3 /var/lib/la-queta/app.db ".backup '/var/lib/la-queta/backups/app-$(date -u +\%Y\%m\%d).db'" && find /var/lib/la-queta/backups -name 'app-*.db' -mtime +14 -delete
+```
+
+(03:15 UTC daily; keep 14 days.)
+
+### Restore
+
+```bash
+sudo systemctl stop la-queta
+cp /var/lib/la-queta/app.db /var/lib/la-queta/app.db.pre-restore
+cp /var/lib/la-queta/backups/app-YYYYMMDD.db /var/lib/la-queta/app.db
+sudo systemctl start la-queta
+curl -sS http://127.0.0.1/api/health
+```
+
+### Optional offsite (Mac)
+
+```bash
+mkdir -p ~/Backups/la-queta
+scp ubuntu@PUBLIC_IP:/var/lib/la-queta/backups/app-*.db ~/Backups/la-queta/
+# or rsync -avz ubuntu@PUBLIC_IP:/var/lib/la-queta/backups/ ~/Backups/la-queta/
+```
 
 ---
 
@@ -209,15 +283,14 @@ Then a daily cron as `ubuntu` or root writing to `/var/lib/la-queta/backups/` (k
 
 Ordered by ROI — do not jump to containers until the loop below hurts.
 
-1. **NSG + health documented** (this file) — stop losing hours to timeouts.
-2. **`scripts/deploy.sh` on the VM** (or `make deploy`) — pull → install → migrate → seed → restart → health check.
-3. **Unit/nginx templates in `deploy/`** — copy from repo instead of heredocs.
-4. **GitHub deploy key** (read-only) instead of a personal SSH key on the box.
-5. **Daily SQLite backup cron** + restore notes.
-6. **Reserved public IP** if ephemeral churn is annoying; optional DNS later.
-7. **HTTPS** (Caddy or certbot + nginx) once there is a domain.
-8. **CI SSH deploy** (GitHub Action on push to `main`) — still one VM.
-9. **Skip for now:** Docker/K8s, managed Postgres, multi-instance (SQLite doesn’t want writers across hosts).
+1. [x] NSG + iptables + health documented (this file)
+2. [x] GitHub deploy key (read-only) — no personal SSH key on the box
+3. [ ] Daily SQLite backup cron installed (commands above)
+4. [ ] `scripts/deploy.sh` (pull → install → migrate → seed → restart → health)
+5. [ ] Unit/nginx templates in `deploy/`
+6. Reserved public IP / DNS later; HTTPS once there is a domain
+7. CI SSH deploy later — still one VM
+8. **Skip for now:** Docker/K8s, managed Postgres, multi-instance
 
 ---
 
@@ -225,9 +298,11 @@ Ordered by ROI — do not jump to containers until the loop below hurts.
 
 | Symptom | Likely cause |
 |---------|----------------|
-| Browser: connection timed out | NSG/security list missing TCP 80; or no public IP |
+| Browser: connection timed out | NSG missing TCP 80; **or** host iptables REJECT without dport 80; or no public IP |
 | Browser: connection refused | nginx down / not listening on 80 |
 | 502 Bad Gateway | gunicorn/`la-queta` down — `journalctl -u la-queta -n 50` |
 | App works on `:8000` curl but not via nginx | sites-enabled / `default` conflict; `nginx -t` |
+| Localhost `/api/health` OK, public times out | NSG and/or iptables (both required) |
 | Progress lost after redeploy | `DATABASE_URL` pointed at a different file; check `/etc/la-queta/env` |
 | `Permission denied` sourcing env | `chmod 640` + `chown root:ubuntu` on `/etc/la-queta/env` |
+| `git pull` asks for old `id_rsa` passphrase | remote must use `github.com-la-queta` Host alias + deploy key |
