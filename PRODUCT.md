@@ -74,20 +74,20 @@ Do not invent a third progress system.
 - [x] App skeleton at repo root (Flask + Poetry + pytest) — Phase 0
 - [x] SQLite + Alembic models/migrations — Phase 1
 - [x] Handle signup / cookie session
-- [ ] Level hub (A1, A2) with empty/seeded progress
+- [x] Level hub (A1, A2) with empty/seeded progress
 
 ### Phase B — Content & Learn
-- [ ] Seed A1/A2 lessons and vocab from `prototype/` content (retag/assign levels)
-- [ ] Lesson list + lesson page (sections + multiple-choice)
-- [ ] Lesson progress persisted per user
+- [x] Seed A1 lessons from `prototype/` (all → A1; A2 scaffold empty)
+- [x] Lesson list + lesson page (sections + multiple-choice)
+- [x] Lesson progress persisted per user
 
 ### Phase C — Vocab
-- [ ] Decks scoped to a level
-- [ ] Study + browse modes (patterns from prototype UI)
-- [ ] Per-user seen counts
+- [x] Decks scoped to a level
+- [x] Study + browse modes (patterns from prototype UI)
+- [x] Per-user seen counts
 
 ### Phase D — Polish & ship
-- [ ] Level completeness on hub
+- [x] Multi-page UX (gate → levels → level → lesson/deck)
 - [ ] Continue / switch level UX
 - [ ] Deploy to Oracle Always Free VM
 - [ ] Backup story for SQLite file (copy/cron)

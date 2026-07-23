@@ -1,0 +1,21 @@
+[
+  {"id": "dm_001", "catalan": "dilluns", "pronunciation": "dee-YOONS", "english": "Monday", "hint": "", "tags": ["days"], "pos": "noun", "gender": "m", "plural": "dilluns"},
+  {"id": "dm_002", "catalan": "dimarts", "pronunciation": "dee-MARTS", "english": "Tuesday", "hint": "", "tags": ["days"], "pos": "noun", "gender": "m", "plural": "dimarts"},
+  {"id": "dm_003", "catalan": "dimecres", "pronunciation": "dee-MEH-kruhs", "english": "Wednesday", "hint": "", "tags": ["days"], "pos": "noun", "gender": "m", "plural": "dimecres"},
+  {"id": "dm_004", "catalan": "dijous", "pronunciation": "dee-ZHOOS", "english": "Thursday", "hint": "", "tags": ["days"], "pos": "noun", "gender": "m", "plural": "dijous"},
+  {"id": "dm_005", "catalan": "divendres", "pronunciation": "dee-BEN-druhs", "english": "Friday", "hint": "", "tags": ["days"], "pos": "noun", "gender": "m", "plural": "divendres"},
+  {"id": "dm_006", "catalan": "dissabte", "pronunciation": "dee-SAB-tuh", "english": "Saturday", "hint": "", "tags": ["days"], "pos": "noun", "gender": "m", "plural": "dissabtes"},
+  {"id": "dm_007", "catalan": "diumenge", "pronunciation": "dee-oo-MEN-zhuh", "english": "Sunday", "hint": "", "tags": ["days"], "pos": "noun", "gender": "m", "plural": "diumenges"},
+  {"id": "dm_008", "catalan": "gener", "pronunciation": "zhuh-NEH", "english": "January", "hint": "", "tags": ["months"], "pos": "noun", "gender": "m", "plural": "—"},
+  {"id": "dm_009", "catalan": "febrer", "pronunciation": "fuh-BREH", "english": "February", "hint": "", "tags": ["months"], "pos": "noun", "gender": "m", "plural": "—"},
+  {"id": "dm_010", "catalan": "març", "pronunciation": "mars", "english": "March", "hint": "", "tags": ["months"], "pos": "noun", "gender": "m", "plural": "—"},
+  {"id": "dm_011", "catalan": "abril", "pronunciation": "uh-BREEL", "english": "April", "hint": "", "tags": ["months"], "pos": "noun", "gender": "m", "plural": "—"},
+  {"id": "dm_012", "catalan": "maig", "pronunciation": "mahj", "english": "May", "hint": "", "tags": ["months"], "pos": "noun", "gender": "m", "plural": "—"},
+  {"id": "dm_013", "catalan": "juny", "pronunciation": "zhoon-y", "english": "June", "hint": "", "tags": ["months"], "pos": "noun", "gender": "m", "plural": "—"},
+  {"id": "dm_014", "catalan": "juliol", "pronunciation": "zhoo-lee-OL", "english": "July", "hint": "", "tags": ["months"], "pos": "noun", "gender": "m", "plural": "—"},
+  {"id": "dm_015", "catalan": "agost", "pronunciation": "uh-GOST", "english": "August", "hint": "", "tags": ["months"], "pos": "noun", "gender": "m", "plural": "—"},
+  {"id": "dm_016", "catalan": "setembre", "pronunciation": "suh-TEM-bruh", "english": "September", "hint": "", "tags": ["months"], "pos": "noun", "gender": "m", "plural": "—"},
+  {"id": "dm_017", "catalan": "octubre", "pronunciation": "uk-TOO-bruh", "english": "October", "hint": "", "tags": ["months"], "pos": "noun", "gender": "m", "plural": "—"},
+  {"id": "dm_018", "catalan": "novembre", "pronunciation": "noo-BEM-bruh", "english": "November", "hint": "", "tags": ["months"], "pos": "noun", "gender": "m", "plural": "—"},
+  {"id": "dm_019", "catalan": "desembre", "pronunciation": "duh-ZEM-bruh", "english": "December", "hint": "", "tags": ["months"], "pos": "noun", "gender": "m", "plural": "—"}
+]

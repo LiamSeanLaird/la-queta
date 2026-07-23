@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}La Queta — levels{% endblock %}
+{% block tagline %}Hola, {{ user.handle }}{% endblock %}
+{% block content %}
+<section class="stack-lg">
+  <div>
+    <h2 class="heading-2">Your levels</h2>
+    <p class="text-muted">Choose a level to study.</p>
+  </div>
+  <div class="level-grid">
+    {% for level in levels %}
+    <a class="level-tile{% if level.is_current %} is-current{% endif %}" href="{{ url_for('pages.level_home', level_id=level.id) }}">
+      <p class="level-tile__code">{{ level.code }}</p>
+      <p class="level-tile__meta">{{ level.title }} · {{ level.complete_pct }}%{% if level.is_current %} · current{% endif %}</p>
+      <div class="progress" aria-hidden="true"><div class="progress__bar" style="width: {{ level.complete_pct }}%"></div></div>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

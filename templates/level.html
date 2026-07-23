@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}La Queta — {{ level.code }}{% endblock %}
+{% block tagline %}Hola, {{ user.handle }}{% endblock %}
+{% set brand_href = url_for('pages.levels') %}
+{% block content %}
+<section class="stack-lg">
+  <a class="btn btn--ghost" href="{{ url_for('pages.levels') }}">← Levels</a>
+  <div>
+    <h2 class="heading-2">{{ level.code }}</h2>
+    <p class="text-muted">{{ level.title }} · {{ complete_pct }}% complete</p>
+  </div>
+
+  <div class="tab-bar" role="tablist">
+    <a class="tab-btn{% if tab == 'learn' %} is-active{% endif %}" href="{{ url_for('pages.level_home', level_id=level.id) }}">Learn</a>
+    <a class="tab-btn{% if tab == 'vocab' %} is-active{% endif %}" href="{{ url_for('pages.level_home', level_id=level.id, tab='vocab') }}">Vocab</a>
+  </div>
+
+  {% if tab == 'learn' %}
+  <div class="list">
+    {% for lesson in lessons %}
+    <a class="list-row" href="{{ url_for('pages.lesson', lesson_id=lesson.id) }}">
+      <div>
+        <p class="list-row__title">{{ lesson.title }}</p>
+        <p class="list-row__sub">{{ lesson.summary }}</p>
+      </div>
+      <span class="badge {% if lesson.completed %}badge--done{% else %}badge--todo{% endif %}">
+        {% if lesson.completed %}Done{% else %}Todo{% endif %}
+      </span>
+    </a>
+    {% else %}
+    <p class="text-muted">No lessons yet for this level.</p>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="list">
+    {% for deck in decks %}
+    <a class="list-row" href="{{ url_for('pages.deck', slug=deck.slug) }}">
+      <div>
+        <p class="list-row__title">{{ deck.title }}</p>
+        <p class="list-row__sub">{{ deck.remaining }} left · {{ deck.retired }}/{{ deck.total }} retired</p>
+      </div>
+    </a>
+    {% else %}
+    <p class="text-muted">No vocab decks yet for this level.</p>
+    {% endfor %}
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

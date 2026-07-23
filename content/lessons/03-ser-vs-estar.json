@@ -1,0 +1,87 @@
+{
+  "id": "ser-vs-estar",
+  "title": "Ser vs Estar",
+  "order": 3,
+  "summary": "Catalan has two verbs meaning 'to be'. Which you use depends on what you're describing.",
+  "sections": [
+    {
+      "type": "text",
+      "content": "One of the trickiest things for English speakers learning Catalan (and Spanish) is that there are two separate verbs that both translate as 'to be': 'ser' and 'estar'. The choice between them is not random — it follows clear rules."
+    },
+    {
+      "type": "rule",
+      "content": "Use SER for permanent or defining characteristics: identity, origin, material, time, and inherent qualities."
+    },
+    {
+      "type": "examples",
+      "items": [
+        { "catalan": "Soc anglès", "english": "I am English", "note": "origin/identity — ser" },
+        { "catalan": "És metge", "english": "He/she is a doctor", "note": "profession — ser" },
+        { "catalan": "Avui és dilluns", "english": "Today is Monday", "note": "time — ser" },
+        { "catalan": "La taula és de fusta", "english": "The table is made of wood", "note": "material — ser" },
+        { "catalan": "Ets molt alt", "english": "You are very tall", "note": "inherent physical quality — ser" }
+      ]
+    },
+    {
+      "type": "rule",
+      "content": "Use ESTAR for temporary states, location, and conditions that can change: how someone feels, where something is, ongoing actions."
+    },
+    {
+      "type": "examples",
+      "items": [
+        { "catalan": "Estic cansat", "english": "I am tired", "note": "temporary state — estar" },
+        { "catalan": "On ets?", "english": "Where are you?", "note": "location — estar" },
+        { "catalan": "El restaurant està tancat", "english": "The restaurant is closed", "note": "temporary state — estar" },
+        { "catalan": "Estem a Barcelona", "english": "We are in Barcelona", "note": "location — estar" },
+        { "catalan": "Com estàs?", "english": "How are you?", "note": "current state — estar (you know this from the starter deck!)" }
+      ]
+    },
+    {
+      "type": "text",
+      "content": "Here are the present tense conjugations of both verbs — you'll need them constantly."
+    },
+    {
+      "type": "examples",
+      "items": [
+        { "catalan": "jo soc / jo estic", "english": "I am", "note": "ser / estar" },
+        { "catalan": "tu ets / tu estàs", "english": "you are (informal)", "note": "ser / estar" },
+        { "catalan": "ell és / ell està", "english": "he/she is", "note": "ser / estar" },
+        { "catalan": "nosaltres som / nosaltres estem", "english": "we are", "note": "ser / estar" },
+        { "catalan": "vosaltres sou / vosaltres esteu", "english": "you are (plural)", "note": "ser / estar" },
+        { "catalan": "ells són / ells estan", "english": "they are", "note": "ser / estar" }
+      ]
+    },
+    {
+      "type": "exercise",
+      "kind": "multiple_choice",
+      "question": "I am from London. Which verb?",
+      "options": ["Soc de Londres (ser)", "Estic de Londres (estar)"],
+      "answer": "Soc de Londres (ser)",
+      "explanation": "Origin is a permanent characteristic — use ser. 'Soc de Londres.'"
+    },
+    {
+      "type": "exercise",
+      "kind": "multiple_choice",
+      "question": "The café is closed today. Which verb?",
+      "options": ["El cafè és tancat (ser)", "El cafè està tancat (estar)"],
+      "answer": "El cafè està tancat (estar)",
+      "explanation": "'Closed' is a temporary state that can change — use estar. 'El cafè està tancat.'"
+    },
+    {
+      "type": "exercise",
+      "kind": "multiple_choice",
+      "question": "Where is the station? Which verb?",
+      "options": ["On és l'estació? (ser)", "On està l'estació? (estar)"],
+      "answer": "On està l'estació? (estar)",
+      "explanation": "Location uses estar. 'On està l'estació?'"
+    },
+    {
+      "type": "exercise",
+      "kind": "multiple_choice",
+      "question": "She is a teacher. Which verb?",
+      "options": ["És professora (ser)", "Està professora (estar)"],
+      "answer": "És professora (ser)",
+      "explanation": "Profession is an identity/defining characteristic — use ser. 'És professora.'"
+    }
+  ]
+}

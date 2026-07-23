@@ -1,0 +1,105 @@
+{
+  "id": "present-tense",
+  "title": "Present Tense Verbs",
+  "order": 4,
+  "summary": "Most Catalan verbs follow predictable conjugation patterns in the present tense.",
+  "sections": [
+    {
+      "type": "text",
+      "content": "Catalan verbs are grouped into three conjugation classes based on their infinitive ending: -ar (most common), -er/-re, and -ir. The good news: within each group the pattern is consistent, so once you learn the pattern you can conjugate hundreds of verbs."
+    },
+    {
+      "type": "text",
+      "content": "Unlike English, Catalan verb endings carry the subject — so the pronoun is often dropped. 'Parlo' means 'I speak' by itself; you don't need 'jo' unless you're emphasising."
+    },
+    {
+      "type": "rule",
+      "content": "-AR verbs (e.g. parlar = to speak): drop -ar, add endings: -o, -es, -a, -em, -eu, -en"
+    },
+    {
+      "type": "examples",
+      "items": [
+        { "catalan": "parlo", "english": "I speak", "note": "" },
+        { "catalan": "parles", "english": "you speak", "note": "informal singular" },
+        { "catalan": "parla", "english": "he/she speaks", "note": "" },
+        { "catalan": "parlem", "english": "we speak", "note": "" },
+        { "catalan": "parleu", "english": "you speak", "note": "plural / formal" },
+        { "catalan": "parlen", "english": "they speak", "note": "" }
+      ]
+    },
+    {
+      "type": "rule",
+      "content": "-ER/-RE verbs (e.g. córrer = to run): drop -er/-re, add: -o, -s, (nothing), -em, -eu, -en"
+    },
+    {
+      "type": "examples",
+      "items": [
+        { "catalan": "corro", "english": "I run", "note": "" },
+        { "catalan": "corres", "english": "you run", "note": "" },
+        { "catalan": "corre", "english": "he/she runs", "note": "3rd person singular: no extra ending" },
+        { "catalan": "correm", "english": "we run", "note": "" },
+        { "catalan": "correu", "english": "you run", "note": "plural" },
+        { "catalan": "corren", "english": "they run", "note": "" }
+      ]
+    },
+    {
+      "type": "rule",
+      "content": "-IR verbs (e.g. dormir = to sleep): drop -ir, add: -o, -s, (nothing), -im, -iu, -en. Some -ir verbs insert -eix- in singular and 3rd plural forms."
+    },
+    {
+      "type": "examples",
+      "items": [
+        { "catalan": "dormo", "english": "I sleep", "note": "" },
+        { "catalan": "dorms", "english": "you sleep", "note": "" },
+        { "catalan": "dorm", "english": "he/she sleeps", "note": "" },
+        { "catalan": "dormim", "english": "we sleep", "note": "" },
+        { "catalan": "dormiu", "english": "you sleep", "note": "plural" },
+        { "catalan": "dormen", "english": "they sleep", "note": "" }
+      ]
+    },
+    {
+      "type": "text",
+      "content": "Some very common verbs are irregular and must be memorised individually: ser (to be), estar (to be), tenir (to have), anar (to go), fer (to do/make), poder (to be able to), voler (to want). You've already seen ser and estar."
+    },
+    {
+      "type": "examples",
+      "items": [
+        { "catalan": "tinc / tens / té / tenim / teniu / tenen", "english": "I have / you have / he has...", "note": "tenir — irregular" },
+        { "catalan": "vaig / vas / va / anem / aneu / van", "english": "I go / you go / he goes...", "note": "anar — highly irregular" },
+        { "catalan": "faig / fas / fa / fem / feu / fan", "english": "I do / you do / he does...", "note": "fer — irregular" }
+      ]
+    },
+    {
+      "type": "exercise",
+      "kind": "multiple_choice",
+      "question": "'Parlar' means 'to speak'. How do you say 'she speaks'?",
+      "options": ["parla", "parles", "parlo", "parlen"],
+      "answer": "parla",
+      "explanation": "3rd person singular of -ar verbs takes the ending -a: parl + a = parla."
+    },
+    {
+      "type": "exercise",
+      "kind": "multiple_choice",
+      "question": "How do you say 'we sleep' using 'dormir'?",
+      "options": ["dormim", "dormem", "dormo", "dormen"],
+      "answer": "dormim",
+      "explanation": "-IR verbs use -im for 'we': dorm + im = dormim."
+    },
+    {
+      "type": "exercise",
+      "kind": "multiple_choice",
+      "question": "In Catalan, do you need the subject pronoun 'jo' (I) to mean 'I speak'?",
+      "options": ["No — 'parlo' already means 'I speak'", "Yes — you must say 'jo parlo'"],
+      "answer": "No — 'parlo' already means 'I speak'",
+      "explanation": "Verb endings encode the subject in Catalan. 'Parlo' means 'I speak' on its own. 'Jo parlo' is grammatically fine but only used for emphasis."
+    },
+    {
+      "type": "exercise",
+      "kind": "multiple_choice",
+      "question": "How do you say 'I have' using 'tenir'?",
+      "options": ["tinc", "tens", "té", "tenim"],
+      "answer": "tinc",
+      "explanation": "'Tenir' is irregular. The 1st person singular is 'tinc'. You've seen it in 'Tinc gana' (I'm hungry) and 'Tinc set' (I'm thirsty) from the starter deck."
+    }
+  ]
+}

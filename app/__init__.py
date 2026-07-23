@@ -24,12 +24,18 @@ def create_app(config_overrides: dict | None = None) -> Flask:
     import app.models  # noqa: F401
 
     from app.routes.api_auth import bp as api_auth_bp
+    from app.routes.api_lessons import bp as api_lessons_bp
+    from app.routes.api_levels import bp as api_levels_bp
+    from app.routes.api_vocab import bp as api_vocab_bp
     from app.routes.health import bp as health_bp
     from app.routes.pages import bp as pages_bp
 
     application.register_blueprint(health_bp)
     application.register_blueprint(pages_bp)
     application.register_blueprint(api_auth_bp)
+    application.register_blueprint(api_levels_bp)
+    application.register_blueprint(api_lessons_bp)
+    application.register_blueprint(api_vocab_bp)
 
     return application
 

@@ -154,6 +154,7 @@ Conventions: `STYLE_GUIDE.md` §3 (layers, statuses, error shape, POST-for-actio
 - Vanilla JS for study/lesson interactions (port patterns from `prototype/templates/index.html`)
 - One CSS file with CSS variables; no React/Vue/Tailwind required
 - Visual SoT: `STYLE_GUIDE.md` §5 + `/style-guide` — Senyera **red + gold** palette (no flag bar); Fraunces / Figtree
+- Multi-page Flask templates (not a single-page screen machine): `/` → `/levels` → `/levels/<id>` → `/lessons/<id>` | `/decks/<slug>/(study|browse)`
 - Screens: handle gate → level hub → level home → lesson | vocab study/browse
 
 ## Migrations
@@ -191,23 +192,24 @@ Work in vertical slices. Each phase: **failing tests → structure → behaviour
 - [x] `/api/me`; reject duplicate handles
 - [x] Tests for session round-trip
 
-### Phase 3 — Levels API + hub UI
-- [ ] Seed A1/A2
-- [ ] Completeness helper (even if 0%)
-- [ ] Level hub screen + select level
+### Phase 3 — Levels API + hub UI ✅
+- [x] Seed A1/A2
+- [x] Completeness helper (even if 0%)
+- [x] Level hub screen + select level
 
-### Phase 4 — Lessons
-- [ ] Seed from prototype lessons (assign A1/A2)
-- [ ] List + detail + complete APIs
-- [ ] Lesson UI (section renderer)
+### Phase 4 — Lessons ✅
+- [x] Seed from prototype lessons (assign A1/A2)
+- [x] List + detail + complete APIs
+- [x] Lesson UI (section renderer)
 
-### Phase 5 — Vocab
-- [ ] Seed decks/cards with level FKs
-- [ ] Session / seen / browse
-- [ ] Study UI from prototype patterns
+### Phase 5 — Vocab ✅
+- [x] Seed decks/cards with level FKs
+- [x] Session / seen / browse
+- [x] Study UI from prototype patterns
 
-### Phase 6 — Progress polish
-- [ ] Completeness % on hub
+### Phase 6 — Progress polish ✅ (IA)
+- [x] Multi-page navigation (gate → levels → level → lesson/deck)
+- [ ] Completeness % on hub (already live; keep refining)
 - [ ] Continue CTA (next incomplete lesson)
 
 ### Phase 7 — Deploy
@@ -224,8 +226,8 @@ poetry install
 poetry run python -m pytest
 poetry run python -m flask --app wsgi run -p 5001
 # later phases:
-# poetry run python -m flask --app wsgi db upgrade
-# poetry run python scripts/seed.py
+poetry run python -m flask --app wsgi db upgrade
+poetry run python scripts/seed.py
 ```
 
 Do not leave a broken conda env activated (e.g. empty `catalan` husk with no interpreter) — Poetry will error or wipe installs. Use `la-queta` from `environment.yml`.

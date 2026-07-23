@@ -41,6 +41,35 @@ a {
   color: var(--accent);
 }
 
+[hidden] {
+  display: none !important;
+}
+
+.brand__link {
+  color: inherit;
+  text-decoration: none;
+}
+
+a.btn,
+a.level-tile,
+a.list-row,
+a.tab-btn {
+  text-decoration: none;
+  color: inherit;
+}
+
+a.level-tile,
+a.list-row {
+  box-sizing: border-box;
+}
+
+a.tab-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
 /* ── Layout shells ───────────────────────────────────── */
 
 .page {

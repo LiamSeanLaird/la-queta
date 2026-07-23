@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}{{ lesson.title }} — La Queta{% endblock %}
+{% block tagline %}Hola, {{ user.handle }}{% endblock %}
+{% set brand_href = url_for('pages.levels') %}
+{% block content %}
+<section class="stack-lg" id="lesson-page" data-lesson-id="{{ lesson.id }}" data-completed="{{ 'true' if lesson.completed else 'false' }}">
+  <a class="btn btn--ghost" href="{{ url_for('pages.level_home', level_id=lesson.level_id) }}">← Lessons</a>
+  <div>
+    <h1 class="heading-1">{{ lesson.title }}</h1>
+    <p class="text-muted">{{ lesson.summary }}</p>
+  </div>
+
+  <div class="stack-lg" id="lesson-sections">
+    {% for section in lesson.sections %}
+      {% if section.type == 'text' %}
+        <p class="text-body">{{ section.content }}</p>
+      {% elif section.type == 'rule' %}
+        <p class="rule-callout">{{ section.content }}</p>
+      {% elif section.type == 'examples' %}
+        <table class="examples">
+          <thead><tr><th>Català</th><th>English</th><th>Note</th></tr></thead>
+          <tbody>
+            {% for item in section.get('items', []) %}
+            <tr>
+              <td class="examples__ca">{{ item.catalan }}</td>
+              <td>{{ item.english }}</td>
+              <td class="examples__note">{{ item.note or '' }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% elif section.type == 'exercise' %}
+        <div class="stack exercise" data-answer="{{ section.answer }}">
+          <p class="heading-3">{{ section.question }}</p>
+          <div class="option-list">
+            {% for option in section.options %}
+            <button type="button" class="option" data-option="{{ option }}">{{ option }}</button>
+            {% endfor %}
+          </div>
+          {% if section.explanation %}
+          <p class="text-small exercise__explain" hidden>{{ section.explanation }}</p>
+          {% endif %}
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <div class="stack">
+    <p class="text-small" id="lesson-score" hidden></p>
+    <button type="button" class="btn btn--primary btn--block" id="complete-lesson" {% if lesson.completed %}disabled{% endif %}>
+      {% if lesson.completed %}Completed{% else %}Mark complete{% endif %}
+    </button>
+    <p class="field__error" id="lesson-error" hidden></p>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/api.js') }}"></script>
+<script src="{{ url_for('static', filename='js/lesson.js') }}"></script>
+{% endblock %}

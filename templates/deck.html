@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}{{ deck.title }} — La Queta{% endblock %}
+{% block tagline %}Hola, {{ user.handle }}{% endblock %}
+{% set brand_href = url_for('pages.levels') %}
+{% block content %}
+<section class="stack-lg">
+  <a class="btn btn--ghost" href="{{ url_for('pages.level_home', level_id=deck.level_id, tab='vocab') }}">← Decks</a>
+  <div>
+    <h2 class="heading-2">{{ deck.title }}</h2>
+    <p class="text-muted">{{ deck.remaining }} left · {{ deck.retired }}/{{ deck.total }} retired</p>
+  </div>
+  <div class="stack">
+    <a class="btn btn--primary btn--block" href="{{ url_for('pages.study', slug=deck.slug) }}">Study</a>
+    <a class="btn btn--secondary btn--block" href="{{ url_for('pages.browse', slug=deck.slug) }}">Browse</a>
+  </div>
+</section>
+{% endblock %}

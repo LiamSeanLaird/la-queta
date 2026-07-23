@@ -191,13 +191,14 @@ Intentional **La Queta** look — Catalan learning tool with Senyera **red + gol
 - Prefer `transform` / `opacity`; keep durations ≤ 250ms for UI chrome.
 
 ### Screens (IA)
-1. Handle gate  
-2. Level hub (A1 / A2 + %)  
-3. Level home (lessons + decks)  
-4. Lesson  
-5. Vocab study / browse  
+1. `/` — handle gate (authed → `/levels`)
+2. `/levels` — level hub (A1 / A2 + %)
+3. `/levels/<id>` — level home (Learn | Vocab tab)
+4. `/lessons/<id>` — lesson
+5. `/decks/<slug>` → `/study` | `/browse`
 
-One job per screen. No dashboard soup.
+One URL = one job. No multi-screen mega-page. Browser back/refresh keep place.
+
 
 ---
 

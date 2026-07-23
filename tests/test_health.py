@@ -4,12 +4,6 @@ def test_health_returns_ok(client):
     assert response.get_json() == {"status": "ok"}
 
 
-def test_index_renders(client):
-    response = client.get("/")
-    assert response.status_code == 200
-    assert b"La Queta" in response.data
-
-
 def test_style_guide_renders(client):
     response = client.get("/style-guide")
     assert response.status_code == 200

@@ -6,16 +6,14 @@ from sqlalchemy.exc import IntegrityError
 
 from app.extensions import db
 from app.models import User
+from app.services.errors import ServiceError
 
 HANDLE_RE = re.compile(r"^[a-zA-Z0-9_-]{3,24}$")
 SESSION_USER_KEY = "session_user"
 
 
-class AuthError(Exception):
-    def __init__(self, message: str, status_code: int):
-        super().__init__(message)
-        self.message = message
-        self.status_code = status_code
+class AuthError(ServiceError):
+    pass
 
 
 def validate_handle(handle: object) -> str:

@@ -1,1 +1,1 @@
-/* App client JS — filled in later phases. */
+/* Legacy monolith removed — page scripts live under static/js/. */
