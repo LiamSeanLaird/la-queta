@@ -7,6 +7,8 @@ from flask_migrate import upgrade
 from sqlalchemy import inspect, select
 from sqlalchemy.exc import IntegrityError
 
+from werkzeug.security import generate_password_hash
+
 from app.extensions import db
 from app.models import (
     Card,
@@ -42,11 +44,22 @@ def test_upgrade_creates_expected_tables(migrated_app):
     assert expected <= names
 
 
-def test_user_handle_is_unique(migrated_app):
+def test_user_handle_and_email_unique(migrated_app):
     with migrated_app.app_context():
-        db.session.add(User(handle="liam"))
+        pwd = generate_password_hash("password1")
+        db.session.add(
+            User(handle="liam", email="liam@example.com", password_hash=pwd)
+        )
         db.session.commit()
-        db.session.add(User(handle="liam"))
+        db.session.add(
+            User(handle="liam", email="other@example.com", password_hash=pwd)
+        )
+        with pytest.raises(IntegrityError):
+            db.session.commit()
+        db.session.rollback()
+        db.session.add(
+            User(handle="other", email="liam@example.com", password_hash=pwd)
+        )
         with pytest.raises(IntegrityError):
             db.session.commit()
         db.session.rollback()
@@ -125,7 +138,13 @@ def test_user_lesson_progress_unique_per_user(migrated_app):
                 sections_json=[],
             )
         )
-        db.session.add(User(handle="liam"))
+        db.session.add(
+            User(
+                handle="liam",
+                email="liam@example.com",
+                password_hash=generate_password_hash("password1"),
+            )
+        )
         db.session.commit()
         user_id = db.session.scalar(select(User.id).where(User.handle == "liam"))
         db.session.add(
@@ -166,7 +185,13 @@ def test_user_card_progress_unique_per_user(migrated_app):
                 english="Good morning",
             )
         )
-        db.session.add(User(handle="liam"))
+        db.session.add(
+            User(
+                handle="liam",
+                email="liam@example.com",
+                password_hash=generate_password_hash("password1"),
+            )
+        )
         db.session.commit()
         user_id = db.session.scalar(select(User.id).where(User.handle == "liam"))
         card_id = db.session.scalar(select(Card.id).where(Card.external_id == "greet_001"))

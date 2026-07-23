@@ -65,7 +65,28 @@ def seed_lessons(level_id: str = DEFAULT_LESSON_LEVEL_ID) -> int:
         lesson.title = raw["title"]
         lesson.summary = raw.get("summary") or ""
         lesson.sort_order = int(raw.get("order") or raw.get("sort_order") or 0)
-        lesson.sections_json = raw.get("sections") or []
+        sections = list(raw.get("sections") or [])
+        practice = list(raw.get("practice") or [])
+        # Teach surface never keeps inline exercises.
+        sections = [section for section in sections if section.get("type") != "exercise"]
+        # Back-compat: if practice missing, lift leftover exercises (shouldn't happen after Phase 9 content).
+        if not practice:
+            practice = [
+                {
+                    "id": f"{lesson_id}-ex-{index}",
+                    "kind": section.get("kind") or "multiple_choice",
+                    "question": section.get("question"),
+                    "options": section.get("options") or [],
+                    "answer": section.get("answer"),
+                    "explanation": section.get("explanation") or "",
+                }
+                for index, section in enumerate(
+                    (section for section in (raw.get("sections") or []) if section.get("type") == "exercise"),
+                    start=1,
+                )
+            ]
+        lesson.sections_json = sections
+        lesson.practice_json = practice
     db.session.commit()
     return len(paths)
 

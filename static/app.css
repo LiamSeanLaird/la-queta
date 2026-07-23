@@ -50,7 +50,10 @@ a {
   text-decoration: none;
 }
 
-a.btn,
+a.btn {
+  text-decoration: none;
+}
+
 a.level-tile,
 a.list-row,
 a.tab-btn {
@@ -99,6 +102,53 @@ a.tab-btn {
   flex-wrap: wrap;
   gap: 0.75rem;
   align-items: center;
+}
+
+.study-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.study-actions__end {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.dialog {
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) + 4px);
+  padding: 0;
+  background: var(--bg-elevated);
+  color: var(--ink);
+  max-width: min(22rem, calc(100vw - 2rem));
+  box-shadow: 0 12px 40px color-mix(in srgb, var(--ink) 18%, transparent);
+}
+
+.dialog::backdrop {
+  background: color-mix(in srgb, var(--ink) 35%, transparent);
+}
+
+.dialog__panel {
+  padding: 1.25rem 1.35rem 1.35rem;
+}
+
+.check-row {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.check-row input {
+  width: 1.05rem;
+  height: 1.05rem;
+  accent-color: var(--accent);
 }
 
 /* ── Brand ───────────────────────────────────────────── */
@@ -201,8 +251,13 @@ a.tab-btn {
   color: #fff;
 }
 
+a.btn.btn--primary {
+  color: #fff;
+}
+
 .btn--primary:hover:not(:disabled) {
   background: var(--accent-hover);
+  color: #fff;
 }
 
 .btn--secondary {
@@ -285,6 +340,7 @@ a.tab-btn {
   gap: 0;
   width: 100%;
   max-width: 22rem;
+  margin-inline: auto;
   padding: 3px;
   background: var(--tab-rail);
   border-radius: var(--radius);
@@ -362,6 +418,17 @@ a.tab-btn {
   box-shadow: inset 3px 0 0 var(--senyera-gold);
 }
 
+.level-tile.is-disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.level-tile.is-disabled:hover {
+  border-color: var(--border);
+  box-shadow: none;
+}
+
 .level-tile__code {
   font-family: var(--font-display);
   font-size: 1.35rem;
@@ -415,9 +482,18 @@ a.tab-btn {
   color: var(--muted);
 }
 
-.list-row--vocab {
-  align-items: flex-start;
-  cursor: default;
+.list-row--vocab.is-retired {
+  opacity: 0.72;
+}
+
+.list-row--vocab.is-retired .list-row__title {
+  color: var(--muted);
+}
+
+.btn--retire {
+  padding: 0.25rem 0.55rem;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
 }
 
 .vocab-main {

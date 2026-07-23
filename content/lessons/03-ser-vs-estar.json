@@ -15,11 +15,31 @@
     {
       "type": "examples",
       "items": [
-        { "catalan": "Soc anglès", "english": "I am English", "note": "origin/identity — ser" },
-        { "catalan": "És metge", "english": "He/she is a doctor", "note": "profession — ser" },
-        { "catalan": "Avui és dilluns", "english": "Today is Monday", "note": "time — ser" },
-        { "catalan": "La taula és de fusta", "english": "The table is made of wood", "note": "material — ser" },
-        { "catalan": "Ets molt alt", "english": "You are very tall", "note": "inherent physical quality — ser" }
+        {
+          "catalan": "Soc anglès",
+          "english": "I am English",
+          "note": "origin/identity — ser"
+        },
+        {
+          "catalan": "És metge",
+          "english": "He/she is a doctor",
+          "note": "profession — ser"
+        },
+        {
+          "catalan": "Avui és dilluns",
+          "english": "Today is Monday",
+          "note": "time — ser"
+        },
+        {
+          "catalan": "La taula és de fusta",
+          "english": "The table is made of wood",
+          "note": "material — ser"
+        },
+        {
+          "catalan": "Ets molt alt",
+          "english": "You are very tall",
+          "note": "inherent physical quality — ser"
+        }
       ]
     },
     {
@@ -29,11 +49,31 @@
     {
       "type": "examples",
       "items": [
-        { "catalan": "Estic cansat", "english": "I am tired", "note": "temporary state — estar" },
-        { "catalan": "On ets?", "english": "Where are you?", "note": "location — estar" },
-        { "catalan": "El restaurant està tancat", "english": "The restaurant is closed", "note": "temporary state — estar" },
-        { "catalan": "Estem a Barcelona", "english": "We are in Barcelona", "note": "location — estar" },
-        { "catalan": "Com estàs?", "english": "How are you?", "note": "current state — estar (you know this from the starter deck!)" }
+        {
+          "catalan": "Estic cansat",
+          "english": "I am tired",
+          "note": "temporary state — estar"
+        },
+        {
+          "catalan": "On ets?",
+          "english": "Where are you?",
+          "note": "location — estar"
+        },
+        {
+          "catalan": "El restaurant està tancat",
+          "english": "The restaurant is closed",
+          "note": "temporary state — estar"
+        },
+        {
+          "catalan": "Estem a Barcelona",
+          "english": "We are in Barcelona",
+          "note": "location — estar"
+        },
+        {
+          "catalan": "Com estàs?",
+          "english": "How are you?",
+          "note": "current state — estar (you know this from the starter deck!)"
+        }
       ]
     },
     {
@@ -43,45 +83,136 @@
     {
       "type": "examples",
       "items": [
-        { "catalan": "jo soc / jo estic", "english": "I am", "note": "ser / estar" },
-        { "catalan": "tu ets / tu estàs", "english": "you are (informal)", "note": "ser / estar" },
-        { "catalan": "ell és / ell està", "english": "he/she is", "note": "ser / estar" },
-        { "catalan": "nosaltres som / nosaltres estem", "english": "we are", "note": "ser / estar" },
-        { "catalan": "vosaltres sou / vosaltres esteu", "english": "you are (plural)", "note": "ser / estar" },
-        { "catalan": "ells són / ells estan", "english": "they are", "note": "ser / estar" }
+        {
+          "catalan": "jo soc / jo estic",
+          "english": "I am",
+          "note": "ser / estar"
+        },
+        {
+          "catalan": "tu ets / tu estàs",
+          "english": "you are (informal)",
+          "note": "ser / estar"
+        },
+        {
+          "catalan": "ell és / ell està",
+          "english": "he/she is",
+          "note": "ser / estar"
+        },
+        {
+          "catalan": "nosaltres som / nosaltres estem",
+          "english": "we are",
+          "note": "ser / estar"
+        },
+        {
+          "catalan": "vosaltres sou / vosaltres esteu",
+          "english": "you are (plural)",
+          "note": "ser / estar"
+        },
+        {
+          "catalan": "ells són / ells estan",
+          "english": "they are",
+          "note": "ser / estar"
+        }
       ]
-    },
+    }
+  ],
+  "practice": [
     {
-      "type": "exercise",
+      "id": "se-p01",
       "kind": "multiple_choice",
-      "question": "I am from London. Which verb?",
-      "options": ["Soc de Londres (ser)", "Estic de Londres (estar)"],
+      "question": "I am from London. Which is correct?",
+      "options": [
+        "Soc de Londres (ser)",
+        "Estic de Londres (estar)"
+      ],
       "answer": "Soc de Londres (ser)",
-      "explanation": "Origin is a permanent characteristic — use ser. 'Soc de Londres.'"
+      "explanation": "Origin → ser."
     },
     {
-      "type": "exercise",
+      "id": "se-p02",
       "kind": "multiple_choice",
-      "question": "The café is closed today. Which verb?",
-      "options": ["El cafè és tancat (ser)", "El cafè està tancat (estar)"],
+      "question": "The café is closed today. Which is correct?",
+      "options": [
+        "El cafè és tancat (ser)",
+        "El cafè està tancat (estar)"
+      ],
       "answer": "El cafè està tancat (estar)",
-      "explanation": "'Closed' is a temporary state that can change — use estar. 'El cafè està tancat.'"
+      "explanation": "Temporary state → estar."
     },
     {
-      "type": "exercise",
+      "id": "se-p03",
       "kind": "multiple_choice",
-      "question": "Where is the station? Which verb?",
-      "options": ["On és l'estació? (ser)", "On està l'estació? (estar)"],
+      "question": "Where is the station? Which is correct?",
+      "options": [
+        "On és l'estació? (ser)",
+        "On està l'estació? (estar)"
+      ],
       "answer": "On està l'estació? (estar)",
-      "explanation": "Location uses estar. 'On està l'estació?'"
+      "explanation": "Location → estar."
     },
     {
-      "type": "exercise",
+      "id": "se-p04",
       "kind": "multiple_choice",
-      "question": "She is a teacher. Which verb?",
-      "options": ["És professora (ser)", "Està professora (estar)"],
+      "question": "She is a teacher. Which is correct?",
+      "options": [
+        "És professora (ser)",
+        "Està professora (estar)"
+      ],
       "answer": "És professora (ser)",
-      "explanation": "Profession is an identity/defining characteristic — use ser. 'És professora.'"
+      "explanation": "Profession → ser."
+    },
+    {
+      "id": "se-p05",
+      "kind": "cloze",
+      "prompt": "Jo ___ cansat.",
+      "hint": "I am tired (temporary)",
+      "answer": "estic",
+      "explanation": "Temporary state → estar: estic."
+    },
+    {
+      "id": "se-p06",
+      "kind": "cloze",
+      "prompt": "Avui ___ dilluns.",
+      "hint": "Today is Monday",
+      "answer": "és",
+      "explanation": "Time → ser: és."
+    },
+    {
+      "id": "se-p07",
+      "kind": "cloze",
+      "prompt": "Estem ___ Barcelona.",
+      "hint": "We are in Barcelona",
+      "answer": "a",
+      "explanation": "Location with estar + a."
+    },
+    {
+      "id": "se-p08",
+      "kind": "type_in",
+      "prompt": "I am English (masculine)",
+      "answers": [
+        "Soc anglès",
+        "Jo soc anglès"
+      ],
+      "explanation": "Identity → ser; accent on anglès."
+    },
+    {
+      "id": "se-p09",
+      "kind": "type_in",
+      "prompt": "How are you? (informal)",
+      "answers": [
+        "Com estàs?",
+        "Com estàs"
+      ],
+      "explanation": "Current state → estar; accent on estàs."
+    },
+    {
+      "id": "se-p10",
+      "kind": "type_in",
+      "prompt": "The restaurant is closed",
+      "answers": [
+        "El restaurant està tancat"
+      ],
+      "explanation": "Temporary → estar; està with accent."
     }
   ]
 }

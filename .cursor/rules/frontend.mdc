@@ -10,9 +10,14 @@ alwaysApply: false
 - Vanilla HTML/CSS/JS only — no React/Vue/Tailwind/Bootstrap/HTMX.
 - Tokens and visual rules live in `STYLE_GUIDE.md` §4–5 (gold-washed surface, Senyera red CTAs, gold progress/highlights, Fraunces display / Figtree UI). No flag strip.
 - **Multi-page:** one URL per job (`/`, `/levels`, `/levels/<id>`, `/lessons/<id>`, `/decks/<slug>`, `/study`, `/browse`). Extend `templates/base.html`. Do not revive a hidden-section mega-page.
+- Gate: **Create account** (name + email + password) / **Sign in** (email + password). No OAuth. Taglines show `user.handle`.
 - Page JS under `static/js/` (`api.js` shared). Mutations still hit `/api/…`.
 - Component gallery: `/style-guide`. New UI patterns must be added there in the same change.
 - One job per screen; cards only for interactive study/exercise surfaces.
+- Study: first-load tip dialog (Don’t show again); tap / Enter / Next = flip then next (seen++); Back = previous; Retire confirm dialog (`localStorage`). Card `hint` only when pedagogical. Empty/finished session → redirect to deck.
+- Lesson: Learn | Practice tabs (`?tab=`). Teach = text/rule/examples only. Practice = MC + cloze + type-in; complete only after all correct → redirect to level Learn. Accents required on typed answers (case/space normalized).
+- Deck page: retired progress bar; when fully retired, **Unretire deck** (resets seen → 0) instead of Study.
+- Browse: retired rows muted + badge; Retire button on active cards.
 - Vocab flashcards/browse show prototype meta on the Catalan side: pronunciation, grammar pills (`pos` / gender / plural), verb forms, tags. Keep study flip meta Catalan-only.
 - Mobile-first; keep motion minimal and intentional.
 - Prefer extending `static/app.css` / `static/js/*` over new frameworks.

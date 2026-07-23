@@ -6,9 +6,18 @@ from app.services.seed import seed_all
 
 
 def _register(client, handle: str = "liam"):
-    response = client.post("/api/auth/register", json={"handle": handle})
+    slug = "".join(handle.lower().split())
+    response = client.post(
+        "/api/auth/register",
+        json={
+            "handle": handle,
+            "email": f"{slug}@example.com",
+            "password": "password1",
+        },
+    )
     assert response.status_code == 201
     return response.get_json()
+
 
 
 def test_seed_decks_into_a1(migrated_app):
@@ -101,3 +110,56 @@ def test_card_payload_includes_prototype_meta(migrated_app, migrated_client):
     assert browse.status_code == 200
     assert b"masculine" in browse.data
     assert b"dee-YOONS" in browse.data
+
+
+def test_retire_marks_card_and_excludes_from_session(migrated_app, migrated_client):
+    with migrated_app.app_context():
+        seed_all()
+    _register(migrated_client)
+
+    cards = migrated_client.get("/api/decks/starter/cards").get_json()["cards"]
+    first = cards[0]
+    assert first["retired"] is False
+
+    retired = migrated_client.post(f"/api/cards/{first['id']}/retire")
+    assert retired.status_code == 200
+    body = retired.get_json()
+    assert body["retired"] is True
+    assert body["seen"] >= 3
+
+    session = migrated_client.get("/api/decks/starter/session").get_json()["cards"]
+    assert all(card["id"] != first["id"] for card in session)
+
+    browse = migrated_client.get("/decks/starter/browse")
+    assert browse.status_code == 200
+    assert b"Retired" in browse.data
+    assert b"data-retire" in browse.data
+
+
+def test_unretire_deck_resets_seen_and_restores_session(migrated_app, migrated_client):
+    with migrated_app.app_context():
+        seed_all()
+    _register(migrated_client)
+
+    cards = migrated_client.get("/api/decks/starter/cards").get_json()["cards"]
+    for card in cards:
+        assert migrated_client.post(f"/api/cards/{card['id']}/retire").status_code == 200
+
+    session = migrated_client.get("/api/decks/starter/session").get_json()["cards"]
+    assert session == []
+
+    deck_page = migrated_client.get("/decks/starter")
+    assert deck_page.status_code == 200
+    assert b"Unretire deck" in deck_page.data
+    assert b"data-unretire" in deck_page.data
+
+    unretire = migrated_client.post("/api/decks/starter/unretire")
+    assert unretire.status_code == 200
+    body = unretire.get_json()
+    assert body["retired"] == 0
+    assert body["remaining"] == body["total"] == len(cards)
+
+    restored = migrated_client.get("/api/decks/starter/cards").get_json()["cards"]
+    assert all(card["seen"] == 0 and card["retired"] is False for card in restored)
+    session = migrated_client.get("/api/decks/starter/session").get_json()["cards"]
+    assert len(session) == len(cards)

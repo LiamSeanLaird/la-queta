@@ -15,12 +15,36 @@
     {
       "type": "examples",
       "items": [
-        { "catalan": "el gat", "english": "the cat", "note": "masculine" },
-        { "catalan": "la porta", "english": "the door", "note": "feminine — ends in -a" },
-        { "catalan": "el cotxe", "english": "the car", "note": "masculine — ends in -e" },
-        { "catalan": "la taula", "english": "the table", "note": "feminine — ends in -a" },
-        { "catalan": "el pa", "english": "the bread", "note": "masculine despite ending in -a — exception" },
-        { "catalan": "la mà", "english": "the hand", "note": "feminine — ends in accented -à" }
+        {
+          "catalan": "el gat",
+          "english": "the cat",
+          "note": "masculine"
+        },
+        {
+          "catalan": "la porta",
+          "english": "the door",
+          "note": "feminine — ends in -a"
+        },
+        {
+          "catalan": "el cotxe",
+          "english": "the car",
+          "note": "masculine — ends in -e"
+        },
+        {
+          "catalan": "la taula",
+          "english": "the table",
+          "note": "feminine — ends in -a"
+        },
+        {
+          "catalan": "el pa",
+          "english": "the bread",
+          "note": "masculine despite ending in -a — exception"
+        },
+        {
+          "catalan": "la mà",
+          "english": "the hand",
+          "note": "feminine — ends in accented -à"
+        }
       ]
     },
     {
@@ -30,45 +54,118 @@
     {
       "type": "examples",
       "items": [
-        { "catalan": "un gat negre / una porta negra", "english": "a black cat / a black door", "note": "adjective agrees with gender" },
-        { "catalan": "un cotxe vell / una taula vella", "english": "an old car / an old table", "note": "" }
+        {
+          "catalan": "un gat negre / una porta negra",
+          "english": "a black cat / a black door",
+          "note": "adjective agrees with gender"
+        },
+        {
+          "catalan": "un cotxe vell / una taula vella",
+          "english": "an old car / an old table",
+          "note": ""
+        }
       ]
     },
     {
       "type": "rule",
       "content": "Tip: always learn a noun together with its article (el / la). Don't memorise 'taula', memorise 'la taula'. The article encodes the gender."
-    },
+    }
+  ],
+  "practice": [
     {
-      "type": "exercise",
+      "id": "ng-p01",
       "kind": "multiple_choice",
       "question": "What is the gender of 'porta' (door)?",
-      "options": ["Masculine", "Feminine"],
+      "options": [
+        "Masculine",
+        "Feminine"
+      ],
       "answer": "Feminine",
       "explanation": "'Porta' ends in -a, which is the most common feminine ending. It takes 'la': la porta."
     },
     {
-      "type": "exercise",
+      "id": "ng-p02",
       "kind": "multiple_choice",
       "question": "Which article goes before 'cotxe' (car)?",
-      "options": ["el", "la"],
+      "options": [
+        "el",
+        "la"
+      ],
       "answer": "el",
       "explanation": "'Cotxe' ends in -e and is masculine, so it takes 'el': el cotxe."
     },
     {
-      "type": "exercise",
+      "id": "ng-p03",
       "kind": "multiple_choice",
       "question": "A 'gat' (cat) is masculine. How do you say 'a small cat'?",
-      "options": ["un gat petit", "un gat petita"],
+      "options": [
+        "un gat petit",
+        "un gat petita"
+      ],
       "answer": "un gat petit",
-      "explanation": "The adjective must be masculine to agree with 'gat'. 'Petit' is the masculine form; 'petita' is feminine."
+      "explanation": "The adjective must be masculine to agree with 'gat'. 'Petit' is masculine; 'petita' is feminine."
     },
     {
-      "type": "exercise",
+      "id": "ng-p04",
       "kind": "multiple_choice",
       "question": "'Pa' (bread) ends in -a. What gender is it?",
-      "options": ["Masculine", "Feminine"],
+      "options": [
+        "Masculine",
+        "Feminine"
+      ],
       "answer": "Masculine",
-      "explanation": "'Pa' is an exception — it ends in -a but is masculine: el pa. This is why learning the article alongside the noun matters."
+      "explanation": "'Pa' is an exception — it ends in -a but is masculine: el pa."
+    },
+    {
+      "id": "ng-p05",
+      "kind": "cloze",
+      "prompt": "___ porta",
+      "hint": "the door",
+      "answer": "la",
+      "explanation": "Feminine singular article: la porta."
+    },
+    {
+      "id": "ng-p06",
+      "kind": "cloze",
+      "prompt": "un gat ___",
+      "hint": "black (masculine)",
+      "answer": "negre",
+      "explanation": "Masculine adjective: negre."
+    },
+    {
+      "id": "ng-p07",
+      "kind": "cloze",
+      "prompt": "___ mà",
+      "hint": "the hand",
+      "answer": "la",
+      "explanation": "la mà — feminine, accented -à."
+    },
+    {
+      "id": "ng-p08",
+      "kind": "type_in",
+      "prompt": "the table",
+      "answers": [
+        "la taula"
+      ],
+      "explanation": "Feminine -a noun with article."
+    },
+    {
+      "id": "ng-p09",
+      "kind": "type_in",
+      "prompt": "the cat",
+      "answers": [
+        "el gat"
+      ],
+      "explanation": "Masculine consonant-ending noun."
+    },
+    {
+      "id": "ng-p10",
+      "kind": "type_in",
+      "prompt": "an old table",
+      "answers": [
+        "una taula vella"
+      ],
+      "explanation": "Article + noun + agreeing adjective."
     }
   ]
 }

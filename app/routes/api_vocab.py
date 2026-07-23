@@ -6,7 +6,9 @@ from app.services.vocab import (
     increment_seen,
     list_cards_for_deck,
     list_decks_for_level,
+    retire_card,
     session_for_deck,
+    unretire_deck,
 )
 
 bp = Blueprint("api_vocab", __name__)
@@ -50,3 +52,23 @@ def card_seen(card_id: int):
     except ServiceError as exc:
         return jsonify({"error": exc.message}), exc.status_code
     return jsonify(card)
+
+
+@bp.post("/api/cards/<int:card_id>/retire")
+def card_retire(card_id: int):
+    try:
+        user = require_user()
+        card = retire_card(user, card_id)
+    except ServiceError as exc:
+        return jsonify({"error": exc.message}), exc.status_code
+    return jsonify(card)
+
+
+@bp.post("/api/decks/<slug>/unretire")
+def deck_unretire(slug: str):
+    try:
+        user = require_user()
+        stats = unretire_deck(user, slug)
+    except ServiceError as exc:
+        return jsonify({"error": exc.message}), exc.status_code
+    return jsonify(stats)

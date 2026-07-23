@@ -14,12 +14,26 @@
 
   <div class="level-grid">
     {% for level in levels %}
-    <a class="level-tile{% if level.is_current %} is-current{% endif %}" href="{{ url_for('pages.level_home', level_id=level.id) }}">
-      <p class="level-tile__code">{{ level.code }}</p>
-      <p class="level-tile__meta">{{ level.title }} · {{ level.complete_pct }}%{% if level.is_current %} · current{% endif %}</p>
-      <div class="progress" aria-hidden="true"><div class="progress__bar" style="width: {{ level.complete_pct }}%"></div></div>
-    </a>
+      {% if level.available %}
+      <a class="level-tile{% if level.is_current %} is-current{% endif %}" href="{{ url_for('pages.level_home', level_id=level.id) }}">
+        <p class="level-tile__code">{{ level.code }}</p>
+        <p class="level-tile__meta">{{ level.title }} · {{ level.complete_pct }}%{% if level.is_current %} · current{% endif %}</p>
+        <div class="progress" aria-hidden="true"><div class="progress__bar" style="width: {{ level.complete_pct }}%"></div></div>
+      </a>
+      {% else %}
+      <div class="level-tile is-disabled" aria-disabled="true">
+        <p class="level-tile__code">{{ level.code }}</p>
+        <p class="level-tile__meta">{{ level.title }} · coming soon</p>
+        <div class="progress" aria-hidden="true"><div class="progress__bar" style="width: 0%"></div></div>
+      </div>
+      {% endif %}
     {% endfor %}
   </div>
+
+  <button type="button" class="btn btn--ghost btn--block" id="logout-btn">Sign out</button>
 </section>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/api.js') }}"></script>
+<script src="{{ url_for('static', filename='js/logout.js') }}"></script>
 {% endblock %}

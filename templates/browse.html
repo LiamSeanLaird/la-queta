@@ -3,15 +3,16 @@
 {% block tagline %}Hola, {{ user.handle }}{% endblock %}
 {% set brand_href = url_for('pages.levels') %}
 {% block content %}
-<section class="stack-lg">
+<section class="stack-lg" id="browse-page" data-deck-slug="{{ deck.slug }}">
   <a class="btn btn--ghost" href="{{ url_for('pages.deck', slug=deck.slug) }}">← Deck</a>
   <div>
     <h2 class="heading-2">{{ deck.title }}</h2>
     <p class="text-muted">{{ cards|length }} cards</p>
   </div>
+  <p class="field__error" id="browse-error" hidden></p>
   <div class="list">
     {% for card in cards %}
-    <div class="list-row list-row--vocab">
+    <div class="list-row list-row--vocab{% if card.retired %} is-retired{% endif %}" data-card-id="{{ card.id }}">
       <div class="vocab-main">
         <p class="list-row__title">{{ card.catalan }}</p>
         {% if card.pronunciation %}
@@ -31,7 +32,7 @@
       </div>
       <div class="vocab-meta">
         <div class="gram-pills">
-          {% if card.pos and card.pos != 'phrase' %}
+          {% if card.pos %}
           <span class="gram-pill gram-pill--pos">{{ card.pos }}</span>
           {% endif %}
           {% if card.gender == 'm' %}
@@ -46,14 +47,23 @@
         {% if card.pos == 'verb' and card.forms %}
         <p class="vocab-forms">{{ card.forms|join(' · ') }}</p>
         {% endif %}
+        {% if card.retired %}
+        <span class="badge badge--done">Retired</span>
+        {% else %}
         <span class="seen-dots" aria-label="{{ card.seen if card.seen < 3 else 3 }} of 3">
           {% for i in range(3) %}
           <span class="seen-dot{% if i < card.seen %} is-filled{% endif %}"></span>
           {% endfor %}
         </span>
+        <button type="button" class="btn btn--ghost btn--retire" data-retire>Retire</button>
+        {% endif %}
       </div>
     </div>
     {% endfor %}
   </div>
 </section>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/api.js') }}"></script>
+<script src="{{ url_for('static', filename='js/browse.js') }}"></script>
 {% endblock %}

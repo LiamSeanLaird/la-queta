@@ -34,7 +34,7 @@ la-queta/
 │   ├── __init__.py            # create_app factory
 │   ├── config.py
 │   ├── models.py
-│   ├── auth.py                # handle + cookie
+│   ├── auth.py                # email + cookie
 │   ├── routes/
 │   │   ├── pages.py
 │   │   ├── api_levels.py
@@ -63,7 +63,9 @@ la-queta/
 ```
 users
   id PK
-  handle UNIQUE NOT NULL
+  handle UNIQUE NOT NULL       -- display name
+  email UNIQUE NOT NULL       -- login id (lowercased; regex only, no verify)
+  password_hash NOT NULL
   created_at
   current_level_id FK NULL
 
@@ -80,7 +82,8 @@ lessons
   title
   summary
   sort_order
-  sections_json  -- typed sections (same shape as prototype lessons)
+  sections_json  -- teach sections: text | rule | examples
+  practice_json  -- practice bank: multiple_choice | cloze | type_in
 
 decks
   id PK
@@ -129,11 +132,14 @@ complete_pct = round(100 * (0.7 * lesson_ratio + 0.3 * vocab_ratio))
 If a level has zero vocab, use lessons only (100% weight).
 
 ## Auth / session
-- `POST /api/auth/register` `{ "handle": "liam" }` → create user if free; set signed Flask session (`session_user` = user id)
-- Cookie: Flask session; HTTP-only; `SameSite=Lax`; `SECRET_KEY`-signed
-- Handle rules: 3–24 chars, `[a-zA-Z0-9_-]`, case-sensitive unique
-- Unauthenticated API calls for progress → 401; pages redirect to handle gate
-- No passwords. Handle uniqueness is the only constraint.
+- `POST /api/auth/register` `{ "handle", "email", "password" }` → `201` + session cookie
+- `POST /api/auth/login` `{ "email", "password" }` → `200` + session (generic `401` on failure)
+- `POST /api/auth/logout` → `204`
+- Email: regex shape check only (no confirmation email). Password: min 6 chars; Werkzeug hash.
+- Cookie: Flask session; HTTP-only; `SameSite=Lax`; `SECRET_KEY`-signed; permanent ~1 year
+- Name (`handle`): 2–40 chars, unique case-insensitive. Email unique lowercased.
+- Unauthenticated API → 401; pages redirect to gate
+- No OAuth / magic links / password-reset mail in v2
 
 ## API (initial)
 
@@ -142,17 +148,21 @@ Conventions: `STYLE_GUIDE.md` §3 (layers, statuses, error shape, POST-for-actio
 | Method | Route | Description |
 |---|---|---|
 | GET | `/` | App shell |
-| POST | `/api/auth/register` | Create/claim handle + set cookie |
+| POST | `/api/auth/register` | Create account (name + email + password) + set cookie |
+| POST | `/api/auth/login` | Email + password → session |
+| POST | `/api/auth/logout` | Clear session |
 | GET | `/api/me` | Current user + current level |
 | GET | `/api/levels` | A1/A2 + completeness % |
 | POST | `/api/levels/<id>/select` | Set current level |
 | GET | `/api/levels/<id>/lessons` | Lessons + completion |
-| GET | `/api/lessons/<id>` | Full lesson |
-| POST | `/api/lessons/<id>/complete` | Save score, mark complete |
+| GET | `/api/lessons/<id>` | Full lesson (sections + practice) |
+| POST | `/api/lessons/<id>/complete` | Perfect practice score required; mark complete |
 | GET | `/api/levels/<id>/decks` | Decks + stats |
 | GET | `/api/decks/<slug>/cards` | All cards + seen |
 | GET | `/api/decks/<slug>/session` | Unretired cards, shuffled |
 | POST | `/api/cards/<id>/seen` | Increment seen |
+| POST | `/api/cards/<id>/retire` | Set seen ≥ 3 (early retire) |
+| POST | `/api/decks/<slug>/unretire` | Reset seen → 0 for all cards in deck |
 
 ## UI approach
 - Server-rendered shell from Flask templates
@@ -195,9 +205,9 @@ Work in vertical slices. Each phase: **failing tests → structure → behaviour
 - [x] Tests: migrate on empty DB; model constraints
 
 ### Phase 2 — Auth ✅
-- [x] Register handle + cookie
-- [x] `/api/me`; reject duplicate handles
-- [x] Tests for session round-trip
+- [x] Register / login / logout (email + password, hashed; no email verify)
+- [x] `/api/me`
+- [x] Tests for session round-trip + cross-login
 
 ### Phase 3 — Levels API + hub UI ✅
 - [x] Seed A1/A2
@@ -228,20 +238,20 @@ Work in vertical slices. Each phase: **failing tests → structure → behaviour
 - [ ] CI SSH deploy (optional later)
 - [ ] HTTPS / domain (optional later)
 
-### Phase 8 — Vocab UX (planned)
-Current behaviour (keep):
-- `seen` increments on Next; `seen >= 3` ⇒ `retired: true`
-- `GET /api/decks/<slug>/session` returns **unretired only** (shuffled)
-- Browse returns **all** cards + seen/retired flags; dots show progress toward 3
+### Phase 8 — Vocab UX ✅
+- [x] Study: Enter → Next (seen++); Space / click → flip
+- [x] Browse: retired badge / muted row; Retire per row
+- [x] Study Retire → `POST /api/cards/<id>/retire` then advance
+- [x] Deck fully retired → Unretire deck (`POST /api/decks/<slug>/unretire`)
+- [ ] Later: daily practice across level unretired pool
+- [ ] Later (optional): browse filter active vs retired
 
-Planned:
-- [ ] Study: Enter → same as Next; Space → flip (card click stays flip). Do not steal Enter while typing nowhere — study page only.
-- [ ] Browse: retired visual state (badge / muted); retire action per row
-- [ ] Study: Retire button → `POST /api/cards/<id>/retire` (set `seen = max(seen, RETIRED_SEEN)` or equivalent) then skip to next
-- [ ] Later: daily practice endpoint — sample N unretired cards across current level; hub/Continue entry
-- [ ] Later (optional): unretire; browse filter
-
-Do **not** implement Phase 8 until PRODUCT Phase E is explicitly pulled into a work slice.
+### Phase 9 — A1 Practice ✅
+See **`PHASE_9_A1_PRACTICE.md`**. Learn \| Practice tabs; cloze + type-in; practice-only complete; daily vocab deferred to Phase 10.
+- [x] Lock open questions in the phase plan
+- [x] `practice_json` + seed (all 6 A1 lessons)
+- [x] Lesson Learn \| Practice tabs + drill UI
+- [x] Complete gate + docs
 
 ## Running (target)
 ```bash

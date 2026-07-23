@@ -240,6 +240,7 @@ Rules:
 - Deploy from `main` (or a release tag); don’t develop on the VM.
 - Never delete `/var/lib/la-queta/app.db` casually — that’s user progress.
 - Prefer backup before risky migrate (the deploy script takes a pre-deploy snapshot).
+- **Auth:** email + password (Werkzeug hash); regex email shape only — no verification. `./scripts/deploy.sh` runs migrations including `password_hash`.
 
 ---
 

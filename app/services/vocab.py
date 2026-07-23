@@ -111,6 +111,56 @@ def increment_seen(user: User, card_id: int) -> dict:
     return _card_dict(card, progress.seen)
 
 
+def retire_card(user: User, card_id: int) -> dict:
+    """Mark card retired for this user (seen = max(seen, RETIRED_SEEN))."""
+    card = db.session.get(Card, card_id)
+    if card is None:
+        raise ServiceError("Card not found", 404)
+
+    progress = db.session.scalar(
+        select(UserCardProgress).where(
+            UserCardProgress.user_id == user.id,
+            UserCardProgress.card_id == card.id,
+        )
+    )
+    if progress is None:
+        progress = UserCardProgress(
+            user_id=user.id, card_id=card.id, seen=RETIRED_SEEN
+        )
+        db.session.add(progress)
+    else:
+        progress.seen = max(progress.seen, RETIRED_SEEN)
+
+    db.session.commit()
+    return _card_dict(card, progress.seen)
+
+
+def unretire_deck(user: User, slug: str) -> dict:
+    """Reset seen to 0 for every card in the deck for this user."""
+    deck = _get_deck(slug)
+    cards = db.session.scalars(select(Card).where(Card.deck_id == deck.id)).all()
+    card_ids = [card.id for card in cards]
+    if card_ids:
+        rows = db.session.scalars(
+            select(UserCardProgress).where(
+                UserCardProgress.user_id == user.id,
+                UserCardProgress.card_id.in_(card_ids),
+            )
+        ).all()
+        for row in rows:
+            row.seen = 0
+        db.session.commit()
+
+    total = len(cards)
+    return {
+        "slug": deck.slug,
+        "title": deck.title,
+        "total": total,
+        "retired": 0,
+        "remaining": total,
+    }
+
+
 def deck_card_count(deck_id: int) -> int:
     return db.session.scalar(
         select(func.count()).select_from(Card).where(Card.deck_id == deck_id)

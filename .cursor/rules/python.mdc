@@ -18,6 +18,7 @@ Match `STYLE_GUIDE.md` §2–3. Short form:
 - Return dicts (or plain structures) from services for JSON — don’t jsonify ORM instances.
 - DB constraints enforce uniqueness; `IntegrityError` → `409`.
 - JSON columns are opaque in the ORM; shape them in services.
+- Lesson practice answers: `app.services.practice_match` (normalize case/space; keep accents).
 
 ## Migrations
 - Alembic only for schema; SQLite **batch mode** on.
@@ -28,7 +29,8 @@ Match `STYLE_GUIDE.md` §2–3. Short form:
 - `/api/` JSON only; `snake_case` keys; errors `{ "error": "…" }`.
 - Statuses: `200` / `201` / `204` / `400` / `401` / `404` / `409` / `422`.
 - Thin routes: validate → service → jsonify.
-- Cookie session; protected → `401`. Duplicate handle → `409`.
+- Gate: create account (name + email + password) and sign in (email + password). Taglines show `user.handle`.
+- Cookie session; protected → `401`. Duplicate name/email → `409`. Bad login → `401`. Invalid input → `400`.
 - Mutations via `POST` actions; `GET` is read-only.
 - No response `{ "data": … }` wrapper; no API versioning yet.
 

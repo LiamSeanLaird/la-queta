@@ -4,14 +4,25 @@ from app.services.seed import seed_all
 
 
 def _register(client, handle: str = "pageuser"):
-    response = client.post("/api/auth/register", json={"handle": handle})
+    slug = "".join(handle.lower().split())
+    response = client.post(
+        "/api/auth/register",
+        json={
+            "handle": handle,
+            "email": f"{slug}@example.com",
+            "password": "password1",
+        },
+    )
     assert response.status_code == 201
+    return response.get_json()
+
 
 
 def test_index_is_gate_only(client):
     response = client.get("/")
     assert response.status_code == 200
-    assert b"Pick a handle" in response.data
+    assert b"Create account" in response.data
+    assert b"Sign in" in response.data
     assert b"Your levels" not in response.data
     assert b"screen-lesson" not in response.data
     assert b"js/gate.js" in response.data
@@ -64,7 +75,12 @@ def test_lesson_page_renders(migrated_app, migrated_client):
     response = migrated_client.get("/lessons/noun-gender")
     assert response.status_code == 200
     assert b"Noun Gender" in response.data
-    assert b"js/lesson.js" in response.data
+    assert b"Practice" in response.data
+    assert b"tab=practice" in response.data
+
+    practice = migrated_client.get("/lessons/noun-gender?tab=practice")
+    assert practice.status_code == 200
+    assert b"js/practice.js" in practice.data
 
 
 def test_deck_study_browse_pages(migrated_app, migrated_client):
@@ -76,10 +92,16 @@ def test_deck_study_browse_pages(migrated_app, migrated_client):
     assert deck.status_code == 200
     assert b"Study" in deck.data
     assert b"/decks/starter/study" in deck.data
+    assert b"progress__bar" in deck.data
+    assert b"retired" in deck.data
 
     study = migrated_client.get("/decks/starter/study")
     assert study.status_code == 200
     assert b"js/study.js" in study.data
+    assert b"study-back" in study.data
+    assert b"retire-dialog" in study.data
+    assert b"study-tip-dialog" in study.data
+    assert b"Don\xe2\x80\x99t show again" in study.data
 
     browse = migrated_client.get("/decks/starter/browse")
     assert browse.status_code == 200

@@ -11,10 +11,26 @@
     {
       "type": "examples",
       "items": [
-        { "catalan": "el gat", "english": "the cat (masculine singular)", "note": "" },
-        { "catalan": "la porta", "english": "the door (feminine singular)", "note": "" },
-        { "catalan": "els gats", "english": "the cats (masculine plural)", "note": "" },
-        { "catalan": "les portes", "english": "the doors (feminine plural)", "note": "" }
+        {
+          "catalan": "el gat",
+          "english": "the cat (masculine singular)",
+          "note": ""
+        },
+        {
+          "catalan": "la porta",
+          "english": "the door (feminine singular)",
+          "note": ""
+        },
+        {
+          "catalan": "els gats",
+          "english": "the cats (masculine plural)",
+          "note": ""
+        },
+        {
+          "catalan": "les portes",
+          "english": "the doors (feminine plural)",
+          "note": ""
+        }
       ]
     },
     {
@@ -24,10 +40,26 @@
     {
       "type": "examples",
       "items": [
-        { "catalan": "l'home", "english": "the man", "note": "el + home → l'home" },
-        { "catalan": "l'aigua", "english": "the water", "note": "la + aigua → l'aigua" },
-        { "catalan": "l'estació", "english": "the station", "note": "la + estació → l'estació" },
-        { "catalan": "els homes", "english": "the men", "note": "plural — no contraction" }
+        {
+          "catalan": "l'home",
+          "english": "the man",
+          "note": "el + home → l'home"
+        },
+        {
+          "catalan": "l'aigua",
+          "english": "the water",
+          "note": "la + aigua → l'aigua"
+        },
+        {
+          "catalan": "l'estació",
+          "english": "the station",
+          "note": "la + estació → l'estació"
+        },
+        {
+          "catalan": "els homes",
+          "english": "the men",
+          "note": "plural — no contraction"
+        }
       ]
     },
     {
@@ -37,38 +69,111 @@
     {
       "type": "rule",
       "content": "To make a noun plural: nouns ending in a vowel add -s (porta → portes, gat → gats... wait, gat ends in a consonant). Nouns ending in a consonant add -s too: gat → gats, tren → trens."
-    },
+    }
+  ],
+  "practice": [
     {
-      "type": "exercise",
+      "id": "da-p01",
       "kind": "multiple_choice",
       "question": "How do you say 'the trains' (tren = masculine)?",
-      "options": ["els trens", "les trens", "el trens", "l'trens"],
+      "options": [
+        "els trens",
+        "les trens",
+        "el trens",
+        "l'trens"
+      ],
       "answer": "els trens",
-      "explanation": "'Tren' is masculine plural, so it takes 'els'. Plural of 'tren' is 'trens'."
+      "explanation": "Masculine plural → els."
     },
     {
-      "type": "exercise",
+      "id": "da-p02",
       "kind": "multiple_choice",
       "question": "Which is correct for 'the airport' (aeroport = masculine, starts with vowel)?",
-      "options": ["l'aeroport", "el aeroport", "la aeroport", "els aeroport"],
+      "options": [
+        "l'aeroport",
+        "el aeroport",
+        "la aeroport",
+        "els aeroport"
+      ],
       "answer": "l'aeroport",
-      "explanation": "'Aeroport' starts with a vowel and is masculine singular, so 'el' contracts to 'l'': l'aeroport."
+      "explanation": "el + vowel → l'."
     },
     {
-      "type": "exercise",
+      "id": "da-p03",
       "kind": "multiple_choice",
       "question": "How do you say 'the doors' (porta = feminine)?",
-      "options": ["les portes", "els portes", "la portes", "l'portes"],
+      "options": [
+        "les portes",
+        "els portes",
+        "la portes",
+        "l'portes"
+      ],
       "answer": "les portes",
-      "explanation": "'Porta' is feminine. The feminine plural article is 'les', and 'porta' pluralises to 'portes'."
+      "explanation": "Feminine plural → les portes."
     },
     {
-      "type": "exercise",
+      "id": "da-p04",
       "kind": "multiple_choice",
       "question": "What happens to 'la' before 'estació' (station)?",
-      "options": ["It contracts to l'", "It stays as la", "It changes to el", "It is dropped"],
+      "options": [
+        "It contracts to l'",
+        "It stays as la",
+        "It changes to el",
+        "It is dropped"
+      ],
       "answer": "It contracts to l'",
-      "explanation": "'Estació' starts with a vowel, so 'la' contracts to 'l'': l'estació."
+      "explanation": "la + vowel → l'estació."
+    },
+    {
+      "id": "da-p05",
+      "kind": "cloze",
+      "prompt": "___ home",
+      "hint": "the man",
+      "answer": "l'",
+      "explanation": "el + home → l'home."
+    },
+    {
+      "id": "da-p06",
+      "kind": "cloze",
+      "prompt": "___ aigua",
+      "hint": "the water",
+      "answer": "l'",
+      "explanation": "la + aigua → l'aigua."
+    },
+    {
+      "id": "da-p07",
+      "kind": "cloze",
+      "prompt": "___ gats",
+      "hint": "the cats",
+      "answer": "els",
+      "explanation": "Masculine plural."
+    },
+    {
+      "id": "da-p08",
+      "kind": "type_in",
+      "prompt": "the station",
+      "answers": [
+        "l'estació"
+      ],
+      "explanation": "Contraction + accent: l'estació."
+    },
+    {
+      "id": "da-p09",
+      "kind": "type_in",
+      "prompt": "the men",
+      "answers": [
+        "els homes"
+      ],
+      "explanation": "Plural — no contraction."
+    },
+    {
+      "id": "da-p10",
+      "kind": "type_in",
+      "prompt": "the doors",
+      "answers": [
+        "les portes"
+      ],
+      "explanation": "Feminine plural."
     }
   ]
 }

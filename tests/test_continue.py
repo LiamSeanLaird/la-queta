@@ -9,9 +9,18 @@ from app.services.seed import seed_all
 
 
 def _register(client, handle: str = "continuer"):
-    response = client.post("/api/auth/register", json={"handle": handle})
+    slug = "".join(handle.lower().split())
+    response = client.post(
+        "/api/auth/register",
+        json={
+            "handle": handle,
+            "email": f"{slug}@example.com",
+            "password": "password1",
+        },
+    )
     assert response.status_code == 201
     return response.get_json()
+
 
 
 def test_continue_points_at_first_incomplete_lesson(migrated_app, migrated_client):
@@ -44,9 +53,10 @@ def test_continue_advances_after_lesson_complete(migrated_app, migrated_client):
         seed_all()
     user = _register(migrated_client)
 
+    total = len(migrated_client.get("/api/lessons/noun-gender").get_json()["practice"])
     migrated_client.post(
         "/api/lessons/noun-gender/complete",
-        json={"exercises_correct": 4, "exercises_total": 4},
+        json={"exercises_correct": total, "exercises_total": total},
     )
 
     with migrated_app.app_context():

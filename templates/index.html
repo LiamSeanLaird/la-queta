@@ -2,16 +2,42 @@
 {% block title %}La Queta — start{% endblock %}
 {% block content %}
 <section class="stack-lg">
-  <p class="text-muted" style="text-align: center;">
-    Pick a handle to save your progress on this device.
+  <p class="text-muted" style="text-align: center;" id="gate-blurb">
+    Create an account to save progress and sign in on any device.
   </p>
+  <div class="tab-bar" role="tablist">
+    <button type="button" class="tab-btn is-active" id="tab-register" role="tab" aria-selected="true">Create account</button>
+    <button type="button" class="tab-btn" id="tab-login" role="tab" aria-selected="false">Sign in</button>
+  </div>
+
   <form id="register-form" class="stack">
     <label class="field">
-      <span class="field__label">Handle</span>
-      <input class="input" id="handle-input" name="handle" type="text" autocomplete="username" placeholder="e.g. liam" required minlength="3" maxlength="24" pattern="[A-Za-z0-9_-]{3,24}">
+      <span class="field__label">Your name</span>
+      <input class="input" id="handle-input" name="handle" type="text" autocomplete="nickname" placeholder="e.g. Liam" required minlength="2" maxlength="40">
+    </label>
+    <label class="field">
+      <span class="field__label">Email</span>
+      <input class="input" id="reg-email-input" name="email" type="email" autocomplete="email" placeholder="you@example.com" required maxlength="254">
+    </label>
+    <label class="field">
+      <span class="field__label">Password</span>
+      <input class="input" id="reg-password-input" name="password" type="password" autocomplete="new-password" placeholder="At least 6 characters" required minlength="6" maxlength="128">
       <p class="field__error" id="gate-error" hidden></p>
     </label>
-    <button type="submit" class="btn btn--primary btn--block">Continue</button>
+    <button type="submit" class="btn btn--primary btn--block">Create account</button>
+  </form>
+
+  <form id="login-form" class="stack" hidden>
+    <label class="field">
+      <span class="field__label">Email</span>
+      <input class="input" id="login-email-input" name="email" type="email" autocomplete="username" placeholder="you@example.com" required maxlength="254">
+    </label>
+    <label class="field">
+      <span class="field__label">Password</span>
+      <input class="input" id="login-password-input" name="password" type="password" autocomplete="current-password" required minlength="6" maxlength="128">
+      <p class="field__error" id="login-error" hidden></p>
+    </label>
+    <button type="submit" class="btn btn--primary btn--block">Sign in</button>
   </form>
 </section>
 {% endblock %}

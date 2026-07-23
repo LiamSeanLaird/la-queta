@@ -11,15 +11,51 @@
     {
       "type": "examples",
       "items": [
-        {"catalan": "qui?", "english": "who?", "note": "KEE"},
-        {"catalan": "què?", "english": "what?", "note": "KEH"},
-        {"catalan": "on?", "english": "where?", "note": "ON"},
-        {"catalan": "quan?", "english": "when?", "note": "KWAN"},
-        {"catalan": "com?", "english": "how?", "note": "KOM"},
-        {"catalan": "per què?", "english": "why?", "note": "per KEH"},
-        {"catalan": "quant / quanta?", "english": "how much?", "note": "KWANT / KWAN-tah"},
-        {"catalan": "quants / quantes?", "english": "how many?", "note": "KWANTS / KWAN-tes"},
-        {"catalan": "quin / quina?", "english": "which?", "note": "KIN / KEE-nah"}
+        {
+          "catalan": "qui?",
+          "english": "who?",
+          "note": "KEE"
+        },
+        {
+          "catalan": "què?",
+          "english": "what?",
+          "note": "KEH"
+        },
+        {
+          "catalan": "on?",
+          "english": "where?",
+          "note": "ON"
+        },
+        {
+          "catalan": "quan?",
+          "english": "when?",
+          "note": "KWAN"
+        },
+        {
+          "catalan": "com?",
+          "english": "how?",
+          "note": "KOM"
+        },
+        {
+          "catalan": "per què?",
+          "english": "why?",
+          "note": "per KEH"
+        },
+        {
+          "catalan": "quant / quanta?",
+          "english": "how much?",
+          "note": "KWANT / KWAN-tah"
+        },
+        {
+          "catalan": "quants / quantes?",
+          "english": "how many?",
+          "note": "KWANTS / KWAN-tes"
+        },
+        {
+          "catalan": "quin / quina?",
+          "english": "which?",
+          "note": "KIN / KEE-nah"
+        }
       ]
     },
     {
@@ -29,12 +65,36 @@
     {
       "type": "examples",
       "items": [
-        {"catalan": "On és el bany?", "english": "Where is the bathroom?", "note": "on + és + el bany"},
-        {"catalan": "Qui és?", "english": "Who is it?", "note": "on + és"},
-        {"catalan": "Quan dinem?", "english": "When do we have lunch?", "note": "quan + dinem"},
-        {"catalan": "Com es diu això?", "english": "What is this called?", "note": "literally 'how does this call itself'"},
-        {"catalan": "Quant val?", "english": "How much does it cost?", "note": ""},
-        {"catalan": "Quin és el teu nom?", "english": "What is your name?", "note": "literally 'which is your name'"}
+        {
+          "catalan": "On és el bany?",
+          "english": "Where is the bathroom?",
+          "note": "on + és + el bany"
+        },
+        {
+          "catalan": "Qui és?",
+          "english": "Who is it?",
+          "note": "on + és"
+        },
+        {
+          "catalan": "Quan dinem?",
+          "english": "When do we have lunch?",
+          "note": "quan + dinem"
+        },
+        {
+          "catalan": "Com es diu això?",
+          "english": "What is this called?",
+          "note": "literally 'how does this call itself'"
+        },
+        {
+          "catalan": "Quant val?",
+          "english": "How much does it cost?",
+          "note": ""
+        },
+        {
+          "catalan": "Quin és el teu nom?",
+          "english": "What is your name?",
+          "note": "literally 'which is your name'"
+        }
       ]
     },
     {
@@ -44,45 +104,145 @@
     {
       "type": "examples",
       "items": [
-        {"catalan": "Puc usar el bany?", "english": "Can I use the bathroom?", "note": "puc = can I"},
-        {"catalan": "Puc ajudar?", "english": "Can I help?", "note": ""},
-        {"catalan": "Pots repetir?", "english": "Can you repeat?", "note": "pots = can you"},
-        {"catalan": "Pots parlar més a poc a poc?", "english": "Can you speak more slowly?", "note": ""},
-        {"catalan": "Pots explicar?", "english": "Can you explain?", "note": ""},
-        {"catalan": "Què vol dir...?", "english": "What does ... mean?", "note": "vol dir = means / wants to say"}
+        {
+          "catalan": "Puc usar el bany?",
+          "english": "Can I use the bathroom?",
+          "note": "puc = can I"
+        },
+        {
+          "catalan": "Puc ajudar?",
+          "english": "Can I help?",
+          "note": ""
+        },
+        {
+          "catalan": "Pots repetir?",
+          "english": "Can you repeat?",
+          "note": "pots = can you"
+        },
+        {
+          "catalan": "Pots parlar més a poc a poc?",
+          "english": "Can you speak more slowly?",
+          "note": ""
+        },
+        {
+          "catalan": "Pots explicar?",
+          "english": "Can you explain?",
+          "note": ""
+        },
+        {
+          "catalan": "Què vol dir...?",
+          "english": "What does ... mean?",
+          "note": "vol dir = means / wants to say"
+        }
       ]
-    },
+    }
+  ],
+  "practice": [
     {
-      "type": "exercise",
+      "id": "qw-p01",
       "kind": "multiple_choice",
       "question": "Which word means 'where'?",
-      "options": ["on", "quan", "qui", "com"],
+      "options": [
+        "on",
+        "quan",
+        "qui",
+        "com"
+      ],
       "answer": "on",
-      "explanation": "'On' means where. 'Quan' = when, 'qui' = who, 'com' = how."
+      "explanation": "on = where."
     },
     {
-      "type": "exercise",
+      "id": "qw-p02",
       "kind": "multiple_choice",
-      "question": "How do you ask 'Can I use the bathroom?'",
-      "options": ["Puc usar el bany?", "On és el bany?", "Quan és el bany?", "Pots el bany?"],
+      "question": "How do you ask 'Can I use the bathroom'?",
+      "options": [
+        "Puc usar el bany?",
+        "On és el bany?",
+        "Quan és el bany?",
+        "Pots el bany?"
+      ],
       "answer": "Puc usar el bany?",
-      "explanation": "'Puc' means 'can I'. 'On és el bany?' asks where the bathroom is — also useful, but different."
+      "explanation": "puc = can I."
     },
     {
-      "type": "exercise",
+      "id": "qw-p03",
       "kind": "multiple_choice",
       "question": "Which question word asks 'how much'?",
-      "options": ["quant", "quin", "per què", "quan"],
+      "options": [
+        "quant",
+        "quin",
+        "per què",
+        "quan"
+      ],
       "answer": "quant",
-      "explanation": "'Quant' (m) / 'quanta' (f) = how much. 'Quants/quantes' = how many. Don't confuse with 'quan' = when."
+      "explanation": "quant/quanta = how much."
     },
     {
-      "type": "exercise",
+      "id": "qw-p04",
       "kind": "multiple_choice",
-      "question": "How do you ask 'what does this mean?'",
-      "options": ["Què vol dir això?", "On és això?", "Qui diu això?", "Com és això?"],
+      "question": "How do you ask 'what does this mean'?",
+      "options": [
+        "Què vol dir això?",
+        "On és això?",
+        "Qui diu això?",
+        "Com és això?"
+      ],
       "answer": "Què vol dir això?",
-      "explanation": "'Què vol dir...?' literally means 'what wants to say...?' — the standard way to ask for a word's meaning. 'Això' means 'this'."
+      "explanation": "Què vol dir…?"
+    },
+    {
+      "id": "qw-p05",
+      "kind": "cloze",
+      "prompt": "___ és el bany?",
+      "hint": "Where is the bathroom?",
+      "answer": "On",
+      "explanation": "on = where."
+    },
+    {
+      "id": "qw-p06",
+      "kind": "cloze",
+      "prompt": "___ repetir?",
+      "hint": "Can you repeat?",
+      "answer": "Pots",
+      "explanation": "pots = can you."
+    },
+    {
+      "id": "qw-p07",
+      "kind": "cloze",
+      "prompt": "___ val?",
+      "hint": "How much does it cost?",
+      "answer": "Quant",
+      "explanation": "quant = how much."
+    },
+    {
+      "id": "qw-p08",
+      "kind": "type_in",
+      "prompt": "who?",
+      "answers": [
+        "qui",
+        "qui?"
+      ],
+      "explanation": "qui = who."
+    },
+    {
+      "id": "qw-p09",
+      "kind": "type_in",
+      "prompt": "why?",
+      "answers": [
+        "per què",
+        "per què?"
+      ],
+      "explanation": "Two words; accent on què."
+    },
+    {
+      "id": "qw-p10",
+      "kind": "type_in",
+      "prompt": "What is this called?",
+      "answers": [
+        "Com es diu això?",
+        "Com es diu això"
+      ],
+      "explanation": "Literally 'how does this call itself'."
     }
   ]
 }

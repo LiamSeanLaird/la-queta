@@ -3,13 +3,34 @@
 {% block tagline %}Hola, {{ user.handle }}{% endblock %}
 {% set brand_href = url_for('pages.levels') %}
 {% block content %}
-<section class="stack-lg" id="lesson-page" data-lesson-id="{{ lesson.id }}" data-completed="{{ 'true' if lesson.completed else 'false' }}">
+<section
+  class="stack-lg"
+  id="lesson-page"
+  data-lesson-id="{{ lesson.id }}"
+  data-completed="{{ 'true' if lesson.completed else 'false' }}"
+  data-lessons-url="{{ url_for('pages.level_home', level_id=lesson.level_id) }}"
+  data-tab="{{ tab }}"
+>
   <a class="btn btn--ghost" href="{{ url_for('pages.level_home', level_id=lesson.level_id) }}">← Lessons</a>
   <div>
     <h1 class="heading-1">{{ lesson.title }}</h1>
     <p class="text-muted">{{ lesson.summary }}</p>
   </div>
 
+  <div class="tab-bar" role="tablist">
+    <a
+      class="tab-btn{% if tab == 'learn' %} is-active{% endif %}"
+      href="{{ url_for('pages.lesson', lesson_id=lesson.id, tab='learn') }}"
+      >Learn</a
+    >
+    <a
+      class="tab-btn{% if tab == 'practice' %} is-active{% endif %}"
+      href="{{ url_for('pages.lesson', lesson_id=lesson.id, tab='practice') }}"
+      >Practice</a
+    >
+  </div>
+
+  {% if tab == 'learn' %}
   <div class="stack-lg" id="lesson-sections">
     {% for section in lesson.sections %}
       {% if section.type == 'text' %}
@@ -29,37 +50,37 @@
             {% endfor %}
           </tbody>
         </table>
-      {% elif section.type == 'exercise' %}
-        <div class="stack exercise" data-answer="{{ section.answer }}">
-          <p class="heading-3">{{ section.question }}</p>
-          <div class="option-list">
-            {% for option in section.options %}
-            <button type="button" class="option" data-option="{{ option }}">{{ option }}</button>
-            {% endfor %}
-          </div>
-          {% if section.explanation %}
-          <p class="text-small exercise__explain" hidden>{{ section.explanation }}</p>
-          {% endif %}
-        </div>
       {% endif %}
     {% endfor %}
   </div>
+  <a class="btn btn--primary btn--block" href="{{ url_for('pages.lesson', lesson_id=lesson.id, tab='practice') }}">Go to Practice</a>
+  {% if lesson.completed and next_href %}
+  <a class="btn btn--secondary btn--block" href="{{ next_href }}">{{ next_target.label }}</a>
+  {% endif %}
 
-  <div class="stack">
-    <p class="text-small" id="lesson-score" hidden></p>
-    <button type="button" class="btn btn--primary btn--block" id="complete-lesson" {% if lesson.completed %}disabled{% endif %}>
-      {% if lesson.completed %}Completed{% else %}Mark complete{% endif %}
-    </button>
-    {% if next_href %}
-    <a class="btn btn--secondary btn--block" id="next-lesson" href="{{ next_href }}">{{ next_target.label }}</a>
-    {% else %}
-    <a class="btn btn--secondary btn--block" id="next-lesson" href="#" hidden></a>
-    {% endif %}
-    <p class="field__error" id="lesson-error" hidden></p>
+  {% else %}
+  <div class="stack-lg" id="practice-panel">
+    <div class="progress-meta">
+      <span id="practice-progress-text">Loading…</span>
+      {% if lesson.completed %}
+      <span class="badge badge--done">Completed</span>
+      {% endif %}
+    </div>
+    <div class="progress" aria-hidden="true">
+      <div class="progress__bar" id="practice-progress-bar" style="width: 0%"></div>
+    </div>
+    <div class="stack" id="practice-item" hidden></div>
+    <p class="text-muted" id="practice-empty" hidden>No practice items for this lesson yet.</p>
+    <p class="text-muted" id="practice-done" hidden>Practice complete — well done.</p>
+    <p class="field__error" id="practice-error" hidden></p>
   </div>
+  <script type="application/json" id="practice-data">{{ lesson.practice|tojson }}</script>
+  {% endif %}
 </section>
 {% endblock %}
 {% block scripts %}
+{% if tab == 'practice' %}
 <script src="{{ url_for('static', filename='js/api.js') }}"></script>
-<script src="{{ url_for('static', filename='js/lesson.js') }}"></script>
+<script src="{{ url_for('static', filename='js/practice.js') }}"></script>
+{% endif %}
 {% endblock %}

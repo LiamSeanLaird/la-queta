@@ -105,6 +105,10 @@ def lesson(lesson_id: str):
     except ServiceError:
         return redirect(url_for("pages.levels"))
 
+    tab = (request.args.get("tab") or "learn").strip().lower()
+    if tab not in {"learn", "practice"}:
+        tab = "learn"
+
     next_target = None
     next_href = None
     if lesson_data["completed"]:
@@ -116,6 +120,7 @@ def lesson(lesson_id: str):
         "lesson.html",
         user=user,
         lesson=lesson_data,
+        tab=tab,
         next_target=next_target,
         next_href=next_href,
         brand_href=url_for("pages.levels"),

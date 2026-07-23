@@ -1,14 +1,22 @@
 import re
 
 from flask import session
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.exc import IntegrityError
+from werkzeug.security import check_password_hash, generate_password_hash
 
 from app.extensions import db
 from app.models import User
 from app.services.errors import ServiceError
 
-HANDLE_RE = re.compile(r"^[a-zA-Z0-9_-]{3,24}$")
+# Display name stored in `handle`
+NAME_RE = re.compile(
+    r"^[a-zA-ZÀ-ÿ0-9](?:[a-zA-ZÀ-ÿ0-9 '\-]{0,38}[a-zA-ZÀ-ÿ0-9])?$"
+)
+EMAIL_RE = re.compile(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
+MAX_EMAIL_LEN = 254
+MIN_PASSWORD_LEN = 6
+MAX_PASSWORD_LEN = 128
 SESSION_USER_KEY = "session_user"
 
 
@@ -18,39 +26,89 @@ class AuthError(ServiceError):
 
 def validate_handle(handle: object) -> str:
     if not isinstance(handle, str):
-        raise AuthError("Handle is required", 400)
-    cleaned = handle.strip()
+        raise AuthError("Name is required", 400)
+    cleaned = " ".join(handle.strip().split())
     if not cleaned:
-        raise AuthError("Handle is required", 400)
-    if not HANDLE_RE.fullmatch(cleaned):
+        raise AuthError("Name is required", 400)
+    if len(cleaned) < 2 or len(cleaned) > 40:
+        raise AuthError("Name must be 2–40 characters", 400)
+    if not NAME_RE.fullmatch(cleaned):
         raise AuthError(
-            "Handle must be 3–24 characters: letters, numbers, _ or -",
+            "Name can use letters, numbers, spaces, hyphens, and apostrophes",
             400,
         )
     return cleaned
+
+
+def validate_email(email: object) -> str:
+    if not isinstance(email, str):
+        raise AuthError("Email is required", 400)
+    cleaned = email.strip().lower()
+    if not cleaned:
+        raise AuthError("Email is required", 400)
+    if len(cleaned) > MAX_EMAIL_LEN:
+        raise AuthError("Email is too long", 400)
+    if not EMAIL_RE.fullmatch(cleaned):
+        raise AuthError("Enter a valid email address", 400)
+    return cleaned
+
+
+def validate_password(password: object) -> str:
+    if not isinstance(password, str):
+        raise AuthError("Password is required", 400)
+    if len(password) < MIN_PASSWORD_LEN:
+        raise AuthError(f"Password must be at least {MIN_PASSWORD_LEN} characters", 400)
+    if len(password) > MAX_PASSWORD_LEN:
+        raise AuthError("Password is too long", 400)
+    return password
 
 
 def user_to_dict(user: User) -> dict:
     return {
         "id": user.id,
         "handle": user.handle,
+        "email": user.email,
         "current_level_id": user.current_level_id,
     }
 
 
-def register_user(handle: object) -> User:
-    cleaned = validate_handle(handle)
-    existing = db.session.scalar(select(User).where(User.handle == cleaned))
-    if existing is not None:
-        raise AuthError("Handle already taken", 409)
+def register_user(handle: object, email: object, password: object) -> User:
+    cleaned_handle = validate_handle(handle)
+    cleaned_email = validate_email(email)
+    cleaned_password = validate_password(password)
 
-    user = User(handle=cleaned)
+    if db.session.scalar(
+        select(User).where(func.lower(User.handle) == cleaned_handle.lower())
+    ):
+        raise AuthError("That name is already taken", 409)
+    if db.session.scalar(select(User).where(User.email == cleaned_email)):
+        raise AuthError("Email already used", 409)
+
+    user = User(
+        handle=cleaned_handle,
+        email=cleaned_email,
+        password_hash=generate_password_hash(cleaned_password),
+    )
     db.session.add(user)
     try:
         db.session.commit()
     except IntegrityError:
         db.session.rollback()
-        raise AuthError("Handle already taken", 409) from None
+        if db.session.scalar(select(User).where(User.email == cleaned_email)):
+            raise AuthError("Email already used", 409) from None
+        raise AuthError("That name is already taken", 409) from None
+    return user
+
+
+def authenticate_user(email: object, password: object) -> User:
+    """Login by email + password. Same error for unknown email or bad password."""
+    cleaned_email = validate_email(email)
+    if not isinstance(password, str) or not password:
+        raise AuthError("Invalid email or password", 401)
+
+    user = db.session.scalar(select(User).where(User.email == cleaned_email))
+    if user is None or not check_password_hash(user.password_hash, password):
+        raise AuthError("Invalid email or password", 401)
     return user
 
 
@@ -62,6 +120,10 @@ def login_user(user: User) -> None:
     session.clear()
     session[SESSION_USER_KEY] = user.id
     session.permanent = True
+
+
+def logout_user() -> None:
+    session.clear()
 
 
 def current_user() -> User | None:

@@ -66,6 +66,7 @@ def get_lesson(user: User, lesson_id: str) -> dict:
         "summary": lesson.summary,
         "sort_order": lesson.sort_order,
         "sections": lesson.sections_json or [],
+        "practice": lesson.practice_json or [],
         "completed": bool(progress and progress.completed),
         "exercises_correct": progress.exercises_correct if progress else 0,
         "exercises_total": progress.exercises_total if progress else 0,
@@ -82,10 +83,19 @@ def complete_lesson(
     if lesson is None:
         raise ServiceError("Lesson not found", 404)
 
+    practice = lesson.practice_json or []
+    expected_total = len(practice)
+
     if not isinstance(exercises_correct, int) or not isinstance(exercises_total, int):
         raise ServiceError("exercises_correct and exercises_total must be integers", 400)
     if exercises_correct < 0 or exercises_total < 0 or exercises_correct > exercises_total:
         raise ServiceError("Invalid exercise score", 400)
+    if expected_total == 0:
+        raise ServiceError("Lesson has no practice items", 400)
+    if exercises_total != expected_total:
+        raise ServiceError("Practice score does not match lesson bank", 400)
+    if exercises_correct != exercises_total:
+        raise ServiceError("All exercises must be correct to complete", 400)
 
     progress = db.session.scalar(
         select(UserLessonProgress).where(

@@ -95,13 +95,21 @@
       <h2 class="sg-section__title">Forms</h2>
       <div class="sg-demo">
         <label class="field">
-          <span class="field__label">Handle</span>
-          <input class="input" type="text" placeholder="e.g. liam" value="">
+          <span class="field__label">Your name</span>
+          <input class="input" type="text" placeholder="e.g. Liam" value="">
         </label>
         <label class="field">
-          <span class="field__label">Handle (error)</span>
-          <input class="input input--error" type="text" value="taken">
-          <p class="field__error">That handle is already taken.</p>
+          <span class="field__label">Email</span>
+          <input class="input" type="email" placeholder="you@example.com" value="">
+        </label>
+        <label class="field">
+          <span class="field__label">Password</span>
+          <input class="input" type="password" placeholder="At least 6 characters" value="">
+        </label>
+        <label class="field">
+          <span class="field__label">Email (error)</span>
+          <input class="input input--error" type="email" value="taken@example.com">
+          <p class="field__error">Email already used.</p>
         </label>
       </div>
     </section>
@@ -111,8 +119,9 @@
       <div class="sg-demo">
         <div class="tab-bar" role="tablist">
           <button type="button" class="tab-btn is-active" role="tab" aria-selected="true">Learn</button>
-          <button type="button" class="tab-btn" role="tab" aria-selected="false">Vocab</button>
+          <button type="button" class="tab-btn" role="tab" aria-selected="false">Practice</button>
         </div>
+        <p class="text-small">Lesson uses Learn | Practice (level hub uses Learn | Vocab).</p>
       </div>
     </section>
 
@@ -177,7 +186,14 @@
             <span class="gram-pill gram-pill--f">feminine</span>
             <span class="gram-pill gram-pill--pl">pl: les mares</span>
           </div>
-          <p class="flashcard__hint">Tap to flip</p>
+          <p class="flashcard__hint">plow rhymes with ‘how’</p>
+        </div>
+        <div class="study-actions">
+          <button type="button" class="btn btn--secondary">Back</button>
+          <div class="study-actions__end">
+            <button type="button" class="btn btn--ghost">Retire</button>
+            <button type="button" class="btn btn--secondary">Next</button>
+          </div>
         </div>
       </div>
     </section>

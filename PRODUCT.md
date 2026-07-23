@@ -25,7 +25,7 @@
 
 ### Out of scope (for now)
 - B1 / B2 content and UI
-- Passwords, OAuth, email magic links
+- OAuth, email magic links, password-reset email
 - Spaced repetition (SM-2)
 - Audio / pronunciation playback
 - Mobile native apps
@@ -35,10 +35,12 @@
 ---
 
 ## User identity
-- User picks a **handle** (unique, displayable).
-- Session stored in an HTTP-only cookie.
-- No password. Same browser/device keeps progress; new device = new handle (or later: export — not v2).
-- Purpose: save progress, not secure accounts.
+- **Name** (stored as `handle`), **email**, and **password** — required to create an account.
+- Email shape checked with regex only — **no verification mail** in v2.
+- Passwords hashed (Werkzeug); never stored or returned in plaintext.
+- Sign in with email + password on any device; session cookie after login (~1 year).
+- No OAuth / magic links yet.
+- Purpose: cross-device progress with a simple account.
 
 ---
 
@@ -54,8 +56,8 @@ Home
 
 - Default path: continue current level / next incomplete lesson.
 - User may start A2 without finishing A1; progress per level is independent.
-- Lesson complete when all exercises answered (score stored; no forced re-test).
-- Vocab: each card shown until `seen >= 3`, then **retired for that user** — excluded from study sessions; still visible in browse (with seen dots). Early retire (mark known) and daily unretired practice are planned next, not shipped yet.
+- Lesson complete when Practice finishes with all items correct (Learn \| Practice tabs; see `PHASE_9_A1_PRACTICE.md`).
+- Learners can **Retire** early from study or browse (`seen = max(seen, 3)`). When a deck is fully retired, **Unretire deck** resets all seen counts to 0 so Study is available again.
 
 ---
 
@@ -73,7 +75,7 @@ Do not invent a third progress system.
 ### Phase A — Foundation
 - [x] App skeleton at repo root (Flask + Poetry + pytest) — Phase 0
 - [x] SQLite + Alembic models/migrations — Phase 1
-- [x] Handle signup / cookie session
+- [x] Simple email + password auth (no OAuth / no email verify)
 - [x] Level hub (A1, A2) with empty/seeded progress
 
 ### Phase B — Content & Learn
@@ -92,16 +94,18 @@ Do not invent a third progress system.
 - [x] Deploy to Oracle Always Free VM — live; see `DEPLOY.md`
 - [x] Backup story for SQLite file (on-VM cron; optional Mac pull)
 
-### Phase E — Vocab UX (planned; not started)
-Study/browse polish after Phase D deploy can ship in parallel if desired:
+### Phase E — Vocab UX
+- [x] Study keyboard: **Enter** (and Next) advance + increment `seen`; **Space** / card click flips
+- [x] Browse: retired badge / muted row when `seen >= 3`
+- [x] **Retire now** on study + browse (`POST /api/cards/<id>/retire`)
+- [x] **Unretire deck** when all cards retired (`POST /api/decks/<slug>/unretire`)
+- [ ] Later: **Daily vocab** — sample from level’s unretired pool
+- [ ] Later (optional): browse filter active vs retired
 
-- [ ] Study keyboard: **Enter** (and Next button) advance + increment `seen`; **Space** (or card click) flips. Match prototype muscle memory.
-- [ ] Browse: make retirement obvious (e.g. “Retired” badge / muted row when `seen >= 3`), not only three filled dots.
-- [ ] **Retire now** control on study + browse — set that user’s card to retired without waiting for three passive views (still `seen = 3` under the hood unless we introduce an explicit flag later).
-- [ ] Later: **Daily vocab** — small random session from the level’s unretired pool (not one deck only); natural “Continue” surface. Keep out of SM-2 territory.
-- [ ] Later (optional): un-retire / reset seen for a card; filter browse active vs retired.
+### Phase F — A1 Practice ✅
+See **`PHASE_9_A1_PRACTICE.md`**. Learn \| Practice tabs; MC + cloze + type-in; complete only after perfect Practice. Daily vocab → Phase 10.
 
-**Still out of scope:** SM-2 / difficulty ratings; audio playback.
+**Still out of scope:** SM-2 / difficulty ratings; audio playback; OAuth; email verification / magic-link / password reset email.
 
 ---
 
@@ -111,5 +115,5 @@ Reuse and re-level material from `prototype/data/` and `prototype/lessons/`. New
 **Level assignment (locked):** all current prototype decks and lessons seed into **A1**. **A2** exists as an empty scaffold (level row + hub tile) until content is authored.
 
 ## Success criteria
-- A stranger can open the URL, pick a handle, start A1, complete a lesson, study vocab, return later and see progress.
+- A stranger can open the URL, create an account, start A1, complete a lesson, study vocab, sign in later on another device and see progress.
 - Operator cost: **$0**/month within Oracle Always Free limits.

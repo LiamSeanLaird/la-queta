@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from werkzeug.security import generate_password_hash
+
 from app.extensions import db
 from app.models import (
     Card,
@@ -17,9 +19,18 @@ from app.services.seed import seed_levels
 
 
 def _register(client, handle: str = "liam"):
-    response = client.post("/api/auth/register", json={"handle": handle})
+    slug = "".join(handle.lower().split())
+    response = client.post(
+        "/api/auth/register",
+        json={
+            "handle": handle,
+            "email": f"{slug}@example.com",
+            "password": "password1",
+        },
+    )
     assert response.status_code == 201
     return response.get_json()
+
 
 
 def test_seed_levels_is_idempotent(migrated_app):
@@ -86,7 +97,11 @@ def test_completeness_lessons_only_when_no_vocab(migrated_app):
                 sections_json=[],
             )
         )
-        user = User(handle="prog")
+        user = User(
+            handle="prog",
+            email="prog@example.com",
+            password_hash=generate_password_hash("password1"),
+        )
         db.session.add(user)
         db.session.commit()
         db.session.add(
@@ -128,7 +143,11 @@ def test_completeness_weights_lessons_and_vocab(migrated_app):
                 english="Good morning",
             )
         )
-        user = User(handle="weighted")
+        user = User(
+            handle="weighted",
+            email="weighted@example.com",
+            password_hash=generate_password_hash("password1"),
+        )
         db.session.add(user)
         db.session.commit()
         # 1/1 lessons done, 0/1 vocab retired → 70%

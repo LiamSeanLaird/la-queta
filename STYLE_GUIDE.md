@@ -18,7 +18,11 @@ make run
 
 That page renders every shared UI component (tokens, brand, type, buttons, forms, tabs, progress, level tiles, list rows, flashcard, exercise options, examples table, seen dots).
 
-Flashcards / browse rows carry prototype vocab meta on the Catalan side: pronunciation, grammar pills (pos / gender / plural), verb forms, tags.
+Flashcards / browse rows carry prototype vocab meta on the Catalan side: pronunciation, grammar pills (pos including phrase / gender / plural), verb forms, tags.
+
+Study flow: first-load tip dialog (Don’t show again); tap or Enter flips Catalan → English, then advances (seen++); Back revisits the previous card; Retire confirms once. Finished / empty session redirects to the deck. Deck page shows retired progress bar; when fully retired, Unretire deck replaces Study (POST unretire → seen 0). Interaction chrome stays off the card — only pedagogical `hint` text appears when present.
+
+Lessons use Learn | Practice tabs. Practice is one-item-at-a-time (MC / cloze / type-in); typed answers normalize case and whitespace but keep accents. Lesson completes only after a perfect Practice run.
 
 - **Markup + classes:** `templates/style_guide.html`
 - **Shared styles:** `static/app.css` (gallery chrome uses `.sg-*`; app components do not)
@@ -99,9 +103,12 @@ Flashcards / browse rows carry prototype vocab meta on the Catalan side: pronunc
 
 ### Auth
 - Cookie session (`session_user` = user id in signed Flask session). Missing or invalid session on protected routes → `401` `{ "error": "…" }`.
-- Register/claim handle: `POST /api/auth/register`; conflict on duplicate → `409`.
-- Handle: 3–24 chars, `[a-zA-Z0-9_-]`, case-sensitive unique.
-- Unauthenticated browsers hitting HTML progress pages redirect to the handle gate (not a JSON 401).
+- Register: `POST /api/auth/register` with name (`handle`) + email + password → `201`.
+- Login: `POST /api/auth/login` with email + password → `200`. Bad creds → `401` `"Invalid email or password"`.
+- Logout: `POST /api/auth/logout` → `204`.
+- Email: regex shape only (no verification). Password: Werkzeug hash, min 6 chars. Never return hashes.
+- Duplicate name/email → `409`.
+- Unauthenticated browsers hitting HTML progress pages redirect to the gate (not a JSON 401).
 
 ### HTTP & bodies
 - Allowed statuses: `200`, `201`, `204`, `400`, `401`, `404`, `409`, `422`. Don’t invent others without updating this list.
@@ -109,7 +116,7 @@ Flashcards / browse rows carry prototype vocab meta on the Catalan side: pronunc
 - Error body: always `{ "error": "<stable message>" }`. No stack traces, no SQL text.
 - Request/response keys: `snake_case`, aligned with model field names where practical.
 - Nest at most one level unless the plan already defines a blob (`sections`).
-- Mutations: `POST` for create and actions (`/complete`, `/seen`, `/select`). Skip `PUT`/`PATCH` until partial updates are real requirements.
+- Mutations: `POST` for create and actions (`/complete`, `/seen`, `/retire`, `/select`). Skip `PUT`/`PATCH` until partial updates are real requirements.
 - `GET` is read-only (no “GET that increments seen”).
 
 ### Out of scope (for now)
@@ -195,7 +202,7 @@ Intentional **La Queta** look — Catalan learning tool with Senyera **red + gol
 - Prefer `transform` / `opacity`; keep durations ≤ 250ms for UI chrome.
 
 ### Screens (IA)
-1. `/` — handle gate (authed → `/levels`)
+1. `/` — create account / sign in gate (authed → `/levels`)
 2. `/levels` — level hub (A1 / A2 + %)
 3. `/levels/<id>` — level home (Learn | Vocab tab)
 4. `/lessons/<id>` — lesson
