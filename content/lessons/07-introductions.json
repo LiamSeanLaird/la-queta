@@ -1,0 +1,148 @@
+{
+  "id": "introductions",
+  "title": "Introductions",
+  "order": 7,
+  "summary": "Say who you are, where you’re from, and exchange basic personal details.",
+  "sections": [
+    {
+      "type": "text",
+      "content": "At A1 you need a small set of ready-made phrases for meeting people: greeting, giving your name, saying where you live or come from, and asking the same of others."
+    },
+    {
+      "type": "rule",
+      "content": "Use Em dic… for ‘My name is…’ and Soc de… for origin. Com et dius? asks someone’s name (informal)."
+    },
+    {
+      "type": "examples",
+      "items": [
+        {
+          "catalan": "Hola, em dic Liam.",
+          "english": "Hi, my name is Liam.",
+          "note": ""
+        },
+        {
+          "catalan": "Soc d’Irlanda.",
+          "english": "I’m from Ireland.",
+          "note": "de + vowel → d’"
+        },
+        {
+          "catalan": "Visc a Barcelona.",
+          "english": "I live in Barcelona.",
+          "note": ""
+        },
+        {
+          "catalan": "Encantat / Encantada.",
+          "english": "Nice to meet you.",
+          "note": "m / f"
+        }
+      ]
+    },
+    {
+      "type": "rule",
+      "content": "Keep answers short. At A1, clear stock phrases beat long sentences."
+    }
+  ],
+  "practice": [
+    {
+      "id": "in-p01",
+      "kind": "multiple_choice",
+      "question": "How do you say ‘My name is…’?",
+      "options": [
+        "Em dic…",
+        "Em dius…",
+        "Soc dic…"
+      ],
+      "answer": "Em dic…",
+      "explanation": "Em dic + name."
+    },
+    {
+      "id": "in-p02",
+      "kind": "multiple_choice",
+      "question": "How do you ask ‘What’s your name?’ (informal)?",
+      "options": [
+        "Com et dius?",
+        "Com em dic?",
+        "On et dius?"
+      ],
+      "answer": "Com et dius?",
+      "explanation": "Com et dius?"
+    },
+    {
+      "id": "in-p03",
+      "kind": "multiple_choice",
+      "question": "‘I’m from Girona’ is…",
+      "options": [
+        "Soc de Girona.",
+        "Estic de Girona.",
+        "Visc de Girona."
+      ],
+      "answer": "Soc de Girona.",
+      "explanation": "Origin → ser + de."
+    },
+    {
+      "id": "in-p04",
+      "kind": "multiple_choice",
+      "question": "Nice to meet you (said by a woman):",
+      "options": [
+        "Encantada.",
+        "Encantat.",
+        "Encantats."
+      ],
+      "answer": "Encantada.",
+      "explanation": "Feminine form."
+    },
+    {
+      "id": "in-p05",
+      "kind": "cloze",
+      "prompt": "___ dic Marta.",
+      "hint": "My name is Marta",
+      "answer": "Em",
+      "explanation": "Em dic…"
+    },
+    {
+      "id": "in-p06",
+      "kind": "cloze",
+      "prompt": "Soc ___ València.",
+      "hint": "I’m from Valencia",
+      "answer": "de",
+      "explanation": "Soc de…"
+    },
+    {
+      "id": "in-p07",
+      "kind": "cloze",
+      "prompt": "Visc ___ Barcelona.",
+      "hint": "I live in Barcelona",
+      "answer": "a",
+      "explanation": "viure a + place."
+    },
+    {
+      "id": "in-p08",
+      "kind": "type_in",
+      "prompt": "What’s your name? (informal)",
+      "answers": [
+        "Com et dius?",
+        "Com et dius"
+      ],
+      "explanation": "Standard informal question."
+    },
+    {
+      "id": "in-p09",
+      "kind": "type_in",
+      "prompt": "I live in Barcelona",
+      "answers": [
+        "Visc a Barcelona."
+      ],
+      "explanation": "Visc a…"
+    },
+    {
+      "id": "in-p10",
+      "kind": "type_in",
+      "prompt": "Nice to meet you (masculine)",
+      "answers": [
+        "Encantat.",
+        "Encantat"
+      ],
+      "explanation": "Masculine form."
+    }
+  ]
+}

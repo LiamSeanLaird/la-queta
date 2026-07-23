@@ -1,0 +1,145 @@
+{
+  "id": "food-cafe",
+  "title": "Food & Café",
+  "order": 8,
+  "summary": "Order a drink or snack and understand simple café language.",
+  "sections": [
+    {
+      "type": "text",
+      "content": "Café and bar Spanish/Catalan life is core A1: asking for things politely, naming drinks and food, and understanding prices or ‘here you are’."
+    },
+    {
+      "type": "rule",
+      "content": "Vull… / Em posa… / Un cafè, si us plau. Use si us plau for please; gràcies for thanks."
+    },
+    {
+      "type": "examples",
+      "items": [
+        {
+          "catalan": "Un cafè amb llet, si us plau.",
+          "english": "A coffee with milk, please.",
+          "note": ""
+        },
+        {
+          "catalan": "Què vol beure?",
+          "english": "What would you like to drink?",
+          "note": "waiter → customer"
+        },
+        {
+          "catalan": "El compte, si us plau.",
+          "english": "The bill, please.",
+          "note": ""
+        },
+        {
+          "catalan": "Quant val?",
+          "english": "How much is it?",
+          "note": ""
+        }
+      ]
+    }
+  ],
+  "practice": [
+    {
+      "id": "fc-p01",
+      "kind": "multiple_choice",
+      "question": "How do you say ‘please’?",
+      "options": [
+        "si us plau",
+        "de res",
+        "gràcies"
+      ],
+      "answer": "si us plau",
+      "explanation": "si us plau = please."
+    },
+    {
+      "id": "fc-p02",
+      "kind": "multiple_choice",
+      "question": "‘The bill, please’ is…",
+      "options": [
+        "El compte, si us plau.",
+        "La carta, si us plau.",
+        "Un cafè, si us plau."
+      ],
+      "answer": "El compte, si us plau.",
+      "explanation": "el compte = the bill."
+    },
+    {
+      "id": "fc-p03",
+      "kind": "multiple_choice",
+      "question": "‘I want…’ (neutral) is often…",
+      "options": [
+        "Vull…",
+        "Soc…",
+        "Vaig…"
+      ],
+      "answer": "Vull…",
+      "explanation": "Vull + noun/phrase."
+    },
+    {
+      "id": "fc-p04",
+      "kind": "multiple_choice",
+      "question": "How much is it?",
+      "options": [
+        "Quant val?",
+        "On és?",
+        "Qui és?"
+      ],
+      "answer": "Quant val?",
+      "explanation": "price question."
+    },
+    {
+      "id": "fc-p05",
+      "kind": "cloze",
+      "prompt": "Un cafè ___ llet.",
+      "hint": "with",
+      "answer": "amb",
+      "explanation": "amb = with."
+    },
+    {
+      "id": "fc-p06",
+      "kind": "cloze",
+      "prompt": "___ compte, si us plau.",
+      "hint": "the bill",
+      "answer": "El",
+      "explanation": "El compte."
+    },
+    {
+      "id": "fc-p07",
+      "kind": "cloze",
+      "prompt": "___ us plau.",
+      "hint": "please",
+      "answer": "Si",
+      "explanation": "Si us plau."
+    },
+    {
+      "id": "fc-p08",
+      "kind": "type_in",
+      "prompt": "a water, please",
+      "answers": [
+        "Una aigua, si us plau.",
+        "Una aigua si us plau"
+      ],
+      "explanation": "Una aigua + si us plau."
+    },
+    {
+      "id": "fc-p09",
+      "kind": "type_in",
+      "prompt": "thank you",
+      "answers": [
+        "Gràcies.",
+        "Gràcies"
+      ],
+      "explanation": "Gràcies (accent)."
+    },
+    {
+      "id": "fc-p10",
+      "kind": "type_in",
+      "prompt": "How much is it?",
+      "answers": [
+        "Quant val?",
+        "Quant val"
+      ],
+      "explanation": "Quant val?"
+    }
+  ]
+}

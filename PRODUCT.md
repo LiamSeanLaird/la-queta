@@ -103,7 +103,10 @@ Do not invent a third progress system.
 - [ ] Later (optional): browse filter active vs retired
 
 ### Phase F — A1 Practice ✅
-See **`PHASE_9_A1_PRACTICE.md`**. Learn \| Practice tabs; MC + cloze + type-in; complete only after perfect Practice. Daily vocab → Phase 10.
+See **`PHASE_9_A1_PRACTICE.md`**. Learn \| Practice tabs; MC + cloze + type-in; complete only after perfect Practice.
+
+### Phase G — A1 path (in progress)
+See **`PHASE_10_A1_PATH.md`**. Can-dos + daily vocab shipped; coverage matrix; more lessons/vocab started. Listening / LLM speaking deferred.
 
 **Still out of scope:** SM-2 / difficulty ratings; audio playback; OAuth; email verification / magic-link / password reset email.
 

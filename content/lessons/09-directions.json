@@ -1,0 +1,145 @@
+{
+  "id": "directions",
+  "title": "Directions",
+  "order": 9,
+  "summary": "Ask where something is and understand basic street directions.",
+  "sections": [
+    {
+      "type": "text",
+      "content": "Getting around a Catalan-speaking city: asking ‘where is…?’, understanding left/right/straight, and recognising place names."
+    },
+    {
+      "type": "rule",
+      "content": "On és…? = Where is…? A la dreta / a l’esquerra / tot recte. Està aprop / lluny."
+    },
+    {
+      "type": "examples",
+      "items": [
+        {
+          "catalan": "On és l’estació?",
+          "english": "Where is the station?",
+          "note": ""
+        },
+        {
+          "catalan": "A la dreta.",
+          "english": "On the right.",
+          "note": ""
+        },
+        {
+          "catalan": "A l’esquerra.",
+          "english": "On the left.",
+          "note": ""
+        },
+        {
+          "catalan": "Tot recte.",
+          "english": "Straight ahead.",
+          "note": ""
+        }
+      ]
+    }
+  ],
+  "practice": [
+    {
+      "id": "di-p01",
+      "kind": "multiple_choice",
+      "question": "‘Where is the station?’",
+      "options": [
+        "On és l’estació?",
+        "Qui és l’estació?",
+        "Com és l’estació?"
+      ],
+      "answer": "On és l’estació?",
+      "explanation": "On és…?"
+    },
+    {
+      "id": "di-p02",
+      "kind": "multiple_choice",
+      "question": "‘On the right’ is…",
+      "options": [
+        "A la dreta.",
+        "A l’esquerra.",
+        "Tot recte."
+      ],
+      "answer": "A la dreta.",
+      "explanation": "dreta = right."
+    },
+    {
+      "id": "di-p03",
+      "kind": "multiple_choice",
+      "question": "‘Straight ahead’ is…",
+      "options": [
+        "Tot recte.",
+        "A prop.",
+        "De pressa."
+      ],
+      "answer": "Tot recte.",
+      "explanation": "tot recte."
+    },
+    {
+      "id": "di-p04",
+      "kind": "multiple_choice",
+      "question": "‘On the left’ is…",
+      "options": [
+        "A l’esquerra.",
+        "A la dreta.",
+        "Al centre."
+      ],
+      "answer": "A l’esquerra.",
+      "explanation": "esquerra = left."
+    },
+    {
+      "id": "di-p05",
+      "kind": "cloze",
+      "prompt": "___ és el museu?",
+      "hint": "Where",
+      "answer": "On",
+      "explanation": "On és…?"
+    },
+    {
+      "id": "di-p06",
+      "kind": "cloze",
+      "prompt": "A la ___.",
+      "hint": "right",
+      "answer": "dreta",
+      "explanation": "a la dreta."
+    },
+    {
+      "id": "di-p07",
+      "kind": "cloze",
+      "prompt": "A l’___.",
+      "hint": "left",
+      "answer": "esquerra",
+      "explanation": "a l’esquerra."
+    },
+    {
+      "id": "di-p08",
+      "kind": "type_in",
+      "prompt": "Where is the bathroom?",
+      "answers": [
+        "On és el bany?",
+        "On és el bany"
+      ],
+      "explanation": "On és el bany?"
+    },
+    {
+      "id": "di-p09",
+      "kind": "type_in",
+      "prompt": "straight ahead",
+      "answers": [
+        "Tot recte.",
+        "Tot recte"
+      ],
+      "explanation": "Tot recte."
+    },
+    {
+      "id": "di-p10",
+      "kind": "type_in",
+      "prompt": "on the right",
+      "answers": [
+        "A la dreta.",
+        "A la dreta"
+      ],
+      "explanation": "A la dreta."
+    }
+  ]
+}

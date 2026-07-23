@@ -1,35 +1,586 @@
 [
-  {"id": "ev_001", "catalan": "avui", "pronunciation": "uh-BWEE", "english": "today", "hint": "", "tags": ["time"], "pos": "adverb"},
-  {"id": "ev_002", "catalan": "ahir", "pronunciation": "uh-EER", "english": "yesterday", "hint": "", "tags": ["time"], "pos": "adverb"},
-  {"id": "ev_003", "catalan": "demà", "pronunciation": "duh-MAH", "english": "tomorrow", "hint": "", "tags": ["time"], "pos": "adverb"},
-  {"id": "ev_004", "catalan": "ara", "pronunciation": "AH-ruh", "english": "now", "hint": "", "tags": ["time"], "pos": "adverb"},
-  {"id": "ev_005", "catalan": "després", "pronunciation": "duhs-PREHS", "english": "later / after", "hint": "", "tags": ["time"], "pos": "adverb"},
-  {"id": "ev_013", "catalan": "el matí", "pronunciation": "ul muh-TEE", "english": "the morning", "hint": "", "tags": ["time"], "pos": "noun", "gender": "m", "plural": "els matins"},
-  {"id": "ev_014", "catalan": "la tarda", "pronunciation": "luh TAR-duh", "english": "the afternoon", "hint": "", "tags": ["time"], "pos": "noun", "gender": "f", "plural": "les tardes"},
-  {"id": "ev_015", "catalan": "el vespre", "pronunciation": "ul BES-pruh", "english": "the evening", "hint": "", "tags": ["time"], "pos": "noun", "gender": "m", "plural": "els vespres"},
-  {"id": "ev_016", "catalan": "la nit", "pronunciation": "luh neet", "english": "the night", "hint": "", "tags": ["time"], "pos": "noun", "gender": "f", "plural": "les nits"},
-  {"id": "ev_017", "catalan": "el pa", "pronunciation": "ul pah", "english": "bread", "hint": "", "tags": ["food"], "pos": "noun", "gender": "m", "plural": "els pans"},
-  {"id": "ev_018", "catalan": "l'aigua", "pronunciation": "LAI-gwuh", "english": "water", "hint": "", "tags": ["food"], "pos": "noun", "gender": "f", "plural": "les aigües"},
-  {"id": "ev_019", "catalan": "el vi", "pronunciation": "ul bee", "english": "wine", "hint": "", "tags": ["food"], "pos": "noun", "gender": "m", "plural": "els vins"},
-  {"id": "ev_020", "catalan": "la cervesa", "pronunciation": "luh sur-BEH-zuh", "english": "beer", "hint": "", "tags": ["food"], "pos": "noun", "gender": "f", "plural": "les cerveses"},
-  {"id": "ev_021", "catalan": "el cafè", "pronunciation": "ul kuh-FEH", "english": "coffee", "hint": "", "tags": ["food"], "pos": "noun", "gender": "m", "plural": "els cafès"},
-  {"id": "ev_022", "catalan": "la carn", "pronunciation": "luh karn", "english": "meat", "hint": "", "tags": ["food"], "pos": "noun", "gender": "f", "plural": "les carns"},
-  {"id": "ev_023", "catalan": "el peix", "pronunciation": "ul pesh", "english": "fish", "hint": "", "tags": ["food"], "pos": "noun", "gender": "m", "plural": "els peixos"},
-  {"id": "ev_024", "catalan": "les verdures", "pronunciation": "luhs bur-DOO-ruhs", "english": "vegetables", "hint": "plural", "tags": ["food"], "pos": "noun", "gender": "f", "plural": "les verdures"},
-  {"id": "ev_025", "catalan": "la fruita", "pronunciation": "luh FRWEE-tuh", "english": "fruit", "hint": "", "tags": ["food"], "pos": "noun", "gender": "f", "plural": "les fruites"},
-  {"id": "ev_026", "catalan": "esmorzar", "pronunciation": "uz-mur-ZAR", "english": "breakfast / to have breakfast", "hint": "", "tags": ["food"], "pos": "verb", "forms": ["esmorzant", "esmorzat"]},
-  {"id": "ev_027", "catalan": "dinar", "pronunciation": "dee-NAR", "english": "lunch / to have lunch", "hint": "", "tags": ["food"], "pos": "verb", "forms": ["dinant", "dinat"]},
-  {"id": "ev_028", "catalan": "sopar", "pronunciation": "soo-PAR", "english": "dinner / to have dinner", "hint": "", "tags": ["food"], "pos": "verb", "forms": ["sopant", "sopat"]},
-  {"id": "ev_029", "catalan": "gran", "pronunciation": "gran", "english": "big / large", "hint": "same m/f form", "tags": ["adjectives"], "pos": "adjective"},
-  {"id": "ev_030", "catalan": "petit / petita", "pronunciation": "puh-TEET / puh-TEE-tuh", "english": "small", "hint": "masc / fem", "tags": ["adjectives"], "pos": "adjective"},
-  {"id": "ev_031", "catalan": "bo / bona", "pronunciation": "boh / BOH-nuh", "english": "good", "hint": "masc / fem", "tags": ["adjectives"], "pos": "adjective"},
-  {"id": "ev_032", "catalan": "dolent / dolenta", "pronunciation": "doo-LEN / doo-LEN-tuh", "english": "bad", "hint": "masc / fem", "tags": ["adjectives"], "pos": "adjective"},
-  {"id": "ev_033", "catalan": "car / cara", "pronunciation": "kar / KAH-ruh", "english": "expensive", "hint": "masc / fem", "tags": ["adjectives"], "pos": "adjective"},
-  {"id": "ev_034", "catalan": "barat / barata", "pronunciation": "buh-RAT / buh-RAH-tuh", "english": "cheap", "hint": "masc / fem", "tags": ["adjectives"], "pos": "adjective"},
-  {"id": "ev_035", "catalan": "obert / oberta", "pronunciation": "oo-BERT / oo-BER-tuh", "english": "open", "hint": "masc / fem", "tags": ["adjectives"], "pos": "adjective"},
-  {"id": "ev_036", "catalan": "tancat / tancada", "pronunciation": "tan-KAT / tan-KAH-duh", "english": "closed", "hint": "masc / fem", "tags": ["adjectives"], "pos": "adjective"},
-  {"id": "ev_037", "catalan": "aquí", "pronunciation": "uh-KEE", "english": "here", "hint": "", "tags": ["place"], "pos": "adverb"},
-  {"id": "ev_038", "catalan": "allà", "pronunciation": "uh-YAH", "english": "there", "hint": "", "tags": ["place"], "pos": "adverb"},
-  {"id": "ev_039", "catalan": "a la dreta", "pronunciation": "uh luh DREH-tuh", "english": "on the right", "hint": "", "tags": ["place"], "pos": "phrase"},
-  {"id": "ev_040", "catalan": "a l'esquerra", "pronunciation": "uh luhs-KEH-ruh", "english": "on the left", "hint": "", "tags": ["place"], "pos": "phrase"}
+  {
+    "id": "ev_001",
+    "catalan": "avui",
+    "pronunciation": "uh-BWEE",
+    "english": "today",
+    "hint": "",
+    "tags": [
+      "time"
+    ],
+    "pos": "adverb"
+  },
+  {
+    "id": "ev_002",
+    "catalan": "ahir",
+    "pronunciation": "uh-EER",
+    "english": "yesterday",
+    "hint": "",
+    "tags": [
+      "time"
+    ],
+    "pos": "adverb"
+  },
+  {
+    "id": "ev_003",
+    "catalan": "demà",
+    "pronunciation": "duh-MAH",
+    "english": "tomorrow",
+    "hint": "",
+    "tags": [
+      "time"
+    ],
+    "pos": "adverb"
+  },
+  {
+    "id": "ev_004",
+    "catalan": "ara",
+    "pronunciation": "AH-ruh",
+    "english": "now",
+    "hint": "",
+    "tags": [
+      "time"
+    ],
+    "pos": "adverb"
+  },
+  {
+    "id": "ev_005",
+    "catalan": "després",
+    "pronunciation": "duhs-PREHS",
+    "english": "later / after",
+    "hint": "",
+    "tags": [
+      "time"
+    ],
+    "pos": "adverb"
+  },
+  {
+    "id": "ev_013",
+    "catalan": "el matí",
+    "pronunciation": "ul muh-TEE",
+    "english": "the morning",
+    "hint": "",
+    "tags": [
+      "time"
+    ],
+    "pos": "noun",
+    "gender": "m",
+    "plural": "els matins"
+  },
+  {
+    "id": "ev_014",
+    "catalan": "la tarda",
+    "pronunciation": "luh TAR-duh",
+    "english": "the afternoon",
+    "hint": "",
+    "tags": [
+      "time"
+    ],
+    "pos": "noun",
+    "gender": "f",
+    "plural": "les tardes"
+  },
+  {
+    "id": "ev_015",
+    "catalan": "el vespre",
+    "pronunciation": "ul BES-pruh",
+    "english": "the evening",
+    "hint": "",
+    "tags": [
+      "time"
+    ],
+    "pos": "noun",
+    "gender": "m",
+    "plural": "els vespres"
+  },
+  {
+    "id": "ev_016",
+    "catalan": "la nit",
+    "pronunciation": "luh neet",
+    "english": "the night",
+    "hint": "",
+    "tags": [
+      "time"
+    ],
+    "pos": "noun",
+    "gender": "f",
+    "plural": "les nits"
+  },
+  {
+    "id": "ev_017",
+    "catalan": "el pa",
+    "pronunciation": "ul pah",
+    "english": "bread",
+    "hint": "",
+    "tags": [
+      "food"
+    ],
+    "pos": "noun",
+    "gender": "m",
+    "plural": "els pans"
+  },
+  {
+    "id": "ev_018",
+    "catalan": "l'aigua",
+    "pronunciation": "LAI-gwuh",
+    "english": "water",
+    "hint": "",
+    "tags": [
+      "food"
+    ],
+    "pos": "noun",
+    "gender": "f",
+    "plural": "les aigües"
+  },
+  {
+    "id": "ev_019",
+    "catalan": "el vi",
+    "pronunciation": "ul bee",
+    "english": "wine",
+    "hint": "",
+    "tags": [
+      "food"
+    ],
+    "pos": "noun",
+    "gender": "m",
+    "plural": "els vins"
+  },
+  {
+    "id": "ev_020",
+    "catalan": "la cervesa",
+    "pronunciation": "luh sur-BEH-zuh",
+    "english": "beer",
+    "hint": "",
+    "tags": [
+      "food"
+    ],
+    "pos": "noun",
+    "gender": "f",
+    "plural": "les cerveses"
+  },
+  {
+    "id": "ev_021",
+    "catalan": "el cafè",
+    "pronunciation": "ul kuh-FEH",
+    "english": "coffee",
+    "hint": "",
+    "tags": [
+      "food"
+    ],
+    "pos": "noun",
+    "gender": "m",
+    "plural": "els cafès"
+  },
+  {
+    "id": "ev_022",
+    "catalan": "la carn",
+    "pronunciation": "luh karn",
+    "english": "meat",
+    "hint": "",
+    "tags": [
+      "food"
+    ],
+    "pos": "noun",
+    "gender": "f",
+    "plural": "les carns"
+  },
+  {
+    "id": "ev_023",
+    "catalan": "el peix",
+    "pronunciation": "ul pesh",
+    "english": "fish",
+    "hint": "",
+    "tags": [
+      "food"
+    ],
+    "pos": "noun",
+    "gender": "m",
+    "plural": "els peixos"
+  },
+  {
+    "id": "ev_024",
+    "catalan": "les verdures",
+    "pronunciation": "luhs bur-DOO-ruhs",
+    "english": "vegetables",
+    "hint": "plural",
+    "tags": [
+      "food"
+    ],
+    "pos": "noun",
+    "gender": "f",
+    "plural": "les verdures"
+  },
+  {
+    "id": "ev_025",
+    "catalan": "la fruita",
+    "pronunciation": "luh FRWEE-tuh",
+    "english": "fruit",
+    "hint": "",
+    "tags": [
+      "food"
+    ],
+    "pos": "noun",
+    "gender": "f",
+    "plural": "les fruites"
+  },
+  {
+    "id": "ev_026",
+    "catalan": "esmorzar",
+    "pronunciation": "uz-mur-ZAR",
+    "english": "breakfast / to have breakfast",
+    "hint": "",
+    "tags": [
+      "food"
+    ],
+    "pos": "verb",
+    "forms": [
+      "esmorzant",
+      "esmorzat"
+    ]
+  },
+  {
+    "id": "ev_027",
+    "catalan": "dinar",
+    "pronunciation": "dee-NAR",
+    "english": "lunch / to have lunch",
+    "hint": "",
+    "tags": [
+      "food"
+    ],
+    "pos": "verb",
+    "forms": [
+      "dinant",
+      "dinat"
+    ]
+  },
+  {
+    "id": "ev_028",
+    "catalan": "sopar",
+    "pronunciation": "soo-PAR",
+    "english": "dinner / to have dinner",
+    "hint": "",
+    "tags": [
+      "food"
+    ],
+    "pos": "verb",
+    "forms": [
+      "sopant",
+      "sopat"
+    ]
+  },
+  {
+    "id": "ev_029",
+    "catalan": "gran",
+    "pronunciation": "gran",
+    "english": "big / large",
+    "hint": "same m/f form",
+    "tags": [
+      "adjectives"
+    ],
+    "pos": "adjective"
+  },
+  {
+    "id": "ev_030",
+    "catalan": "petit / petita",
+    "pronunciation": "puh-TEET / puh-TEE-tuh",
+    "english": "small",
+    "hint": "masc / fem",
+    "tags": [
+      "adjectives"
+    ],
+    "pos": "adjective"
+  },
+  {
+    "id": "ev_031",
+    "catalan": "bo / bona",
+    "pronunciation": "boh / BOH-nuh",
+    "english": "good",
+    "hint": "masc / fem",
+    "tags": [
+      "adjectives"
+    ],
+    "pos": "adjective"
+  },
+  {
+    "id": "ev_032",
+    "catalan": "dolent / dolenta",
+    "pronunciation": "doo-LEN / doo-LEN-tuh",
+    "english": "bad",
+    "hint": "masc / fem",
+    "tags": [
+      "adjectives"
+    ],
+    "pos": "adjective"
+  },
+  {
+    "id": "ev_033",
+    "catalan": "car / cara",
+    "pronunciation": "kar / KAH-ruh",
+    "english": "expensive",
+    "hint": "masc / fem",
+    "tags": [
+      "adjectives"
+    ],
+    "pos": "adjective"
+  },
+  {
+    "id": "ev_034",
+    "catalan": "barat / barata",
+    "pronunciation": "buh-RAT / buh-RAH-tuh",
+    "english": "cheap",
+    "hint": "masc / fem",
+    "tags": [
+      "adjectives"
+    ],
+    "pos": "adjective"
+  },
+  {
+    "id": "ev_035",
+    "catalan": "obert / oberta",
+    "pronunciation": "oo-BERT / oo-BER-tuh",
+    "english": "open",
+    "hint": "masc / fem",
+    "tags": [
+      "adjectives"
+    ],
+    "pos": "adjective"
+  },
+  {
+    "id": "ev_036",
+    "catalan": "tancat / tancada",
+    "pronunciation": "tan-KAT / tan-KAH-duh",
+    "english": "closed",
+    "hint": "masc / fem",
+    "tags": [
+      "adjectives"
+    ],
+    "pos": "adjective"
+  },
+  {
+    "id": "ev_037",
+    "catalan": "aquí",
+    "pronunciation": "uh-KEE",
+    "english": "here",
+    "hint": "",
+    "tags": [
+      "place"
+    ],
+    "pos": "adverb"
+  },
+  {
+    "id": "ev_038",
+    "catalan": "allà",
+    "pronunciation": "uh-YAH",
+    "english": "there",
+    "hint": "",
+    "tags": [
+      "place"
+    ],
+    "pos": "adverb"
+  },
+  {
+    "id": "ev_039",
+    "catalan": "a la dreta",
+    "pronunciation": "uh luh DREH-tuh",
+    "english": "on the right",
+    "hint": "",
+    "tags": [
+      "place"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "ev_040",
+    "catalan": "a l'esquerra",
+    "pronunciation": "uh luhs-KEH-ruh",
+    "english": "on the left",
+    "hint": "",
+    "tags": [
+      "place"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "ev_041",
+    "catalan": "el cafè",
+    "pronunciation": "ul kuh-FEH",
+    "english": "the coffee / café",
+    "hint": "",
+    "tags": [
+      "food"
+    ],
+    "pos": "noun",
+    "gender": "m",
+    "plural": "els cafès"
+  },
+  {
+    "id": "ev_042",
+    "catalan": "el te",
+    "pronunciation": "ul teh",
+    "english": "the tea",
+    "hint": "",
+    "tags": [
+      "food"
+    ],
+    "pos": "noun",
+    "gender": "m",
+    "plural": "els tes"
+  },
+  {
+    "id": "ev_043",
+    "catalan": "la cervesa",
+    "pronunciation": "luh sur-VEH-zuh",
+    "english": "the beer",
+    "hint": "",
+    "tags": [
+      "food"
+    ],
+    "pos": "noun",
+    "gender": "f",
+    "plural": "les cerveses"
+  },
+  {
+    "id": "ev_044",
+    "catalan": "el vi",
+    "pronunciation": "ul vee",
+    "english": "the wine",
+    "hint": "",
+    "tags": [
+      "food"
+    ],
+    "pos": "noun",
+    "gender": "m",
+    "plural": "els vins"
+  },
+  {
+    "id": "ev_045",
+    "catalan": "el suc",
+    "pronunciation": "ul sook",
+    "english": "the juice",
+    "hint": "",
+    "tags": [
+      "food"
+    ],
+    "pos": "noun",
+    "gender": "m",
+    "plural": "els sucs"
+  },
+  {
+    "id": "ev_046",
+    "catalan": "el pa amb tomàquet",
+    "pronunciation": "ul pan um too-MAH-kut",
+    "english": "bread with tomato",
+    "hint": "",
+    "tags": [
+      "food"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "ev_047",
+    "catalan": "la truita",
+    "pronunciation": "luh TROO-ee-tuh",
+    "english": "the omelette",
+    "hint": "",
+    "tags": [
+      "food"
+    ],
+    "pos": "noun",
+    "gender": "f",
+    "plural": "les truites"
+  },
+  {
+    "id": "ev_048",
+    "catalan": "el menú",
+    "pronunciation": "ul muh-NOO",
+    "english": "the menu / set lunch",
+    "hint": "",
+    "tags": [
+      "food"
+    ],
+    "pos": "noun",
+    "gender": "m",
+    "plural": "els menús"
+  },
+  {
+    "id": "ev_049",
+    "catalan": "la carta",
+    "pronunciation": "luh KAR-tuh",
+    "english": "the menu (list)",
+    "hint": "",
+    "tags": [
+      "food"
+    ],
+    "pos": "noun",
+    "gender": "f",
+    "plural": "les cartes"
+  },
+  {
+    "id": "ev_050",
+    "catalan": "el compte",
+    "pronunciation": "ul KOM-tuh",
+    "english": "the bill",
+    "hint": "",
+    "tags": [
+      "food"
+    ],
+    "pos": "noun",
+    "gender": "m",
+    "plural": "els comptes"
+  },
+  {
+    "id": "ev_051",
+    "catalan": "Em posa...",
+    "pronunciation": "um POH-zuh",
+    "english": "Could I have... (please bring)",
+    "hint": "",
+    "tags": [
+      "food"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "ev_052",
+    "catalan": "Per mi...",
+    "pronunciation": "pur mee",
+    "english": "For me...",
+    "hint": "",
+    "tags": [
+      "food"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "ev_053",
+    "catalan": "Està bo / bona",
+    "pronunciation": "us-TAH boh / BOH-nuh",
+    "english": "It's tasty (m/f)",
+    "hint": "",
+    "tags": [
+      "food"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "ev_054",
+    "catalan": "Sense sucre",
+    "pronunciation": "SEN-suh SOO-kruh",
+    "english": "Without sugar",
+    "hint": "",
+    "tags": [
+      "food"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "ev_055",
+    "catalan": "Amb gel",
+    "pronunciation": "am zhel",
+    "english": "With ice",
+    "hint": "",
+    "tags": [
+      "food"
+    ],
+    "pos": "phrase"
+  }
 ]

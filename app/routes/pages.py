@@ -5,8 +5,9 @@ from app.extensions import db
 from app.models import Deck, Level
 from app.services.auth import current_user
 from app.services.errors import ServiceError
+from app.services.can_dos import list_can_dos_for_level
 from app.services.lessons import get_lesson, list_lessons_for_level
-from app.services.levels import list_levels_for_user, select_level
+from app.services.levels import list_levels_for_user, select_level, level_is_open
 from app.services.progress import continue_target, level_completeness_pct
 from app.services.vocab import list_cards_for_deck, list_decks_for_level
 
@@ -80,6 +81,7 @@ def level_home(level_id: str):
 
     lessons = list_lessons_for_level(user, level_id) if tab == "learn" else []
     decks = list_decks_for_level(user, level_id) if tab == "vocab" else []
+    can_dos = list_can_dos_for_level(user, level_id) if tab == "learn" else []
     target = continue_target(user, level_id=level_id)
     return render_template(
         "level.html",
@@ -88,6 +90,7 @@ def level_home(level_id: str):
         tab=tab,
         lessons=lessons,
         decks=decks,
+        can_dos=can_dos,
         complete_pct=level_completeness_pct(user.id, level_id),
         continue_target=target,
         continue_href=_continue_href(target) if target else None,
@@ -174,7 +177,33 @@ def study(slug: str):
     return render_template(
         "study.html",
         user=user,
-        deck=deck_data,
+        study_title=f"Study {deck_data['title']}",
+        session_url=url_for("api_vocab.deck_session", slug=slug),
+        exit_url=url_for("pages.deck", slug=slug),
+        back_label="← Deck",
+        done_message="Deck complete for now — all cards retired or none left.",
+        brand_href=url_for("pages.levels"),
+    )
+
+
+@bp.get("/levels/<level_id>/daily")
+def daily(level_id: str):
+    user, bounced = _login_required()
+    if bounced:
+        return bounced
+    if not level_is_open(level_id):
+        return redirect(url_for("pages.levels"))
+    level = db.session.get(Level, level_id)
+    if level is None:
+        return redirect(url_for("pages.levels"))
+    return render_template(
+        "study.html",
+        user=user,
+        study_title=f"Daily vocab · {level.code}",
+        session_url=url_for("api_vocab.level_daily", level_id=level_id),
+        exit_url=url_for("pages.level_home", level_id=level_id, tab="vocab"),
+        back_label="← Vocab",
+        done_message="Daily session complete.",
         brand_href=url_for("pages.levels"),
     )
 

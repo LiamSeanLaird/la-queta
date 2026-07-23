@@ -1,0 +1,177 @@
+[
+  {
+    "id": "sh_001",
+    "catalan": "la botiga",
+    "pronunciation": "luh boo-TEE-guh",
+    "english": "the shop",
+    "hint": "",
+    "tags": [
+      "shopping"
+    ],
+    "pos": "noun",
+    "gender": "f",
+    "plural": "les botigues"
+  },
+  {
+    "id": "sh_002",
+    "catalan": "el mercat",
+    "pronunciation": "ul mur-KAT",
+    "english": "the market",
+    "hint": "",
+    "tags": [
+      "shopping"
+    ],
+    "pos": "noun",
+    "gender": "m",
+    "plural": "els mercats"
+  },
+  {
+    "id": "sh_003",
+    "catalan": "Quant costa?",
+    "pronunciation": "kwant KOS-tuh",
+    "english": "How much does it cost?",
+    "hint": "",
+    "tags": [
+      "shopping"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "sh_004",
+    "catalan": "És massa car",
+    "pronunciation": "ehs MAH-suh kar",
+    "english": "It's too expensive",
+    "hint": "",
+    "tags": [
+      "shopping"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "sh_005",
+    "catalan": "Hi ha descompte?",
+    "pronunciation": "ee ah dus-KOM-tuh",
+    "english": "Is there a discount?",
+    "hint": "",
+    "tags": [
+      "shopping"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "sh_006",
+    "catalan": "Ho porto",
+    "pronunciation": "oo POR-too",
+    "english": "I'll take it",
+    "hint": "",
+    "tags": [
+      "shopping"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "sh_007",
+    "catalan": "la mida",
+    "pronunciation": "luh MEE-duh",
+    "english": "the size",
+    "hint": "",
+    "tags": [
+      "shopping"
+    ],
+    "pos": "noun",
+    "gender": "f",
+    "plural": "les mides"
+  },
+  {
+    "id": "sh_008",
+    "catalan": "Provar-me'l",
+    "pronunciation": "proo-VAR-mul",
+    "english": "To try it on",
+    "hint": "",
+    "tags": [
+      "shopping"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "sh_009",
+    "catalan": "la targeta",
+    "pronunciation": "luh tar-ZHEH-tuh",
+    "english": "the (bank) card",
+    "hint": "",
+    "tags": [
+      "shopping"
+    ],
+    "pos": "noun",
+    "gender": "f",
+    "plural": "les targetes"
+  },
+  {
+    "id": "sh_010",
+    "catalan": "en efectiu",
+    "pronunciation": "un uh-fuk-TEE-oo",
+    "english": "in cash",
+    "hint": "",
+    "tags": [
+      "shopping"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "sh_011",
+    "catalan": "la bossa",
+    "pronunciation": "luh BOH-suh",
+    "english": "the bag",
+    "hint": "",
+    "tags": [
+      "shopping"
+    ],
+    "pos": "noun",
+    "gender": "f",
+    "plural": "les bosses"
+  },
+  {
+    "id": "sh_012",
+    "catalan": "Obert / Tancat",
+    "pronunciation": "oo-BERT / tun-KAT",
+    "english": "Open / Closed",
+    "hint": "",
+    "tags": [
+      "shopping"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "sh_013",
+    "catalan": "Busco...",
+    "pronunciation": "BOOS-koo",
+    "english": "I'm looking for...",
+    "hint": "",
+    "tags": [
+      "shopping"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "sh_014",
+    "catalan": "Només miro",
+    "pronunciation": "noo-MES MEE-roo",
+    "english": "I'm just looking",
+    "hint": "",
+    "tags": [
+      "shopping"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "sh_015",
+    "catalan": "Me'l pot embolicar?",
+    "pronunciation": "mul pot um-boo-lee-KAR",
+    "english": "Can you wrap it?",
+    "hint": "",
+    "tags": [
+      "shopping"
+    ],
+    "pos": "phrase"
+  }
+]

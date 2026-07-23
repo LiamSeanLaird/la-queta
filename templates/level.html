@@ -16,12 +16,28 @@
   <p class="text-muted">This level is complete — nice work.</p>
   {% endif %}
 
+  <a class="btn btn--secondary btn--block" href="{{ url_for('pages.daily', level_id=level.id) }}">Daily vocab</a>
+
   <div class="tab-bar" role="tablist">
     <a class="tab-btn{% if tab == 'learn' %} is-active{% endif %}" href="{{ url_for('pages.level_home', level_id=level.id) }}">Learn</a>
     <a class="tab-btn{% if tab == 'vocab' %} is-active{% endif %}" href="{{ url_for('pages.level_home', level_id=level.id, tab='vocab') }}">Vocab</a>
   </div>
 
   {% if tab == 'learn' %}
+  {% if can_dos %}
+  <div class="stack">
+    <h3 class="heading-3">Can-dos</h3>
+    <p class="text-muted">Tick by completing the linked lessons.</p>
+    <ul class="can-do-list">
+      {% for item in can_dos %}
+      <li class="can-do{% if item.done %} is-done{% endif %}">
+        <span class="can-do__mark" aria-hidden="true">{% if item.done %}✓{% else %}○{% endif %}</span>
+        <span>{{ item.label }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
   <div class="list">
     {% for lesson in lessons %}
     <a class="list-row" href="{{ url_for('pages.lesson', lesson_id=lesson.id) }}">

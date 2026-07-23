@@ -3,6 +3,7 @@ from flask import Blueprint, jsonify
 from app.services.auth import require_user
 from app.services.errors import ServiceError
 from app.services.vocab import (
+    daily_session_for_level,
     increment_seen,
     list_cards_for_deck,
     list_decks_for_level,
@@ -39,6 +40,16 @@ def deck_session(slug: str):
     try:
         user = require_user()
         cards = session_for_deck(user, slug)
+    except ServiceError as exc:
+        return jsonify({"error": exc.message}), exc.status_code
+    return jsonify({"cards": cards})
+
+
+@bp.get("/api/levels/<level_id>/daily")
+def level_daily(level_id: str):
+    try:
+        user = require_user()
+        cards = daily_session_for_level(user, level_id)
     except ServiceError as exc:
         return jsonify({"error": exc.message}), exc.status_code
     return jsonify({"cards": cards})

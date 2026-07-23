@@ -1,10 +1,15 @@
 {% extends "base.html" %}
-{% block title %}Study {{ deck.title }} — La Queta{% endblock %}
+{% block title %}{{ study_title }} — La Queta{% endblock %}
 {% block tagline %}Hola, {{ user.handle }}{% endblock %}
 {% set brand_href = url_for('pages.levels') %}
 {% block content %}
-<section class="stack-lg" id="study-page" data-deck-slug="{{ deck.slug }}" data-deck-url="{{ url_for('pages.deck', slug=deck.slug) }}">
-  <a class="btn btn--ghost" href="{{ url_for('pages.deck', slug=deck.slug) }}">← Deck</a>
+<section
+  class="stack-lg"
+  id="study-page"
+  data-session-url="{{ session_url }}"
+  data-exit-url="{{ exit_url }}"
+>
+  <a class="btn btn--ghost" href="{{ exit_url }}">{{ back_label }}</a>
   <div class="progress-meta">
     <span id="study-progress-text">Loading…</span>
     <span id="study-remaining"></span>
@@ -27,7 +32,7 @@
       <button type="button" class="btn btn--secondary" id="study-next">Next</button>
     </div>
   </div>
-  <p class="text-muted" id="study-done" hidden>Deck complete for now — all cards retired or none left.</p>
+  <p class="text-muted" id="study-done" hidden>{{ done_message }}</p>
   <p class="field__error" id="study-error" hidden></p>
 
   <dialog class="dialog" id="study-tip-dialog" aria-labelledby="study-tip-title">
@@ -52,7 +57,7 @@
       <h3 class="heading-3" id="retire-dialog-title">Retire this word?</h3>
       <p class="text-muted">
         Retired words leave study sessions (you’re done reviewing them) but stay in Browse.
-        They still count toward your vocab progress.
+        They still count toward your vocab progress. Daily vocab may still soft-reintroduce them.
       </p>
       <label class="check-row">
         <input type="checkbox" id="retire-dont-show" checked>

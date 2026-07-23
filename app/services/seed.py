@@ -27,6 +27,7 @@ DECK_SORT_ORDER = {
     "family": 5,
     "home_daily": 6,
     "social_phrases": 7,
+    "shopping": 8,
 }
 
 

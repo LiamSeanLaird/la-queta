@@ -5,8 +5,8 @@
   const RETIRE_SKIP_KEY = "la-queta-retire-skip-confirm";
   const TIP_SKIP_KEY = "la-queta-study-tip-skip";
 
-  const slug = page.dataset.deckSlug;
-  const deckUrl = page.dataset.deckUrl;
+  const sessionUrl = page.dataset.sessionUrl;
+  const exitUrl = page.dataset.exitUrl;
   const studyCard = document.getElementById("study-card");
   const studyLang = document.getElementById("study-lang");
   const studyWord = document.getElementById("study-word");
@@ -111,8 +111,8 @@
     studyProgressText.textContent = "Done";
     studyRemaining.textContent = "";
     studyProgressBar.style.width = "100%";
-    if (deckUrl) {
-      window.location.assign(deckUrl);
+    if (exitUrl) {
+      window.location.assign(exitUrl);
     }
   }
 
@@ -210,7 +210,11 @@
   }
 
   async function boot() {
-    const { response, body } = await window.LaQueta.api(`/api/decks/${slug}/session`);
+    if (!sessionUrl) {
+      window.LaQueta.showError(studyError, "Missing study session");
+      return;
+    }
+    const { response, body } = await window.LaQueta.api(sessionUrl);
     if (!response.ok) {
       window.LaQueta.showError(studyError, body.error || "Could not start study");
       return;

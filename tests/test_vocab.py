@@ -28,8 +28,8 @@ def test_seed_decks_into_a1(migrated_app):
         from app.extensions import db
         from app.models import Card, Deck
 
-        assert db.session.scalar(select(func.count()).select_from(Deck)) == 7
-        assert db.session.scalar(select(func.count()).select_from(Card)) == 189
+        assert db.session.scalar(select(func.count()).select_from(Deck)) == 8
+        assert db.session.scalar(select(func.count()).select_from(Card)) == 244
         a2_decks = db.session.scalar(
             select(func.count()).select_from(Deck).where(Deck.level_id == "a2")
         )
@@ -48,7 +48,7 @@ def test_list_a1_decks_and_empty_a2(migrated_app, migrated_client):
     a1 = migrated_client.get("/api/levels/a1/decks")
     assert a1.status_code == 200
     decks = a1.get_json()["decks"]
-    assert len(decks) == 7
+    assert len(decks) == 8
     assert decks[0]["slug"] == "starter"
     assert decks[0]["total"] > 0
     assert decks[0]["retired"] == 0

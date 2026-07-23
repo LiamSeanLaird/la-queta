@@ -170,10 +170,7 @@ match(user, accepted) = normalize(user) in { normalize(a) for a in accepted }
 
 ## Phase 10 candidates
 
-1. Daily vocab from level unretired (+ light reintroduction of recently retired).  
-2. Listening discrimination once media policy allows.  
-3. A1 can-do checklist mapped to lessons/decks.  
-4. More A1 dialogue / high-frequency chunk content.
+Superseded by **`PHASE_10_A1_PATH.md`** (coverage, daily vocab, listening + LLM speaking deferred).
 
 ---
 

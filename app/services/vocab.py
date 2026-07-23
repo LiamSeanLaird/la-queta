@@ -91,6 +91,41 @@ def session_for_deck(user: User, slug: str) -> list[dict]:
     return active
 
 
+DAILY_LIMIT = 20
+
+
+def list_cards_for_level(user: User, level_id: str) -> list[dict]:
+    from app.models import Level
+
+    if db.session.get(Level, level_id) is None:
+        raise ServiceError("Level not found", 404)
+
+    cards = db.session.scalars(
+        select(Card)
+        .join(Deck, Deck.id == Card.deck_id)
+        .where(Deck.level_id == level_id)
+        .order_by(Card.id)
+    ).all()
+    seen = _seen_map(user.id, [card.id for card in cards])
+    return [_card_dict(card, seen.get(card.id, 0)) for card in cards]
+
+
+def daily_session_for_level(
+    user: User, level_id: str, limit: int = DAILY_LIMIT
+) -> list[dict]:
+    """Prefer unretired cards; fill remainder from retired (soft reintroduce)."""
+    cards = list_cards_for_level(user, level_id)
+    active = [card for card in cards if not card["retired"]]
+    retired = [card for card in cards if card["retired"]]
+    random.shuffle(active)
+    random.shuffle(retired)
+    picked = active[:limit]
+    if len(picked) < limit:
+        picked.extend(retired[: limit - len(picked)])
+    random.shuffle(picked)
+    return picked
+
+
 def increment_seen(user: User, card_id: int) -> dict:
     card = db.session.get(Card, card_id)
     if card is None:

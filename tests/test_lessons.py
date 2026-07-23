@@ -23,7 +23,7 @@ def _register(client, handle: str = "liam"):
 def test_seed_lessons_into_a1(migrated_app):
     with migrated_app.app_context():
         seed_all()
-        assert seed_lessons() == 6
+        assert seed_lessons() == 9
 
 
 def test_list_lessons_requires_auth(migrated_client):
@@ -39,7 +39,7 @@ def test_list_a1_lessons_and_empty_a2(migrated_app, migrated_client):
     a1 = migrated_client.get("/api/levels/a1/lessons")
     assert a1.status_code == 200
     lessons = a1.get_json()["lessons"]
-    assert len(lessons) == 6
+    assert len(lessons) == 9
     assert lessons[0]["id"] == "noun-gender"
     assert lessons[0]["completed"] is False
 
@@ -81,8 +81,8 @@ def test_complete_lesson_persists_progress(migrated_app, migrated_client):
 
     levels = migrated_client.get("/api/levels").get_json()["levels"]
     a1 = next(row for row in levels if row["id"] == "a1")
-    # 1/6 lessons done, 0/189 vocab retired → round(100 * (0.7/6 + 0)) == 12
-    assert a1["complete_pct"] == 12
+    # 1/9 lessons done, 0 vocab retired → round(100 * (0.7/9 + 0)) == 8
+    assert a1["complete_pct"] == 8
 
 
 def test_complete_lesson_rejects_bad_score(migrated_app, migrated_client):

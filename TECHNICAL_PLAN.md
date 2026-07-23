@@ -253,6 +253,14 @@ See **`PHASE_9_A1_PRACTICE.md`**. Learn \| Practice tabs; cloze + type-in; pract
 - [x] Lesson Learn \| Practice tabs + drill UI
 - [x] Complete gate + docs
 
+### Phase 10 — A1 path ✅ (first slice)
+See **`PHASE_10_A1_PATH.md`**. Coverage matrix + can-dos + daily vocab + 3 lessons + shopping deck / vocab expand.
+- [x] Decisions locked
+- [x] `content/a1_coverage.md` + `a1_can_dos.json`
+- [x] Daily vocab API/page
+- [x] Content fill (introductions, food-cafe, directions; +55 cards)
+- [ ] Later: more themes to 500+ lemmas; listening/speaking (Phase 11+)
+
 ## Running (target)
 ```bash
 # Conda env provides Python; Poetry installs app deps into it (virtualenvs.create = false).

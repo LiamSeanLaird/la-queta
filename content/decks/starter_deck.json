@@ -1,25 +1,369 @@
 [
-  {"id": "greet_001", "catalan": "Bon dia", "pronunciation": "bohn DEE-ah", "english": "Good morning", "hint": "", "tags": ["greetings"], "pos": "phrase"},
-  {"id": "greet_002", "catalan": "Bona tarda", "pronunciation": "BOH-nah TAR-dah", "english": "Good afternoon", "hint": "", "tags": ["greetings"], "pos": "phrase"},
-  {"id": "greet_003", "catalan": "Bona nit", "pronunciation": "BOH-nah neet", "english": "Good night", "hint": "", "tags": ["greetings"], "pos": "phrase"},
-  {"id": "greet_004", "catalan": "Hola", "pronunciation": "OH-lah", "english": "Hello", "hint": "", "tags": ["greetings"], "pos": "interjection"},
-  {"id": "greet_005", "catalan": "Adéu", "pronunciation": "ah-DAY-oo", "english": "Goodbye", "hint": "", "tags": ["greetings"], "pos": "interjection"},
-  {"id": "greet_006", "catalan": "Com estàs?", "pronunciation": "kohm uhs-TAHS", "english": "How are you?", "hint": "", "tags": ["greetings"], "pos": "phrase"},
-  {"id": "greet_007", "catalan": "Molt bé, gràcies", "pronunciation": "molt bay GRAH-syuhs", "english": "Very well, thank you", "hint": "", "tags": ["greetings"], "pos": "phrase"},
-  {"id": "greet_008", "catalan": "Gràcies", "pronunciation": "GRAH-syuhs", "english": "Thank you", "hint": "", "tags": ["greetings"], "pos": "interjection"},
-  {"id": "greet_009", "catalan": "De res", "pronunciation": "duh rehs", "english": "You're welcome", "hint": "", "tags": ["greetings"], "pos": "phrase"},
-  {"id": "greet_010", "catalan": "Si us plau", "pronunciation": "see oos plow", "english": "Please", "hint": "plow rhymes with 'how'", "tags": ["greetings"], "pos": "phrase"},
-  {"id": "greet_011", "catalan": "Perdona", "pronunciation": "puhr-DOH-nah", "english": "Excuse me / Sorry", "hint": "", "tags": ["greetings"], "pos": "verb", "forms": ["perdonant", "perdonat"]},
-  {"id": "greet_012", "catalan": "Em dic...", "pronunciation": "um deek", "english": "My name is...", "hint": "", "tags": ["greetings"], "pos": "phrase"},
-  {"id": "greet_013", "catalan": "Com et dius?", "pronunciation": "kohm ut dee-OOS", "english": "What is your name?", "hint": "", "tags": ["greetings"], "pos": "phrase"},
-  {"id": "basic_001", "catalan": "Sí", "pronunciation": "see", "english": "Yes", "hint": "", "tags": ["basics"], "pos": "adverb"},
-  {"id": "basic_002", "catalan": "No", "pronunciation": "noh", "english": "No", "hint": "", "tags": ["basics"], "pos": "adverb"},
-  {"id": "basic_003", "catalan": "No entenc", "pronunciation": "noh un-TENK", "english": "I don't understand", "hint": "", "tags": ["basics"], "pos": "phrase"},
-  {"id": "basic_004", "catalan": "No parlo català", "pronunciation": "noh PAR-luh kuh-tuh-LAH", "english": "I don't speak Catalan", "hint": "", "tags": ["basics"], "pos": "phrase"},
-  {"id": "basic_005", "catalan": "Parles anglès?", "pronunciation": "PAR-luhs un-GLES", "english": "Do you speak English?", "hint": "", "tags": ["basics"], "pos": "phrase"},
-  {"id": "basic_006", "catalan": "On és...?", "pronunciation": "ohn ehs", "english": "Where is...?", "hint": "", "tags": ["basics"], "pos": "phrase"},
-  {"id": "basic_007", "catalan": "Quant costa?", "pronunciation": "kwant KOS-tuh", "english": "How much does it cost?", "hint": "", "tags": ["basics"], "pos": "phrase"},
-  {"id": "basic_008", "catalan": "Vull...", "pronunciation": "bool", "english": "I want...", "hint": "", "tags": ["basics"], "pos": "phrase"},
-  {"id": "basic_009", "catalan": "Tinc gana", "pronunciation": "tink GAH-nuh", "english": "I'm hungry", "hint": "", "tags": ["basics"], "pos": "phrase"},
-  {"id": "basic_010", "catalan": "Tinc set", "pronunciation": "tink set", "english": "I'm thirsty", "hint": "", "tags": ["basics"], "pos": "phrase"}
+  {
+    "id": "greet_001",
+    "catalan": "Bon dia",
+    "pronunciation": "bohn DEE-ah",
+    "english": "Good morning",
+    "hint": "",
+    "tags": [
+      "greetings"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "greet_002",
+    "catalan": "Bona tarda",
+    "pronunciation": "BOH-nah TAR-dah",
+    "english": "Good afternoon",
+    "hint": "",
+    "tags": [
+      "greetings"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "greet_003",
+    "catalan": "Bona nit",
+    "pronunciation": "BOH-nah neet",
+    "english": "Good night",
+    "hint": "",
+    "tags": [
+      "greetings"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "greet_004",
+    "catalan": "Hola",
+    "pronunciation": "OH-lah",
+    "english": "Hello",
+    "hint": "",
+    "tags": [
+      "greetings"
+    ],
+    "pos": "interjection"
+  },
+  {
+    "id": "greet_005",
+    "catalan": "Adéu",
+    "pronunciation": "ah-DAY-oo",
+    "english": "Goodbye",
+    "hint": "",
+    "tags": [
+      "greetings"
+    ],
+    "pos": "interjection"
+  },
+  {
+    "id": "greet_006",
+    "catalan": "Com estàs?",
+    "pronunciation": "kohm uhs-TAHS",
+    "english": "How are you?",
+    "hint": "",
+    "tags": [
+      "greetings"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "greet_007",
+    "catalan": "Molt bé, gràcies",
+    "pronunciation": "molt bay GRAH-syuhs",
+    "english": "Very well, thank you",
+    "hint": "",
+    "tags": [
+      "greetings"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "greet_008",
+    "catalan": "Gràcies",
+    "pronunciation": "GRAH-syuhs",
+    "english": "Thank you",
+    "hint": "",
+    "tags": [
+      "greetings"
+    ],
+    "pos": "interjection"
+  },
+  {
+    "id": "greet_009",
+    "catalan": "De res",
+    "pronunciation": "duh rehs",
+    "english": "You're welcome",
+    "hint": "",
+    "tags": [
+      "greetings"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "greet_010",
+    "catalan": "Si us plau",
+    "pronunciation": "see oos plow",
+    "english": "Please",
+    "hint": "plow rhymes with 'how'",
+    "tags": [
+      "greetings"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "greet_011",
+    "catalan": "Perdona",
+    "pronunciation": "puhr-DOH-nah",
+    "english": "Excuse me / Sorry",
+    "hint": "",
+    "tags": [
+      "greetings"
+    ],
+    "pos": "verb",
+    "forms": [
+      "perdonant",
+      "perdonat"
+    ]
+  },
+  {
+    "id": "greet_012",
+    "catalan": "Em dic...",
+    "pronunciation": "um deek",
+    "english": "My name is...",
+    "hint": "",
+    "tags": [
+      "greetings"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "greet_013",
+    "catalan": "Com et dius?",
+    "pronunciation": "kohm ut dee-OOS",
+    "english": "What is your name?",
+    "hint": "",
+    "tags": [
+      "greetings"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "basic_001",
+    "catalan": "Sí",
+    "pronunciation": "see",
+    "english": "Yes",
+    "hint": "",
+    "tags": [
+      "basics"
+    ],
+    "pos": "adverb"
+  },
+  {
+    "id": "basic_002",
+    "catalan": "No",
+    "pronunciation": "noh",
+    "english": "No",
+    "hint": "",
+    "tags": [
+      "basics"
+    ],
+    "pos": "adverb"
+  },
+  {
+    "id": "basic_003",
+    "catalan": "No entenc",
+    "pronunciation": "noh un-TENK",
+    "english": "I don't understand",
+    "hint": "",
+    "tags": [
+      "basics"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "basic_004",
+    "catalan": "No parlo català",
+    "pronunciation": "noh PAR-luh kuh-tuh-LAH",
+    "english": "I don't speak Catalan",
+    "hint": "",
+    "tags": [
+      "basics"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "basic_005",
+    "catalan": "Parles anglès?",
+    "pronunciation": "PAR-luhs un-GLES",
+    "english": "Do you speak English?",
+    "hint": "",
+    "tags": [
+      "basics"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "basic_006",
+    "catalan": "On és...?",
+    "pronunciation": "ohn ehs",
+    "english": "Where is...?",
+    "hint": "",
+    "tags": [
+      "basics"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "basic_007",
+    "catalan": "Quant costa?",
+    "pronunciation": "kwant KOS-tuh",
+    "english": "How much does it cost?",
+    "hint": "",
+    "tags": [
+      "basics"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "basic_008",
+    "catalan": "Vull...",
+    "pronunciation": "bool",
+    "english": "I want...",
+    "hint": "",
+    "tags": [
+      "basics"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "basic_009",
+    "catalan": "Tinc gana",
+    "pronunciation": "tink GAH-nuh",
+    "english": "I'm hungry",
+    "hint": "",
+    "tags": [
+      "basics"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "basic_010",
+    "catalan": "Tinc set",
+    "pronunciation": "tink set",
+    "english": "I'm thirsty",
+    "hint": "",
+    "tags": [
+      "basics"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "greet_014",
+    "catalan": "Encantat",
+    "pronunciation": "un-kun-TAT",
+    "english": "Nice to meet you (m)",
+    "hint": "",
+    "tags": [
+      "greetings"
+    ],
+    "pos": "interjection"
+  },
+  {
+    "id": "greet_015",
+    "catalan": "Encantada",
+    "pronunciation": "un-kun-TAH-duh",
+    "english": "Nice to meet you (f)",
+    "hint": "",
+    "tags": [
+      "greetings"
+    ],
+    "pos": "interjection"
+  },
+  {
+    "id": "greet_016",
+    "catalan": "Soc de...",
+    "pronunciation": "sok duh",
+    "english": "I'm from...",
+    "hint": "",
+    "tags": [
+      "greetings"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "greet_017",
+    "catalan": "Visc a...",
+    "pronunciation": "veesk uh",
+    "english": "I live in...",
+    "hint": "",
+    "tags": [
+      "greetings"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "greet_018",
+    "catalan": "Quants anys tens?",
+    "pronunciation": "kwants anys tens",
+    "english": "How old are you?",
+    "hint": "",
+    "tags": [
+      "greetings"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "basic_011",
+    "catalan": "D'acord",
+    "pronunciation": "duh-KORT",
+    "english": "OK / agreed",
+    "hint": "",
+    "tags": [
+      "basics"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "basic_012",
+    "catalan": "Una mica",
+    "pronunciation": "OO-nuh MEE-kuh",
+    "english": "A little",
+    "hint": "",
+    "tags": [
+      "basics"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "basic_013",
+    "catalan": "Molt",
+    "pronunciation": "molt",
+    "english": "Very / a lot",
+    "hint": "",
+    "tags": [
+      "basics"
+    ],
+    "pos": "adverb"
+  },
+  {
+    "id": "basic_014",
+    "catalan": "Ara",
+    "pronunciation": "AH-ruh",
+    "english": "Now",
+    "hint": "",
+    "tags": [
+      "basics"
+    ],
+    "pos": "adverb"
+  },
+  {
+    "id": "basic_015",
+    "catalan": "Després",
+    "pronunciation": "dus-PRES",
+    "english": "Afterwards / later",
+    "hint": "",
+    "tags": [
+      "basics"
+    ],
+    "pos": "adverb"
+  }
 ]

@@ -1,0 +1,59 @@
+[
+  {
+    "id": "greet-intro",
+    "label": "Greet people and introduce myself",
+    "lesson_ids": [
+      "introductions"
+    ]
+  },
+  {
+    "id": "articles-gender",
+    "label": "Use articles and noun gender",
+    "lesson_ids": [
+      "noun-gender",
+      "definite-articles"
+    ]
+  },
+  {
+    "id": "ser-estar",
+    "label": "Choose ser vs estar for basic needs",
+    "lesson_ids": [
+      "ser-vs-estar"
+    ]
+  },
+  {
+    "id": "present",
+    "label": "Conjugate common present-tense verbs",
+    "lesson_ids": [
+      "present-tense"
+    ]
+  },
+  {
+    "id": "numbers-time",
+    "label": "Use numbers and ask about time/price",
+    "lesson_ids": [
+      "numbers"
+    ]
+  },
+  {
+    "id": "questions",
+    "label": "Ask simple questions",
+    "lesson_ids": [
+      "question-words"
+    ]
+  },
+  {
+    "id": "food-cafe",
+    "label": "Order food and drink in a café",
+    "lesson_ids": [
+      "food-cafe"
+    ]
+  },
+  {
+    "id": "directions",
+    "label": "Ask for and give basic directions",
+    "lesson_ids": [
+      "directions"
+    ]
+  }
+]

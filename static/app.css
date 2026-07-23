@@ -442,6 +442,33 @@ a.btn.btn--primary {
   font-size: 0.9rem;
 }
 
+.can-do-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.can-do {
+  display: flex;
+  gap: 0.55rem;
+  align-items: flex-start;
+  color: var(--ink);
+  font-size: 0.95rem;
+}
+
+.can-do.is-done {
+  color: var(--muted);
+}
+
+.can-do__mark {
+  font-weight: 700;
+  color: var(--senyera-gold);
+  min-width: 1rem;
+}
+
 /* ── List rows ───────────────────────────────────────── */
 
 .list {
