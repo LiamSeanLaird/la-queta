@@ -1,6 +1,7 @@
 # La Queta — common local commands (conda env `la-queta` should be active).
+# On the production VM, prefer: make deploy
 
-.PHONY: run test seed migrate upgrade
+.PHONY: run test seed migrate upgrade deploy
 
 PORT ?= 5001
 
@@ -18,3 +19,7 @@ migrate:
 
 upgrade:
 	poetry run python -m flask --app wsgi db upgrade
+
+# Production VM only: pull → install → backup → migrate → seed → restart → health
+deploy:
+	./scripts/deploy.sh

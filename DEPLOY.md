@@ -207,17 +207,30 @@ Add **TCP 80** ingress on `catalaNSG`, allow TCP 80 in iptables (above), `netfil
 
 ## Day-2 deploy (current method)
 
-Manual SSH pull-restart. Good enough for a single Always Free box.
+On the production VM:
 
 ```bash
 ssh ubuntu@PUBLIC_IP
 cd ~/la-queta
+git pull                  # once, to get scripts/deploy.sh if missing
+./scripts/deploy.sh       # or: make deploy
+# ./scripts/deploy.sh --no-pull   # re-run migrate/seed/restart without pulling
+```
+
+What the script does: `git pull --ff-only` → `poetry install --only main` → SQLite pre-deploy backup → `flask db upgrade` → seed → `systemctl restart la-queta` → `curl` `/api/health`.
+
+Reference unit/nginx configs (match live box; copy when rebuilding): `deploy/la-queta.service`, `deploy/nginx-la-queta.conf`.
+
+Manual equivalent (if you ever need it):
+
+```bash
+cd ~/la-queta
 git pull
 source .venv/bin/activate
-poetry install --only main          # if lockfile changed
+poetry install --only main
 set -a && source /etc/la-queta/env && set +a
 flask --app wsgi db upgrade
-python scripts/seed.py              # safe / idempotent
+python scripts/seed.py
 sudo systemctl restart la-queta
 curl -sf http://127.0.0.1/api/health && echo OK
 ```
@@ -226,7 +239,7 @@ Rules:
 
 - Deploy from `main` (or a release tag); don’t develop on the VM.
 - Never delete `/var/lib/la-queta/app.db` casually — that’s user progress.
-- Prefer backup before risky migrate (see below).
+- Prefer backup before risky migrate (the deploy script takes a pre-deploy snapshot).
 
 ---
 
