@@ -24,7 +24,7 @@
 - Deploy on Oracle Always Free VM
 
 ### Out of scope (for now)
-- B1 / B2 content and UI
+- A2 / B1 / B2 **content** (hub shows A2/B1 as coming soon)
 - OAuth, email magic links, password-reset email
 - Spaced repetition (SM-2)
 - Audio / pronunciation playback
@@ -112,7 +112,7 @@ See **`PHASE_9_A1_PRACTICE.md`**. Learn \| Practice tabs; MC + cloze + type-in; 
 ## Content sources
 Reuse and re-level material from `prototype/data/` and `prototype/lessons/`. New lessons/decks authored as seed data, not by mutating the prototype app.
 
-**Level assignment (locked):** all current prototype decks and lessons seed into **A1**. **A2** exists as an empty scaffold (level row + hub tile) until content is authored.
+**Level assignment (locked):** all current prototype decks and lessons seed into **A1**. **A2** and **B1** exist as hub placeholders (disabled) until content is authored.
 
 ## Success criteria
 - A stranger can open the URL, create an account, start A1, complete a lesson, study vocab, sign in later on another device and see progress.

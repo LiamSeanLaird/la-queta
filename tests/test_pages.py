@@ -50,6 +50,10 @@ def test_levels_hub_renders(migrated_app, migrated_client):
     assert b"Your levels" in response.data
     assert b"A1" in response.data
     assert b"/levels/a1" in response.data
+    assert b"coming soon" in response.data
+    assert b">A2<" in response.data or b"A2" in response.data
+    assert b">B1<" in response.data or b"B1" in response.data
+    assert b"is-disabled" in response.data
 
 
 def test_level_home_learn_and_vocab(migrated_app, migrated_client):

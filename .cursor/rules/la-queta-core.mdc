@@ -10,7 +10,7 @@ alwaysApply: true
 - `prototype/` is frozen — read for reference only; never edit.
 - Implement by phase: failing tests → structure → behaviour → green tests → update docs/rules if conventions changed.
 - Stack: Flask + SQLAlchemy 2 + Alembic + SQLite + vanilla HTML/CSS/JS. No SPA frameworks or CSS frameworks unless plans change.
-- Levels in scope: A1 and A2 only.
+- Levels in scope for content: **A1** only today. Hub shows A2/B1 as disabled “coming soon”.
 - Do not run linters unless the user asks.
 - Prefer small, phase-scoped diffs; no unrelated refactors.
 - Local app: `make run` (port 5001); also `make test` / `make seed` / `make upgrade`.

@@ -13,7 +13,7 @@ alwaysApply: false
 - Gate: **Create account** (name + email + password) / **Sign in** (email + password). No OAuth. Taglines show `user.handle`.
 - Page JS under `static/js/` (`api.js` shared). Mutations still hit `/api/…`.
 - Component gallery: `/style-guide`. New UI patterns must be added there in the same change.
-- One job per screen; cards only for interactive study/exercise surfaces.
+- Level hub: A1 clickable; A2/B1 disabled tiles (“coming soon”).
 - Study: first-load tip dialog (Don’t show again); tap / Enter / Next = flip then next (seen++); Back = previous; Retire confirm dialog (`localStorage`). Card `hint` only when pedagogical. Empty/finished session → redirect to deck.
 - Lesson: Learn | Practice tabs (`?tab=`). Teach = text/rule/examples only. Practice = MC + cloze + type-in; complete only after all correct → redirect to level Learn. Accents required on typed answers (case/space normalized).
 - Deck page: retired progress bar; when fully retired, **Unretire deck** (resets seen → 0) instead of Study.
