@@ -1,0 +1,20 @@
+{# expects: dialog_id, level_code, can_dos #}
+<dialog class="dialog" id="{{ dialog_id }}" aria-labelledby="{{ dialog_id }}-title">
+  <form method="dialog" class="dialog__panel stack">
+    <h3 class="heading-3" id="{{ dialog_id }}-title">{{ level_code }} goals</h3>
+    <p class="text-muted">Complete lessons to achieve these goals.</p>
+    <ul class="can-do-list">
+      {% for item in can_dos %}
+      <li class="can-do{% if item.done %} is-done{% endif %}">
+        <span>{{ item.label }}</span>
+        <span class="badge {% if item.done %}badge--done{% else %}badge--todo{% endif %}">
+          {% if item.done %}Done{% else %}Todo{% endif %}
+        </span>
+      </li>
+      {% endfor %}
+    </ul>
+    <div class="study-actions__end">
+      <button type="submit" class="btn btn--primary" value="ok" autofocus>Close</button>
+    </div>
+  </form>
+</dialog>

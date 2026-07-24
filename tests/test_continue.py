@@ -30,12 +30,14 @@ def test_continue_points_at_first_incomplete_lesson(migrated_app, migrated_clien
 
     hub = migrated_client.get("/levels")
     assert hub.status_code == 200
-    assert b"Continue: Noun Gender" in hub.data
-    assert b"/lessons/noun-gender" in hub.data
+    assert b"Daily vocab" in hub.data
+    assert b"Continue:" not in hub.data
+    assert b"/levels/a1/daily" in hub.data
 
     level = migrated_client.get("/levels/a1")
     assert level.status_code == 200
-    assert b"Continue: Noun Gender" in level.data
+    assert b"Continue:" not in level.data
+    assert b"Noun Gender" in level.data
 
 
 def test_continue_route_redirects_to_next_lesson(migrated_app, migrated_client):
@@ -68,8 +70,13 @@ def test_continue_advances_after_lesson_complete(migrated_app, migrated_client):
         assert next_incomplete_lesson(db_user, "a1")["id"] == "definite-articles"
 
     hub = migrated_client.get("/levels")
-    assert b"Continue: Definite Articles" in hub.data
+    assert b"Continue:" not in hub.data
+    assert b"Daily vocab" in hub.data
 
     lesson = migrated_client.get("/lessons/noun-gender")
     assert lesson.status_code == 200
     assert b"Continue: Definite Articles" in lesson.data or b"Definite Articles" in lesson.data
+
+    level = migrated_client.get("/levels/a1")
+    assert b"Continue:" not in level.data
+    assert b"Definite Articles" in level.data

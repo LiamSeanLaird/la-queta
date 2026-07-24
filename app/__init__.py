@@ -37,6 +37,12 @@ def create_app(config_overrides: dict | None = None) -> Flask:
     application.register_blueprint(api_lessons_bp)
     application.register_blueprint(api_vocab_bp)
 
+    @application.context_processor
+    def inject_current_user():
+        from app.services.auth import current_user
+
+        return {"current_user": current_user()}
+
     return application
 
 

@@ -106,6 +106,7 @@ Lessons use Learn | Practice tabs. Practice is one-item-at-a-time (MC / cloze / 
 - Register: `POST /api/auth/register` with name (`handle`) + email + password → `201`.
 - Login: `POST /api/auth/login` with email + password → `200`. Bad creds → `401` `"Invalid email or password"`.
 - Logout: `POST /api/auth/logout` → `204`.
+- Current user: `GET /api/me` → `200`; `PATCH /api/me` with `handle` + `email` → `200` (duplicate → `409`).
 - Email: regex shape only (no verification). Password: Werkzeug hash, min 6 chars. Never return hashes.
 - Duplicate name/email → `409`.
 - Unauthenticated browsers hitting HTML progress pages redirect to the gate (not a JSON 401).
@@ -116,7 +117,7 @@ Lessons use Learn | Practice tabs. Practice is one-item-at-a-time (MC / cloze / 
 - Error body: always `{ "error": "<stable message>" }`. No stack traces, no SQL text.
 - Request/response keys: `snake_case`, aligned with model field names where practical.
 - Nest at most one level unless the plan already defines a blob (`sections`).
-- Mutations: `POST` for create and actions (`/complete`, `/seen`, `/retire`, `/select`). Skip `PUT`/`PATCH` until partial updates are real requirements.
+- Mutations: `POST` for create and actions (`/complete`, `/seen`, `/retire`, `/select`). `PATCH /api/me` for profile field updates.
 - `GET` is read-only (no “GET that increments seen”).
 
 ### Out of scope (for now)
@@ -137,6 +138,7 @@ Lessons use Learn | Practice tabs. Practice is one-item-at-a-time (MC / cloze / 
 - Semantic structure (`main`, `nav`, `section`, `button` for actions).
 - Accessible labels on interactive controls.
 - Catalan UI chrome can mix EN labels for learners; content language follows lesson/card data.
+- Logged-in shell (`base.html` topbar): **←** back left (`{% block top_back %}`), brand center, profile icon right → dialog (edit handle/email, Sign out). Tagline (`aprèn català`) only on the gate.
 
 ### CSS
 - Design tokens as CSS variables on `:root` (see Visual design).

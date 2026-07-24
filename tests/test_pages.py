@@ -47,7 +47,8 @@ def test_levels_hub_renders(migrated_app, migrated_client):
     _register(migrated_client)
     response = migrated_client.get("/levels")
     assert response.status_code == 200
-    assert b"Your levels" in response.data
+    assert b"Daily vocab" in response.data
+    assert b"Your levels" not in response.data
     assert b"A1" in response.data
     assert b"/levels/a1" in response.data
     assert b"coming soon" in response.data

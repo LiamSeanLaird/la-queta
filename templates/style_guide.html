@@ -54,13 +54,29 @@
     </section>
 
     <section class="sg-section" id="brand">
-      <h2 class="sg-section__title">Brand</h2>
+      <h2 class="sg-section__title">Brand / topbar</h2>
       <div class="sg-demo">
-        <div class="brand">
+        <header class="topbar">
+          <div class="topbar__side topbar__side--start">
+            <a class="topbar__back" href="#" aria-label="Back">←</a>
+          </div>
+          <div class="topbar__brand brand">
+            <p class="brand__title">La Queta</p>
+          </div>
+          <div class="topbar__side topbar__side--end">
+            <button type="button" class="icon-btn" aria-label="Profile">
+              <svg class="icon-btn__svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
+                <circle cx="12" cy="8" r="3.25" fill="none" stroke="currentColor" stroke-width="2"/>
+                <path d="M5.5 19.25c1.6-3.1 4-4.75 6.5-4.75s4.9 1.65 6.5 4.75" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+        </header>
+        <div class="brand" style="margin-top: 1.25rem;">
           <p class="brand__title">La Queta</p>
           <p class="brand__tagline">aprèn català</p>
         </div>
-        <p class="text-small">No flag strip — red brand + gold accents carry Catalan signal.</p>
+        <p class="text-small">Logged-in shell: back left, brand center, profile icon right. Tagline only on the gate.</p>
       </div>
     </section>
 
@@ -70,6 +86,12 @@
         <h1 class="heading-1">Heading 1 — level / screen</h1>
         <h2 class="heading-2">Heading 2 — section</h2>
         <h3 class="heading-3">Heading 3 — subsection</h3>
+        <div class="page-intro" style="margin: 1rem 0;">
+          <h2 class="heading-2">A1</h2>
+          <p class="text-muted">Beginner · 19% complete</p>
+          <p class="text-muted">1/8 <button type="button" class="text-link">goals</button> complete</p>
+        </div>
+        <p class="text-small">`.page-intro` — centered page title/meta under the topbar; list/card body stays left.</p>
         <p class="text-body">Body text for lesson explanations and longer copy.</p>
         <p class="text-muted">Muted supporting sentence under a title.</p>
         <p class="text-small">Small meta / captions.</p>

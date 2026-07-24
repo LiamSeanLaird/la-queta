@@ -153,6 +153,89 @@ a.tab-btn {
 
 /* ── Brand ───────────────────────────────────────────── */
 
+.topbar {
+  display: grid;
+  grid-template-columns: 2.75rem minmax(0, 1fr) 2.75rem;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0 0 1.5rem;
+}
+
+.topbar__side {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
+}
+
+.topbar__side--start {
+  justify-content: flex-start;
+}
+
+.topbar__side--end {
+  justify-content: flex-end;
+}
+
+.topbar__brand {
+  text-align: center;
+  min-width: 0;
+}
+
+.topbar__back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 1.5rem;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.topbar__back:hover {
+  background: color-mix(in srgb, var(--ink) 6%, transparent);
+}
+
+.topbar__back:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.icon-btn:hover {
+  background: color-mix(in srgb, var(--ink) 6%, transparent);
+}
+
+.icon-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.icon-btn__svg {
+  display: block;
+}
+
 .brand {
   text-align: center;
 }
@@ -164,6 +247,10 @@ a.tab-btn {
   letter-spacing: -0.02em;
   color: var(--senyera-red);
   margin: 0;
+}
+
+.topbar .brand__title {
+  font-size: clamp(1.5rem, 4.5vw, 2rem);
 }
 
 .brand__tagline {
@@ -187,6 +274,15 @@ a.tab-btn {
   font-size: 1.5rem;
   font-weight: 600;
   margin: 0 0 0.35rem;
+}
+
+/* Page titles / meta under the topbar — centered; list/card body stays LTR left. */
+.page-intro {
+  text-align: center;
+}
+
+.page-intro .text-muted + .text-muted {
+  margin-top: 0.35rem;
 }
 
 .heading-3 {
@@ -398,6 +494,33 @@ a.btn.btn--primary {
   gap: 0.75rem;
 }
 
+.level-tile-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-elevated);
+  overflow: hidden;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.level-tile-card.is-current,
+.level-tile-card:hover {
+  border-color: var(--senyera-red);
+  box-shadow: inset 3px 0 0 var(--senyera-gold);
+}
+
+.level-tile-card .level-tile {
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding-bottom: 0.55rem;
+}
+
+.level-tile-card .level-tile:hover,
+.level-tile-card .level-tile.is-current {
+  border-color: transparent;
+  box-shadow: none;
+}
+
 .level-tile {
   display: block;
   width: 100%;
@@ -442,31 +565,90 @@ a.btn.btn--primary {
   font-size: 0.9rem;
 }
 
+.level-tile__goals {
+  margin: 0;
+  padding: 0 1.15rem 1rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.text-link {
+  display: inline;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--senyera-red);
+  font: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.text-link:hover,
+.text-link:focus-visible {
+  color: var(--ink);
+  outline: none;
+}
+
+.level-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.level-heading .heading-2 {
+  margin: 0;
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg-elevated);
+  color: var(--muted);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.icon-btn:hover,
+.icon-btn:focus-visible {
+  color: var(--senyera-red);
+  border-color: var(--senyera-red);
+  outline: none;
+}
+
+.icon-btn__svg {
+  display: block;
+}
+
 .can-do-list {
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
+  gap: 0.55rem;
 }
 
 .can-do {
   display: flex;
-  gap: 0.55rem;
-  align-items: flex-start;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: space-between;
   color: var(--ink);
   font-size: 0.95rem;
 }
 
 .can-do.is-done {
   color: var(--muted);
-}
-
-.can-do__mark {
-  font-weight: 700;
-  color: var(--senyera-gold);
-  min-width: 1rem;
 }
 
 /* ── List rows ───────────────────────────────────────── */

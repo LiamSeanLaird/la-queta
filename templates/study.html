@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% block title %}{{ study_title }} — La Queta{% endblock %}
-{% block tagline %}Hola, {{ user.handle }}{% endblock %}
 {% set brand_href = url_for('pages.levels') %}
+{% block top_back %}
+<a class="topbar__back" href="{{ exit_url }}" aria-label="{{ back_label }}">←</a>
+{% endblock %}
 {% block content %}
 <section
   class="stack-lg"
@@ -9,7 +11,6 @@
   data-session-url="{{ session_url }}"
   data-exit-url="{{ exit_url }}"
 >
-  <a class="btn btn--ghost" href="{{ exit_url }}">{{ back_label }}</a>
   <div class="progress-meta">
     <span id="study-progress-text">Loading…</span>
     <span id="study-remaining"></span>

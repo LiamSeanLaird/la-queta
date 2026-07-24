@@ -63,5 +63,15 @@ def test_can_dos_on_level_learn_tab(migrated_app, migrated_client):
     _register(migrated_client)
     page = migrated_client.get("/levels/a1")
     assert page.status_code == 200
-    assert b"Can-do" in page.data or b"can-do" in page.data
-    assert b"Daily vocab" in page.data
+    assert b"can-dos-dialog" in page.data
+    assert b"data-can-dos-open" in page.data
+    assert b"goals" in page.data
+    assert b"Complete lessons to achieve these goals." in page.data
+    assert b"Daily vocab" not in page.data
+    assert b"Continue:" not in page.data
+
+    hub = migrated_client.get("/levels")
+    assert b"Daily vocab" in hub.data
+    assert b"goals" in hub.data
+    assert b"can-dos-a1" in hub.data
+    assert b"Complete lessons to achieve these goals." in hub.data

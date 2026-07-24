@@ -20,3 +20,27 @@ window.LaQueta.showError = function showError(el, message) {
   el.hidden = false;
   el.textContent = message;
 };
+
+/** Close a modal `<dialog>` when the backdrop (outside the panel) is clicked. */
+window.LaQueta.bindDialogBackdropClose = function bindDialogBackdropClose(dialog) {
+  if (!dialog || dialog.dataset.backdropClose === "1") return;
+  dialog.dataset.backdropClose = "1";
+  dialog.addEventListener("click", (event) => {
+    if (event.target === dialog) dialog.close();
+  });
+};
+
+window.LaQueta.bindAllDialogBackdropClose = function bindAllDialogBackdropClose(
+  root = document,
+) {
+  root.querySelectorAll("dialog.dialog").forEach(window.LaQueta.bindDialogBackdropClose);
+};
+
+(function initDialogBackdropClose() {
+  const run = () => window.LaQueta.bindAllDialogBackdropClose();
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", run);
+  } else {
+    run();
+  }
+})();

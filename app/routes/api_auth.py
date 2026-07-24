@@ -7,6 +7,7 @@ from app.services.auth import (
     logout_user,
     register_user,
     require_user,
+    update_user_profile,
     user_to_dict,
 )
 
@@ -51,6 +52,17 @@ def logout():
 def me():
     try:
         user = require_user()
+    except AuthError as exc:
+        return jsonify({"error": exc.message}), exc.status_code
+    return jsonify(user_to_dict(user))
+
+
+@bp.patch("/api/me")
+def me_update():
+    payload = request.get_json(silent=True) or {}
+    try:
+        user = require_user()
+        user = update_user_profile(user, payload.get("handle"), payload.get("email"))
     except AuthError as exc:
         return jsonify({"error": exc.message}), exc.status_code
     return jsonify(user_to_dict(user))

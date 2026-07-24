@@ -133,3 +133,50 @@ def test_register_rejects_invalid_email(migrated_client):
 def test_me_requires_session(migrated_client):
     response = migrated_client.get("/api/me")
     assert response.status_code == 401
+
+
+def test_patch_me_updates_handle_and_email(migrated_client):
+    migrated_client.post(
+        "/api/auth/register",
+        json={
+            "handle": "liam",
+            "email": "liam@example.com",
+            "password": "password1",
+        },
+    )
+    response = migrated_client.patch(
+        "/api/me",
+        json={"handle": "Liam Q", "email": "liam.q@example.com"},
+    )
+    assert response.status_code == 200
+    body = response.get_json()
+    assert body["handle"] == "Liam Q"
+    assert body["email"] == "liam.q@example.com"
+    assert migrated_client.get("/api/me").get_json()["handle"] == "Liam Q"
+
+
+def test_patch_me_rejects_taken_email(migrated_client):
+    migrated_client.post(
+        "/api/auth/register",
+        json={
+            "handle": "liam",
+            "email": "liam@example.com",
+            "password": "password1",
+        },
+    )
+    with migrated_client.session_transaction() as sess:
+        sess.clear()
+    migrated_client.post(
+        "/api/auth/register",
+        json={
+            "handle": "other",
+            "email": "other@example.com",
+            "password": "password1",
+        },
+    )
+    response = migrated_client.patch(
+        "/api/me",
+        json={"handle": "other", "email": "liam@example.com"},
+    )
+    assert response.status_code == 409
+    assert response.get_json() == {"error": "Email already used"}

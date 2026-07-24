@@ -1,22 +1,32 @@
 {% extends "base.html" %}
 {% block title %}La Queta — {{ level.code }}{% endblock %}
-{% block tagline %}Hola, {{ user.handle }}{% endblock %}
 {% set brand_href = url_for('pages.levels') %}
+{% block top_back %}
+<a class="topbar__back" href="{{ url_for('pages.levels') }}" aria-label="Back to levels">←</a>
+{% endblock %}
 {% block content %}
 <section class="stack-lg">
-  <a class="btn btn--ghost" href="{{ url_for('pages.levels') }}">← Levels</a>
-  <div>
+  <div class="page-intro">
     <h2 class="heading-2">{{ level.code }}</h2>
     <p class="text-muted">{{ level.title }} · {{ complete_pct }}% complete</p>
+    {% if goals_total %}
+    <p class="text-muted">
+      {{ goals_done }}/{{ goals_total }}
+      <button
+        type="button"
+        class="text-link"
+        data-can-dos-open
+        data-can-dos-dialog="can-dos-dialog"
+        aria-haspopup="dialog"
+        aria-controls="can-dos-dialog"
+      >goals</button>
+      complete
+    </p>
+    {% endif %}
+    {% if complete_pct == 100 %}
+    <p class="text-muted">This level is complete — nice work.</p>
+    {% endif %}
   </div>
-
-  {% if continue_href %}
-  <a class="btn btn--primary btn--block" href="{{ continue_href }}">{{ continue_target.label }}</a>
-  {% elif complete_pct == 100 %}
-  <p class="text-muted">This level is complete — nice work.</p>
-  {% endif %}
-
-  <a class="btn btn--secondary btn--block" href="{{ url_for('pages.daily', level_id=level.id) }}">Daily vocab</a>
 
   <div class="tab-bar" role="tablist">
     <a class="tab-btn{% if tab == 'learn' %} is-active{% endif %}" href="{{ url_for('pages.level_home', level_id=level.id) }}">Learn</a>
@@ -24,20 +34,6 @@
   </div>
 
   {% if tab == 'learn' %}
-  {% if can_dos %}
-  <div class="stack">
-    <h3 class="heading-3">Can-dos</h3>
-    <p class="text-muted">Tick by completing the linked lessons.</p>
-    <ul class="can-do-list">
-      {% for item in can_dos %}
-      <li class="can-do{% if item.done %} is-done{% endif %}">
-        <span class="can-do__mark" aria-hidden="true">{% if item.done %}✓{% else %}○{% endif %}</span>
-        <span>{{ item.label }}</span>
-      </li>
-      {% endfor %}
-    </ul>
-  </div>
-  {% endif %}
   <div class="list">
     {% for lesson in lessons %}
     <a class="list-row" href="{{ url_for('pages.lesson', lesson_id=lesson.id) }}">
@@ -67,5 +63,16 @@
     {% endfor %}
   </div>
   {% endif %}
+
+  {% if can_dos %}
+  {% with dialog_id='can-dos-dialog', level_code=level.code, can_dos=can_dos %}
+  {% include "_can_dos_dialog.html" %}
+  {% endwith %}
+  {% endif %}
 </section>
+{% endblock %}
+{% block scripts %}
+{% if can_dos %}
+<script src="{{ url_for('static', filename='js/can_dos.js') }}"></script>
+{% endif %}
 {% endblock %}

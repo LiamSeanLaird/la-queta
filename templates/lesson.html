@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% block title %}{{ lesson.title }} — La Queta{% endblock %}
-{% block tagline %}Hola, {{ user.handle }}{% endblock %}
 {% set brand_href = url_for('pages.levels') %}
+{% block top_back %}
+<a class="topbar__back" href="{{ url_for('pages.level_home', level_id=lesson.level_id) }}" aria-label="Back to lessons">←</a>
+{% endblock %}
 {% block content %}
 <section
   class="stack-lg"
@@ -11,7 +13,6 @@
   data-lessons-url="{{ url_for('pages.level_home', level_id=lesson.level_id) }}"
   data-tab="{{ tab }}"
 >
-  <a class="btn btn--ghost" href="{{ url_for('pages.level_home', level_id=lesson.level_id) }}">← Lessons</a>
   <div>
     <h1 class="heading-1">{{ lesson.title }}</h1>
     <p class="text-muted">{{ lesson.summary }}</p>

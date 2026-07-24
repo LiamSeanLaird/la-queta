@@ -138,3 +138,32 @@ def require_user() -> User:
     if user is None:
         raise AuthError("Not authenticated", 401)
     return user
+
+
+def update_user_profile(user: User, handle: object, email: object) -> User:
+    cleaned_handle = validate_handle(handle)
+    cleaned_email = validate_email(email)
+
+    other_handle = db.session.scalar(
+        select(User).where(
+            func.lower(User.handle) == cleaned_handle.lower(),
+            User.id != user.id,
+        )
+    )
+    if other_handle is not None:
+        raise AuthError("That name is already taken", 409)
+
+    other_email = db.session.scalar(
+        select(User).where(User.email == cleaned_email, User.id != user.id)
+    )
+    if other_email is not None:
+        raise AuthError("Email already used", 409)
+
+    user.handle = cleaned_handle
+    user.email = cleaned_email
+    try:
+        db.session.commit()
+    except IntegrityError:
+        db.session.rollback()
+        raise AuthError("Could not update profile", 409) from None
+    return user

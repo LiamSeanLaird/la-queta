@@ -35,3 +35,13 @@ def list_can_dos_for_level(user: User, level_id: str) -> list[dict]:
             }
         )
     return result
+
+
+def can_dos_progress(user: User, level_id: str) -> dict:
+    items = list_can_dos_for_level(user, level_id)
+    done = sum(1 for item in items if item["done"])
+    return {
+        "items": items,
+        "done": done,
+        "total": len(items),
+    }

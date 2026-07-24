@@ -5,7 +5,7 @@ from app.extensions import db
 from app.models import Deck, Level
 from app.services.auth import current_user
 from app.services.errors import ServiceError
-from app.services.can_dos import list_can_dos_for_level
+from app.services.can_dos import can_dos_progress, list_can_dos_for_level
 from app.services.lessons import get_lesson, list_lessons_for_level
 from app.services.levels import list_levels_for_user, select_level, level_is_open
 from app.services.progress import continue_target, level_completeness_pct
@@ -51,13 +51,26 @@ def levels():
     user, bounced = _login_required()
     if bounced:
         return bounced
-    target = continue_target(user)
+    levels_data = list_levels_for_user(user)
+    for row in levels_data:
+        progress = can_dos_progress(user, row["id"])
+        row["can_dos"] = progress["items"]
+        row["goals_done"] = progress["done"]
+        row["goals_total"] = progress["total"]
+    daily_level_id = user.current_level_id if level_is_open(user.current_level_id or "") else None
+    if daily_level_id is None:
+        daily_level_id = next(
+            (row["id"] for row in levels_data if row.get("available")),
+            None,
+        )
+    daily_href = (
+        url_for("pages.daily", level_id=daily_level_id) if daily_level_id else None
+    )
     return render_template(
         "levels.html",
         user=user,
-        levels=list_levels_for_user(user),
-        continue_target=target,
-        continue_href=_continue_href(target) if target else None,
+        levels=levels_data,
+        daily_href=daily_href,
     )
 
 
@@ -81,8 +94,7 @@ def level_home(level_id: str):
 
     lessons = list_lessons_for_level(user, level_id) if tab == "learn" else []
     decks = list_decks_for_level(user, level_id) if tab == "vocab" else []
-    can_dos = list_can_dos_for_level(user, level_id) if tab == "learn" else []
-    target = continue_target(user, level_id=level_id)
+    goals = can_dos_progress(user, level_id)
     return render_template(
         "level.html",
         user=user,
@@ -90,10 +102,10 @@ def level_home(level_id: str):
         tab=tab,
         lessons=lessons,
         decks=decks,
-        can_dos=can_dos,
+        can_dos=goals["items"],
+        goals_done=goals["done"],
+        goals_total=goals["total"],
         complete_pct=level_completeness_pct(user.id, level_id),
-        continue_target=target,
-        continue_href=_continue_href(target) if target else None,
         brand_href=url_for("pages.levels"),
     )
 
@@ -180,7 +192,7 @@ def study(slug: str):
         study_title=f"Study {deck_data['title']}",
         session_url=url_for("api_vocab.deck_session", slug=slug),
         exit_url=url_for("pages.deck", slug=slug),
-        back_label="← Deck",
+        back_label="Back to deck",
         done_message="Deck complete for now — all cards retired or none left.",
         brand_href=url_for("pages.levels"),
     )
@@ -202,7 +214,7 @@ def daily(level_id: str):
         study_title=f"Daily vocab · {level.code}",
         session_url=url_for("api_vocab.level_daily", level_id=level_id),
         exit_url=url_for("pages.level_home", level_id=level_id, tab="vocab"),
-        back_label="← Vocab",
+        back_label="Back to vocab",
         done_message="Daily session complete.",
         brand_href=url_for("pages.levels"),
     )

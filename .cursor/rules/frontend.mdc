@@ -10,10 +10,10 @@ alwaysApply: false
 - Vanilla HTML/CSS/JS only — no React/Vue/Tailwind/Bootstrap/HTMX.
 - Tokens and visual rules live in `STYLE_GUIDE.md` §4–5 (gold-washed surface, Senyera red CTAs, gold progress/highlights, Fraunces display / Figtree UI). No flag strip.
 - **Multi-page:** one URL per job (`/`, `/levels`, `/levels/<id>`, `/levels/<id>/daily`, `/lessons/<id>`, `/decks/<slug>`, `/study`, `/browse`). Extend `templates/base.html`. Do not revive a hidden-section mega-page.
-- Gate: **Create account** (name + email + password) / **Sign in** (email + password). No OAuth. Taglines show `user.handle`.
-- Page JS under `static/js/` (`api.js` shared). Mutations still hit `/api/…`.
+- Gate: **Create account** (name + email + password) / **Sign in** (email + password). No OAuth. Logged-in shell: topbar with **←** back (left), brand (center), **profile** icon (right) → dialog to edit handle/email + Sign out. No “Hola, {handle}” tagline.
+- Page JS under `static/js/` (`api.js` shared). Mutations still hit `/api/…`. Modal dialogs close on backdrop click (`bindDialogBackdropClose`).
 - Component gallery: `/style-guide`. New UI patterns must be added there in the same change.
-- Level hub: A1 clickable; A2/B1 disabled tiles (“coming soon”). Daily vocab CTA on level page. Can-do checklist on Learn tab.
+- Level hub: A1 clickable; A2/B1 disabled (“coming soon”). **Daily vocab** CTA on `/levels`. No Continue CTA. Goal progress as `N/M goals complete` (clickable **goals**) on hub card + level page; dialog explains goals unlock via lessons. Page titles/meta use `.page-intro` (centered); list/card body text stays left-aligned.
 - Study: first-load tip dialog (Don’t show again); tap / Enter / Next = flip then next (seen++); Back = previous; Retire confirm dialog (`localStorage`). Card `hint` only when pedagogical. Empty/finished session → redirect to exit URL (deck or level vocab). Daily session via `/levels/<id>/daily`.
 - Lesson: Learn | Practice tabs (`?tab=`). Practice kinds: MC, cloze, type-in, **listen_choice / listen_type / speak** (browser TTS via `speech.js`; speak is self-check, optional mic). Accents required on typed answers.
 - Deck page: retired progress bar; when fully retired, **Unretire deck** (resets seen → 0) instead of Study.
