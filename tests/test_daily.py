@@ -78,6 +78,11 @@ def test_can_dos_on_level_learn_tab(migrated_app, migrated_client):
     assert b"can-dos-a1" in hub.data
     assert b"Complete the lessons in each goal to unlock it." in hub.data
     assert b"0/7" in hub.data
+    assert b"Send feedback" in hub.data
+    assert b"feedback-dialog" in hub.data
+    assert b"A note for Liam" in hub.data
+    assert b"Write to me" in hub.data
+    assert b"mailto:liamlaird120@gmail.com" in hub.data
     vocab = migrated_client.get("/levels/a1?tab=vocab")
     assert vocab.status_code == 200
     assert b"goal-section" in vocab.data

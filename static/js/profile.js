@@ -38,3 +38,13 @@
     window.location.assign("/");
   });
 })();
+
+(() => {
+  const openBtn = document.getElementById("feedback-open");
+  const dialog = document.getElementById("feedback-dialog");
+  const mailto = document.getElementById("feedback-mailto");
+  if (!openBtn || !dialog) return;
+
+  openBtn.addEventListener("click", () => dialog.showModal());
+  mailto?.addEventListener("click", () => dialog.close());
+})();

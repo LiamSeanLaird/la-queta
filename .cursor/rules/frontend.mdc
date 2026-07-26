@@ -10,7 +10,7 @@ alwaysApply: false
 - Vanilla HTML/CSS/JS only — no React/Vue/Tailwind/Bootstrap/HTMX.
 - Tokens and visual rules live in `STYLE_GUIDE.md` §4–5 (gold-washed surface, Senyera red CTAs, gold progress/highlights, Fraunces display / Figtree UI). No flag strip.
 - **Multi-page:** one URL per job (`/`, `/levels`, `/levels/<id>`, `/levels/<id>/daily`, `/lessons/<id>`, `/decks/<slug>`, `/study`, `/browse`). Extend `templates/base.html`. Do not revive a hidden-section mega-page.
-- Gate: **Create account** (name + email + password) / **Sign in** (email + password). No OAuth. Logged-in shell: topbar with **←** back (left), brand (center), **profile** icon (right) → dialog to edit handle/email + Sign out. No “Hola, {handle}” tagline.
+- Gate: **Create account** (name + email + password) / **Sign in** (email + password). No OAuth. Logged-in shell: topbar with **←** back (left), brand (center), **profile** + **feedback** (mailto, `chat-processing-outline` under profile) → profile dialog. No “Hola, {handle}” tagline.
 - Page JS under `static/js/` (`api.js` shared). Mutations still hit `/api/…`. Modal dialogs close on backdrop click (`bindDialogBackdropClose`).
 - Component gallery: `/style-guide`. New UI patterns must be added there in the same change.
 - Level hub: A1 clickable; A2/B1 disabled (“coming soon”). **Daily vocab** CTA on `/levels`. No Continue CTA. **7 A1 goals** (clustered can-dos in `a1_can_dos.json` with `lesson_ids` + `deck_slugs`); Learn and Vocab tabs grouped by goal; `N/7 goals` + bar; dialog shows lessons per goal; completing last lesson in a goal → unlock dialog. Page titles/meta use `.page-intro` (centered); list/card body text stays left-aligned.

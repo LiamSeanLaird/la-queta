@@ -38,10 +38,20 @@ def create_app(config_overrides: dict | None = None) -> Flask:
     application.register_blueprint(api_vocab_bp)
 
     @application.context_processor
-    def inject_current_user():
+    def inject_shell():
+        from flask import current_app
+        from urllib.parse import quote
         from app.services.auth import current_user
 
-        return {"current_user": current_user()}
+        email = current_app.config.get("FEEDBACK_EMAIL") or ""
+        feedback_href = ""
+        if email:
+            subject = quote("La Queta feedback")
+            feedback_href = f"mailto:{email}?subject={subject}"
+        return {
+            "current_user": current_user(),
+            "feedback_href": feedback_href,
+        }
 
     return application
 

@@ -11,6 +11,8 @@ class Config:
     SESSION_COOKIE_SAMESITE = "Lax"
     # Signed Flask session stores user id under key session_user (see services.auth).
     PERMANENT_SESSION_LIFETIME = 60 * 60 * 24 * 365
+    # Soft-launch feedback (mailto). Override with FEEDBACK_EMAIL in the environment.
+    FEEDBACK_EMAIL = os.environ.get("FEEDBACK_EMAIL", "liamlaird120@gmail.com")
 
 
 class TestConfig(Config):

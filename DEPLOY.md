@@ -138,6 +138,7 @@ sudo mkdir -p /etc/la-queta
 sudo tee /etc/la-queta/env >/dev/null <<EOF
 SECRET_KEY=$(python3 -c 'import secrets; print(secrets.token_hex(32))')
 DATABASE_URL=sqlite:////var/lib/la-queta/app.db
+# Optional: FEEDBACK_EMAIL=you@example.com
 EOF
 sudo chown root:ubuntu /etc/la-queta/env
 sudo chmod 640 /etc/la-queta/env
