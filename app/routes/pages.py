@@ -5,7 +5,7 @@ from app.extensions import db
 from app.models import Deck, Level
 from app.services.auth import current_user
 from app.services.errors import ServiceError
-from app.services.can_dos import can_dos_progress, list_can_dos_for_level
+from app.services.can_dos import can_dos_progress, learn_groups_for_level, vocab_groups_for_level
 from app.services.lessons import get_lesson, list_lessons_for_level
 from app.services.levels import list_levels_for_user, select_level, level_is_open
 from app.services.progress import continue_target, level_completeness_pct
@@ -93,7 +93,9 @@ def level_home(level_id: str):
         tab = "learn"
 
     lessons = list_lessons_for_level(user, level_id) if tab == "learn" else []
+    learn_groups = learn_groups_for_level(user, level_id) if tab == "learn" else []
     decks = list_decks_for_level(user, level_id) if tab == "vocab" else []
+    vocab_groups = vocab_groups_for_level(user, level_id) if tab == "vocab" else []
     goals = can_dos_progress(user, level_id)
     return render_template(
         "level.html",
@@ -101,10 +103,13 @@ def level_home(level_id: str):
         level=level,
         tab=tab,
         lessons=lessons,
+        learn_groups=learn_groups,
         decks=decks,
+        vocab_groups=vocab_groups,
         can_dos=goals["items"],
         goals_done=goals["done"],
         goals_total=goals["total"],
+        goals_pct=goals["pct"],
         complete_pct=level_completeness_pct(user.id, level_id),
         brand_href=url_for("pages.levels"),
     )

@@ -22,6 +22,16 @@
       >goals</button>
       complete
     </p>
+    <div
+      class="progress progress--goals"
+      role="progressbar"
+      aria-label="Goals complete"
+      aria-valuenow="{{ goals_pct }}"
+      aria-valuemin="0"
+      aria-valuemax="100"
+    >
+      <div class="progress__bar" style="width: {{ goals_pct }}%"></div>
+    </div>
     {% endif %}
     {% if complete_pct == 100 %}
     <p class="text-muted">This level is complete — nice work.</p>
@@ -34,34 +44,86 @@
   </div>
 
   {% if tab == 'learn' %}
-  <div class="list">
-    {% for lesson in lessons %}
-    <a class="list-row" href="{{ url_for('pages.lesson', lesson_id=lesson.id) }}">
-      <div>
-        <p class="list-row__title">{{ lesson.title }}</p>
-        <p class="list-row__sub">{{ lesson.summary }}</p>
+    {% if learn_groups %}
+      {% for group in learn_groups %}
+      <div class="goal-section">
+        <div class="goal-section__head">
+          <h3 class="heading-3 goal-section__title">{{ group.label }}</h3>
+          <span class="badge {% if group.done %}badge--done{% else %}badge--todo{% endif %}">
+            {% if group.done %}Done{% else %}{{ group.lessons_done }}/{{ group.lessons_total }}{% endif %}
+          </span>
+        </div>
+        <div class="list">
+          {% for lesson in group.lessons %}
+          <a class="list-row" href="{{ url_for('pages.lesson', lesson_id=lesson.id) }}">
+            <div>
+              <p class="list-row__title">{{ lesson.title }}</p>
+              <p class="list-row__sub">{{ lesson.summary }}</p>
+            </div>
+            <span class="badge {% if lesson.completed %}badge--done{% else %}badge--todo{% endif %}">
+              {% if lesson.completed %}Done{% else %}Todo{% endif %}
+            </span>
+          </a>
+          {% endfor %}
+        </div>
       </div>
-      <span class="badge {% if lesson.completed %}badge--done{% else %}badge--todo{% endif %}">
-        {% if lesson.completed %}Done{% else %}Todo{% endif %}
-      </span>
-    </a>
+      {% endfor %}
     {% else %}
-    <p class="text-muted">No lessons yet for this level.</p>
-    {% endfor %}
-  </div>
+    <div class="list">
+      {% for lesson in lessons %}
+      <a class="list-row" href="{{ url_for('pages.lesson', lesson_id=lesson.id) }}">
+        <div>
+          <p class="list-row__title">{{ lesson.title }}</p>
+          <p class="list-row__sub">{{ lesson.summary }}</p>
+        </div>
+        <span class="badge {% if lesson.completed %}badge--done{% else %}badge--todo{% endif %}">
+          {% if lesson.completed %}Done{% else %}Todo{% endif %}
+        </span>
+      </a>
+      {% else %}
+      <p class="text-muted">No lessons yet for this level.</p>
+      {% endfor %}
+    </div>
+    {% endif %}
   {% else %}
-  <div class="list">
-    {% for deck in decks %}
-    <a class="list-row" href="{{ url_for('pages.deck', slug=deck.slug) }}">
-      <div>
-        <p class="list-row__title">{{ deck.title }}</p>
-        <p class="list-row__sub">{{ deck.remaining }} left · {{ deck.retired }}/{{ deck.total }} retired</p>
+    {% if vocab_groups %}
+      {% for group in vocab_groups %}
+      <div class="goal-section">
+        <div class="goal-section__head">
+          <h3 class="heading-3 goal-section__title">{{ group.label }}</h3>
+          <span class="badge {% if group.done %}badge--done{% else %}badge--todo{% endif %}">
+            {% if group.done %}Done{% else %}{{ group.decks_done }}/{{ group.decks_total }}{% endif %}
+          </span>
+        </div>
+        <div class="list">
+          {% for deck in group.decks %}
+          <a class="list-row" href="{{ url_for('pages.deck', slug=deck.slug) }}">
+            <div>
+              <p class="list-row__title">{{ deck.title }}</p>
+              <p class="list-row__sub">{{ deck.remaining }} left · {{ deck.retired }}/{{ deck.total }} retired</p>
+            </div>
+            <span class="badge {% if deck.done %}badge--done{% else %}badge--todo{% endif %}">
+              {% if deck.done %}Done{% else %}Todo{% endif %}
+            </span>
+          </a>
+          {% endfor %}
+        </div>
       </div>
-    </a>
+      {% endfor %}
     {% else %}
-    <p class="text-muted">No vocab decks yet for this level.</p>
-    {% endfor %}
-  </div>
+    <div class="list">
+      {% for deck in decks %}
+      <a class="list-row" href="{{ url_for('pages.deck', slug=deck.slug) }}">
+        <div>
+          <p class="list-row__title">{{ deck.title }}</p>
+          <p class="list-row__sub">{{ deck.remaining }} left · {{ deck.retired }}/{{ deck.total }} retired</p>
+        </div>
+      </a>
+      {% else %}
+      <p class="text-muted">No vocab decks yet for this level.</p>
+      {% endfor %}
+    </div>
+    {% endif %}
   {% endif %}
 
   {% if can_dos %}

@@ -1,0 +1,145 @@
+{
+  "id": "travel-transport",
+  "title": "Travel & Transport",
+  "order": 13,
+  "summary": "Buy tickets, ask about trains and buses, and find the station.",
+  "sections": [
+    {
+      "type": "text",
+      "content": "Urbà / transports in the A1 programme: metro, bus, train, tickets, stations, and simple departure questions."
+    },
+    {
+      "type": "rule",
+      "content": "Un bitllet a… + place. Quan surt / Quan arriba…? On és l'estació / la parada? Modes: el tren, el metro, l'autobús, el taxi."
+    },
+    {
+      "type": "examples",
+      "items": [
+        {
+          "catalan": "Un bitllet a Girona, si us plau.",
+          "english": "A ticket to Girona, please.",
+          "note": ""
+        },
+        {
+          "catalan": "On és l'estació?",
+          "english": "Where is the station?",
+          "note": ""
+        },
+        {
+          "catalan": "Quan surt el tren?",
+          "english": "When does the train leave?",
+          "note": ""
+        },
+        {
+          "catalan": "Vaig amb metro.",
+          "english": "I'm going by metro.",
+          "note": ""
+        }
+      ]
+    }
+  ],
+  "practice": [
+    {
+      "id": "tt-p01",
+      "kind": "multiple_choice",
+      "question": "‘Ticket’ is…",
+      "options": ["el bitllet", "l'estació", "la maleta"],
+      "answer": "el bitllet",
+      "explanation": "el bitllet = ticket."
+    },
+    {
+      "id": "tt-p02",
+      "kind": "multiple_choice",
+      "question": "‘Where is the station?’ is…",
+      "options": ["On és l'estació?", "Quan surt el tren?", "Un bitllet, si us plau."],
+      "answer": "On és l'estació?",
+      "explanation": "On és…?"
+    },
+    {
+      "id": "tt-p03",
+      "kind": "multiple_choice",
+      "question": "‘When does it leave?’ often starts…",
+      "options": ["Quan surt…?", "Quan arriba…?", "On és…?"],
+      "answer": "Quan surt…?",
+      "explanation": "surt = leaves."
+    },
+    {
+      "id": "tt-p04",
+      "kind": "multiple_choice",
+      "question": "‘Bus’ is…",
+      "options": ["l'autobús", "el tren", "el metro"],
+      "answer": "l'autobús",
+      "explanation": "l'autobús."
+    },
+    {
+      "id": "tt-p05",
+      "kind": "cloze",
+      "prompt": "Un ___ a Barcelona.",
+      "hint": "ticket",
+      "answer": "bitllet",
+      "explanation": "Un bitllet a…"
+    },
+    {
+      "id": "tt-p06",
+      "kind": "cloze",
+      "prompt": "On ___ l'estació?",
+      "hint": "is",
+      "answer": "és",
+      "explanation": "On és…?"
+    },
+    {
+      "id": "tt-p07",
+      "kind": "cloze",
+      "prompt": "Quan ___ el tren?",
+      "hint": "leaves",
+      "answer": "surt",
+      "explanation": "Quan surt…?"
+    },
+    {
+      "id": "tt-p08",
+      "kind": "type_in",
+      "prompt": "the train",
+      "answers": ["el tren", "El tren"],
+      "explanation": "el tren."
+    },
+    {
+      "id": "tt-p09",
+      "kind": "type_in",
+      "prompt": "Where is the station?",
+      "answers": ["On és l'estació?", "On és l'estació"],
+      "explanation": "On és l'estació?"
+    },
+    {
+      "id": "tt-p10",
+      "kind": "type_in",
+      "prompt": "the ticket",
+      "answers": ["el bitllet", "El bitllet"],
+      "explanation": "el bitllet."
+    },
+    {
+      "id": "tt-l01",
+      "kind": "listen_choice",
+      "speak": "Un bitllet a Girona",
+      "question": "What did you hear?",
+      "options": ["A ticket to Girona", "Where is Girona?", "The train to Girona"],
+      "answer": "A ticket to Girona",
+      "explanation": "bitllet a…"
+    },
+    {
+      "id": "tt-l02",
+      "kind": "listen_type",
+      "speak": "Quan surt el tren?",
+      "prompt": "Type the Catalan you hear",
+      "answers": ["Quan surt el tren?", "Quan surt el tren"],
+      "explanation": "When does the train leave?"
+    },
+    {
+      "id": "tt-s01",
+      "kind": "speak",
+      "speak": "On és l'estació?",
+      "prompt": "Say this aloud",
+      "hint": "Where is the station?",
+      "explanation": "Transport survival."
+    }
+  ]
+}

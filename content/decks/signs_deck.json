@@ -1,0 +1,17 @@
+[
+  {"id": "sg_001", "catalan": "obert", "pronunciation": "oo-BERT", "english": "open", "hint": "shop/sign", "tags": ["signs"], "pos": "adjective"},
+  {"id": "sg_002", "catalan": "tancat", "pronunciation": "tun-KAT", "english": "closed", "hint": "shop/sign", "tags": ["signs"], "pos": "adjective"},
+  {"id": "sg_003", "catalan": "Entrada gratuïta", "pronunciation": "un-TRAH-duh gruh-twee-EE-tuh", "english": "Free entry", "hint": "", "tags": ["signs"], "pos": "phrase"},
+  {"id": "sg_004", "catalan": "Prohibit fumar", "pronunciation": "proo-ee-BEET foo-MAR", "english": "No smoking", "hint": "", "tags": ["signs"], "pos": "phrase"},
+  {"id": "sg_005", "catalan": "Sortida", "pronunciation": "sor-TEE-duh", "english": "Exit", "hint": "", "tags": ["signs"], "pos": "noun", "gender": "f", "plural": "les sortides"},
+  {"id": "sg_006", "catalan": "Entrada", "pronunciation": "un-TRAH-duh", "english": "Entrance / entry", "hint": "", "tags": ["signs"], "pos": "noun", "gender": "f", "plural": "les entrades"},
+  {"id": "sg_007", "catalan": "Empeny", "pronunciation": "um-PEN-y", "english": "Push", "hint": "door sign", "tags": ["signs"], "pos": "phrase"},
+  {"id": "sg_008", "catalan": "Estira", "pronunciation": "uhs-TEE-ruh", "english": "Pull", "hint": "door sign", "tags": ["signs"], "pos": "phrase"},
+  {"id": "sg_009", "catalan": "D'acord", "pronunciation": "duh-KORT", "english": "OK / agreed", "hint": "chat", "tags": ["messages"], "pos": "phrase"},
+  {"id": "sg_010", "catalan": "Fins demà", "pronunciation": "feens duh-MAH", "english": "See you tomorrow", "hint": "chat", "tags": ["messages"], "pos": "phrase"},
+  {"id": "sg_011", "catalan": "No puc avui", "pronunciation": "noh pook uh-VOO-ee", "english": "I can't today", "hint": "chat", "tags": ["messages"], "pos": "phrase"},
+  {"id": "sg_012", "catalan": "Què et sembla?", "pronunciation": "keh ut SEM-bluh", "english": "What do you think?", "hint": "chat", "tags": ["messages"], "pos": "phrase"},
+  {"id": "sg_013", "catalan": "Ens veiem allà", "pronunciation": "uns veh-YEM uh-YAH", "english": "See you there", "hint": "chat", "tags": ["messages"], "pos": "phrase"},
+  {"id": "sg_014", "catalan": "Horari", "pronunciation": "oo-RAH-ree", "english": "Timetable / opening hours", "hint": "", "tags": ["signs"], "pos": "noun", "gender": "m", "plural": "els horaris"},
+  {"id": "sg_015", "catalan": "Obert de 9 a 14 h", "pronunciation": "oo-BERT duh nou uh ka-TOR-zuh", "english": "Open from 9 to 2", "hint": "", "tags": ["signs"], "pos": "phrase"}
+]

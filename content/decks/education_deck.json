@@ -1,0 +1,17 @@
+[
+  {"id": "edu_001", "catalan": "el curs", "pronunciation": "ul koors", "english": "the course", "hint": "", "tags": ["education"], "pos": "noun", "gender": "m", "plural": "els cursos"},
+  {"id": "edu_002", "catalan": "la classe", "pronunciation": "luh KLAH-suh", "english": "the class", "hint": "", "tags": ["education"], "pos": "noun", "gender": "f", "plural": "les classes"},
+  {"id": "edu_003", "catalan": "la inscripció", "pronunciation": "luh in-skreep-see-OH", "english": "the enrolment / registration", "hint": "", "tags": ["education"], "pos": "noun", "gender": "f", "plural": "les inscripcions"},
+  {"id": "edu_004", "catalan": "l'escola d'adults", "pronunciation": "luhs-KO-luh duh-DOOLTS", "english": "the adult school", "hint": "", "tags": ["education"], "pos": "phrase"},
+  {"id": "edu_005", "catalan": "el CPNL", "pronunciation": "ul seh-peh-eh-NEHL", "english": "CPNL (language consortium)", "hint": "", "tags": ["education"], "pos": "noun", "gender": "m", "plural": "—"},
+  {"id": "edu_006", "catalan": "l'EOI", "pronunciation": "leh-oh-EE", "english": "official language school (EOI)", "hint": "", "tags": ["education"], "pos": "noun", "gender": "f", "plural": "les EOI"},
+  {"id": "edu_007", "catalan": "la universitat", "pronunciation": "luh oo-nee-vur-see-TAT", "english": "the university", "hint": "", "tags": ["education"], "pos": "noun", "gender": "f", "plural": "les universitats"},
+  {"id": "edu_008", "catalan": "l'institut", "pronunciation": "lin-stee-TOOT", "english": "the secondary school", "hint": "", "tags": ["education"], "pos": "noun", "gender": "m", "plural": "els instituts"},
+  {"id": "edu_009", "catalan": "Faig un curs de català", "pronunciation": "fahzh oon koors duh kuh-tuh-LAH", "english": "I'm doing a Catalan course", "hint": "", "tags": ["education"], "pos": "phrase"},
+  {"id": "edu_010", "catalan": "Vull fer la inscripció", "pronunciation": "bool fehr luh in-skreep-see-OH", "english": "I want to enrol", "hint": "", "tags": ["education"], "pos": "phrase"},
+  {"id": "edu_011", "catalan": "Tinc classe demà", "pronunciation": "ting KLAH-suh duh-MAH", "english": "I have class tomorrow", "hint": "", "tags": ["education"], "pos": "phrase"},
+  {"id": "edu_012", "catalan": "el llibre", "pronunciation": "ul YEE-bruh", "english": "the book", "hint": "", "tags": ["education"], "pos": "noun", "gender": "m", "plural": "els llibres"},
+  {"id": "edu_013", "catalan": "la llibreta", "pronunciation": "luh yee-BREH-tuh", "english": "the notebook", "hint": "", "tags": ["education"], "pos": "noun", "gender": "f", "plural": "les llibretes"},
+  {"id": "edu_014", "catalan": "el bolígraf", "pronunciation": "ul boo-LEE-graf", "english": "the pen", "hint": "", "tags": ["education"], "pos": "noun", "gender": "m", "plural": "els bolígrafs"},
+  {"id": "edu_015", "catalan": "On és l'escola d'adults?", "pronunciation": "on ehs luhs-KO-luh duh-DOOLTS", "english": "Where is the adult school?", "hint": "", "tags": ["education"], "pos": "phrase"}
+]

@@ -1,4 +1,4 @@
-"""Normalize and match practice answers (accents required)."""
+"""Normalize and match practice answers (accents required; punctuation ignored)."""
 
 from __future__ import annotations
 
@@ -6,10 +6,13 @@ import re
 
 
 _WS = re.compile(r"\s+")
+# Keep letters/digits (incl. Catalan accents), spaces, apostrophes, hyphens.
+_DROP = re.compile(r"[^\w\s'-]+", re.UNICODE)
 
 
 def normalize_answer(value: str) -> str:
-    return _WS.sub(" ", (value or "").strip()).casefold()
+    text = _DROP.sub("", (value or "").strip())
+    return _WS.sub(" ", text).casefold()
 
 
 def answers_for_item(item: dict) -> list[str]:

@@ -1,0 +1,17 @@
+[
+  {"id": "wk_001", "catalan": "la feina", "pronunciation": "luh FEH-nuh", "english": "the job / work", "hint": "", "tags": ["work"], "pos": "noun", "gender": "f", "plural": "les feines"},
+  {"id": "wk_002", "catalan": "l'oficina", "pronunciation": "loo-fee-SEE-nuh", "english": "the office", "hint": "", "tags": ["work"], "pos": "noun", "gender": "f", "plural": "les oficines"},
+  {"id": "wk_003", "catalan": "el professor", "pronunciation": "ul proo-fuh-SOR", "english": "the teacher (m)", "hint": "", "tags": ["work"], "pos": "noun", "gender": "m", "plural": "els professors"},
+  {"id": "wk_004", "catalan": "la professora", "pronunciation": "luh proo-fuh-SO-ruh", "english": "the teacher (f)", "hint": "", "tags": ["work"], "pos": "noun", "gender": "f", "plural": "les professores"},
+  {"id": "wk_005", "catalan": "el cambrer", "pronunciation": "ul kum-BREH", "english": "the waiter", "hint": "", "tags": ["work"], "pos": "noun", "gender": "m", "plural": "els cambrers"},
+  {"id": "wk_006", "catalan": "la cambrera", "pronunciation": "luh kum-BREH-ruh", "english": "the waitress", "hint": "", "tags": ["work"], "pos": "noun", "gender": "f", "plural": "les cambreres"},
+  {"id": "wk_007", "catalan": "Quina feina fas?", "pronunciation": "KEE-nuh FEH-nuh fas", "english": "What job do you do?", "hint": "", "tags": ["work"], "pos": "phrase"},
+  {"id": "wk_008", "catalan": "Treballo en una oficina", "pronunciation": "truh-BAH-yoo un OO-nuh oo-fee-SEE-nuh", "english": "I work in an office", "hint": "", "tags": ["work"], "pos": "phrase"},
+  {"id": "wk_009", "catalan": "l'entrevista", "pronunciation": "lun-truh-VEES-tuh", "english": "the interview", "hint": "", "tags": ["work"], "pos": "noun", "gender": "f", "plural": "les entrevistes"},
+  {"id": "wk_010", "catalan": "les vacances", "pronunciation": "luhs vuh-KAN-suhs", "english": "the holidays", "hint": "", "tags": ["work"], "pos": "noun", "gender": "f", "plural": "—"},
+  {"id": "wk_011", "catalan": "el sou", "pronunciation": "ul SOH", "english": "the salary", "hint": "", "tags": ["work"], "pos": "noun", "gender": "m", "plural": "els sous"},
+  {"id": "wk_012", "catalan": "l'empresa", "pronunciation": "lum-PREH-zuh", "english": "the company", "hint": "", "tags": ["work"], "pos": "noun", "gender": "f", "plural": "les empreses"},
+  {"id": "wk_013", "catalan": "Soc professor", "pronunciation": "sok proo-fuh-SOR", "english": "I'm a teacher", "hint": "", "tags": ["work"], "pos": "phrase"},
+  {"id": "wk_014", "catalan": "Treballo de dilluns a divendres", "pronunciation": "truh-BAH-yoo duh dee-YOONS uh dee-BEN-druhs", "english": "I work Monday to Friday", "hint": "", "tags": ["work"], "pos": "phrase"},
+  {"id": "wk_015", "catalan": "l'Oficina de Treball", "pronunciation": "loo-fee-SEE-nuh duh truh-BAHL", "english": "the employment office", "hint": "", "tags": ["work"], "pos": "phrase"}
+]

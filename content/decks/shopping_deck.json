@@ -173,5 +173,52 @@
       "shopping"
     ],
     "pos": "phrase"
+  },
+  {
+    "id": "sh_016",
+    "catalan": "el tiquet",
+    "pronunciation": "ul tee-KET",
+    "english": "the receipt",
+    "hint": "",
+    "tags": ["shopping"],
+    "pos": "noun",
+    "gender": "m",
+    "plural": "els tiquets"
+  },
+  {
+    "id": "sh_017",
+    "catalan": "El tiquet, si us plau",
+    "pronunciation": "ul tee-KET see oos plow",
+    "english": "The receipt, please",
+    "hint": "",
+    "tags": ["shopping"],
+    "pos": "phrase"
+  },
+  {
+    "id": "sh_018",
+    "catalan": "Quin color vols?",
+    "pronunciation": "keen koo-LOR vols",
+    "english": "What colour do you want?",
+    "hint": "",
+    "tags": ["shopping"],
+    "pos": "phrase"
+  },
+  {
+    "id": "sh_019",
+    "catalan": "Em pot ensenyar això?",
+    "pronunciation": "um pot un-sun-YAR uh-SHAW",
+    "english": "Can you show me that?",
+    "hint": "",
+    "tags": ["shopping"],
+    "pos": "phrase"
+  },
+  {
+    "id": "sh_020",
+    "catalan": "Pago en efectiu",
+    "pronunciation": "PAH-goo un uh-fek-TEE-oo",
+    "english": "I'll pay in cash",
+    "hint": "",
+    "tags": ["shopping"],
+    "pos": "phrase"
   }
 ]

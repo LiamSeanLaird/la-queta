@@ -26,6 +26,15 @@ def test_normalize_keeps_accents():
     assert normalize_answer("estacio") != normalize_answer("estació")
 
 
+def test_normalize_ignores_punctuation_and_case():
+    assert normalize_answer("Com estàs?") == "com estàs"
+    assert normalize_answer("com estàs") == "com estàs"
+    assert normalize_answer("«Gràcies!»") == "gràcies"
+    assert normalize_answer("l'estació.") == "l'estació"
+    assert answers_match("com estàs", ["Com estàs?"])
+    assert answers_match("Com estas?", ["Com estàs?"]) is False  # accent required
+
+
 def test_answers_match_list():
     assert answers_match("la taula", ["la taula", "La Taula"])
     assert not answers_match("la tabla", ["la taula"])
@@ -87,6 +96,11 @@ def test_lesson_page_has_learn_practice_tabs(migrated_app, migrated_client):
     assert b"js/practice.js" in practice_tab.data
     assert b'data-tab="practice"' in practice_tab.data
     assert b"is-active" in practice_tab.data
+    from pathlib import Path
+
+    src = Path(migrated_app.root_path).parent.joinpath("static/js/practice.js").read_text()
+    assert "Fill the blank only" in src
+    assert "Show answer" in src
 
 
 def test_answers_for_item_helpers():

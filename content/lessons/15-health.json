@@ -1,0 +1,150 @@
+{
+  "id": "health",
+  "title": "Health & Pharmacy",
+  "order": 15,
+  "summary": "Say you feel ill, ask for a pharmacy, and book a simple appointment.",
+  "sections": [
+    {
+      "type": "text",
+      "content": "Entorn sanitari i assistencial: CAP, farmàcia, hospital, and short phrases for feeling unwell — survival Catalan for immediate needs."
+    },
+    {
+      "type": "rule",
+      "content": "Em trobo malament / Em fa mal… + body part. On és la farmàcia / el CAP? Necessito un metge. Tinc cita a les…"
+    },
+    {
+      "type": "examples",
+      "items": [
+        {
+          "catalan": "Em trobo malament.",
+          "english": "I feel unwell.",
+          "note": ""
+        },
+        {
+          "catalan": "Em fa mal el cap.",
+          "english": "I have a headache.",
+          "note": ""
+        },
+        {
+          "catalan": "On és la farmàcia?",
+          "english": "Where is the pharmacy?",
+          "note": ""
+        },
+        {
+          "catalan": "Necessito un metge.",
+          "english": "I need a doctor.",
+          "note": ""
+        },
+        {
+          "catalan": "Tinc cita al CAP.",
+          "english": "I have an appointment at the CAP (health centre).",
+          "note": ""
+        }
+      ]
+    }
+  ],
+  "practice": [
+    {
+      "id": "he-p01",
+      "kind": "multiple_choice",
+      "question": "‘Pharmacy’ is…",
+      "options": ["la farmàcia", "l'hospital", "el metge"],
+      "answer": "la farmàcia",
+      "explanation": "la farmàcia."
+    },
+    {
+      "id": "he-p02",
+      "kind": "multiple_choice",
+      "question": "‘I feel unwell’ is…",
+      "options": ["Em trobo malament.", "Estic bé.", "Tinc gana."],
+      "answer": "Em trobo malament.",
+      "explanation": "Em trobo malament."
+    },
+    {
+      "id": "he-p03",
+      "kind": "multiple_choice",
+      "question": "‘I need a doctor’ is…",
+      "options": ["Necessito un metge.", "On és el CAP?", "Em fa mal."],
+      "answer": "Necessito un metge.",
+      "explanation": "Necessito un metge."
+    },
+    {
+      "id": "he-p04",
+      "kind": "multiple_choice",
+      "question": "Primary care centre is often called…",
+      "options": ["el CAP", "el metro", "la botiga"],
+      "answer": "el CAP",
+      "explanation": "CAP = centre d'atenció primària."
+    },
+    {
+      "id": "he-p05",
+      "kind": "cloze",
+      "prompt": "Em ___ malament.",
+      "hint": "feel",
+      "answer": "trobo",
+      "explanation": "Em trobo malament."
+    },
+    {
+      "id": "he-p06",
+      "kind": "cloze",
+      "prompt": "On és la ___?",
+      "hint": "pharmacy",
+      "answer": "farmàcia",
+      "explanation": "la farmàcia."
+    },
+    {
+      "id": "he-p07",
+      "kind": "cloze",
+      "prompt": "Em fa ___ el cap.",
+      "hint": "hurts",
+      "answer": "mal",
+      "explanation": "Em fa mal…"
+    },
+    {
+      "id": "he-p08",
+      "kind": "type_in",
+      "prompt": "Where is the pharmacy?",
+      "answers": ["On és la farmàcia?", "On és la farmàcia"],
+      "explanation": "On és la farmàcia?"
+    },
+    {
+      "id": "he-p09",
+      "kind": "type_in",
+      "prompt": "I need a doctor",
+      "answers": ["Necessito un metge.", "Necessito un metge"],
+      "explanation": "Necessito un metge."
+    },
+    {
+      "id": "he-p10",
+      "kind": "type_in",
+      "prompt": "I feel unwell",
+      "answers": ["Em trobo malament.", "Em trobo malament"],
+      "explanation": "Em trobo malament."
+    },
+    {
+      "id": "he-l01",
+      "kind": "listen_choice",
+      "speak": "Em fa mal el cap",
+      "question": "What did you hear?",
+      "options": ["I have a headache", "I need a doctor", "Where is the hospital"],
+      "answer": "I have a headache",
+      "explanation": "Em fa mal el cap."
+    },
+    {
+      "id": "he-l02",
+      "kind": "listen_type",
+      "speak": "On és la farmàcia?",
+      "prompt": "Type the Catalan you hear",
+      "answers": ["On és la farmàcia?", "On és la farmàcia"],
+      "explanation": "pharmacy question."
+    },
+    {
+      "id": "he-s01",
+      "kind": "speak",
+      "speak": "Necessito un metge",
+      "prompt": "Say this aloud",
+      "hint": "I need a doctor",
+      "explanation": "Health survival."
+    }
+  ]
+}

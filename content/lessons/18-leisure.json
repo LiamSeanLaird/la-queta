@@ -1,0 +1,153 @@
+{
+  "id": "leisure",
+  "title": "Leisure",
+  "order": 18,
+  "summary": "Talk about free time, hobbies, and simple plans with friends.",
+  "sections": [
+    {
+      "type": "text",
+      "content": "Entorn lúdic: free-time activities, inviting someone out, and saying what you like doing."
+    },
+    {
+      "type": "rule",
+      "content": "M'agrada + infinitive / noun. Què fas al cap de setmana? Vols venir amb mi? Anem al cinema / a un concert."
+    },
+    {
+      "type": "examples",
+      "items": [
+        {
+          "catalan": "M'agrada llegir.",
+          "english": "I like reading.",
+          "note": ""
+        },
+        {
+          "catalan": "Què fas al cap de setmana?",
+          "english": "What do you do at the weekend?",
+          "note": ""
+        },
+        {
+          "catalan": "Vols venir al cinema?",
+          "english": "Do you want to come to the cinema?",
+          "note": ""
+        },
+        {
+          "catalan": "Anem a passejar.",
+          "english": "Let's go for a walk.",
+          "note": ""
+        },
+        {
+          "catalan": "Escolto música.",
+          "english": "I listen to music.",
+          "note": ""
+        }
+      ]
+    }
+  ],
+  "practice": [
+    {
+      "id": "lz-p01",
+      "kind": "multiple_choice",
+      "question": "‘I like…’ is…",
+      "options": ["M'agrada…", "Soc…", "Necessito…"],
+      "answer": "M'agrada…",
+      "explanation": "M'agrada + activity."
+    },
+    {
+      "id": "lz-p02",
+      "kind": "multiple_choice",
+      "question": "‘Do you want to come?’ is often…",
+      "options": ["Vols venir…?", "On és…?", "Quina feina fas?"],
+      "answer": "Vols venir…?",
+      "explanation": "Vols venir…?"
+    },
+    {
+      "id": "lz-p03",
+      "kind": "multiple_choice",
+      "question": "‘Cinema’ is…",
+      "options": ["el cinema", "el concert", "el parc"],
+      "answer": "el cinema",
+      "explanation": "el cinema."
+    },
+    {
+      "id": "lz-p04",
+      "kind": "multiple_choice",
+      "question": "‘Let's go for a walk’ is…",
+      "options": ["Anem a passejar.", "Vaig a dormir.", "Em trobo malament."],
+      "answer": "Anem a passejar.",
+      "explanation": "Anem a…"
+    },
+    {
+      "id": "lz-p05",
+      "kind": "cloze",
+      "prompt": "M'agrada ___.",
+      "hint": "to read",
+      "answer": "llegir",
+      "explanation": "M'agrada llegir."
+    },
+    {
+      "id": "lz-p06",
+      "kind": "cloze",
+      "prompt": "Vols ___ al cinema?",
+      "hint": "come",
+      "answer": "venir",
+      "explanation": "Vols venir…?"
+    },
+    {
+      "id": "lz-p07",
+      "kind": "cloze",
+      "prompt": "Anem a ___.",
+      "hint": "walk / stroll",
+      "answer": "passejar",
+      "explanation": "Anem a passejar."
+    },
+    {
+      "id": "lz-p08",
+      "kind": "type_in",
+      "prompt": "I like reading",
+      "answers": ["M'agrada llegir.", "M'agrada llegir"],
+      "explanation": "M'agrada llegir."
+    },
+    {
+      "id": "lz-p09",
+      "kind": "type_in",
+      "prompt": "the cinema",
+      "answers": ["el cinema", "El cinema"],
+      "explanation": "el cinema."
+    },
+    {
+      "id": "lz-p10",
+      "kind": "type_in",
+      "prompt": "What do you do at the weekend?",
+      "answers": [
+        "Què fas al cap de setmana?",
+        "Què fas al cap de setmana"
+      ],
+      "explanation": "Què fas al cap de setmana?"
+    },
+    {
+      "id": "lz-l01",
+      "kind": "listen_choice",
+      "speak": "M'agrada llegir",
+      "question": "What did you hear?",
+      "options": ["I like reading", "Let's go to the cinema", "I work tomorrow"],
+      "answer": "I like reading",
+      "explanation": "M'agrada llegir."
+    },
+    {
+      "id": "lz-l02",
+      "kind": "listen_type",
+      "speak": "Vols venir al cinema?",
+      "prompt": "Type the Catalan you hear",
+      "answers": ["Vols venir al cinema?", "Vols venir al cinema"],
+      "explanation": "invitation."
+    },
+    {
+      "id": "lz-s01",
+      "kind": "speak",
+      "speak": "Anem a passejar",
+      "prompt": "Say this aloud",
+      "hint": "Let's go for a walk",
+      "explanation": "Leisure plan."
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+[
+  {"id": "ad_001", "catalan": "l'Ajuntament", "pronunciation": "luh-zhoon-tuh-MEN", "english": "the town hall", "hint": "", "tags": ["admin"], "pos": "noun", "gender": "m", "plural": "els ajuntaments"},
+  {"id": "ad_002", "catalan": "l'Oficina del Padró", "pronunciation": "loo-fee-SEE-nuh dul puh-DRO", "english": "the population register office", "hint": "", "tags": ["admin"], "pos": "phrase"},
+  {"id": "ad_003", "catalan": "l'Oficina d'Atenció Ciutadana", "pronunciation": "loo-fee-SEE-nuh duh-ten-see-OH see-oo-tuh-DAH-nuh", "english": "citizen advice office (OAC)", "hint": "OAC", "tags": ["admin"], "pos": "phrase"},
+  {"id": "ad_004", "catalan": "la cita", "pronunciation": "luh SEE-tuh", "english": "the appointment", "hint": "", "tags": ["admin"], "pos": "noun", "gender": "f", "plural": "les cites"},
+  {"id": "ad_005", "catalan": "el formulari", "pronunciation": "ul for-moo-LAH-ree", "english": "the form", "hint": "", "tags": ["admin"], "pos": "noun", "gender": "m", "plural": "els formularis"},
+  {"id": "ad_006", "catalan": "el cognom", "pronunciation": "ul koog-NOM", "english": "the surname", "hint": "", "tags": ["admin"], "pos": "noun", "gender": "m", "plural": "els cognoms"},
+  {"id": "ad_007", "catalan": "el NIE", "pronunciation": "ul NEE-eh", "english": "foreigner ID number (NIE)", "hint": "", "tags": ["admin"], "pos": "noun", "gender": "m", "plural": "els NIE"},
+  {"id": "ad_008", "catalan": "el DNI", "pronunciation": "ul deh-eh-NEE", "english": "national ID card (DNI)", "hint": "", "tags": ["admin"], "pos": "noun", "gender": "m", "plural": "els DNI"},
+  {"id": "ad_009", "catalan": "Necessito ajuda", "pronunciation": "nuh-seh-SEE-too uh-ZHOO-duh", "english": "I need help", "hint": "", "tags": ["admin"], "pos": "phrase"},
+  {"id": "ad_010", "catalan": "Vull demanar una cita", "pronunciation": "bool duh-muh-NAR OO-nuh SEE-tuh", "english": "I want to book an appointment", "hint": "", "tags": ["admin"], "pos": "phrase"},
+  {"id": "ad_011", "catalan": "On és l'Ajuntament?", "pronunciation": "on ehs luh-zhoon-tuh-MEN", "english": "Where is the town hall?", "hint": "", "tags": ["admin"], "pos": "phrase"},
+  {"id": "ad_012", "catalan": "He d'omplir un formulari", "pronunciation": "eh doom-PLEER oon for-moo-LAH-ree", "english": "I have to fill in a form", "hint": "", "tags": ["admin"], "pos": "phrase"},
+  {"id": "ad_013", "catalan": "la data de naixement", "pronunciation": "luh DAH-tuh duh nuh-shee-MEN", "english": "date of birth", "hint": "", "tags": ["admin"], "pos": "phrase"},
+  {"id": "ad_014", "catalan": "l'adreça", "pronunciation": "luh-DREH-suh", "english": "the address", "hint": "", "tags": ["admin"], "pos": "noun", "gender": "f", "plural": "les adreces"},
+  {"id": "ad_015", "catalan": "Servei de Primera Acollida", "pronunciation": "sur-VEH duh pree-MEH-ruh uh-koo-YEE-duh", "english": "first reception service", "hint": "", "tags": ["admin"], "pos": "phrase"}
+]

@@ -1,0 +1,150 @@
+{
+  "id": "education",
+  "title": "Education & Courses",
+  "order": 19,
+  "summary": "Talk about classes, enrol on a course, and name common learning places.",
+  "sections": [
+    {
+      "type": "text",
+      "content": "Entorn educatiu i formatiu: escola, institut, universitat, EOI, CPNL, escola d’adults — and short phrases to enrol or ask about a curs."
+    },
+    {
+      "type": "rule",
+      "content": "Faig un curs de… / Estic apuntat/apuntada a… On és l'escola d'adults / el CPNL? Vull fer la inscripció."
+    },
+    {
+      "type": "examples",
+      "items": [
+        {
+          "catalan": "Faig un curs de català.",
+          "english": "I'm doing a Catalan course.",
+          "note": ""
+        },
+        {
+          "catalan": "On és el CPNL?",
+          "english": "Where is the CPNL?",
+          "note": "language normalisation consortium"
+        },
+        {
+          "catalan": "Vull fer la inscripció.",
+          "english": "I want to enrol / register.",
+          "note": ""
+        },
+        {
+          "catalan": "Estic a l'escola d'adults.",
+          "english": "I'm at the adult school.",
+          "note": ""
+        },
+        {
+          "catalan": "Tinc classe demà al matí.",
+          "english": "I have class tomorrow morning.",
+          "note": ""
+        }
+      ]
+    }
+  ],
+  "practice": [
+    {
+      "id": "ed-p01",
+      "kind": "multiple_choice",
+      "question": "‘Course’ is…",
+      "options": ["el curs", "la cita", "la feina"],
+      "answer": "el curs",
+      "explanation": "el curs."
+    },
+    {
+      "id": "ed-p02",
+      "kind": "multiple_choice",
+      "question": "‘I want to enrol’ is often…",
+      "options": ["Vull fer la inscripció.", "Soc professor.", "Anem al cinema."],
+      "answer": "Vull fer la inscripció.",
+      "explanation": "inscripció = enrolment."
+    },
+    {
+      "id": "ed-p03",
+      "kind": "multiple_choice",
+      "question": "Adult school is…",
+      "options": ["l'escola d'adults", "l'Ajuntament", "la farmàcia"],
+      "answer": "l'escola d'adults",
+      "explanation": "escola d'adults."
+    },
+    {
+      "id": "ed-p04",
+      "kind": "multiple_choice",
+      "question": "‘I'm doing a Catalan course’ is…",
+      "options": ["Faig un curs de català.", "Vaig al cinema.", "Tinc cita."],
+      "answer": "Faig un curs de català.",
+      "explanation": "Faig un curs de…"
+    },
+    {
+      "id": "ed-p05",
+      "kind": "cloze",
+      "prompt": "Faig un ___ de català.",
+      "hint": "course",
+      "answer": "curs",
+      "explanation": "un curs."
+    },
+    {
+      "id": "ed-p06",
+      "kind": "cloze",
+      "prompt": "Vull fer la ___.",
+      "hint": "enrolment",
+      "answer": "inscripció",
+      "explanation": "la inscripció."
+    },
+    {
+      "id": "ed-p07",
+      "kind": "cloze",
+      "prompt": "Tinc ___ demà.",
+      "hint": "class",
+      "answer": "classe",
+      "explanation": "Tinc classe."
+    },
+    {
+      "id": "ed-p08",
+      "kind": "type_in",
+      "prompt": "I'm doing a Catalan course",
+      "answers": ["Faig un curs de català.", "Faig un curs de català"],
+      "explanation": "Faig un curs de català."
+    },
+    {
+      "id": "ed-p09",
+      "kind": "type_in",
+      "prompt": "the course",
+      "answers": ["el curs", "El curs"],
+      "explanation": "el curs."
+    },
+    {
+      "id": "ed-p10",
+      "kind": "type_in",
+      "prompt": "Where is the CPNL?",
+      "answers": ["On és el CPNL?", "On és el CPNL"],
+      "explanation": "On és el CPNL?"
+    },
+    {
+      "id": "ed-l01",
+      "kind": "listen_choice",
+      "speak": "Faig un curs de català",
+      "question": "What did you hear?",
+      "options": ["I'm doing a Catalan course", "I work in an office", "I need help"],
+      "answer": "I'm doing a Catalan course",
+      "explanation": "curs de català."
+    },
+    {
+      "id": "ed-l02",
+      "kind": "listen_type",
+      "speak": "Vull fer la inscripció",
+      "prompt": "Type the Catalan you hear",
+      "answers": ["Vull fer la inscripció", "Vull fer la inscripció."],
+      "explanation": "enrolment."
+    },
+    {
+      "id": "ed-s01",
+      "kind": "speak",
+      "speak": "Tinc classe demà",
+      "prompt": "Say this aloud",
+      "hint": "I have class tomorrow",
+      "explanation": "School day line."
+    }
+  ]
+}

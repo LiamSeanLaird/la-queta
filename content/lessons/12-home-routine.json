@@ -1,0 +1,150 @@
+{
+  "id": "home-routine",
+  "title": "Home & Routine",
+  "order": 12,
+  "summary": "Name rooms at home and say simple daily actions.",
+  "sections": [
+    {
+      "type": "text",
+      "content": "Entorn domèstic in the A1 programme: rooms and furniture, plus short daily routines (wake up, eat, sleep, go to work)."
+    },
+    {
+      "type": "rule",
+      "content": "A casa hi ha… to list rooms. Em llevo / Esmorzo / Vaig a treballar / Vaig a dormir for basic routine. Location: a la cuina, al menjador."
+    },
+    {
+      "type": "examples",
+      "items": [
+        {
+          "catalan": "A casa hi ha tres habitacions.",
+          "english": "At home there are three bedrooms.",
+          "note": ""
+        },
+        {
+          "catalan": "La cuina és petita.",
+          "english": "The kitchen is small.",
+          "note": ""
+        },
+        {
+          "catalan": "Em llevo a les set.",
+          "english": "I get up at seven.",
+          "note": ""
+        },
+        {
+          "catalan": "Vaig a dormir a les onze.",
+          "english": "I go to sleep at eleven.",
+          "note": ""
+        },
+        {
+          "catalan": "Soc a la cuina.",
+          "english": "I'm in the kitchen.",
+          "note": "location → estar is also common: Estic a la cuina."
+        }
+      ]
+    }
+  ],
+  "practice": [
+    {
+      "id": "hr-p01",
+      "kind": "multiple_choice",
+      "question": "‘Kitchen’ is…",
+      "options": ["la cuina", "el bany", "el llit"],
+      "answer": "la cuina",
+      "explanation": "la cuina = kitchen."
+    },
+    {
+      "id": "hr-p02",
+      "kind": "multiple_choice",
+      "question": "‘Bathroom’ is…",
+      "options": ["el bany", "la cuina", "el menjador"],
+      "answer": "el bany",
+      "explanation": "el bany = bathroom."
+    },
+    {
+      "id": "hr-p03",
+      "kind": "multiple_choice",
+      "question": "‘I get up’ is often…",
+      "options": ["Em llevo", "Vaig a dormir", "Esmorzo"],
+      "answer": "Em llevo",
+      "explanation": "Em llevo = I get up."
+    },
+    {
+      "id": "hr-p04",
+      "kind": "multiple_choice",
+      "question": "‘There is / there are’ is…",
+      "options": ["Hi ha", "Soc", "Vull"],
+      "answer": "Hi ha",
+      "explanation": "Hi ha + noun."
+    },
+    {
+      "id": "hr-p05",
+      "kind": "cloze",
+      "prompt": "A casa ___ ha un menjador.",
+      "hint": "there is",
+      "answer": "hi",
+      "explanation": "Hi ha."
+    },
+    {
+      "id": "hr-p06",
+      "kind": "cloze",
+      "prompt": "Em ___ a les set.",
+      "hint": "get up",
+      "answer": "llevo",
+      "explanation": "Em llevo."
+    },
+    {
+      "id": "hr-p07",
+      "kind": "cloze",
+      "prompt": "Vaig a ___.",
+      "hint": "sleep",
+      "answer": "dormir",
+      "explanation": "Vaig a dormir."
+    },
+    {
+      "id": "hr-p08",
+      "kind": "type_in",
+      "prompt": "the kitchen",
+      "answers": ["la cuina", "La cuina"],
+      "explanation": "la cuina."
+    },
+    {
+      "id": "hr-p09",
+      "kind": "type_in",
+      "prompt": "I get up",
+      "answers": ["Em llevo", "Em llevo.", "em llevo"],
+      "explanation": "Em llevo."
+    },
+    {
+      "id": "hr-p10",
+      "kind": "type_in",
+      "prompt": "the bathroom",
+      "answers": ["el bany", "El bany"],
+      "explanation": "el bany."
+    },
+    {
+      "id": "hr-l01",
+      "kind": "listen_choice",
+      "speak": "la cuina",
+      "question": "What did you hear?",
+      "options": ["the kitchen", "the bathroom", "the bedroom"],
+      "answer": "the kitchen",
+      "explanation": "la cuina."
+    },
+    {
+      "id": "hr-l02",
+      "kind": "listen_type",
+      "speak": "Em llevo",
+      "prompt": "Type the Catalan you hear",
+      "answers": ["Em llevo", "em llevo"],
+      "explanation": "I get up."
+    },
+    {
+      "id": "hr-s01",
+      "kind": "speak",
+      "speak": "A casa hi ha tres habitacions",
+      "prompt": "Say this aloud",
+      "hint": "At home there are three bedrooms",
+      "explanation": "Describe home."
+    }
+  ]
+}

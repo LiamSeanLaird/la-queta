@@ -1,0 +1,150 @@
+{
+  "id": "shopping",
+  "title": "Shopping",
+  "order": 10,
+  "summary": "Ask for prices, sizes, and take or refuse items in a shop.",
+  "sections": [
+    {
+      "type": "text",
+      "content": "Generalitat A1 covers entorn comercial: buying products, asking price/size/colour, and polite shop talk. Keep exchanges short and clear."
+    },
+    {
+      "type": "rule",
+      "content": "Quant costa? / Quant val? for price. Ho porto = I’ll take it. Em pot ensenyar…? to ask to see something. Use si us plau and gràcies."
+    },
+    {
+      "type": "examples",
+      "items": [
+        {
+          "catalan": "Quant costa?",
+          "english": "How much does it cost?",
+          "note": ""
+        },
+        {
+          "catalan": "Quina mida fa?",
+          "english": "What size is it?",
+          "note": ""
+        },
+        {
+          "catalan": "Ho porto.",
+          "english": "I'll take it.",
+          "note": ""
+        },
+        {
+          "catalan": "És massa car.",
+          "english": "It's too expensive.",
+          "note": ""
+        },
+        {
+          "catalan": "El tiquet, si us plau.",
+          "english": "The receipt, please.",
+          "note": ""
+        }
+      ]
+    }
+  ],
+  "practice": [
+    {
+      "id": "sh-p01",
+      "kind": "multiple_choice",
+      "question": "How do you ask the price?",
+      "options": ["Quant costa?", "On és?", "Qui és?"],
+      "answer": "Quant costa?",
+      "explanation": "Quant costa? / Quant val? = how much."
+    },
+    {
+      "id": "sh-p02",
+      "kind": "multiple_choice",
+      "question": "‘I'll take it’ is…",
+      "options": ["Ho porto.", "És massa car.", "Hi ha descompte?"],
+      "answer": "Ho porto.",
+      "explanation": "Ho porto = I'll take it."
+    },
+    {
+      "id": "sh-p03",
+      "kind": "multiple_choice",
+      "question": "‘It's too expensive’ is…",
+      "options": ["És massa car.", "Ho porto.", "La botiga."],
+      "answer": "És massa car.",
+      "explanation": "massa car = too expensive."
+    },
+    {
+      "id": "sh-p04",
+      "kind": "multiple_choice",
+      "question": "Shop / store is…",
+      "options": ["la botiga", "el mercat", "el tiquet"],
+      "answer": "la botiga",
+      "explanation": "la botiga = the shop."
+    },
+    {
+      "id": "sh-p05",
+      "kind": "cloze",
+      "prompt": "Quant ___?",
+      "hint": "costs",
+      "answer": "costa",
+      "explanation": "Quant costa?"
+    },
+    {
+      "id": "sh-p06",
+      "kind": "cloze",
+      "prompt": "Ho ___.",
+      "hint": "I'll take it",
+      "answer": "porto",
+      "explanation": "Ho porto."
+    },
+    {
+      "id": "sh-p07",
+      "kind": "cloze",
+      "prompt": "És massa ___.",
+      "hint": "expensive",
+      "answer": "car",
+      "explanation": "És massa car."
+    },
+    {
+      "id": "sh-p08",
+      "kind": "type_in",
+      "prompt": "How much does it cost?",
+      "answers": ["Quant costa?", "Quant costa", "Quant val?", "Quant val"],
+      "explanation": "Quant costa? or Quant val?"
+    },
+    {
+      "id": "sh-p09",
+      "kind": "type_in",
+      "prompt": "I'll take it.",
+      "answers": ["Ho porto.", "Ho porto"],
+      "explanation": "Ho porto."
+    },
+    {
+      "id": "sh-p10",
+      "kind": "type_in",
+      "prompt": "the shop",
+      "answers": ["la botiga", "La botiga"],
+      "explanation": "la botiga."
+    },
+    {
+      "id": "sh-l01",
+      "kind": "listen_choice",
+      "speak": "Quant costa?",
+      "question": "What did you hear?",
+      "options": ["How much does it cost?", "Where is it?", "I'll take it"],
+      "answer": "How much does it cost?",
+      "explanation": "price question."
+    },
+    {
+      "id": "sh-l02",
+      "kind": "listen_type",
+      "speak": "Ho porto",
+      "prompt": "Type the Catalan you hear",
+      "answers": ["Ho porto", "Ho porto."],
+      "explanation": "I'll take it."
+    },
+    {
+      "id": "sh-s01",
+      "kind": "speak",
+      "speak": "Quant costa?",
+      "prompt": "Say this aloud",
+      "hint": "How much does it cost?",
+      "explanation": "Shop survival phrase."
+    }
+  ]
+}

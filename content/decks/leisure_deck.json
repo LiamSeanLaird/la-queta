@@ -1,0 +1,17 @@
+[
+  {"id": "lz_001", "catalan": "el cinema", "pronunciation": "ul see-neh-MAH", "english": "the cinema", "hint": "", "tags": ["leisure"], "pos": "noun", "gender": "m", "plural": "els cinemes"},
+  {"id": "lz_002", "catalan": "el concert", "pronunciation": "ul kun-SERT", "english": "the concert", "hint": "", "tags": ["leisure"], "pos": "noun", "gender": "m", "plural": "els concerts"},
+  {"id": "lz_003", "catalan": "el parc", "pronunciation": "ul park", "english": "the park", "hint": "", "tags": ["leisure"], "pos": "noun", "gender": "m", "plural": "els parcs"},
+  {"id": "lz_004", "catalan": "M'agrada llegir", "pronunciation": "muh-GRAH-duh luh-ZHEER", "english": "I like reading", "hint": "", "tags": ["leisure"], "pos": "phrase"},
+  {"id": "lz_005", "catalan": "Escolto música", "pronunciation": "uhs-KOL-too MOO-zee-kuh", "english": "I listen to music", "hint": "", "tags": ["leisure"], "pos": "phrase"},
+  {"id": "lz_006", "catalan": "Vols venir al cinema?", "pronunciation": "vols vuh-NEER ul see-neh-MAH", "english": "Do you want to come to the cinema?", "hint": "", "tags": ["leisure"], "pos": "phrase"},
+  {"id": "lz_007", "catalan": "Anem a passejar", "pronunciation": "AH-num uh puh-seh-ZHAR", "english": "Let's go for a walk", "hint": "", "tags": ["leisure"], "pos": "phrase"},
+  {"id": "lz_008", "catalan": "Què fas al cap de setmana?", "pronunciation": "keh fas ul kap duh suh-MAH-nuh", "english": "What do you do at the weekend?", "hint": "", "tags": ["leisure"], "pos": "phrase"},
+  {"id": "lz_009", "catalan": "l'esport", "pronunciation": "luhs-PORT", "english": "sport", "hint": "", "tags": ["leisure"], "pos": "noun", "gender": "m", "plural": "els esports"},
+  {"id": "lz_010", "catalan": "jugar a futbol", "pronunciation": "zhoo-GAR uh foot-BOL", "english": "to play football", "hint": "", "tags": ["leisure"], "pos": "phrase"},
+  {"id": "lz_011", "catalan": "veure una pel·lícula", "pronunciation": "VEH-oo-ruh OO-nuh puh-LEE-koo-luh", "english": "to watch a film", "hint": "", "tags": ["leisure"], "pos": "phrase"},
+  {"id": "lz_012", "catalan": "ballar", "pronunciation": "buh-YAR", "english": "to dance", "hint": "", "tags": ["leisure"], "pos": "verb"},
+  {"id": "lz_013", "catalan": "cantar", "pronunciation": "kun-TAR", "english": "to sing", "hint": "", "tags": ["leisure"], "pos": "verb"},
+  {"id": "lz_014", "catalan": "la festa", "pronunciation": "luh FES-tuh", "english": "the party / festival", "hint": "", "tags": ["leisure"], "pos": "noun", "gender": "f", "plural": "les festes"},
+  {"id": "lz_015", "catalan": "Sortim aquest vespre?", "pronunciation": "sor-TEEM uh-KEST VES-pruh", "english": "Shall we go out this evening?", "hint": "", "tags": ["leisure"], "pos": "phrase"}
+]

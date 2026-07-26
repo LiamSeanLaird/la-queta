@@ -18,7 +18,7 @@ Match `STYLE_GUIDE.md` §2–3. Short form:
 - Return dicts (or plain structures) from services for JSON — don’t jsonify ORM instances.
 - DB constraints enforce uniqueness; `IntegrityError` → `409`.
 - JSON columns are opaque in the ORM; shape them in services.
-- Lesson practice answers: `app.services.practice_match` (normalize case/space; keep accents).
+- Lesson practice answers: `app.services.practice_match` (normalize case/space; strip punctuation; keep accents). Mirror in `practice.js`.
 
 ## Migrations
 - Alembic only for schema; SQLite **batch mode** on.

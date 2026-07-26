@@ -1,0 +1,150 @@
+{
+  "id": "signs-messages",
+  "title": "Signs & Messages",
+  "order": 20,
+  "summary": "Read short notices and reply to simple everyday messages — exam-style survival.",
+  "sections": [
+    {
+      "type": "text",
+      "content": "Official A1 reading leans on cartells, anuncis, and short web/info texts. Writing is brief replies (often chat-like). This lesson drills those shapes with the practice tools we have."
+    },
+    {
+      "type": "rule",
+      "content": "Scan for key words: obert/tancat, gratis, prohibit, entrada, sortida. Chat replies: D'acord., Fins demà., Sí, gràcies., No puc."
+    },
+    {
+      "type": "examples",
+      "items": [
+        {
+          "catalan": "Obert de 9 a 14 h",
+          "english": "Open from 9 to 2",
+          "note": "notice / sign"
+        },
+        {
+          "catalan": "Entrada gratuïta",
+          "english": "Free entry",
+          "note": ""
+        },
+        {
+          "catalan": "Prohibit fumar",
+          "english": "No smoking",
+          "note": ""
+        },
+        {
+          "catalan": "D'acord. Fins demà!",
+          "english": "OK. See you tomorrow!",
+          "note": "chat reply"
+        },
+        {
+          "catalan": "No puc avui. Demà?",
+          "english": "I can't today. Tomorrow?",
+          "note": "chat reply"
+        }
+      ]
+    }
+  ],
+  "practice": [
+    {
+      "id": "sm-p01",
+      "kind": "multiple_choice",
+      "question": "Sign: «Obert» — what does it mean?",
+      "options": ["Open", "Closed", "Free"],
+      "answer": "Open",
+      "explanation": "obert = open."
+    },
+    {
+      "id": "sm-p02",
+      "kind": "multiple_choice",
+      "question": "Sign: «Tancat» — what does it mean?",
+      "options": ["Closed", "Open", "Exit"],
+      "answer": "Closed",
+      "explanation": "tancat = closed."
+    },
+    {
+      "id": "sm-p03",
+      "kind": "multiple_choice",
+      "question": "Notice: «Entrada gratuïta» means…",
+      "options": ["Free entry", "Paid entry", "No entry"],
+      "answer": "Free entry",
+      "explanation": "gratuïta = free."
+    },
+    {
+      "id": "sm-p04",
+      "kind": "multiple_choice",
+      "question": "Sign: «Prohibit fumar» means…",
+      "options": ["No smoking", "Smoking area", "Exit only"],
+      "answer": "No smoking",
+      "explanation": "Prohibit = forbidden."
+    },
+    {
+      "id": "sm-p05",
+      "kind": "cloze",
+      "prompt": "___ de 9 a 14 h",
+      "hint": "Open (sign)",
+      "answer": "Obert",
+      "explanation": "Obert de…"
+    },
+    {
+      "id": "sm-p06",
+      "kind": "cloze",
+      "prompt": "Prohibit ___.",
+      "hint": "to smoke",
+      "answer": "fumar",
+      "explanation": "Prohibit fumar."
+    },
+    {
+      "id": "sm-p07",
+      "kind": "cloze",
+      "prompt": "Entrada ___.",
+      "hint": "free (f)",
+      "answer": "gratuïta",
+      "explanation": "Entrada gratuïta."
+    },
+    {
+      "id": "sm-p08",
+      "kind": "type_in",
+      "prompt": "Reply to a friend: OK / agreed",
+      "answers": ["D'acord.", "D'acord"],
+      "explanation": "D'acord."
+    },
+    {
+      "id": "sm-p09",
+      "kind": "type_in",
+      "prompt": "Reply: See you tomorrow",
+      "answers": ["Fins demà.", "Fins demà", "Fins demà!"],
+      "explanation": "Fins demà!"
+    },
+    {
+      "id": "sm-p10",
+      "kind": "type_in",
+      "prompt": "Reply: I can't today",
+      "answers": ["No puc avui.", "No puc avui"],
+      "explanation": "No puc avui."
+    },
+    {
+      "id": "sm-l01",
+      "kind": "listen_choice",
+      "speak": "Obert de nou a dues",
+      "question": "What did you hear?",
+      "options": ["Open from nine to two", "Closed all day", "Free entry"],
+      "answer": "Open from nine to two",
+      "explanation": "opening hours."
+    },
+    {
+      "id": "sm-l02",
+      "kind": "listen_type",
+      "speak": "Fins demà",
+      "prompt": "Type the Catalan you hear",
+      "answers": ["Fins demà", "Fins demà.", "Fins demà!"],
+      "explanation": "See you tomorrow."
+    },
+    {
+      "id": "sm-s01",
+      "kind": "speak",
+      "speak": "D'acord. Fins demà!",
+      "prompt": "Say this aloud",
+      "hint": "OK. See you tomorrow!",
+      "explanation": "Short written/spoken reply style."
+    }
+  ]
+}

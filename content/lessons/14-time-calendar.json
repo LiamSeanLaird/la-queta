@@ -1,0 +1,150 @@
+{
+  "id": "time-calendar",
+  "title": "Time & Calendar",
+  "order": 14,
+  "summary": "Say the day, ask the time, and place events on the calendar.",
+  "sections": [
+    {
+      "type": "text",
+      "content": "Days, months, and clock time show up across A1 situations: appointments, transport, and daily plans."
+    },
+    {
+      "type": "rule",
+      "content": "Days: dilluns… diumenge (no capital needed in Catalan). Quina hora és? → Són les tres / És la una. Avui, demà, ahir. El cap de setmana."
+    },
+    {
+      "type": "examples",
+      "items": [
+        {
+          "catalan": "Avui és dilluns.",
+          "english": "Today is Monday.",
+          "note": ""
+        },
+        {
+          "catalan": "Quina hora és?",
+          "english": "What time is it?",
+          "note": ""
+        },
+        {
+          "catalan": "Són les tres.",
+          "english": "It's three o'clock.",
+          "note": ""
+        },
+        {
+          "catalan": "Ens veiem demà.",
+          "english": "See you tomorrow.",
+          "note": ""
+        },
+        {
+          "catalan": "El meu aniversari és al maig.",
+          "english": "My birthday is in May.",
+          "note": "al + month"
+        }
+      ]
+    }
+  ],
+  "practice": [
+    {
+      "id": "tc-p01",
+      "kind": "multiple_choice",
+      "question": "‘Monday’ is…",
+      "options": ["dilluns", "dimarts", "diumenge"],
+      "answer": "dilluns",
+      "explanation": "dilluns = Monday."
+    },
+    {
+      "id": "tc-p02",
+      "kind": "multiple_choice",
+      "question": "‘What time is it?’ is…",
+      "options": ["Quina hora és?", "Quin dia és?", "Quant val?"],
+      "answer": "Quina hora és?",
+      "explanation": "Quina hora és?"
+    },
+    {
+      "id": "tc-p03",
+      "kind": "multiple_choice",
+      "question": "‘Tomorrow’ is…",
+      "options": ["demà", "avui", "ahir"],
+      "answer": "demà",
+      "explanation": "demà = tomorrow."
+    },
+    {
+      "id": "tc-p04",
+      "kind": "multiple_choice",
+      "question": "‘It's three o'clock’ is often…",
+      "options": ["Són les tres.", "És la tres.", "Són el tres."],
+      "answer": "Són les tres.",
+      "explanation": "Són les + hour (plural hours)."
+    },
+    {
+      "id": "tc-p05",
+      "kind": "cloze",
+      "prompt": "Avui és ___.",
+      "hint": "Friday",
+      "answer": "divendres",
+      "explanation": "divendres = Friday."
+    },
+    {
+      "id": "tc-p06",
+      "kind": "cloze",
+      "prompt": "Quina ___ és?",
+      "hint": "hour / time",
+      "answer": "hora",
+      "explanation": "Quina hora és?"
+    },
+    {
+      "id": "tc-p07",
+      "kind": "cloze",
+      "prompt": "Ens veiem ___.",
+      "hint": "tomorrow",
+      "answer": "demà",
+      "explanation": "demà."
+    },
+    {
+      "id": "tc-p08",
+      "kind": "type_in",
+      "prompt": "What time is it?",
+      "answers": ["Quina hora és?", "Quina hora és"],
+      "explanation": "Quina hora és?"
+    },
+    {
+      "id": "tc-p09",
+      "kind": "type_in",
+      "prompt": "today",
+      "answers": ["avui", "Avui"],
+      "explanation": "avui."
+    },
+    {
+      "id": "tc-p10",
+      "kind": "type_in",
+      "prompt": "Saturday",
+      "answers": ["dissabte", "Dissabte"],
+      "explanation": "dissabte."
+    },
+    {
+      "id": "tc-l01",
+      "kind": "listen_choice",
+      "speak": "Quina hora és?",
+      "question": "What did you hear?",
+      "options": ["What time is it?", "What day is it?", "See you tomorrow"],
+      "answer": "What time is it?",
+      "explanation": "time question."
+    },
+    {
+      "id": "tc-l02",
+      "kind": "listen_type",
+      "speak": "Són les tres",
+      "prompt": "Type the Catalan you hear",
+      "answers": ["Són les tres", "Són les tres."],
+      "explanation": "It's three o'clock."
+    },
+    {
+      "id": "tc-s01",
+      "kind": "speak",
+      "speak": "Avui és dilluns",
+      "prompt": "Say this aloud",
+      "hint": "Today is Monday",
+      "explanation": "Calendar line."
+    }
+  ]
+}

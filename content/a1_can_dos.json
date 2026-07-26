@@ -1,59 +1,50 @@
 [
   {
-    "id": "greet-intro",
-    "label": "Greet people and introduce myself",
-    "lesson_ids": [
-      "introductions"
-    ]
-  },
-  {
-    "id": "articles-gender",
-    "label": "Use articles and noun gender",
+    "id": "core-grammar",
+    "label": "Build core grammar",
     "lesson_ids": [
       "noun-gender",
-      "definite-articles"
-    ]
-  },
-  {
-    "id": "ser-estar",
-    "label": "Choose ser vs estar for basic needs",
-    "lesson_ids": [
-      "ser-vs-estar"
-    ]
-  },
-  {
-    "id": "present",
-    "label": "Conjugate common present-tense verbs",
-    "lesson_ids": [
-      "present-tense"
-    ]
-  },
-  {
-    "id": "numbers-time",
-    "label": "Use numbers and ask about time/price",
-    "lesson_ids": [
-      "numbers"
-    ]
-  },
-  {
-    "id": "questions",
-    "label": "Ask simple questions",
-    "lesson_ids": [
+      "definite-articles",
+      "ser-vs-estar",
+      "present-tense",
       "question-words"
-    ]
+    ],
+    "deck_slugs": []
   },
   {
-    "id": "food-cafe",
-    "label": "Order food and drink in a café",
-    "lesson_ids": [
-      "food-cafe"
-    ]
+    "id": "identity-time",
+    "label": "Introduce myself & use numbers and time",
+    "lesson_ids": ["introductions", "numbers", "time-calendar"],
+    "deck_slugs": ["starter", "days_months", "social_phrases"]
   },
   {
-    "id": "directions",
-    "label": "Ask for and give basic directions",
-    "lesson_ids": [
-      "directions"
-    ]
+    "id": "around-town",
+    "label": "Get around town",
+    "lesson_ids": ["directions", "travel-transport"],
+    "deck_slugs": ["travel"]
+  },
+  {
+    "id": "survive-daily",
+    "label": "Eat, shop & survive",
+    "lesson_ids": ["food-cafe", "shopping", "health", "signs-messages"],
+    "deck_slugs": ["everyday", "shopping", "health", "signs"]
+  },
+  {
+    "id": "home-people",
+    "label": "Talk about home and family",
+    "lesson_ids": ["family", "home-routine"],
+    "deck_slugs": ["family", "home_daily"]
+  },
+  {
+    "id": "work-study-leisure",
+    "label": "Work, study & free time",
+    "lesson_ids": ["work", "education", "leisure"],
+    "deck_slugs": ["work", "education", "leisure"]
+  },
+  {
+    "id": "public-services",
+    "label": "Handle public services",
+    "lesson_ids": ["public-admin"],
+    "deck_slugs": ["admin"]
   }
 ]

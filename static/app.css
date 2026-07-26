@@ -641,14 +641,52 @@ a.btn.btn--primary {
 .can-do {
   display: flex;
   gap: 0.75rem;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   color: var(--ink);
   font-size: 0.95rem;
 }
 
+.can-do__main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.can-do__label {
+  font-weight: 600;
+}
+
 .can-do.is-done {
   color: var(--muted);
+}
+
+.can-do.is-done .can-do__label {
+  font-weight: 600;
+}
+
+.goal-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.goal-section__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.goal-section__title {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.progress--goals {
+  margin: 0.55rem auto 0;
+  max-width: 12rem;
 }
 
 /* ── List rows ───────────────────────────────────────── */

@@ -106,7 +106,7 @@ Do not invent a third progress system.
 See **`PHASE_9_A1_PRACTICE.md`**. Learn \| Practice tabs; MC + cloze + type-in; complete only after perfect Practice.
 
 ### Phase G — A1 path (in progress)
-See **`PHASE_10_A1_PATH.md`**. Can-dos + daily vocab shipped; coverage matrix; more lessons/vocab started. Listening / LLM speaking deferred.
+See **`PHASE_10_A1_PATH.md`**. Programme theme coverage filled (**20** A1 lessons). **7 clustered goals** on Learn; unlock toast when a goal completes. Remaining: denser practice, hosted audio, richer exam tasks.
 
 **Still out of scope:** SM-2 / difficulty ratings; hosted audio files / cloud STT / LLM speaking; OAuth; email verification / magic-link / password reset email.
 

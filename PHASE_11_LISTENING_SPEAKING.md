@@ -56,7 +56,7 @@
 }
 ```
 
-Matching for `listen_type` / choice: same normalizer as Phase 9 (accents required).
+Matching for `listen_type` / speak STT feedback / typed: same normalizer as Phase 9 (case/space; strip punctuation; accents required).
 
 ---
 

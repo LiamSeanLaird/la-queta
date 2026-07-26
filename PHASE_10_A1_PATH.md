@@ -1,10 +1,11 @@
 # Phase 10 — A1 path (coverage + daily vocab)
 
-**Status:** first slice shipped (more content iterations continue)  
+**Status:** ongoing content fills (programme-mapped)  
 **Goal:** Close the biggest A1 gaps we can without media/LLM: **theme coverage**, **can-dos**, **daily vocab retention**.  
-**Related:** `PHASE_9_A1_PRACTICE.md` (shipped), `PRODUCT.md`, `TECHNICAL_PLAN.md`.
+**Related:** `PHASE_9_A1_PRACTICE.md` (shipped), `PHASE_11_LISTENING_SPEAKING.md`, `PRODUCT.md`, `TECHNICAL_PLAN.md`.
 
-Snapshot at lock: **6** lessons, **7** decks, **~189** cards. Target direction: Generalitat A1 programme themes + CPNL-style situations.
+Snapshot at lock: **6** lessons, **7** decks, **~189** cards.  
+Current (programme fill): **20** A1 lessons; all listed escenaris covered; `signs-messages` is first exam-shaped read/write slice. Next: denser banks + richer exam tasks / hosted audio.
 
 ---
 
@@ -14,7 +15,7 @@ Snapshot at lock: **6** lessons, **7** decks, **~189** cards. Target direction: 
 |---|---|---|
 | 1 | Phase 10 scope | Coverage matrix + can-dos UI + **daily vocab** + **first content fill** (new lessons/decks). Listening / LLM speaking stay deferred (Phase 11+). |
 | 2 | Curriculum north star | Generalitat A1 programme themes; no mythical official word dump. Track coverage in `content/a1_coverage.md`. |
-| 3 | Can-dos | `content/a1_can_dos.json` → shown on A1 level Learn tab; **done** when all linked `lesson_ids` are completed. |
+| 3 | Can-dos | `content/a1_can_dos.json` → **7 outcome goals** clustering lessons; Learn tab grouped by goal; **done** when all linked `lesson_ids` complete; unlock dialog on last lesson. |
 | 4 | Daily vocab | `GET /api/levels/<id>/daily` → up to **20** cards from level: prefer unretired, fill from retired (soft reintroduce). UI `/levels/<id>/daily` reuses study flip flow. Seen++ still applies. |
 | 5 | Content fill this phase | Add **≥3** new A1 lessons with practice banks + **≥40** new vocab cards across highest-gap themes (identity, food/café, directions). Expand existing decks where possible. |
 | 6 | Completeness formula | Unchanged (0.7 lessons + 0.3 vocab). Can-dos are guidance, not a third progress system. |
@@ -45,3 +46,8 @@ Listening/speaking browser slice → **`PHASE_11_LISTENING_SPEAKING.md`**. Remai
 |---|---|
 | 2026-07-23 | Listening + LLM speaking deferred; no official fixed A1 word list |
 | 2026-07-23 | Phase 10 locked: matrix + can-dos + daily vocab + first content fill |
+| 2026-07-26 | Remapped `a1_coverage.md` to programme escenaris; shipped shopping, family, home-routine lessons + can-dos |
+| 2026-07-26 | Shipped travel-transport, time-calendar, health (+ `health` deck); days/months time phrases |
+| 2026-07-26 | Shipped public-admin, work, leisure (+ decks); theme matrix nearly complete |
+| 2026-07-26 | Shipped education + signs-messages; theme matrix complete; first exam-shaped read/write slice |
+| 2026-07-26 | Collapsed can-dos to 7 goals; Learn sections; goal unlock dialog |

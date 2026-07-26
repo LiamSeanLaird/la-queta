@@ -1,0 +1,150 @@
+{
+  "id": "work",
+  "title": "Work",
+  "order": 17,
+  "summary": "Say your job, where you work, and talk about a simple workday.",
+  "sections": [
+    {
+      "type": "text",
+      "content": "Entorn laboral: professions, workplace, and short lines about hours, interviews, and holidays."
+    },
+    {
+      "type": "rule",
+      "content": "Soc + profession (Soc professor / Soc cambrera). Treballo a / en… Quina feina fas? Tinc vacances al…"
+    },
+    {
+      "type": "examples",
+      "items": [
+        {
+          "catalan": "Soc professor.",
+          "english": "I'm a teacher.",
+          "note": ""
+        },
+        {
+          "catalan": "Treballo en una oficina.",
+          "english": "I work in an office.",
+          "note": ""
+        },
+        {
+          "catalan": "Quina feina fas?",
+          "english": "What job do you do?",
+          "note": ""
+        },
+        {
+          "catalan": "Tinc una entrevista demà.",
+          "english": "I have an interview tomorrow.",
+          "note": ""
+        },
+        {
+          "catalan": "Treballo de dilluns a divendres.",
+          "english": "I work from Monday to Friday.",
+          "note": ""
+        }
+      ]
+    }
+  ],
+  "practice": [
+    {
+      "id": "wk-p01",
+      "kind": "multiple_choice",
+      "question": "‘Job / work’ is often…",
+      "options": ["la feina", "la cita", "la farmàcia"],
+      "answer": "la feina",
+      "explanation": "la feina."
+    },
+    {
+      "id": "wk-p02",
+      "kind": "multiple_choice",
+      "question": "‘I work in an office’ is…",
+      "options": ["Treballo en una oficina.", "Soc a l'oficina.", "Vaig a l'oficina."],
+      "answer": "Treballo en una oficina.",
+      "explanation": "Treballo en…"
+    },
+    {
+      "id": "wk-p03",
+      "kind": "multiple_choice",
+      "question": "‘What job do you do?’ is…",
+      "options": ["Quina feina fas?", "On treballes?", "Quina hora és?"],
+      "answer": "Quina feina fas?",
+      "explanation": "Quina feina fas?"
+    },
+    {
+      "id": "wk-p04",
+      "kind": "multiple_choice",
+      "question": "‘I'm a waiter’ (m) is often…",
+      "options": ["Soc cambrer.", "Soc oficina.", "Faig cambrer."],
+      "answer": "Soc cambrer.",
+      "explanation": "Soc + profession."
+    },
+    {
+      "id": "wk-p05",
+      "kind": "cloze",
+      "prompt": "Soc ___.",
+      "hint": "teacher (m)",
+      "answer": "professor",
+      "explanation": "Soc professor."
+    },
+    {
+      "id": "wk-p06",
+      "kind": "cloze",
+      "prompt": "Treballo en una ___.",
+      "hint": "office",
+      "answer": "oficina",
+      "explanation": "oficina."
+    },
+    {
+      "id": "wk-p07",
+      "kind": "cloze",
+      "prompt": "Quina ___ fas?",
+      "hint": "job",
+      "answer": "feina",
+      "explanation": "Quina feina fas?"
+    },
+    {
+      "id": "wk-p08",
+      "kind": "type_in",
+      "prompt": "What job do you do?",
+      "answers": ["Quina feina fas?", "Quina feina fas"],
+      "explanation": "Quina feina fas?"
+    },
+    {
+      "id": "wk-p09",
+      "kind": "type_in",
+      "prompt": "I work in an office",
+      "answers": ["Treballo en una oficina.", "Treballo en una oficina"],
+      "explanation": "Treballo en una oficina."
+    },
+    {
+      "id": "wk-p10",
+      "kind": "type_in",
+      "prompt": "the job",
+      "answers": ["la feina", "La feina"],
+      "explanation": "la feina."
+    },
+    {
+      "id": "wk-l01",
+      "kind": "listen_choice",
+      "speak": "Soc professor",
+      "question": "What did you hear?",
+      "options": ["I'm a teacher", "I work tomorrow", "I need help"],
+      "answer": "I'm a teacher",
+      "explanation": "Soc professor."
+    },
+    {
+      "id": "wk-l02",
+      "kind": "listen_type",
+      "speak": "Quina feina fas?",
+      "prompt": "Type the Catalan you hear",
+      "answers": ["Quina feina fas?", "Quina feina fas"],
+      "explanation": "job question."
+    },
+    {
+      "id": "wk-s01",
+      "kind": "speak",
+      "speak": "Treballo en una oficina",
+      "prompt": "Say this aloud",
+      "hint": "I work in an office",
+      "explanation": "Work survival."
+    }
+  ]
+}

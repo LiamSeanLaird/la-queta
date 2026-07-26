@@ -26,6 +26,7 @@
   function normalizeAnswer(value) {
     return String(value || "")
       .trim()
+      .replace(/[^\p{L}\p{N}\s'-]+/gu, "")
       .replace(/\s+/g, " ")
       .toLocaleLowerCase();
   }
@@ -140,6 +141,15 @@
       root.appendChild(hint);
     }
 
+    const isCloze =
+      item.kind === "cloze" || String(item.prompt || "").includes("___");
+    if (isCloze) {
+      const guide = document.createElement("p");
+      guide.className = "text-small text-muted";
+      guide.textContent = "Fill the blank only — not the whole sentence.";
+      root.appendChild(guide);
+    }
+
     if (Array.isArray(item.options) && item.options.length) {
       renderMultipleChoice(
         {
@@ -160,12 +170,50 @@
     input.autocomplete = "off";
     input.autocapitalize = "off";
     input.spellcheck = false;
-    input.setAttribute("aria-label", "Your answer");
+    input.setAttribute("aria-label", isCloze ? "Fill the blank" : "Your answer");
+    if (isCloze) input.placeholder = "Blank only";
+
+    const actions = document.createElement("div");
+    actions.className = "study-actions__end";
 
     const submit = document.createElement("button");
     submit.type = "button";
     submit.className = "btn btn--primary";
     submit.textContent = "Check";
+
+    let revealBtn = null;
+
+    function canonicalAnswer() {
+      const accepted = acceptedAnswers(item);
+      return accepted[0] || "";
+    }
+
+    function lockAndAdvance(message) {
+      input.disabled = true;
+      submit.disabled = true;
+      if (revealBtn) revealBtn.disabled = true;
+      showExplain(root, message, true);
+      window.setTimeout(() => advance(), 450);
+    }
+
+    function ensureReveal() {
+      if (revealBtn) return;
+      revealBtn = document.createElement("button");
+      revealBtn.type = "button";
+      revealBtn.className = "btn btn--ghost";
+      revealBtn.textContent = "Show answer";
+      revealBtn.addEventListener("click", () => {
+        if (finishing) return;
+        const shown = canonicalAnswer();
+        input.value = shown;
+        input.classList.remove("input--error");
+        const parts = [];
+        if (shown) parts.push(`Answer: ${shown}`);
+        if (item.explanation) parts.push(item.explanation);
+        lockAndAdvance(parts.join(" — ") || "Answer shown.");
+      });
+      actions.insertBefore(revealBtn, submit);
+    }
 
     function check() {
       if (finishing) return;
@@ -173,10 +221,9 @@
       input.classList.toggle("input--error", !ok);
       showExplain(root, item.explanation || "", ok);
       if (ok) {
-        input.disabled = true;
-        submit.disabled = true;
-        window.setTimeout(() => advance(), 350);
+        lockAndAdvance(item.explanation || "Correct.");
       } else {
+        ensureReveal();
         input.focus();
         input.select();
       }
@@ -190,8 +237,9 @@
       }
     });
 
+    actions.appendChild(submit);
     row.appendChild(input);
-    row.appendChild(submit);
+    row.appendChild(actions);
     root.appendChild(row);
     window.setTimeout(() => input.focus(), 0);
   }
@@ -329,9 +377,26 @@
       finishing = false;
       return;
     }
-    if (lessonsUrl) {
-      window.location.assign(lessonsUrl);
+
+    const unlocked = Array.isArray(body.goals_unlocked) ? body.goals_unlocked : [];
+    const goNext = () => {
+      if (lessonsUrl) window.location.assign(lessonsUrl);
+    };
+    if (unlocked.length) {
+      const dialog = document.getElementById("goal-unlock-dialog");
+      const labelEl = document.getElementById("goal-unlock-label");
+      if (dialog && labelEl) {
+        labelEl.textContent = unlocked.map((g) => g.label).join(" · ");
+        const onClose = () => {
+          dialog.removeEventListener("close", onClose);
+          goNext();
+        };
+        dialog.addEventListener("close", onClose);
+        dialog.showModal();
+        return;
+      }
     }
+    goNext();
   }
 
   function advance() {

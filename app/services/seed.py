@@ -28,6 +28,12 @@ DECK_SORT_ORDER = {
     "home_daily": 6,
     "social_phrases": 7,
     "shopping": 8,
+    "health": 9,
+    "admin": 10,
+    "work": 11,
+    "leisure": 12,
+    "education": 13,
+    "signs": 14,
 }
 
 

@@ -66,7 +66,9 @@ def test_can_dos_on_level_learn_tab(migrated_app, migrated_client):
     assert b"can-dos-dialog" in page.data
     assert b"data-can-dos-open" in page.data
     assert b"goals" in page.data
-    assert b"Complete lessons to achieve these goals." in page.data
+    assert b"Complete the lessons in each goal to unlock it." in page.data
+    assert b"Build core grammar" in page.data
+    assert b"goal-section" in page.data
     assert b"Daily vocab" not in page.data
     assert b"Continue:" not in page.data
 
@@ -74,4 +76,29 @@ def test_can_dos_on_level_learn_tab(migrated_app, migrated_client):
     assert b"Daily vocab" in hub.data
     assert b"goals" in hub.data
     assert b"can-dos-a1" in hub.data
-    assert b"Complete lessons to achieve these goals." in hub.data
+    assert b"Complete the lessons in each goal to unlock it." in hub.data
+    assert b"0/7" in hub.data
+    vocab = migrated_client.get("/levels/a1?tab=vocab")
+    assert vocab.status_code == 200
+    assert b"goal-section" in vocab.data
+    assert b"Introduce myself" in vocab.data
+    assert b"Starter" in vocab.data
+    # Fully retired starter → Done chip + goal progress fraction in markup
+    assert b"badge--done" in vocab.data or b"0/" in vocab.data
+
+
+def test_completing_last_lesson_in_goal_unlocks_it(migrated_app, migrated_client):
+    with migrated_app.app_context():
+        seed_all()
+    _register(migrated_client)
+
+    total = len(migrated_client.get("/api/lessons/public-admin").get_json()["practice"])
+    response = migrated_client.post(
+        "/api/lessons/public-admin/complete",
+        json={"exercises_correct": total, "exercises_total": total},
+    )
+    assert response.status_code == 200
+    body = response.get_json()
+    unlocked = body.get("goals_unlocked") or []
+    assert any(item["id"] == "public-services" for item in unlocked)
+    assert any("public services" in item["label"].lower() for item in unlocked)

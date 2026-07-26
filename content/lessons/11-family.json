@@ -1,0 +1,145 @@
+{
+  "id": "family",
+  "title": "Family",
+  "order": 11,
+  "summary": "Name close family and say who people are with meu / meva.",
+  "sections": [
+    {
+      "type": "text",
+      "content": "A1 domestic/personal scenarios expect you to talk about immediate family: parents, siblings, children, and partners — often with possessives."
+    },
+    {
+      "type": "rule",
+      "content": "el meu / la meva + family noun. els meus / les meves for plurals. El meu germà; la meva germana; els meus pares."
+    },
+    {
+      "type": "examples",
+      "items": [
+        {
+          "catalan": "Aquesta és la meva mare.",
+          "english": "This is my mother.",
+          "note": ""
+        },
+        {
+          "catalan": "El meu pare es diu Joan.",
+          "english": "My father's name is Joan.",
+          "note": ""
+        },
+        {
+          "catalan": "Tinc un germà i una germana.",
+          "english": "I have a brother and a sister.",
+          "note": ""
+        },
+        {
+          "catalan": "Els meus fills viuen a Girona.",
+          "english": "My children live in Girona.",
+          "note": ""
+        }
+      ]
+    }
+  ],
+  "practice": [
+    {
+      "id": "fam-p01",
+      "kind": "multiple_choice",
+      "question": "‘Mother’ is…",
+      "options": ["la mare", "el pare", "el fill"],
+      "answer": "la mare",
+      "explanation": "la mare = mother."
+    },
+    {
+      "id": "fam-p02",
+      "kind": "multiple_choice",
+      "question": "‘My brother’ is…",
+      "options": ["el meu germà", "la meva germana", "els meus pares"],
+      "answer": "el meu germà",
+      "explanation": "el meu + masculine noun."
+    },
+    {
+      "id": "fam-p03",
+      "kind": "multiple_choice",
+      "question": "‘Parents’ is usually…",
+      "options": ["els pares", "les mares", "els fills"],
+      "answer": "els pares",
+      "explanation": "els pares covers both parents."
+    },
+    {
+      "id": "fam-p04",
+      "kind": "multiple_choice",
+      "question": "‘My sister’ is…",
+      "options": ["la meva germana", "el meu germà", "la meva mare"],
+      "answer": "la meva germana",
+      "explanation": "la meva + feminine."
+    },
+    {
+      "id": "fam-p05",
+      "kind": "cloze",
+      "prompt": "La ___ mare.",
+      "hint": "my (f)",
+      "answer": "meva",
+      "explanation": "la meva mare."
+    },
+    {
+      "id": "fam-p06",
+      "kind": "cloze",
+      "prompt": "El ___ germà.",
+      "hint": "my (m)",
+      "answer": "meu",
+      "explanation": "el meu germà."
+    },
+    {
+      "id": "fam-p07",
+      "kind": "cloze",
+      "prompt": "Tinc una ___.",
+      "hint": "sister",
+      "answer": "germana",
+      "explanation": "Tinc una germana."
+    },
+    {
+      "id": "fam-p08",
+      "kind": "type_in",
+      "prompt": "my mother",
+      "answers": ["la meva mare", "La meva mare"],
+      "explanation": "la meva mare."
+    },
+    {
+      "id": "fam-p09",
+      "kind": "type_in",
+      "prompt": "my father",
+      "answers": ["el meu pare", "El meu pare"],
+      "explanation": "el meu pare."
+    },
+    {
+      "id": "fam-p10",
+      "kind": "type_in",
+      "prompt": "the parents",
+      "answers": ["els pares", "Els pares"],
+      "explanation": "els pares."
+    },
+    {
+      "id": "fam-l01",
+      "kind": "listen_choice",
+      "speak": "la meva mare",
+      "question": "What did you hear?",
+      "options": ["my mother", "my father", "my sister"],
+      "answer": "my mother",
+      "explanation": "la meva mare."
+    },
+    {
+      "id": "fam-l02",
+      "kind": "listen_type",
+      "speak": "el meu germà",
+      "prompt": "Type the Catalan you hear",
+      "answers": ["el meu germà", "El meu germà"],
+      "explanation": "my brother."
+    },
+    {
+      "id": "fam-s01",
+      "kind": "speak",
+      "speak": "Aquesta és la meva mare",
+      "prompt": "Say this aloud",
+      "hint": "This is my mother",
+      "explanation": "Presenting family."
+    }
+  ]
+}

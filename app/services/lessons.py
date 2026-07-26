@@ -112,4 +112,11 @@ def complete_lesson(
     progress.exercises_total = exercises_total
     progress.completed_at = datetime.now(timezone.utc)
     db.session.commit()
-    return get_lesson(user, lesson.id)
+
+    from app.services.can_dos import goals_unlocked_by_lesson
+
+    lesson_data = get_lesson(user, lesson.id)
+    lesson_data["goals_unlocked"] = goals_unlocked_by_lesson(
+        user, lesson.level_id, lesson.id
+    )
+    return lesson_data

@@ -1,0 +1,155 @@
+[
+  {
+    "id": "hl_001",
+    "catalan": "la farmàcia",
+    "pronunciation": "luh fur-MAH-see-uh",
+    "english": "the pharmacy",
+    "hint": "",
+    "tags": ["health"],
+    "pos": "noun",
+    "gender": "f",
+    "plural": "les farmàcies"
+  },
+  {
+    "id": "hl_002",
+    "catalan": "l'hospital",
+    "pronunciation": "loo-spee-TAL",
+    "english": "the hospital",
+    "hint": "",
+    "tags": ["health"],
+    "pos": "noun",
+    "gender": "m",
+    "plural": "els hospitals"
+  },
+  {
+    "id": "hl_003",
+    "catalan": "el CAP",
+    "pronunciation": "ul kap",
+    "english": "primary care centre (CAP)",
+    "hint": "centre d'atenció primària",
+    "tags": ["health"],
+    "pos": "noun",
+    "gender": "m",
+    "plural": "els CAP"
+  },
+  {
+    "id": "hl_004",
+    "catalan": "el metge",
+    "pronunciation": "ul MEJ-uh",
+    "english": "the doctor (m)",
+    "hint": "",
+    "tags": ["health"],
+    "pos": "noun",
+    "gender": "m",
+    "plural": "els metges"
+  },
+  {
+    "id": "hl_005",
+    "catalan": "la metgessa",
+    "pronunciation": "luh muh-JEH-suh",
+    "english": "the doctor (f)",
+    "hint": "",
+    "tags": ["health"],
+    "pos": "noun",
+    "gender": "f",
+    "plural": "les metgesses"
+  },
+  {
+    "id": "hl_006",
+    "catalan": "Em trobo malament",
+    "pronunciation": "um TRO-boo muh-luh-MEN",
+    "english": "I feel unwell",
+    "hint": "",
+    "tags": ["health"],
+    "pos": "phrase"
+  },
+  {
+    "id": "hl_007",
+    "catalan": "Em fa mal",
+    "pronunciation": "um fah mal",
+    "english": "It hurts / I have pain",
+    "hint": "Em fa mal + body part",
+    "tags": ["health"],
+    "pos": "phrase"
+  },
+  {
+    "id": "hl_008",
+    "catalan": "el cap",
+    "pronunciation": "ul kap",
+    "english": "the head",
+    "hint": "",
+    "tags": ["health", "body"],
+    "pos": "noun",
+    "gender": "m",
+    "plural": "els caps"
+  },
+  {
+    "id": "hl_009",
+    "catalan": "la gola",
+    "pronunciation": "luh GO-luh",
+    "english": "the throat",
+    "hint": "",
+    "tags": ["health", "body"],
+    "pos": "noun",
+    "gender": "f",
+    "plural": "les goles"
+  },
+  {
+    "id": "hl_010",
+    "catalan": "Necessito un metge",
+    "pronunciation": "nuh-seh-SEE-too oon MEJ-uh",
+    "english": "I need a doctor",
+    "hint": "",
+    "tags": ["health"],
+    "pos": "phrase"
+  },
+  {
+    "id": "hl_011",
+    "catalan": "Tinc cita",
+    "pronunciation": "ting SEE-tuh",
+    "english": "I have an appointment",
+    "hint": "",
+    "tags": ["health"],
+    "pos": "phrase"
+  },
+  {
+    "id": "hl_012",
+    "catalan": "la recepta",
+    "pronunciation": "luh ruh-SEP-tuh",
+    "english": "the prescription",
+    "hint": "",
+    "tags": ["health"],
+    "pos": "noun",
+    "gender": "f",
+    "plural": "les receptes"
+  },
+  {
+    "id": "hl_013",
+    "catalan": "el medicament",
+    "pronunciation": "ul muh-dee-kuh-MEN",
+    "english": "the medicine",
+    "hint": "",
+    "tags": ["health"],
+    "pos": "noun",
+    "gender": "m",
+    "plural": "els medicaments"
+  },
+  {
+    "id": "hl_014",
+    "catalan": "Estic malalt / malalta",
+    "pronunciation": "uh-STEEK muh-LALT",
+    "english": "I am ill",
+    "hint": "",
+    "tags": ["health"],
+    "pos": "phrase"
+  },
+  {
+    "id": "hl_015",
+    "catalan": "Truca a emergències",
+    "pronunciation": "TROO-kuh uh uh-mur-JEN-see-us",
+    "english": "Call emergency services",
+    "hint": "",
+    "tags": ["health"],
+    "pos": "phrase"
+  }
+]

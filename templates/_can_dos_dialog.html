@@ -2,11 +2,16 @@
 <dialog class="dialog" id="{{ dialog_id }}" aria-labelledby="{{ dialog_id }}-title">
   <form method="dialog" class="dialog__panel stack">
     <h3 class="heading-3" id="{{ dialog_id }}-title">{{ level_code }} goals</h3>
-    <p class="text-muted">Complete lessons to achieve these goals.</p>
+    <p class="text-muted">Complete the lessons in each goal to unlock it.</p>
     <ul class="can-do-list">
       {% for item in can_dos %}
       <li class="can-do{% if item.done %} is-done{% endif %}">
-        <span>{{ item.label }}</span>
+        <div class="can-do__main">
+          <span class="can-do__label">{{ item.label }}</span>
+          <span class="can-do__meta text-small text-muted">
+            {{ item.lessons_done }}/{{ item.lessons_total }} lessons
+          </span>
+        </div>
         <span class="badge {% if item.done %}badge--done{% else %}badge--todo{% endif %}">
           {% if item.done %}Done{% else %}Todo{% endif %}
         </span>

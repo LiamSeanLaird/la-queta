@@ -1,0 +1,150 @@
+{
+  "id": "public-admin",
+  "title": "Public Services",
+  "order": 16,
+  "summary": "Ask for help at the town hall, book an appointment, and give ID details.",
+  "sections": [
+    {
+      "type": "text",
+      "content": "Administració pública in the A1 programme: Ajuntament, Oficina del Padró, OAC, and short exchanges to get information or a cita."
+    },
+    {
+      "type": "rule",
+      "content": "Vull informació / Necessito ajuda. Tinc cita a les… Em dic… / El meu NIE és… On és l'Ajuntament / l'Oficina del Padró?"
+    },
+    {
+      "type": "examples",
+      "items": [
+        {
+          "catalan": "On és l'Ajuntament?",
+          "english": "Where is the town hall?",
+          "note": ""
+        },
+        {
+          "catalan": "Vull demanar una cita.",
+          "english": "I want to book an appointment.",
+          "note": ""
+        },
+        {
+          "catalan": "Necessito ajuda, si us plau.",
+          "english": "I need help, please.",
+          "note": ""
+        },
+        {
+          "catalan": "El meu cognom és García.",
+          "english": "My surname is García.",
+          "note": ""
+        },
+        {
+          "catalan": "He d'omplir un formulari.",
+          "english": "I have to fill in a form.",
+          "note": ""
+        }
+      ]
+    }
+  ],
+  "practice": [
+    {
+      "id": "pa-p01",
+      "kind": "multiple_choice",
+      "question": "‘Town hall’ is…",
+      "options": ["l'Ajuntament", "el CAP", "la farmàcia"],
+      "answer": "l'Ajuntament",
+      "explanation": "l'Ajuntament."
+    },
+    {
+      "id": "pa-p02",
+      "kind": "multiple_choice",
+      "question": "‘I need help’ is…",
+      "options": ["Necessito ajuda.", "Tinc cita.", "Em dic…"],
+      "answer": "Necessito ajuda.",
+      "explanation": "Necessito ajuda."
+    },
+    {
+      "id": "pa-p03",
+      "kind": "multiple_choice",
+      "question": "‘Appointment’ is…",
+      "options": ["la cita", "el formulari", "el cognom"],
+      "answer": "la cita",
+      "explanation": "la cita."
+    },
+    {
+      "id": "pa-p04",
+      "kind": "multiple_choice",
+      "question": "Padró office is…",
+      "options": ["l'Oficina del Padró", "l'Oficina de Treball", "el metro"],
+      "answer": "l'Oficina del Padró",
+      "explanation": "residence registration office."
+    },
+    {
+      "id": "pa-p05",
+      "kind": "cloze",
+      "prompt": "Vull demanar una ___.",
+      "hint": "appointment",
+      "answer": "cita",
+      "explanation": "una cita."
+    },
+    {
+      "id": "pa-p06",
+      "kind": "cloze",
+      "prompt": "Necessito ___, si us plau.",
+      "hint": "help",
+      "answer": "ajuda",
+      "explanation": "Necessito ajuda."
+    },
+    {
+      "id": "pa-p07",
+      "kind": "cloze",
+      "prompt": "On és l'___?",
+      "hint": "town hall",
+      "answer": "Ajuntament",
+      "explanation": "l'Ajuntament."
+    },
+    {
+      "id": "pa-p08",
+      "kind": "type_in",
+      "prompt": "I need help",
+      "answers": ["Necessito ajuda.", "Necessito ajuda"],
+      "explanation": "Necessito ajuda."
+    },
+    {
+      "id": "pa-p09",
+      "kind": "type_in",
+      "prompt": "Where is the town hall?",
+      "answers": ["On és l'Ajuntament?", "On és l'Ajuntament"],
+      "explanation": "On és l'Ajuntament?"
+    },
+    {
+      "id": "pa-p10",
+      "kind": "type_in",
+      "prompt": "my surname",
+      "answers": ["el meu cognom", "El meu cognom"],
+      "explanation": "el meu cognom."
+    },
+    {
+      "id": "pa-l01",
+      "kind": "listen_choice",
+      "speak": "Vull demanar una cita",
+      "question": "What did you hear?",
+      "options": ["I want to book an appointment", "I need a doctor", "Where is the station"],
+      "answer": "I want to book an appointment",
+      "explanation": "demanar una cita."
+    },
+    {
+      "id": "pa-l02",
+      "kind": "listen_type",
+      "speak": "Necessito ajuda",
+      "prompt": "Type the Catalan you hear",
+      "answers": ["Necessito ajuda", "Necessito ajuda."],
+      "explanation": "I need help."
+    },
+    {
+      "id": "pa-s01",
+      "kind": "speak",
+      "speak": "On és l'Ajuntament?",
+      "prompt": "Say this aloud",
+      "hint": "Where is the town hall?",
+      "explanation": "Admin survival."
+    }
+  ]
+}
