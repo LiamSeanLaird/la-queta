@@ -6,7 +6,7 @@ alwaysApply: false
 
 # Frontend conventions
 
-- Product brand in UI: **La Queta** (see `STYLE_GUIDE.md` §5).
+- Product brand in UI: **La Queta** (see `STYLE_GUIDE.md` §5). Favicon: gold smiley on senyera red (`static/favicon.*`); OG share image `static/og-image.png` + meta in `base.html` (`PUBLIC_BASE_URL`). Keep wired in `base.html`.
 - Vanilla HTML/CSS/JS only — no React/Vue/Tailwind/Bootstrap/HTMX.
 - Tokens and visual rules live in `STYLE_GUIDE.md` §4–5 (gold-washed surface, Senyera red CTAs, gold progress/highlights, Fraunces display / Figtree UI). No flag strip.
 - **Multi-page:** one URL per job (`/`, `/levels`, `/levels/<id>`, `/levels/<id>/daily`, `/lessons/<id>`, `/decks/<slug>`, `/study`, `/browse`). Extend `templates/base.html`. Do not revive a hidden-section mega-page.

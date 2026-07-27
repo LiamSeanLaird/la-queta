@@ -13,8 +13,12 @@ class Config:
     PERMANENT_SESSION_LIFETIME = 60 * 60 * 24 * 365
     # Soft-launch feedback (mailto). Override with FEEDBACK_EMAIL in the environment.
     FEEDBACK_EMAIL = os.environ.get("FEEDBACK_EMAIL", "liamlaird120@gmail.com")
+    # Canonical public origin for Open Graph / share previews (WhatsApp, etc.).
+    # Empty → url_for(..., _external=True) from the request host.
+    PUBLIC_BASE_URL = os.environ.get("PUBLIC_BASE_URL", "https://la-queta.com")
 
 
 class TestConfig(Config):
     TESTING = True
     SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
+    PUBLIC_BASE_URL = ""

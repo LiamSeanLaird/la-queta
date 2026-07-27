@@ -26,6 +26,10 @@ def test_index_is_gate_only(client):
     assert b"Your levels" not in response.data
     assert b"screen-lesson" not in response.data
     assert b"js/gate.js" in response.data
+    assert b"<title>La Queta</title>" in response.data
+    assert b'property="og:image"' in response.data
+    assert b"og-image.png" in response.data
+    assert "La Queta — start".encode() not in response.data
 
 
 def test_levels_requires_login(client):

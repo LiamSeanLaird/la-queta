@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="La Queta">
+  <rect width="32" height="32" rx="8" fill="#C1001F"/>
+  <circle cx="11.5" cy="12.5" r="2.1" fill="#FCCC12"/>
+  <circle cx="20.5" cy="12.5" r="2.1" fill="#FCCC12"/>
+  <path
+    d="M10 18.5 C12.5 22.5, 19.5 22.5, 22 18.5"
+    fill="none"
+    stroke="#FCCC12"
+    stroke-width="2.8"
+    stroke-linecap="round"
+  />
+</svg>

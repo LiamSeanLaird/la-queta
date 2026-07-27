@@ -15,11 +15,12 @@ Operator runbook for the production Oracle Always Free VM. Product/tech intent s
 | SSH user | `ubuntu` |
 | App path | `/home/ubuntu/la-queta` |
 | Python venv | `/home/ubuntu/la-queta/.venv` |
-| Env file | `/etc/la-queta/env` (`SECRET_KEY`, `DATABASE_URL`) |
+| Env file | `/etc/la-queta/env` (`SECRET_KEY`, `DATABASE_URL`; optional `FEEDBACK_EMAIL`, `PUBLIC_BASE_URL`) |
 | SQLite | `/var/lib/la-queta/app.db` |
 | App process | systemd `la-queta.service` → gunicorn `127.0.0.1:8000` |
 | Edge | nginx → proxy to gunicorn; HTTP **80** + HTTPS **443** (`la-queta.com` / `www`) |
 | Health | App: `curl -s http://127.0.0.1:8000/api/health`. Via edge: `curl -s https://la-queta.com/api/health` (or `-H 'Host: la-queta.com' http://127.0.0.1/api/health`) |
+| Share preview | OG/Twitter meta in `base.html`; `static/og-image.png` (1200×630). Origin: `PUBLIC_BASE_URL` (default `https://la-queta.com`). WhatsApp caches previews — re-share or wait after deploy. |
 | Git remote | `git@github.com-la-queta:LiamSeanLaird/la-queta.git` (SSH Host alias) |
 | Deploy key | `~/.ssh/la-queta-deploy` (GitHub deploy key, read-only; no personal `id_rsa` on VM) |
 | Host firewall | iptables INPUT: allow 22 + 80, then REJECT; persisted via `netfilter-persistent` |
@@ -140,6 +141,7 @@ sudo tee /etc/la-queta/env >/dev/null <<EOF
 SECRET_KEY=$(python3 -c 'import secrets; print(secrets.token_hex(32))')
 DATABASE_URL=sqlite:////var/lib/la-queta/app.db
 # Optional: FEEDBACK_EMAIL=you@example.com
+# Optional: PUBLIC_BASE_URL=https://la-queta.com
 EOF
 sudo chown root:ubuntu /etc/la-queta/env
 sudo chmod 640 /etc/la-queta/env
