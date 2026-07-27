@@ -24,7 +24,9 @@ for arg in "$@"; do
 done
 
 ENV_FILE="${LA_QUETA_ENV_FILE:-/etc/la-queta/env}"
-HEALTH_URL="${LA_QUETA_HEALTH_URL:-http://127.0.0.1/api/health}"
+# Hit gunicorn directly — nginx vhosts (e.g. la-queta.com after certbot) often
+# 404 Host: 127.0.0.1. Override with LA_QUETA_HEALTH_URL to probe via nginx.
+HEALTH_URL="${LA_QUETA_HEALTH_URL:-http://127.0.0.1:8000/api/health}"
 SERVICE="${LA_QUETA_SERVICE:-la-queta}"
 DB_PATH="${LA_QUETA_DB_PATH:-/var/lib/la-queta/app.db}"
 BACKUP_DIR="${LA_QUETA_BACKUP_DIR:-/var/lib/la-queta/backups}"

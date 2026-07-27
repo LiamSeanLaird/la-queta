@@ -18,8 +18,8 @@ Operator runbook for the production Oracle Always Free VM. Product/tech intent s
 | Env file | `/etc/la-queta/env` (`SECRET_KEY`, `DATABASE_URL`) |
 | SQLite | `/var/lib/la-queta/app.db` |
 | App process | systemd `la-queta.service` → gunicorn `127.0.0.1:8000` |
-| Edge | nginx → proxy to gunicorn on port **80** |
-| Health | `curl -s http://127.0.0.1/api/health` (on box) or `http://PUBLIC_IP/api/health` |
+| Edge | nginx → proxy to gunicorn; HTTP **80** + HTTPS **443** (`la-queta.com` / `www`) |
+| Health | App: `curl -s http://127.0.0.1:8000/api/health`. Via edge: `curl -s https://la-queta.com/api/health` (or `-H 'Host: la-queta.com' http://127.0.0.1/api/health`) |
 | Git remote | `git@github.com-la-queta:LiamSeanLaird/la-queta.git` (SSH Host alias) |
 | Deploy key | `~/.ssh/la-queta-deploy` (GitHub deploy key, read-only; no personal `id_rsa` on VM) |
 | Host firewall | iptables INPUT: allow 22 + 80, then REJECT; persisted via `netfilter-persistent` |
@@ -61,8 +61,9 @@ Also confirm:
 Quick checks on the VM:
 
 ```bash
-curl -sS http://127.0.0.1:8000/api/health    # app up?
-curl -sS http://127.0.0.1/api/health         # nginx → app?
+curl -sS http://127.0.0.1:8000/api/health              # app up?
+curl -sS -H 'Host: la-queta.com' http://127.0.0.1/api/health  # nginx → app?
+curl -sS https://la-queta.com/api/health               # public HTTPS
 sudo systemctl status la-queta nginx
 sudo ss -lntp | grep -E ':80|:8000'
 sudo iptables -L INPUT -n --line-numbers | grep -E '80|REJECT|22'
@@ -218,7 +219,7 @@ git pull                  # once, to get scripts/deploy.sh if missing
 # ./scripts/deploy.sh --no-pull   # re-run migrate/seed/restart without pulling
 ```
 
-What the script does: `git pull --ff-only` → `poetry install --only main` → SQLite pre-deploy backup → `flask db upgrade` → seed → `systemctl restart la-queta` → `curl` `/api/health`.
+What the script does: `git pull --ff-only` → `poetry install --only main` → SQLite pre-deploy backup → `flask db upgrade` → seed → `systemctl restart la-queta` → `curl` `http://127.0.0.1:8000/api/health` (gunicorn; avoids nginx `server_name` 404s on `Host: 127.0.0.1`). Override with `LA_QUETA_HEALTH_URL` if you want to probe through nginx.
 
 Reference unit/nginx configs (match live box; copy when rebuilding): `deploy/la-queta.service`, `deploy/nginx-la-queta.conf`.
 
@@ -233,7 +234,7 @@ set -a && source /etc/la-queta/env && set +a
 flask --app wsgi db upgrade
 python scripts/seed.py
 sudo systemctl restart la-queta
-curl -sf http://127.0.0.1/api/health && echo OK
+curl -sf http://127.0.0.1:8000/api/health && echo OK
 ```
 
 Rules:
@@ -281,7 +282,7 @@ sudo systemctl stop la-queta
 cp /var/lib/la-queta/app.db /var/lib/la-queta/app.db.pre-restore
 cp /var/lib/la-queta/backups/app-YYYYMMDD.db /var/lib/la-queta/app.db
 sudo systemctl start la-queta
-curl -sS http://127.0.0.1/api/health
+curl -sS http://127.0.0.1:8000/api/health
 ```
 
 ### Optional offsite (Mac)
@@ -317,7 +318,8 @@ Ordered by ROI — do not jump to containers until the loop below hurts.
 | Browser: connection refused | nginx down / not listening on 80 |
 | 502 Bad Gateway | gunicorn/`la-queta` down — `journalctl -u la-queta -n 50` |
 | App works on `:8000` curl but not via nginx | sites-enabled / `default` conflict; `nginx -t` |
-| Localhost `/api/health` OK, public times out | NSG and/or iptables (both required) |
+| `curl http://127.0.0.1/api/health` → nginx HTML 404 | `server_name` is the domain only (post-certbot). Probe `:8000`, or send `Host: la-queta.com`, or use `https://la-queta.com/api/health` |
+| Localhost `/api/health` OK, public times out | NSG and/or iptables (both required); for HTTPS also TCP **443** |
 | Progress lost after redeploy | `DATABASE_URL` pointed at a different file; check `/etc/la-queta/env` |
 | `Permission denied` sourcing env | `chmod 640` + `chown root:ubuntu` on `/etc/la-queta/env` |
 | `git pull` asks for old `id_rsa` passphrase | remote must use `github.com-la-queta` Host alias + deploy key |
