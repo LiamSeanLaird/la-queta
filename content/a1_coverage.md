@@ -25,14 +25,14 @@ Programme scenarios (escenaris) → our content:
 | Laboral | Work / job basics | `work` | `work` | ok |
 | Lúdic | Leisure / free time | `leisure` | `leisure` | ok |
 | Educatiu i formatiu | School / courses | `education` | `education` | ok |
-| Skills | Listening | Practice `listen_*` (browser TTS) | — | ok (Phase 11; hosted audio later) |
-| Skills | Speaking | Practice `speak` self-check | — | ok (Phase 11; LLM later) |
+| Skills | Listening | Practice `listen_*` (browser TTS) | — | ok (hosted audio later) |
+| Skills | Speaking | Practice `speak` self-check | — | ok (LLM later) |
 | Skills | Reading signs/ads/web | `signs-messages` | `signs` | ok (first exam-shaped slice) |
 | Skills | Short written replies | `signs-messages` | `signs` | ok (first exam-shaped slice) |
 
 ## Next content priorities
 1. Deepen exam shapes (more notice/web items; longer chat threads)  
-2. Hosted audio / richer listening (Phase 12+)  
+2. Hosted audio / richer listening  
 3. Density pass: more practice items on weaker banks  
 
-See `PHASE_10_A1_PATH.md` and `content/a1_can_dos.json`.
+Goals map: `content/a1_can_dos.json`.

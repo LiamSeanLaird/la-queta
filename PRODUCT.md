@@ -27,7 +27,7 @@
 - A2 / B1 / B2 **content** (hub shows A2/B1 as coming soon)
 - OAuth, email magic links, password-reset email
 - Spaced repetition (SM-2)
-- Audio / pronunciation playback
+- Hosted audio files / cloud STT / LLM speaking (browser TTS + speak self-check are in)
 - Mobile native apps
 - Paid hosting or multi-instance scaling
 - Adding cards/lessons via admin UI (seed/migrate instead)
@@ -56,7 +56,7 @@ Home
 
 - Default path: continue current level / next incomplete lesson.
 - User may start A2 without finishing A1; progress per level is independent.
-- Lesson complete when Practice finishes with all items correct (Learn \| Practice tabs; see `PHASE_9_A1_PRACTICE.md`).
+- Lesson complete when Practice finishes with all items correct (Learn \| Practice tabs).
 - Learners can **Retire** early from study or browse (`seen = max(seen, 3)`). When a deck is fully retired, **Unretire deck** resets all seen counts to 0 so Study is available again.
 
 ---
@@ -94,23 +94,25 @@ Do not invent a third progress system.
 - [x] Deploy to Oracle Always Free VM — live; see `DEPLOY.md`
 - [x] Backup story for SQLite file (on-VM cron; optional Mac pull)
 
-### Phase E — Vocab UX
+### Phase E — Vocab UX ✅
 - [x] Study keyboard: **Enter** (and Next) advance + increment `seen`; **Space** / card click flips
 - [x] Browse: retired badge / muted row when `seen >= 3`
 - [x] **Retire now** on study + browse (`POST /api/cards/<id>/retire`)
 - [x] **Unretire deck** when all cards retired (`POST /api/decks/<slug>/unretire`)
-- [ ] Later: **Daily vocab** — sample from level’s unretired pool
+- [x] **Daily vocab** — `/levels/<id>/daily` samples unretired pool (fill from retired)
 - [ ] Later (optional): browse filter active vs retired
 
 ### Phase F — A1 Practice ✅
-See **`PHASE_9_A1_PRACTICE.md`**. Learn \| Practice tabs; MC + cloze + type-in; complete only after perfect Practice.
+Learn \| Practice tabs; MC + cloze + type-in; complete only after perfect Practice.
 
-### Phase G — A1 path (in progress)
-See **`PHASE_10_A1_PATH.md`**. Programme theme coverage filled (**20** A1 lessons). **7 clustered goals** on Learn; unlock toast when a goal completes. Remaining: denser practice, hosted audio, richer exam tasks.
+### Phase G — A1 path ✅
+Programme theme coverage filled (**20** A1 lessons; see `content/a1_coverage.md`). **7 clustered goals** on Learn (`content/a1_can_dos.json`); unlock dialog when a goal completes. Browser TTS listening + speak self-check in Practice.
 
-**Still out of scope:** SM-2 / difficulty ratings; hosted audio files / cloud STT / LLM speaking; OAuth; email verification / magic-link / password reset email.
-
-Browser TTS listening + speak self-check: see **`PHASE_11_LISTENING_SPEAKING.md`**.
+### Next (content / product)
+- Denser practice banks; richer exam-shaped read/write
+- Hosted audio / LLM speaking (optional)
+- SM-2 / difficulty ratings (optional)
+- OAuth; email verification / magic-link / password reset email (optional)
 
 ---
 

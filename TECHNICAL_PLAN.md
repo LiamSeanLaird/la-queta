@@ -229,35 +229,39 @@ Work in vertical slices. Each phase: **failing tests → structure → behaviour
 - [x] Completeness % on hub
 - [x] Continue CTA (next incomplete lesson, then vocab with remaining)
 
-### Phase 7 — Deploy
+### Phase 7 — Deploy ✅
 - [x] First production path on OCI Always Free (gunicorn + nginx + systemd + SQLite) — details in `DEPLOY.md`
 - [x] Public HTTP (NSG TCP 80 + host iptables TCP 80 + `/api/health`)
+- [x] HTTPS / domain (`la-queta.com`, certbot)
 - [x] GitHub read-only deploy key on VM (`github.com-la-queta` remote)
 - [x] Daily SQLite backup cron (`DEPLOY.md`)
 - [x] `scripts/deploy.sh` / `make deploy` + `deploy/` unit & nginx templates
 - [ ] CI SSH deploy (optional later)
-- [ ] HTTPS / domain (optional later)
 
 ### Phase 8 — Vocab UX ✅
 - [x] Study: Enter → Next (seen++); Space / click → flip
 - [x] Browse: retired badge / muted row; Retire per row
 - [x] Study Retire → `POST /api/cards/<id>/retire` then advance
 - [x] Deck fully retired → Unretire deck (`POST /api/decks/<slug>/unretire`)
-- [ ] Later: daily practice across level unretired pool
+- [x] Daily vocab across level unretired pool (`/levels/<id>/daily`)
 - [ ] Later (optional): browse filter active vs retired
 
 ### Phase 9 — A1 Practice ✅
-See **`PHASE_9_A1_PRACTICE.md`**. Learn \| Practice tabs; cloze + type-in; practice-only complete; daily vocab deferred to Phase 10.
-- [x] Lock open questions in the phase plan
-- [x] `practice_json` + seed (all 6 A1 lessons)
+Learn \| Practice tabs; cloze + type-in; practice-only complete.
+- [x] `practice_json` + seed
 - [x] Lesson Learn \| Practice tabs + drill UI
 - [x] Complete gate + docs
 
+### Phase 10 — A1 path ✅
+- [x] Coverage matrix (`content/a1_coverage.md`) + can-dos (`content/a1_can_dos.json`)
+- [x] Goal grouping + unlock dialog on Learn
+- [x] Daily vocab API + page
+- [x] Programme content fill (**20** A1 lessons)
+
 ### Phase 11 — Listening & speaking ✅ (browser first)
-See **`PHASE_11_LISTENING_SPEAKING.md`**. Practice kinds `listen_choice` / `listen_type` / `speak` via Web Speech API; LLM/hosted audio later.
-- [x] Decisions locked
+Practice kinds `listen_choice` / `listen_type` / `speak` via Web Speech API; LLM/hosted audio later.
 - [x] `speech.js` + practice UI
-- [x] Seed listen/speak items on all A1 lessons
+- [x] Seed listen/speak items on A1 lessons
 - [x] Tests + docs
 
 ## Running (target)
