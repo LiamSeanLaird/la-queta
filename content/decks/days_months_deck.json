@@ -18,7 +18,7 @@
   {"id": "dm_017", "catalan": "octubre", "pronunciation": "uk-TOO-bruh", "english": "October", "hint": "", "tags": ["months"], "pos": "noun", "gender": "m", "plural": "—"},
   {"id": "dm_018", "catalan": "novembre", "pronunciation": "noo-BEM-bruh", "english": "November", "hint": "", "tags": ["months"], "pos": "noun", "gender": "m", "plural": "—"},
   {"id": "dm_019", "catalan": "desembre", "pronunciation": "duh-ZEM-bruh", "english": "December", "hint": "", "tags": ["months"], "pos": "noun", "gender": "m", "plural": "—"},
-  {"id": "dm_020", "catalan": "avui", "pronunciation": "uh-VOO-ee", "english": "today", "hint": "", "tags": ["time"], "pos": "adverb"},
+  {"id": "dm_020", "catalan": "avui", "pronunciation": "uh-BOO-ee", "english": "today", "hint": "", "tags": ["time"], "pos": "adverb"},
   {"id": "dm_021", "catalan": "demà", "pronunciation": "duh-MAH", "english": "tomorrow", "hint": "", "tags": ["time"], "pos": "adverb"},
   {"id": "dm_022", "catalan": "ahir", "pronunciation": "uh-EER", "english": "yesterday", "hint": "", "tags": ["time"], "pos": "adverb"},
   {"id": "ev_013", "catalan": "el matí", "pronunciation": "ul muh-TEE", "english": "the morning", "hint": "", "tags": ["time"], "pos": "noun", "gender": "m", "plural": "els matins"},
@@ -30,5 +30,5 @@
   {"id": "dm_025", "catalan": "És la una", "pronunciation": "ehs luh OO-nuh", "english": "It's one o'clock", "hint": "", "tags": ["time"], "pos": "phrase"},
   {"id": "dm_026", "catalan": "el cap de setmana", "pronunciation": "ul kap duh suh-MAH-nuh", "english": "the weekend", "hint": "", "tags": ["time"], "pos": "noun", "gender": "m", "plural": "els caps de setmana"},
   {"id": "dm_027", "catalan": "A quina hora?", "pronunciation": "uh KEE-nuh O-ruh", "english": "At what time?", "hint": "", "tags": ["time"], "pos": "phrase"},
-  {"id": "dm_028", "catalan": "A les vuit", "pronunciation": "uh luhs vooch", "english": "At eight", "hint": "", "tags": ["time"], "pos": "phrase"}
+  {"id": "dm_028", "catalan": "A les vuit", "pronunciation": "uh luhs BOO-eet", "english": "At eight", "hint": "", "tags": ["time"], "pos": "phrase"}
 ]

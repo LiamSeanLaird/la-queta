@@ -57,7 +57,7 @@
   {
     "id": "hd006",
     "catalan": "el lavabo",
-    "pronunciation": "lah-VAH-boh",
+    "pronunciation": "lah-BAH-boh",
     "english": "toilet / washroom",
     "hint": "colloquially used for the room with the toilet",
     "tags": ["home", "rooms"],
@@ -178,7 +178,7 @@
   {
     "id": "hd017",
     "catalan": "la nevera",
-    "pronunciation": "neh-VEH-rah",
+    "pronunciation": "neh-BEH-rah",
     "english": "fridge",
     "hint": "neu = snow",
     "tags": ["home", "appliances"],
@@ -244,7 +244,7 @@
   {
     "id": "hd023",
     "catalan": "la tovallola",
-    "pronunciation": "toh-vah-YOH-lah",
+    "pronunciation": "toh-bah-YOH-lah",
     "english": "towel",
     "hint": "",
     "tags": ["home", "daily"],
@@ -255,7 +255,7 @@
   {
     "id": "hd024",
     "catalan": "esmorzar",
-    "pronunciation": "ez-mor-ZAR",
+    "pronunciation": "ez-mor-ZA",
     "english": "to have breakfast",
     "hint": "also the noun: l'esmorzar = breakfast",
     "tags": ["home", "daily"],
@@ -265,7 +265,7 @@
   {
     "id": "hd025",
     "catalan": "dinar",
-    "pronunciation": "dee-NAR",
+    "pronunciation": "dee-NA",
     "english": "to have lunch",
     "hint": "also the noun: el dinar = lunch",
     "tags": ["home", "daily"],
@@ -275,7 +275,7 @@
   {
     "id": "hd026",
     "catalan": "sopar",
-    "pronunciation": "soh-PAR",
+    "pronunciation": "soh-PA",
     "english": "to have dinner",
     "hint": "also the noun: el sopar = dinner",
     "tags": ["home", "daily"],
@@ -295,7 +295,7 @@
   {
     "id": "hd028",
     "catalan": "fer el llit",
-    "pronunciation": "fer el YEET",
+    "pronunciation": "feh ul YEET",
     "english": "to make the bed",
     "hint": "fer = to do/make",
     "tags": ["home", "daily"],

@@ -3,7 +3,7 @@
   {"id": "edu_006", "catalan": "l'EOI", "pronunciation": "leh-oh-EE", "english": "official language school (EOI)", "hint": "", "tags": ["education"], "pos": "noun", "gender": "f", "plural": "les EOI"},
   {"id": "edu_004", "catalan": "l'escola d'adults", "pronunciation": "luhs-KO-luh duh-DOOLTS", "english": "the adult school", "hint": "", "tags": ["education"], "pos": "phrase"},
   {"id": "edu_008", "catalan": "l'institut", "pronunciation": "lin-stee-TOOT", "english": "the secondary school", "hint": "", "tags": ["education"], "pos": "noun", "gender": "m", "plural": "els instituts"},
-  {"id": "edu_007", "catalan": "la universitat", "pronunciation": "luh oo-nee-vur-see-TAT", "english": "the university", "hint": "", "tags": ["education"], "pos": "noun", "gender": "f", "plural": "les universitats"},
+  {"id": "edu_007", "catalan": "la universitat", "pronunciation": "luh oo-nee-bur-see-TAT", "english": "the university", "hint": "", "tags": ["education"], "pos": "noun", "gender": "f", "plural": "les universitats"},
   {"id": "edu_001", "catalan": "el curs", "pronunciation": "ul koors", "english": "the course", "hint": "", "tags": ["education"], "pos": "noun", "gender": "m", "plural": "els cursos"},
   {"id": "edu_002", "catalan": "la classe", "pronunciation": "luh KLAH-suh", "english": "the class", "hint": "", "tags": ["education"], "pos": "noun", "gender": "f", "plural": "les classes"},
   {"id": "edu_003", "catalan": "la inscripció", "pronunciation": "luh in-skreep-see-OH", "english": "the enrolment / registration", "hint": "", "tags": ["education"], "pos": "noun", "gender": "f", "plural": "les inscripcions"},

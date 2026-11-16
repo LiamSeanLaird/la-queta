@@ -79,7 +79,7 @@
   {
     "id": "fam008",
     "catalan": "l'àvia",
-    "pronunciation": "AH-vyah",
+    "pronunciation": "AH-byah",
     "english": "grandmother",
     "hint": "",
     "tags": ["family", "extended"],
@@ -90,7 +90,7 @@
   {
     "id": "fam009",
     "catalan": "l'avi",
-    "pronunciation": "AH-vee",
+    "pronunciation": "AH-bee",
     "english": "grandfather",
     "hint": "plural avis = grandparents",
     "tags": ["family", "extended"],

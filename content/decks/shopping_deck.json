@@ -85,7 +85,7 @@
   {
     "id": "sh_008",
     "catalan": "Provar-me'l",
-    "pronunciation": "proo-VAR-mul",
+    "pronunciation": "proo-BAR-mul",
     "english": "To try it on",
     "hint": "",
     "tags": [
@@ -155,7 +155,7 @@
   {
     "id": "sh_015",
     "catalan": "Me'l pot embolicar?",
-    "pronunciation": "mul pot um-boo-lee-KAR",
+    "pronunciation": "mul pot um-boo-lee-KA",
     "english": "Can you wrap it?",
     "hint": "",
     "tags": [
@@ -186,7 +186,7 @@
   {
     "id": "sh_018",
     "catalan": "Quin color vols?",
-    "pronunciation": "keen koo-LOR vols",
+    "pronunciation": "keen koo-LOR bols",
     "english": "What colour do you want?",
     "hint": "",
     "tags": ["shopping"],
@@ -195,7 +195,7 @@
   {
     "id": "sh_019",
     "catalan": "Em pot ensenyar això?",
-    "pronunciation": "um pot un-sun-YAR uh-SHAW",
+    "pronunciation": "um pot un-sun-YA uh-SHAW",
     "english": "Can you show me that?",
     "hint": "",
     "tags": ["shopping"],
@@ -213,7 +213,7 @@
   {
     "id": "tr_033",
     "catalan": "Puc pagar amb targeta?",
-    "pronunciation": "pook puh-GAR am tar-ZHEH-tuh",
+    "pronunciation": "pook puh-GA am tar-ZHEH-tuh",
     "english": "Can I pay by card?",
     "hint": "",
     "tags": ["shopping"],

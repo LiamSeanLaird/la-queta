@@ -7,7 +7,7 @@
   {"id": "wk_016", "catalan": "l'horari", "pronunciation": "loo-RAH-ree", "english": "the working hours / timetable", "hint": "Quin horari tens? = What hours do you work?", "tags": ["work"], "pos": "noun", "gender": "m", "plural": "els horaris"},
   {"id": "wk_017", "catalan": "la reunió", "pronunciation": "luh reh-oo-nee-OH", "english": "the meeting", "hint": "", "tags": ["work"], "pos": "noun", "gender": "f", "plural": "les reunions"},
   {"id": "wk_018", "catalan": "el company de feina", "pronunciation": "ul koom-PAHNY duh FEH-nuh", "english": "the colleague (m)", "hint": "f: la companya de feina", "tags": ["work"], "pos": "noun", "gender": "m", "plural": "els companys de feina"},
-  {"id": "wk_009", "catalan": "l'entrevista", "pronunciation": "lun-truh-VEES-tuh", "english": "the interview", "hint": "", "tags": ["work"], "pos": "noun", "gender": "f", "plural": "les entrevistes"},
+  {"id": "wk_009", "catalan": "l'entrevista", "pronunciation": "lun-truh-BEES-tuh", "english": "the interview", "hint": "", "tags": ["work"], "pos": "noun", "gender": "f", "plural": "les entrevistes"},
   {"id": "wk_010", "catalan": "les vacances", "pronunciation": "luhs buh-KAN-suhs", "english": "the holidays", "hint": "", "tags": ["work"], "pos": "noun", "gender": "f", "plural": "—"},
   {"id": "wk_003", "catalan": "el professor", "pronunciation": "ul proo-fuh-SOR", "english": "the teacher (m)", "hint": "", "tags": ["work"], "pos": "noun", "gender": "m", "plural": "els professors"},
   {"id": "wk_004", "catalan": "la professora", "pronunciation": "luh proo-fuh-SO-ruh", "english": "the teacher (f)", "hint": "", "tags": ["work"], "pos": "noun", "gender": "f", "plural": "les professores"},
@@ -25,6 +25,6 @@
   {"id": "wk_008", "catalan": "Treballo en una oficina", "pronunciation": "truh-BAH-yoo un OO-nuh oo-fee-SEE-nuh", "english": "I work in an office", "hint": "", "tags": ["work"], "pos": "phrase"},
   {"id": "wk_014", "catalan": "Treballo de dilluns a divendres", "pronunciation": "truh-BAH-yoo duh dee-YOONS uh dee-BEN-druhs", "english": "I work Monday to Friday", "hint": "", "tags": ["work"], "pos": "phrase"},
   {"id": "wk_026", "catalan": "Treballo a mitja jornada", "pronunciation": "truh-BAH-yoo uh MEE-juh zhoor-NA-duh", "english": "I work part-time", "hint": "a jornada completa = full-time", "tags": ["work"], "pos": "phrase"},
-  {"id": "wk_027", "catalan": "Tinc una entrevista demà", "pronunciation": "teeng OO-nuh un-truh-VEES-tuh duh-MA", "english": "I have an interview tomorrow", "hint": "", "tags": ["work"], "pos": "phrase"},
+  {"id": "wk_027", "catalan": "Tinc una entrevista demà", "pronunciation": "teeng OO-nuh un-truh-BEES-tuh duh-MA", "english": "I have an interview tomorrow", "hint": "", "tags": ["work"], "pos": "phrase"},
   {"id": "wk_028", "catalan": "Tinc vacances a l'agost", "pronunciation": "teeng buh-KAN-suhs uh luh-GOST", "english": "I have holidays in August", "hint": "", "tags": ["work"], "pos": "phrase"}
 ]
