@@ -8,10 +8,13 @@ import re
 _WS = re.compile(r"\s+")
 # Keep letters/digits (incl. Catalan accents), spaces, apostrophes, hyphens.
 _DROP = re.compile(r"[^\w\s'-]+", re.UNICODE)
+# Phone keyboards type a curly apostrophe (l’estació); treat it as '.
+_APOSTROPHES = re.compile("[\u2018\u2019\u02bc`\u00b4]")
 
 
 def normalize_answer(value: str) -> str:
-    text = _DROP.sub("", (value or "").strip())
+    text = _APOSTROPHES.sub("'", (value or "").strip())
+    text = _DROP.sub("", text)
     return _WS.sub(" ", text).casefold()
 
 

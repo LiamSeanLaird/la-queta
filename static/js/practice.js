@@ -25,6 +25,8 @@
   function normalizeAnswer(value) {
     return String(value || "")
       .trim()
+      // Phone keyboards type a curly apostrophe (l’estació); treat it as '.
+      .replace(/[\u2018\u2019\u02bc`\u00b4]/g, "'")
       .replace(/[^\p{L}\p{N}\s'-]+/gu, "")
       .replace(/\s+/g, " ")
       .toLocaleLowerCase();
