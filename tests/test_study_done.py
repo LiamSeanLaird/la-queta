@@ -51,3 +51,22 @@ def test_study_js_shows_the_panel_instead_of_redirecting():
     assert "location.assign" not in STUDY_JS
     assert "location.href" not in STUDY_JS
     assert "Session complete" in STUDY_JS
+
+
+def _function_body(name: str) -> str:
+    match = re.search(rf"async function {name}\(\) {{\n(.*?)\n  }}\n", STUDY_JS, re.S)
+    assert match, f"no {name} in study.js"
+    return match.group(1)
+
+
+def test_study_js_counts_each_card_once_per_session():
+    """Going Back and stepping through a card again must not post /seen twice.
+
+    Before, Back then Next posted /seen again, so one session could take a
+    card two thirds of the way to retirement.
+    """
+    advance = _function_body("advanceSeen")
+    guard = advance.index("countedThisSession.has(card.id)")
+    assert guard < advance.index("/seen"), "seen POST must come after the guard"
+    assert "countedThisSession.add(card.id)" in advance
+    assert "countedThisSession.add(card.id)" in _function_body("retireCurrent")

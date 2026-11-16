@@ -50,6 +50,9 @@
   // Card ids the learner retired in this session, by tapping Retire or by
   // reaching the seen threshold. Cards that were already retired don't count.
   const retiredThisSession = new Set();
+  // Card ids already counted in this session (seen or retired). Going Back and
+  // stepping through a card again must not count it a second time.
+  const countedThisSession = new Set();
 
   function dialogOpen() {
     return (tipDialog && tipDialog.open) || (retireDialog && retireDialog.open);
@@ -186,6 +189,11 @@
   async function advanceSeen() {
     const card = queue[index];
     if (!card || advancing) return;
+    if (countedThisSession.has(card.id)) {
+      index += 1;
+      renderCard();
+      return;
+    }
     advancing = true;
     window.LaQueta.showError(studyError, "");
     try {
@@ -197,6 +205,7 @@
         window.LaQueta.showError(studyError, body.error || "Could not save seen");
         return;
       }
+      countedThisSession.add(card.id);
       noteRetired(card, body);
       index += 1;
       renderCard();
@@ -235,6 +244,7 @@
         window.LaQueta.showError(studyError, body.error || "Could not retire");
         return;
       }
+      countedThisSession.add(card.id);
       noteRetired(card, body);
       index += 1;
       renderCard();
