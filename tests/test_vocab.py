@@ -29,7 +29,7 @@ def test_seed_decks_into_a1(migrated_app):
         from app.models import Card, Deck
 
         assert db.session.scalar(select(func.count()).select_from(Deck)) == 18
-        assert db.session.scalar(select(func.count()).select_from(Card)) == 392
+        assert db.session.scalar(select(func.count()).select_from(Card)) == 405
         a2_decks = db.session.scalar(
             select(func.count()).select_from(Deck).where(Deck.level_id == "a2")
         )
@@ -127,6 +127,18 @@ def test_greetings_and_question_phrases_are_separate_one_topic_decks():
     # Short social messages are not signs.
     assert "Fins demà" not in {card["catalan"] for card in _deck_cards("signs")}
 
+
+def test_signs_deck_has_real_signs_and_short_messages():
+    signs = _deck_cards("signs")
+    assert 20 <= len(signs) <= 30
+    assert _lesson_deck("signs-messages") == "signs"
+    # Every card is either a sign or notice, or a short chat message, as the lesson teaches.
+    assert all(card["tags"] in (["signs"], ["messages"]) for card in signs)
+    sign_words = {card["catalan"] for card in signs if card["tags"] == ["signs"]}
+    message_words = {card["catalan"] for card in signs if card["tags"] == ["messages"]}
+    assert len(sign_words) > len(message_words)
+    assert {"Sortida", "Prohibit fumar", "Lliure", "Ocupat / ocupada", "No funciona"} <= sign_words
+    assert {"No puc avui", "Faig tard", "On ets?"} <= message_words
 
 
 def test_question_words_deck_has_every_word_the_lesson_teaches():
