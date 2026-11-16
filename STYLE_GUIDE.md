@@ -140,7 +140,7 @@ When Practice ends the learner stays on the lesson: a done panel offers the less
 - Semantic structure (`main`, `nav`, `section`, `button` for actions).
 - Accessible labels on interactive controls.
 - Catalan UI chrome can mix EN labels for learners; content language follows lesson/card data.
-- Logged-in shell (`base.html` topbar): **←** back left (`{% block top_back %}`), brand center, profile + feedback (mailto / `FEEDBACK_EMAIL`) right. Tagline (`aprèn català`) only on the gate.
+- Logged-in shell (`base.html` topbar): **←** back left (`{% block top_back %}`), brand center, profile + feedback (mailto / `FEEDBACK_EMAIL`) right, side by side in one row (never stacked). Tagline (`aprèn català`) only on the gate.
 
 ### CSS
 - Design tokens as CSS variables on `:root` (see Visual design).

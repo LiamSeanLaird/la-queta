@@ -61,6 +61,9 @@ def main() -> int:
     parser.add_argument("--base", default="http://127.0.0.1:5077")
     parser.add_argument("--out", default="/tmp/la-queta-shots")
     parser.add_argument("--dark", action="store_true", help="also capture dark mode")
+    parser.add_argument(
+        "--viewport", action="store_true", help="capture only the first screen, not the full page"
+    )
     parser.add_argument("paths", nargs="*")
     args = parser.parse_args()
     paths = args.paths or DEFAULT_PATHS
@@ -112,7 +115,7 @@ def main() -> int:
                     current["path"] = path
                     page.goto(f"{args.base}{path}", wait_until="networkidle")
                     file = out / f"{_slug(path)}-{label}-{scheme}.png"
-                    page.screenshot(path=str(file), full_page=True)
+                    page.screenshot(path=str(file), full_page=not args.viewport)
                     print(file)
                 context.close()
         browser.close()

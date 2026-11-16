@@ -158,9 +158,10 @@ a.tab-btn {
 
 /* ── Brand ───────────────────────────────────────────── */
 
+/* Equal 1fr sides keep the brand centred whatever the side contents are. */
 .topbar {
   display: grid;
-  grid-template-columns: 2.75rem minmax(0, 1fr) 2.75rem;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
   gap: 0.35rem;
   margin: 0 0 1.5rem;
@@ -178,14 +179,12 @@ a.tab-btn {
 
 .topbar__side--end {
   justify-content: flex-end;
-  align-items: flex-start;
 }
 
 .topbar__actions {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 0.15rem;
+  gap: 0.4rem;
 }
 
 .topbar__actions .icon-btn {
