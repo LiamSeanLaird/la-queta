@@ -460,3 +460,25 @@ def test_cards_list_in_deck_file_order_after_a_reorder(
     assert [card["external_id"] for card in listed] == file_ids
     # The ids really were created in reverse, so this is not ordering by id.
     assert listed[0]["id"] > listed[-1]["id"]
+
+
+def test_session_shows_new_cards_in_deck_order_after_seen_cards(migrated_app, migrated_client):
+    with migrated_app.app_context():
+        seed_all()
+    _register(migrated_client)
+
+    cards = migrated_client.get("/api/decks/core_verbs/cards").get_json()["cards"]
+    file_order = [card["id"] for card in cards]
+
+    session = migrated_client.get("/api/decks/core_verbs/session").get_json()["cards"]
+    assert [card["id"] for card in session] == file_order
+    assert session[0]["catalan"] == cards[0]["catalan"]
+
+    seen_ids = {file_order[4], file_order[9]}
+    for card_id in seen_ids:
+        assert migrated_client.post(f"/api/cards/{card_id}/seen").status_code == 200
+
+    session = migrated_client.get("/api/decks/core_verbs/session").get_json()["cards"]
+    session_ids = [card["id"] for card in session]
+    assert set(session_ids[:2]) == seen_ids
+    assert session_ids[2:] == [card_id for card_id in file_order if card_id not in seen_ids]

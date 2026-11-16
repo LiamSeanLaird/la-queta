@@ -160,7 +160,7 @@ Conventions: `STYLE_GUIDE.md` §3 (layers, statuses, error shape, POST-for-actio
 | POST | `/api/lessons/<id>/complete` | Perfect practice score required; mark complete |
 | GET | `/api/levels/<id>/decks` | Decks + stats |
 | GET | `/api/decks/<slug>/cards` | All cards + seen |
-| GET | `/api/decks/<slug>/session` | Unretired cards, shuffled |
+| GET | `/api/decks/<slug>/session` | Unretired cards: already-seen ones shuffled first, then unseen ones in deck file order |
 | POST | `/api/cards/<id>/seen` | Increment seen |
 | POST | `/api/cards/<id>/retire` | Set seen ≥ 3 (early retire) |
 | POST | `/api/decks/<slug>/unretire` | Reset seen → 0 for all cards in deck |

@@ -87,10 +87,18 @@ def list_cards_for_deck(user: User, slug: str) -> list[dict]:
 
 
 def session_for_deck(user: User, slug: str) -> list[dict]:
+    """Shuffled review of cards already seen, then new cards in deck file order.
+
+    Deck files are curated (core verbs first, nouns grouped by topic), so a
+    learner meets new words in that order. Cards they have already seen are
+    reviewed first, shuffled, so recall does not lean on position.
+    """
     cards = list_cards_for_deck(user, slug)
     active = [card for card in cards if not card["retired"]]
-    random.shuffle(active)
-    return active
+    review = [card for card in active if card["seen"] > 0]
+    new = [card for card in active if card["seen"] == 0]
+    random.shuffle(review)
+    return review + new
 
 
 DAILY_LIMIT = 20
