@@ -8,7 +8,13 @@ from app.services.errors import ServiceError
 from app.services.can_dos import can_dos_progress, learn_groups_for_level, vocab_groups_for_level
 from app.services.lessons import get_lesson, list_lessons_for_level
 from app.services.levels import list_levels_for_user, select_level, level_is_open
-from app.services.progress import continue_target, lesson_next_steps, level_completeness_pct
+from app.services.progress import (
+    continue_target,
+    deck_next_lesson,
+    lesson_next_steps,
+    level_completeness_pct,
+    next_incomplete_lesson,
+)
 from app.services.vocab import list_cards_for_deck, list_decks_for_level
 
 bp = Blueprint("pages", __name__)
@@ -194,6 +200,7 @@ def study(slug: str):
         exit_url=url_for("pages.deck", slug=slug),
         back_label="Back to deck",
         empty_message="Every card in this deck is retired. Unretire the deck to study it again.",
+        next_lesson=deck_next_lesson(user, slug, deck_data["level_id"]),
         brand_href=url_for("pages.levels"),
     )
 
@@ -216,6 +223,7 @@ def daily(level_id: str):
         exit_url=url_for("pages.level_home", level_id=level_id, tab="vocab"),
         back_label="Back to vocab",
         empty_message="There are no cards to review right now.",
+        next_lesson=next_incomplete_lesson(user, level_id),
         brand_href=url_for("pages.levels"),
     )
 

@@ -5,6 +5,7 @@ tab) after the last card, so a learner who had just gone through 23 cards
 landed on '22 left' with no sign the session had counted.
 """
 
+import html
 import re
 from pathlib import Path
 
@@ -70,3 +71,64 @@ def test_study_js_counts_each_card_once_per_session():
     assert guard < advance.index("/seen"), "seen POST must come after the guard"
     assert "countedThisSession.add(card.id)" in advance
     assert "countedThisSession.add(card.id)" in _function_body("retireCurrent")
+
+
+def _next_lesson_link(client, path: str) -> str | None:
+    panel = _done_panel(client.get(path).get_data(as_text=True))
+    match = re.search(
+        r'href="/lessons/([\w-]+)" id="study-next-lesson">Next lesson: ([^<]+)</a>',
+        panel,
+    )
+    return f"{match.group(1)} | {html.unescape(match.group(2))}" if match else None
+
+
+def _complete(client, lesson_id: str) -> None:
+    total = len(client.get(f"/api/lessons/{lesson_id}").get_json()["practice"])
+    response = client.post(
+        f"/api/lessons/{lesson_id}/complete",
+        json={"exercises_correct": total, "exercises_total": total},
+    )
+    assert response.status_code == 200
+
+
+def test_done_panel_offers_the_next_lesson(migrated_app, migrated_client):
+    """After vocab, the done panel points back into the lesson path.
+
+    Before, the only ways out of a finished session were 'Study again' and
+    'Back to deck', so a learner who did lesson then vocab had to find the
+    next lesson on the Learn tab themselves.
+    """
+    with migrated_app.app_context():
+        seed_all()
+    response = migrated_client.post(
+        "/api/auth/register",
+        json={"handle": "pathfinder", "email": "path@example.com", "password": "password1"},
+    )
+    assert response.status_code == 201
+
+    # food_drink belongs to Definite Articles (2) and Food & Café (11).
+    # Their unfinished lesson comes first, so vocab-first learners still meet it.
+    assert _next_lesson_link(migrated_client, "/decks/food_drink/study") == (
+        "definite-articles | Definite Articles"
+    )
+    _complete(migrated_client, "definite-articles")
+    assert _next_lesson_link(migrated_client, "/decks/food_drink/study") == (
+        "food-cafe | Food & Café"
+    )
+    _complete(migrated_client, "food-cafe")
+    # With both done, it is the next unfinished lesson after Food & Café.
+    assert _next_lesson_link(migrated_client, "/decks/food_drink/study") == (
+        "shopping | Shopping"
+    )
+
+    # Daily review offers the level's first unfinished lesson.
+    assert _next_lesson_link(migrated_client, "/levels/a1/daily") == (
+        "noun-gender | Noun Gender"
+    )
+    panel = _done_panel(migrated_client.get("/levels/a1/daily").get_data(as_text=True))
+    assert 'class="btn btn--ghost btn--block" href="/levels/a1?tab=vocab" id="study-exit"' in panel
+
+
+def test_study_js_promotes_next_lesson_when_nothing_is_left():
+    assert 'getElementById("study-next-lesson")' in STUDY_JS
+    assert 'studyNextLesson.classList.toggle("btn--primary", !canStudyAgain)' in STUDY_JS

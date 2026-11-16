@@ -25,6 +25,7 @@
   const studyDoneText = document.getElementById("study-done-text");
   const studyAgain = document.getElementById("study-again");
   const studyExit = document.getElementById("study-exit");
+  const studyNextLesson = document.getElementById("study-next-lesson");
   const studyProgress = document.getElementById("study-progress");
   const studyError = document.getElementById("study-error");
   const tipDialog = document.getElementById("study-tip-dialog");
@@ -151,8 +152,15 @@
     // Studying again only helps if this session left unretired cards behind.
     const canStudyAgain = queue.length > retiredThisSession.size;
     studyAgain.hidden = !canStudyAgain;
-    studyExit.classList.toggle("btn--primary", !canStudyAgain);
-    studyExit.classList.toggle("btn--secondary", canStudyAgain);
+    // Without Study again, the next button down becomes the main one:
+    // the next lesson when there is one, else the way back.
+    if (studyNextLesson) {
+      studyNextLesson.classList.toggle("btn--primary", !canStudyAgain);
+      studyNextLesson.classList.toggle("btn--secondary", canStudyAgain);
+    } else {
+      studyExit.classList.toggle("btn--primary", !canStudyAgain);
+      studyExit.classList.toggle("btn--secondary", canStudyAgain);
+    }
   }
 
   function noteRetired(card, body) {

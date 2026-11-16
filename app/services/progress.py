@@ -152,3 +152,30 @@ def lesson_next_steps(user: User, lesson_id: str) -> dict:
     ordered = lessons[index + 1 :] + lessons[:index]
     next_lesson = next((row for row in ordered if not row["completed"]), None)
     return {"deck": deck, "next_lesson": next_lesson}
+
+
+def deck_next_lesson(user: User, slug: str, level_id: str) -> dict | None:
+    """
+    Lesson to offer after a study session on the deck `slug`.
+
+    If a lesson that links to this deck is not done yet, offer it, so a learner
+    who opened the vocab first still meets its grammar. Otherwise offer the
+    first incomplete lesson after the deck's lesson (wrapping round), which is
+    the same lesson the lesson's own done panel offers as 'Next lesson'.
+    Decks with no linked lesson fall back to the level's next incomplete lesson.
+    """
+    lessons = list_lessons_for_level(user, level_id)
+    linked_ids = set(
+        db.session.scalars(
+            select(Lesson.id).where(Lesson.level_id == level_id, Lesson.deck_slug == slug)
+        )
+    )
+    linked = [i for i, row in enumerate(lessons) if row["id"] in linked_ids]
+    if not linked:
+        return next((row for row in lessons if not row["completed"]), None)
+    for i in linked:
+        if not lessons[i]["completed"]:
+            return lessons[i]
+    last = linked[-1]
+    ordered = lessons[last + 1 :] + lessons[:last]
+    return next((row for row in ordered if not row["completed"]), None)
