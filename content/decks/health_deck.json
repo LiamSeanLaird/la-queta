@@ -151,5 +151,14 @@
     "hint": "",
     "tags": ["health"],
     "pos": "phrase"
+  },
+  {
+    "id": "tr_032",
+    "catalan": "Truca a un metge!",
+    "pronunciation": "TROO-kuh uh oon MET-zhuh",
+    "english": "Call a doctor!",
+    "hint": "",
+    "tags": ["health"],
+    "pos": "phrase"
   }
 ]

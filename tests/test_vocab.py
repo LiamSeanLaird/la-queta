@@ -28,7 +28,7 @@ def test_seed_decks_into_a1(migrated_app):
         from app.extensions import db
         from app.models import Card, Deck
 
-        assert db.session.scalar(select(func.count()).select_from(Deck)) == 16
+        assert db.session.scalar(select(func.count()).select_from(Deck)) == 17
         assert db.session.scalar(select(func.count()).select_from(Card)) == 352
         a2_decks = db.session.scalar(
             select(func.count()).select_from(Deck).where(Deck.level_id == "a2")
@@ -79,6 +79,32 @@ def test_food_lessons_point_to_food_and_drink_deck():
         assert raw["deck"] == "food_drink"
 
 
+def test_travel_and_directions_are_separate_one_topic_decks():
+    import json
+
+    from app.services.seed import CONTENT
+
+    def lesson_deck(lesson):
+        path = CONTENT / "lessons" / f"{lesson}.json"
+        return json.loads(path.read_text(encoding="utf-8"))["deck"]
+
+    travel = _deck_cards("travel")
+    directions = _deck_cards("directions")
+    assert 20 <= len(travel) <= 30
+    assert 20 <= len(directions) <= 30
+    assert lesson_deck("09-directions") == "directions"
+    assert lesson_deck("13-travel-transport") == "travel"
+
+    # Places and way-finding live in Places & Directions, not Travel & Transport.
+    travel_words = {card["catalan"] for card in travel}
+    assert {"el museu", "el nord", "tot recte", "aquí"}.isdisjoint(travel_words)
+    assert {"el museu", "el nord", "tot recte", "aquí"} <= {c["catalan"] for c in directions}
+    # Health and payment phrases moved to their topic decks.
+    assert "Truca a un metge!" in {c["catalan"] for c in _deck_cards("health")}
+    shopping = {c["catalan"] for c in _deck_cards("shopping")}
+    assert {"Puc pagar amb targeta?", "l'efectiu", "el canvi"} <= shopping
+
+
 def test_seed_rejects_deck_without_title(migrated_app, monkeypatch):
     import pytest
 
@@ -103,7 +129,7 @@ def test_list_a1_decks_and_empty_a2(migrated_app, migrated_client):
     a1 = migrated_client.get("/api/levels/a1/decks")
     assert a1.status_code == 200
     decks = a1.get_json()["decks"]
-    assert len(decks) == 16
+    assert len(decks) == 17
     assert decks[0]["slug"] == "core_verbs"
     assert decks[0]["title"] == "Core Verbs"
     assert decks[0]["total"] > 0

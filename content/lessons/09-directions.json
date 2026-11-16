@@ -3,7 +3,7 @@
   "title": "Directions",
   "order": 9,
   "summary": "Ask where something is and understand basic street directions.",
-  "deck": "travel",
+  "deck": "directions",
   "sections": [
     {
       "type": "text",

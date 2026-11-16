@@ -209,5 +209,36 @@
     "hint": "",
     "tags": ["shopping"],
     "pos": "phrase"
+  },
+  {
+    "id": "tr_033",
+    "catalan": "Puc pagar amb targeta?",
+    "pronunciation": "pook puh-GAR am tar-ZHEH-tuh",
+    "english": "Can I pay by card?",
+    "hint": "",
+    "tags": ["shopping"],
+    "pos": "phrase"
+  },
+  {
+    "id": "tr_034",
+    "catalan": "l'efectiu",
+    "pronunciation": "luh-fuk-TEE-oo",
+    "english": "cash",
+    "hint": "",
+    "tags": ["shopping"],
+    "pos": "noun",
+    "gender": "m",
+    "plural": "—"
+  },
+  {
+    "id": "tr_035",
+    "catalan": "el canvi",
+    "pronunciation": "ul KAN-bee",
+    "english": "the change (money)",
+    "hint": "",
+    "tags": ["shopping"],
+    "pos": "noun",
+    "gender": "m",
+    "plural": "els canvis"
   }
 ]

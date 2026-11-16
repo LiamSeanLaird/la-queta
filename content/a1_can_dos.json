@@ -21,7 +21,7 @@
     "id": "around-town",
     "label": "Get around town",
     "lesson_ids": ["directions", "travel-transport"],
-    "deck_slugs": ["travel"]
+    "deck_slugs": ["directions", "travel"]
   },
   {
     "id": "survive-daily",

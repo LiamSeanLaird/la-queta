@@ -14,7 +14,7 @@ Programme scenarios (escenaris) → our content:
 | Personal / public | Numbers / price / age | `numbers` | `days_months` (clock times only) | thin |
 | Cross-cutting | Question words | `question-words` | `social_phrases` | ok |
 | Comercial (bars/restaurants) | Food & café | `food-cafe` | `food_drink` | ok |
-| Urbà | Directions & city | `directions` | `travel` | ok |
+| Urbà | Directions & city | `directions` | `directions` | ok |
 | Comercial | Shopping | `shopping` | `shopping` | ok |
 | Domèstic / personal | Family | `family` | `family` | ok |
 | Domèstic | Home & daily routine | `home-routine` | `home_daily` | ok |
