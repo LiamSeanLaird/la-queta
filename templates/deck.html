@@ -36,6 +36,24 @@
     <a class="btn btn--secondary btn--block" href="{{ url_for('pages.browse', slug=deck.slug) }}">Browse</a>
   </div>
   <p class="field__error" id="deck-error" hidden></p>
+  {% if lessons %}
+  <div class="stack" id="deck-lessons">
+    <h3 class="heading-3">{% if lessons|length == 1 %}Lesson{% else %}Lessons{% endif %} for this deck</h3>
+    <div class="list">
+      {% for lesson in lessons %}
+      <a class="list-row" href="{{ url_for('pages.lesson', lesson_id=lesson.id) }}">
+        <div>
+          <p class="list-row__title">{{ lesson.title }}</p>
+          <p class="list-row__sub">{{ lesson.summary }}</p>
+        </div>
+        <span class="badge {% if lesson.completed %}badge--done{% else %}badge--todo{% endif %}">
+          {% if lesson.completed %}Done{% else %}Todo{% endif %}
+        </span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
 </section>
 {% endblock %}
 {% block scripts %}

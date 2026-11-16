@@ -154,6 +154,20 @@ def lesson_next_steps(user: User, lesson_id: str) -> dict:
     return {"deck": deck, "next_lesson": next_lesson}
 
 
+def _deck_lesson_ids(slug: str, level_id: str) -> set[str]:
+    return set(
+        db.session.scalars(
+            select(Lesson.id).where(Lesson.level_id == level_id, Lesson.deck_slug == slug)
+        )
+    )
+
+
+def deck_lessons(user: User, slug: str, level_id: str) -> list[dict]:
+    """Lessons in `level_id` that link to the deck `slug`, in lesson order, with progress."""
+    linked_ids = _deck_lesson_ids(slug, level_id)
+    return [row for row in list_lessons_for_level(user, level_id) if row["id"] in linked_ids]
+
+
 def deck_next_lesson(user: User, slug: str, level_id: str) -> dict | None:
     """
     Lesson to offer after a study session on the deck `slug`.
@@ -165,11 +179,7 @@ def deck_next_lesson(user: User, slug: str, level_id: str) -> dict | None:
     Decks with no linked lesson fall back to the level's next incomplete lesson.
     """
     lessons = list_lessons_for_level(user, level_id)
-    linked_ids = set(
-        db.session.scalars(
-            select(Lesson.id).where(Lesson.level_id == level_id, Lesson.deck_slug == slug)
-        )
-    )
+    linked_ids = _deck_lesson_ids(slug, level_id)
     linked = [i for i, row in enumerate(lessons) if row["id"] in linked_ids]
     if not linked:
         return next((row for row in lessons if not row["completed"]), None)

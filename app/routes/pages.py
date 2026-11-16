@@ -10,6 +10,7 @@ from app.services.lessons import get_lesson, list_lessons_for_level
 from app.services.levels import list_levels_for_user, select_level, level_is_open
 from app.services.progress import (
     continue_target,
+    deck_lessons,
     deck_next_lesson,
     lesson_next_steps,
     level_completeness_pct,
@@ -179,6 +180,7 @@ def deck(slug: str):
         "deck.html",
         user=user,
         deck=deck_data,
+        lessons=deck_lessons(user, slug, deck_data["level_id"]),
         brand_href=url_for("pages.levels"),
     )
 
