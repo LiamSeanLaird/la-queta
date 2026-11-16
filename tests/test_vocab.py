@@ -29,7 +29,7 @@ def test_seed_decks_into_a1(migrated_app):
         from app.models import Card, Deck
 
         assert db.session.scalar(select(func.count()).select_from(Deck)) == 18
-        assert db.session.scalar(select(func.count()).select_from(Card)) == 441
+        assert db.session.scalar(select(func.count()).select_from(Card)) == 454
         a2_decks = db.session.scalar(
             select(func.count()).select_from(Deck).where(Deck.level_id == "a2")
         )
@@ -196,6 +196,24 @@ def test_work_deck_covers_what_the_work_lesson_teaches():
     # 'Soc + profession' needs several professions to practise with.
     soc = [word for word in work if word.startswith("Soc ")]
     assert len(soc) >= 5
+
+
+def test_education_deck_covers_what_the_education_lesson_teaches():
+    education = {card["catalan"]: card for card in _deck_cards("education")}
+    assert 20 <= len(education) <= 30
+    assert _lesson_deck("education") == "education"
+    # The lesson's example lines and rule phrases are all in the deck.
+    assert {
+        "Faig un curs de català",
+        "On és el CPNL?",
+        "Vull fer la inscripció",
+        "Estic a l'escola d'adults",
+        "Tinc classe demà",
+        "Estic apuntat / apuntada a un curs",
+    } <= set(education)
+    # Classroom phrases a learner needs in their first course.
+    assert {"Com s'escriu?", "Puc fer una pregunta?"} <= set(education)
+
 
 def test_seed_rejects_deck_without_title(migrated_app, monkeypatch):
     import pytest
