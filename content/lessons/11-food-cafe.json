@@ -1,7 +1,7 @@
 {
   "id": "food-cafe",
   "title": "Food & Café",
-  "order": 8,
+  "order": 11,
   "summary": "Order a drink or snack and understand simple café language.",
   "deck": "food_drink",
   "sections": [

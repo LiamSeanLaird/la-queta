@@ -67,7 +67,7 @@ def test_lesson_without_deck_makes_next_lesson_primary(migrated_app, migrated_cl
 
     page = migrated_client.get("/lessons/numbers?tab=practice").get_data(as_text=True)
     assert "Study vocab:" not in page
-    assert 'btn--primary btn--block" href="/lessons/question-words"' in page
+    assert 'btn--primary btn--block" href="/lessons/time-calendar"' in page
 
 
 def test_next_steps_skip_finished_deck_and_wrap_to_skipped_lessons(migrated_app, migrated_client):
@@ -78,13 +78,13 @@ def test_next_steps_skip_finished_deck_and_wrap_to_skipped_lessons(migrated_app,
 
     with migrated_app.app_context():
         db_user = db.session.get(User, user["id"])
-        steps = lesson_next_steps(db_user, "signs-messages")
-        assert steps["deck"]["slug"] == "signs"
+        steps = lesson_next_steps(db_user, "public-admin")
+        assert steps["deck"]["slug"] == "admin"
         # Last lesson wraps to the first one not yet done.
         assert steps["next_lesson"]["id"] == "definite-articles"
 
-        deck = db.session.scalar(db.select(Deck).where(Deck.slug == "signs"))
+        deck = db.session.scalar(db.select(Deck).where(Deck.slug == "admin"))
         for card in db.session.scalars(db.select(Card).where(Card.deck_id == deck.id)):
             db.session.add(UserCardProgress(user_id=db_user.id, card_id=card.id, seen=RETIRED_SEEN))
         db.session.commit()
-        assert lesson_next_steps(db_user, "signs-messages")["deck"] is None
+        assert lesson_next_steps(db_user, "public-admin")["deck"] is None

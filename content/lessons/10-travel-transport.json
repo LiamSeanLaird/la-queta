@@ -1,7 +1,7 @@
 {
   "id": "travel-transport",
   "title": "Travel & Transport",
-  "order": 13,
+  "order": 10,
   "summary": "Buy tickets, ask about trains and buses, and find the station.",
   "deck": "travel",
   "sections": [

@@ -1,7 +1,7 @@
 {
   "id": "health",
   "title": "Health & Pharmacy",
-  "order": 15,
+  "order": 13,
   "summary": "Say you feel ill, ask for a pharmacy, and book a simple appointment.",
   "deck": "health",
   "sections": [

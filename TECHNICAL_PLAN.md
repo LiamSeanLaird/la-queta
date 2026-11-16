@@ -81,7 +81,7 @@ lessons
   slug UNIQUE
   title
   summary
-  sort_order
+  sort_order     -- lesson JSON `order`; must follow the goal order in content/a1_can_dos.json (the Learn tab), and the file is named NN-<id>.json (tests/test_lesson_order.py)
   sections_json  -- teach sections: text | rule | examples
   practice_json  -- practice bank: multiple_choice | cloze | type_in
   deck_slug      -- matching vocab deck (lesson JSON `deck`), offered when practice ends

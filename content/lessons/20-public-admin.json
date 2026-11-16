@@ -1,7 +1,7 @@
 {
   "id": "public-admin",
   "title": "Public Services",
-  "order": 16,
+  "order": 20,
   "summary": "Ask for help at the town hall, book an appointment, and give ID details.",
   "deck": "admin",
   "sections": [

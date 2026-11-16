@@ -57,6 +57,19 @@ def _deck_cards(slug: str) -> list[dict]:
     return json.loads((CONTENT / "decks" / f"{slug}_deck.json").read_text(encoding="utf-8"))
 
 
+def _lesson_deck(lesson_id: str) -> str | None:
+    """The `deck` field of a lesson, looked up by id (file names carry the order)."""
+    import json
+
+    from app.services.seed import CONTENT
+
+    for path in (CONTENT / "lessons").glob("*.json"):
+        raw = json.loads(path.read_text(encoding="utf-8"))
+        if raw["id"] == lesson_id:
+            return raw.get("deck")
+    raise AssertionError(f"no lesson {lesson_id}")
+
+
 def test_describing_words_deck_is_adjectives_with_both_genders():
     cards = _deck_cards("everyday")
     assert 20 <= len(cards) <= 30
@@ -67,33 +80,20 @@ def test_describing_words_deck_is_adjectives_with_both_genders():
 
 
 def test_food_lessons_point_to_food_and_drink_deck():
-    import json
-
-    from app.services.seed import CONTENT
-
     cards = _deck_cards("food_drink")
     assert 20 <= len(cards) <= 30
     assert all("food" in card["tags"] for card in cards)
-    for lesson in ("02-definite-articles", "08-food-cafe"):
-        raw = json.loads((CONTENT / "lessons" / f"{lesson}.json").read_text(encoding="utf-8"))
-        assert raw["deck"] == "food_drink"
+    for lesson in ("definite-articles", "food-cafe"):
+        assert _lesson_deck(lesson) == "food_drink"
 
 
 def test_travel_and_directions_are_separate_one_topic_decks():
-    import json
-
-    from app.services.seed import CONTENT
-
-    def lesson_deck(lesson):
-        path = CONTENT / "lessons" / f"{lesson}.json"
-        return json.loads(path.read_text(encoding="utf-8"))["deck"]
-
     travel = _deck_cards("travel")
     directions = _deck_cards("directions")
     assert 20 <= len(travel) <= 30
     assert 20 <= len(directions) <= 30
-    assert lesson_deck("09-directions") == "directions"
-    assert lesson_deck("13-travel-transport") == "travel"
+    assert _lesson_deck("directions") == "directions"
+    assert _lesson_deck("travel-transport") == "travel"
 
     # Places and way-finding live in Places & Directions, not Travel & Transport.
     travel_words = {card["catalan"] for card in travel}
@@ -106,22 +106,14 @@ def test_travel_and_directions_are_separate_one_topic_decks():
 
 
 def test_greetings_and_polite_phrases_are_separate_one_topic_decks():
-    import json
-
-    from app.services.seed import CONTENT
-
-    def lesson_deck(lesson):
-        path = CONTENT / "lessons" / f"{lesson}.json"
-        return json.loads(path.read_text(encoding="utf-8"))["deck"]
-
     greetings = _deck_cards("starter")
     phrases = _deck_cards("social_phrases")
     assert 20 <= len(greetings) <= 30
     assert 20 <= len(phrases) <= 30
     assert all(card["tags"] == ["greetings"] for card in greetings)
     assert all(card["tags"] == ["phrases"] for card in phrases)
-    assert lesson_deck("07-introductions") == "starter"
-    assert lesson_deck("06-question-words") == "social_phrases"
+    assert _lesson_deck("introductions") == "starter"
+    assert _lesson_deck("question-words") == "social_phrases"
 
     greeting_words = {card["catalan"] for card in greetings}
     phrase_words = {card["catalan"] for card in phrases}

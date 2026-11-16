@@ -1,7 +1,7 @@
 {
   "id": "home-routine",
   "title": "Home & Routine",
-  "order": 12,
+  "order": 16,
   "summary": "Name rooms at home and say simple daily actions.",
   "deck": "home_daily",
   "sections": [

@@ -63,7 +63,7 @@ def test_vocab_tab_lists_goal_decks_in_lesson_order(migrated_app, migrated_clien
     page = migrated_client.get("/levels/a1?tab=vocab").get_data(as_text=True)
     # Core grammar: noun-gender (lesson 1) links Describing Words, present-tense links Core Verbs.
     assert page.index("Describing Words") < page.index("Core Verbs")
-    # Introduce myself: question-words (6), introductions (7), time-calendar (14).
+    # Introduce myself: question-words (5), introductions (6), time-calendar (8).
     assert (
         page.index("Polite &amp; Useful Phrases")
         < page.index("Greetings &amp; Introductions")
