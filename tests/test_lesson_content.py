@@ -88,3 +88,20 @@ def test_present_tense_rules_match_their_examples():
     assert "vostè" in notes["parla"]
     answers = {item.get("answer") for item in lesson["practice"]}
     assert {"perd", "llegeixo", "llegim"} <= answers
+
+
+def test_question_words_teaches_agreement_and_yes_no_questions():
+    lesson = _lesson("05-question-words.json")
+    text = _text(lesson)
+    notes = {
+        item["catalan"]: item.get("note", "")
+        for section in lesson["sections"]
+        for item in section.get("items", [])
+    }
+    # The t of quant is silent in Central Catalan.
+    assert "KWANT" not in notes["quant / quanta?"]
+    assert "Quants anys tens?" in text and "Quina hora és?" in text
+    assert "Parles anglès?" in text
+    assert "usar" not in text and "Pots explicar?" not in text
+    answers = {item.get("answer") for item in lesson["practice"]}
+    assert {"Quants", "Quina", "Parles anglès?", "Puc fer servir el bany?"} <= answers
