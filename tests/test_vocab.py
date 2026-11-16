@@ -29,7 +29,7 @@ def test_seed_decks_into_a1(migrated_app):
         from app.models import Card, Deck
 
         assert db.session.scalar(select(func.count()).select_from(Deck)) == 18
-        assert db.session.scalar(select(func.count()).select_from(Card)) == 418
+        assert db.session.scalar(select(func.count()).select_from(Card)) == 428
         a2_decks = db.session.scalar(
             select(func.count()).select_from(Deck).where(Deck.level_id == "a2")
         )
@@ -167,6 +167,18 @@ def test_admin_deck_covers_what_the_public_services_lesson_teaches():
     # Moved from Travel with its id kept, so learner progress follows it.
     assert admin["Necessito ajuda"]["id"] == "tr_030"
     assert "Necessito ajuda" not in {card["catalan"] for card in _deck_cards("travel")}
+
+
+def test_health_deck_covers_what_the_health_lesson_teaches():
+    health = {card["catalan"]: card for card in _deck_cards("health")}
+    assert 20 <= len(health) <= 30
+    assert _lesson_deck("health") == "health"
+    # The lesson's key lines are all in the deck.
+    assert {"Em trobo malament", "Em fa mal", "Necessito un metge", "Tinc cita"} <= set(health)
+    # 'Em fa mal + body part' needs body parts to fill the gap.
+    body = {word for word, card in health.items() if "body" in card["tags"]}
+    assert {"el cap", "la gola", "la panxa", "l'esquena"} <= body
+    assert len(body) >= 6
 
 
 def test_seed_rejects_deck_without_title(migrated_app, monkeypatch):

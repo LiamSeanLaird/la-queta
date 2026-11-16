@@ -55,24 +55,6 @@
     "plural": "les metgesses"
   },
   {
-    "id": "hl_006",
-    "catalan": "Em trobo malament",
-    "pronunciation": "um TRO-boo muh-luh-MEN",
-    "english": "I feel unwell",
-    "hint": "",
-    "tags": ["health"],
-    "pos": "phrase"
-  },
-  {
-    "id": "hl_007",
-    "catalan": "Em fa mal",
-    "pronunciation": "um fah mal",
-    "english": "It hurts / I have pain",
-    "hint": "Em fa mal + body part",
-    "tags": ["health"],
-    "pos": "phrase"
-  },
-  {
     "id": "hl_008",
     "catalan": "el cap",
     "pronunciation": "ul kap",
@@ -95,22 +77,70 @@
     "plural": "les goles"
   },
   {
-    "id": "hl_010",
-    "catalan": "Necessito un metge",
-    "pronunciation": "nuh-seh-SEE-too oon MEJ-uh",
-    "english": "I need a doctor",
-    "hint": "",
-    "tags": ["health"],
-    "pos": "phrase"
+    "id": "hl_016",
+    "catalan": "la panxa",
+    "pronunciation": "luh PAN-shuh",
+    "english": "the stomach / the belly",
+    "hint": "Em fa mal la panxa = I have a stomach ache",
+    "tags": ["health", "body"],
+    "pos": "noun",
+    "gender": "f",
+    "plural": "les panxes"
   },
   {
-    "id": "hl_011",
-    "catalan": "Tinc cita",
-    "pronunciation": "ting SEE-tuh",
-    "english": "I have an appointment",
+    "id": "hl_017",
+    "catalan": "l'esquena",
+    "pronunciation": "lus-KEH-nuh",
+    "english": "the back",
+    "hint": "Em fa mal l'esquena = my back hurts",
+    "tags": ["health", "body"],
+    "pos": "noun",
+    "gender": "f",
+    "plural": "les esquenes"
+  },
+  {
+    "id": "hl_018",
+    "catalan": "la dent",
+    "pronunciation": "luh den",
+    "english": "the tooth",
     "hint": "",
+    "tags": ["health", "body"],
+    "pos": "noun",
+    "gender": "f",
+    "plural": "les dents"
+  },
+  {
+    "id": "hl_019",
+    "catalan": "el braç",
+    "pronunciation": "ul brass",
+    "english": "the arm",
+    "hint": "",
+    "tags": ["health", "body"],
+    "pos": "noun",
+    "gender": "m",
+    "plural": "els braços"
+  },
+  {
+    "id": "hl_020",
+    "catalan": "la cama",
+    "pronunciation": "luh KAH-muh",
+    "english": "the leg",
+    "hint": "",
+    "tags": ["health", "body"],
+    "pos": "noun",
+    "gender": "f",
+    "plural": "les cames"
+  },
+  {
+    "id": "hl_021",
+    "catalan": "la febre",
+    "pronunciation": "luh FEH-bruh",
+    "english": "the fever",
+    "hint": "Tinc febre = I have a fever",
     "tags": ["health"],
-    "pos": "phrase"
+    "pos": "noun",
+    "gender": "f",
+    "plural": "les febres"
   },
   {
     "id": "hl_012",
@@ -135,11 +165,85 @@
     "plural": "els medicaments"
   },
   {
+    "id": "hl_022",
+    "catalan": "la pastilla",
+    "pronunciation": "luh pus-TEE-yuh",
+    "english": "the pill / the tablet",
+    "hint": "",
+    "tags": ["health"],
+    "pos": "noun",
+    "gender": "f",
+    "plural": "les pastilles"
+  },
+  {
+    "id": "hl_006",
+    "catalan": "Em trobo malament",
+    "pronunciation": "um TRO-boo muh-luh-MEN",
+    "english": "I feel unwell",
+    "hint": "",
+    "tags": ["health"],
+    "pos": "phrase"
+  },
+  {
+    "id": "hl_007",
+    "catalan": "Em fa mal",
+    "pronunciation": "um fah mal",
+    "english": "It hurts / I have pain",
+    "hint": "Em fa mal + body part",
+    "tags": ["health"],
+    "pos": "phrase"
+  },
+  {
     "id": "hl_014",
     "catalan": "Estic malalt / malalta",
     "pronunciation": "uh-STEEK muh-LALT",
     "english": "I am ill",
     "hint": "",
+    "tags": ["health"],
+    "pos": "phrase"
+  },
+  {
+    "id": "hl_023",
+    "catalan": "Estic constipat / constipada",
+    "pronunciation": "uh-STEEK koons-tee-PAT",
+    "english": "I have a cold",
+    "hint": "constipat means 'has a cold', not 'constipated'",
+    "tags": ["health"],
+    "pos": "phrase"
+  },
+  {
+    "id": "hl_011",
+    "catalan": "Tinc cita",
+    "pronunciation": "ting SEE-tuh",
+    "english": "I have an appointment",
+    "hint": "",
+    "tags": ["health"],
+    "pos": "phrase"
+  },
+  {
+    "id": "hl_024",
+    "catalan": "Vull demanar hora",
+    "pronunciation": "bool duh-muh-NA O-ruh",
+    "english": "I want to make an appointment",
+    "hint": "demanar hora = book an appointment",
+    "tags": ["health"],
+    "pos": "phrase"
+  },
+  {
+    "id": "hl_010",
+    "catalan": "Necessito un metge",
+    "pronunciation": "nuh-seh-SEE-too oon MEJ-uh",
+    "english": "I need a doctor",
+    "hint": "",
+    "tags": ["health"],
+    "pos": "phrase"
+  },
+  {
+    "id": "hl_025",
+    "catalan": "Soc al·lèrgic / al·lèrgica a...",
+    "pronunciation": "sok uh-LEHR-zhik uh",
+    "english": "I'm allergic to...",
+    "hint": "al·lèrgic (m) / al·lèrgica (f)",
     "tags": ["health"],
     "pos": "phrase"
   },
@@ -155,7 +259,7 @@
   {
     "id": "tr_032",
     "catalan": "Truca a un metge!",
-    "pronunciation": "TROO-kuh uh oon MET-zhuh",
+    "pronunciation": "TROO-kuh uh oon MEJ-uh",
     "english": "Call a doctor!",
     "hint": "",
     "tags": ["health"],
