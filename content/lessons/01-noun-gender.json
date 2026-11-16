@@ -11,7 +11,7 @@
     },
     {
       "type": "rule",
-      "content": "Most nouns ending in -a are feminine. Most nouns ending in a consonant or -o are masculine. These are patterns, not absolute rules - there are exceptions."
+      "content": "Most nouns ending in -a are feminine. Most nouns ending in a consonant or in another vowel (-e, -o) are masculine. These are patterns, not absolute rules - there are exceptions both ways, like el pa and la nit."
     },
     {
       "type": "examples",
@@ -42,9 +42,43 @@
           "note": "masculine despite ending in -a - exception"
         },
         {
+          "catalan": "la nit",
+          "english": "the night",
+          "note": "feminine despite ending in a consonant - exception"
+        },
+        {
           "catalan": "la mà",
           "english": "the hand",
           "note": "feminine - ends in accented -à"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "content": "The word for 'a' / 'an' shows gender too: un before a masculine noun, una before a feminine noun."
+    },
+    {
+      "type": "examples",
+      "items": [
+        {
+          "catalan": "un gat",
+          "english": "a cat",
+          "note": "masculine"
+        },
+        {
+          "catalan": "una porta",
+          "english": "a door",
+          "note": "feminine"
+        },
+        {
+          "catalan": "un cotxe",
+          "english": "a car",
+          "note": "masculine"
+        },
+        {
+          "catalan": "una taula",
+          "english": "a table",
+          "note": "feminine"
         }
       ]
     },
@@ -140,6 +174,14 @@
       "hint": "the hand",
       "answer": "la",
       "explanation": "la mà - feminine, accented -à."
+    },
+    {
+      "id": "ng-p11",
+      "kind": "cloze",
+      "prompt": "___ taula",
+      "hint": "a table",
+      "answer": "una",
+      "explanation": "'Taula' is feminine, so 'a' is una: una taula."
     },
     {
       "id": "ng-p08",
