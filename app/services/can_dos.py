@@ -118,7 +118,12 @@ def vocab_groups_for_level(user: User, level_id: str) -> list[dict]:
 
     for item in _raw_can_dos() if level_id == "a1" else []:
         slugs = list(item.get("deck_slugs") or [])
-        group_decks = [with_done(by_slug[slug]) for slug in slugs if slug in by_slug]
+        # Inside a goal, decks follow the lesson order (Deck.sort_order), so the
+        # deck for the earliest lesson comes first.
+        group_decks = sorted(
+            (with_done(by_slug[slug]) for slug in slugs if slug in by_slug),
+            key=lambda row: row["sort_order"],
+        )
         if not group_decks:
             continue
         for row in group_decks:

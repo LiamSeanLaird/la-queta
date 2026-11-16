@@ -37,10 +37,10 @@ def test_seed_decks_into_a1(migrated_app):
 
 
 def test_every_deck_file_has_a_distinct_title():
-    from app.services.seed import CONTENT, DECK_SORT_ORDER, DECK_TITLES, _deck_slug_from_filename
+    from app.services.seed import CONTENT, DECK_TITLES, _deck_slug_from_filename
 
     slugs = {_deck_slug_from_filename(p.name) for p in (CONTENT / "decks").glob("*_deck*.json")}
-    assert slugs == set(DECK_TITLES) == set(DECK_SORT_ORDER)
+    assert slugs == set(DECK_TITLES)
     titles = list(DECK_TITLES.values())
     assert len(set(titles)) == len(titles)
     for title in titles:
@@ -159,8 +159,9 @@ def test_list_a1_decks_and_empty_a2(migrated_app, migrated_client):
     assert a1.status_code == 200
     decks = a1.get_json()["decks"]
     assert len(decks) == 17
-    assert decks[0]["slug"] == "core_verbs"
-    assert decks[0]["title"] == "Core Verbs"
+    # Decks follow the lesson order: lesson 1 (noun-gender) links to everyday.
+    assert decks[0]["slug"] == "everyday"
+    assert decks[0]["title"] == "Describing Words"
     assert decks[0]["total"] > 0
     assert decks[0]["retired"] == 0
     assert decks[0]["remaining"] == decks[0]["total"]

@@ -91,7 +91,7 @@ decks
   level_id FK
   slug UNIQUE    -- from the file name: content/decks/<slug>_deck.json
   title          -- DECK_TITLES in app/services/seed.py; seeding fails if a deck has none
-  sort_order     -- DECK_SORT_ORDER in app/services/seed.py
+  sort_order     -- rank of the first lesson whose `deck` field names it (deck_order_from_lessons in app/services/seed.py)
 
 cards
   id PK
