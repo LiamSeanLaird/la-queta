@@ -20,6 +20,21 @@
         <p class="vocab-pronunciation">{{ card.pronunciation }}</p>
         {% endif %}
         <p class="list-row__sub">{{ card.english }}</p>
+        {% if card.pos or card.gender in ('m', 'f') or (card.plural and card.plural != '—') %}
+        <div class="gram-pills vocab-gram">
+          {% if card.pos %}
+          <span class="gram-pill gram-pill--pos">{{ card.pos }}</span>
+          {% endif %}
+          {% if card.gender == 'm' %}
+          <span class="gram-pill gram-pill--m">masculine</span>
+          {% elif card.gender == 'f' %}
+          <span class="gram-pill gram-pill--f">feminine</span>
+          {% endif %}
+          {% if card.plural and card.plural != '—' %}
+          <span class="gram-pill gram-pill--pl">pl: {{ card.plural }}</span>
+          {% endif %}
+        </div>
+        {% endif %}
         {% if card.hint %}
         <p class="vocab-hint">{{ card.hint }}</p>
         {% endif %}
@@ -35,19 +50,6 @@
         {% endif %}
       </div>
       <div class="vocab-meta">
-        <div class="gram-pills">
-          {% if card.pos %}
-          <span class="gram-pill gram-pill--pos">{{ card.pos }}</span>
-          {% endif %}
-          {% if card.gender == 'm' %}
-          <span class="gram-pill gram-pill--m">masculine</span>
-          {% elif card.gender == 'f' %}
-          <span class="gram-pill gram-pill--f">feminine</span>
-          {% endif %}
-          {% if card.plural and card.plural != '—' %}
-          <span class="gram-pill gram-pill--pl">pl: {{ card.plural }}</span>
-          {% endif %}
-        </div>
         {% if card.retired %}
         <span class="badge badge--done">Retired</span>
         {% else %}

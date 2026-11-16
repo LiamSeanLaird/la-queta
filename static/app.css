@@ -791,6 +791,12 @@ a.btn.btn--primary {
   font-style: italic;
 }
 
+/* Grammar pills sit in the wrapping text column so they never squeeze it. */
+.gram-pills.vocab-gram {
+  justify-content: flex-start;
+  margin-top: 0.35rem;
+}
+
 .vocab-tags {
   margin: 0.35rem 0 0;
   display: flex;

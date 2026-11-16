@@ -19,6 +19,7 @@ make run
 That page renders every shared UI component (tokens, brand, type, buttons, forms, tabs, progress, level tiles, list rows, flashcard, exercise options, examples table, seen dots).
 
 Flashcards / browse rows carry prototype vocab meta on the Catalan side: pronunciation, grammar pills (pos including phrase / gender / plural), verb forms, tags.
+On browse rows, everything that wraps (grammar pills, verb forms, tags) sits in the text column; the right-hand column holds only seen dots and Retire, so it never squeezes the text at phone width.
 
 Study flow: first-load tip dialog (Don’t show again); tap or Enter flips Catalan → English, then advances (seen++); Back revisits the previous card; Retire confirms once. Finished / empty session redirects to the deck. Deck page shows retired progress bar; when fully retired, Unretire deck replaces Study (POST unretire → seen 0). Interaction chrome stays off the card — only pedagogical `hint` text appears when present.
 

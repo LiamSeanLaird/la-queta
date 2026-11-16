@@ -275,3 +275,19 @@ def test_browse_shows_verb_forms_in_text_column(migrated_app, migrated_client):
     # Forms sit in the wrapping text column, not the fixed-width meta column.
     row = html[html.index('data-card-id'):]
     assert row.index(forms) < row.index('class="vocab-meta"')
+
+
+def test_browse_shows_grammar_pills_in_text_column(migrated_app, migrated_client):
+    """Noun pills used to sit in the fixed meta column and squeeze the text at phone width."""
+    with migrated_app.app_context():
+        seed_all()
+    _register(migrated_client)
+
+    html = migrated_client.get("/decks/family/browse").get_data(as_text=True)
+    row_start = html.index('data-card-id')
+    row = html[row_start:html.index('data-card-id', row_start + 1)]
+    pills = row.index('class="gram-pills vocab-gram"')
+    assert 'gram-pill--pos">noun' in row
+    assert row.index('class="vocab-main"') < pills < row.index('class="vocab-meta"')
+    meta = row[row.index('class="vocab-meta"'):]
+    assert "gram-pill" not in meta
