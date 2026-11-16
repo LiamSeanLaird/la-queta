@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 
 from app.extensions import db
-from app.models import Card, Deck, User, UserCardProgress
+from app.models import Card, Deck, Lesson, User, UserCardProgress
 from app.services.progress import RETIRED_SEEN, lesson_next_steps
 from app.services.seed import seed_all
 
@@ -63,6 +63,10 @@ def test_practice_done_panel_offers_deck_then_next_lesson(migrated_app, migrated
 def test_lesson_without_deck_makes_next_lesson_primary(migrated_app, migrated_client):
     with migrated_app.app_context():
         seed_all()
+        # Every lesson links a deck today, so unlink one to cover the fallback.
+        lesson = db.session.get(Lesson, "numbers")
+        lesson.deck_slug = None
+        db.session.commit()
     _register(migrated_client)
 
     page = migrated_client.get("/lessons/numbers?tab=practice").get_data(as_text=True)

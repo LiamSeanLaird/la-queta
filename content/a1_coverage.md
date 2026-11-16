@@ -11,7 +11,7 @@ Programme scenarios (escenaris) → our content:
 | Cross-cutting | Noun gender & articles | `noun-gender`, `definite-articles` | `everyday`, `food_drink` | ok |
 | Cross-cutting | Ser vs estar | `ser-vs-estar` | `core_verbs` | ok |
 | Cross-cutting | Present tense | `present-tense` | `core_verbs` | ok |
-| Personal / public | Numbers / price / age | `numbers` | `days_months` (clock times only) | thin |
+| Personal / public | Numbers / price / age | `numbers` | `numbers`, `days_months` (clock times) | ok |
 | Cross-cutting | Question words | `question-words` | `social_phrases` | ok |
 | Comercial (bars/restaurants) | Food & café | `food-cafe` | `food_drink` | ok |
 | Urbà | Directions & city | `directions` | `directions` | ok |

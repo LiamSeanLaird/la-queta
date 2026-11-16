@@ -25,6 +25,7 @@ DECK_TITLES = {
     "starter": "Greetings & Introductions",
     "everyday": "Describing Words",
     "food_drink": "Food & Drink",
+    "numbers": "Numbers",
     "days_months": "Days, Months & Time",
     "directions": "Places & Directions",
     "travel": "Travel & Transport",

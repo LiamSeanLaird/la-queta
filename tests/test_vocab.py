@@ -28,8 +28,8 @@ def test_seed_decks_into_a1(migrated_app):
         from app.extensions import db
         from app.models import Card, Deck
 
-        assert db.session.scalar(select(func.count()).select_from(Deck)) == 17
-        assert db.session.scalar(select(func.count()).select_from(Card)) == 352
+        assert db.session.scalar(select(func.count()).select_from(Deck)) == 18
+        assert db.session.scalar(select(func.count()).select_from(Card)) == 382
         a2_decks = db.session.scalar(
             select(func.count()).select_from(Deck).where(Deck.level_id == "a2")
         )
@@ -150,7 +150,7 @@ def test_list_a1_decks_and_empty_a2(migrated_app, migrated_client):
     a1 = migrated_client.get("/api/levels/a1/decks")
     assert a1.status_code == 200
     decks = a1.get_json()["decks"]
-    assert len(decks) == 17
+    assert len(decks) == 18
     # Decks follow the lesson order: lesson 1 (noun-gender) links to everyday.
     assert decks[0]["slug"] == "everyday"
     assert decks[0]["title"] == "Describing Words"

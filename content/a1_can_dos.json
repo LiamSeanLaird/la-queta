@@ -15,7 +15,7 @@
     "id": "identity-time",
     "label": "Introduce myself & use numbers and time",
     "lesson_ids": ["introductions", "numbers", "time-calendar"],
-    "deck_slugs": ["starter", "days_months", "social_phrases"]
+    "deck_slugs": ["starter", "numbers", "days_months", "social_phrases"]
   },
   {
     "id": "around-town",
