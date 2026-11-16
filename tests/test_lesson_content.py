@@ -68,3 +68,23 @@ def test_ser_vs_estar_uses_ser_for_where_places_are():
     for item in lesson["practice"]:
         if item["kind"] == "multiple_choice":
             assert item["answer"] in item["options"]
+
+
+def test_present_tense_rules_match_their_examples():
+    lesson = _lesson("04-present-tense.json")
+    text = _text(lesson)
+    # The -er/-re model verb follows the stated endings: perd has no ending.
+    for form in ["perdo", "perds", "perd", "perdem", "perdeu", "perden"]:
+        assert form in text.split("\n")
+    # Most -ir verbs take -eix-, except in the we and you-all forms.
+    for form in ["llegeixo", "llegeixes", "llegeix", "llegim", "llegiu", "llegeixen"]:
+        assert form in text.split("\n")
+    notes = {
+        item["catalan"]: item.get("note", "")
+        for section in lesson["sections"]
+        for item in section.get("items", [])
+    }
+    assert "formal" not in notes["parleu"] or "informal" in notes["parleu"]
+    assert "vostè" in notes["parla"]
+    answers = {item.get("answer") for item in lesson["practice"]}
+    assert {"perd", "llegeixo", "llegim"} <= answers

@@ -28,12 +28,12 @@
         {
           "catalan": "parles",
           "english": "you speak",
-          "note": "informal singular"
+          "note": "tu - informal"
         },
         {
           "catalan": "parla",
-          "english": "he/she speaks",
-          "note": ""
+          "english": "he/she speaks, you speak",
+          "note": "you = formal vostè"
         },
         {
           "catalan": "parlem",
@@ -42,58 +42,58 @@
         },
         {
           "catalan": "parleu",
-          "english": "you speak",
-          "note": "plural / formal"
+          "english": "you all speak",
+          "note": "vosaltres - informal plural"
         },
         {
           "catalan": "parlen",
-          "english": "they speak",
-          "note": ""
+          "english": "they speak, you all speak",
+          "note": "you all = formal vostès"
         }
       ]
     },
     {
       "type": "rule",
-      "content": "-ER/-RE verbs (e.g. córrer = to run): drop -er/-re, add: -o, -s, (nothing), -em, -eu, -en"
+      "content": "-ER/-RE verbs (e.g. perdre = to lose): drop -er/-re, add: -o, -s, (nothing), -em, -eu, -en. A few verbs, like córrer (to run), add -e in the 'you' and 'he/she' forms: corres, corre."
     },
     {
       "type": "examples",
       "items": [
         {
-          "catalan": "corro",
-          "english": "I run",
+          "catalan": "perdo",
+          "english": "I lose",
           "note": ""
         },
         {
-          "catalan": "corres",
-          "english": "you run",
+          "catalan": "perds",
+          "english": "you lose",
           "note": ""
         },
         {
-          "catalan": "corre",
-          "english": "he/she runs",
-          "note": "3rd person singular: no extra ending"
+          "catalan": "perd",
+          "english": "he/she loses",
+          "note": "3rd person singular: no ending"
         },
         {
-          "catalan": "correm",
-          "english": "we run",
+          "catalan": "perdem",
+          "english": "we lose",
           "note": ""
         },
         {
-          "catalan": "correu",
-          "english": "you run",
-          "note": "plural"
+          "catalan": "perdeu",
+          "english": "you all lose",
+          "note": ""
         },
         {
-          "catalan": "corren",
-          "english": "they run",
+          "catalan": "perden",
+          "english": "they lose",
           "note": ""
         }
       ]
     },
     {
       "type": "rule",
-      "content": "-IR verbs (e.g. dormir = to sleep): drop -ir, add: -o, -s, (nothing), -im, -iu, -en. Some -ir verbs insert -eix- in singular and 3rd plural forms."
+      "content": "-IR verbs (e.g. dormir = to sleep): drop -ir, add: -o, -s, (nothing), -im, -iu, -en."
     },
     {
       "type": "examples",
@@ -120,12 +120,51 @@
         },
         {
           "catalan": "dormiu",
-          "english": "you sleep",
-          "note": "plural"
+          "english": "you all sleep",
+          "note": ""
         },
         {
           "catalan": "dormen",
           "english": "they sleep",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "type": "rule",
+      "content": "Most -ir verbs, like llegir (to read), add -eix- before the ending in every form except 'we' and 'you all': llegeixo, llegeixes, llegeix, llegim, llegiu, llegeixen."
+    },
+    {
+      "type": "examples",
+      "items": [
+        {
+          "catalan": "llegeixo",
+          "english": "I read",
+          "note": ""
+        },
+        {
+          "catalan": "llegeixes",
+          "english": "you read",
+          "note": ""
+        },
+        {
+          "catalan": "llegeix",
+          "english": "he/she reads",
+          "note": ""
+        },
+        {
+          "catalan": "llegim",
+          "english": "we read",
+          "note": "no -eix-"
+        },
+        {
+          "catalan": "llegiu",
+          "english": "you all read",
+          "note": "no -eix-"
+        },
+        {
+          "catalan": "llegeixen",
+          "english": "they read",
           "note": ""
         }
       ]
@@ -217,10 +256,10 @@
     {
       "id": "pt-p06",
       "kind": "cloze",
-      "prompt": "Ell ___ ràpid. (córrer)",
-      "hint": "he runs",
-      "answer": "corre",
-      "explanation": "-re 3sg keeps stem."
+      "prompt": "Ell sempre ___ les claus. (perdre)",
+      "hint": "he always loses",
+      "answer": "perd",
+      "explanation": "-re 3sg → just the stem: perd."
     },
     {
       "id": "pt-p07",
@@ -259,6 +298,37 @@
         "ell té"
       ],
       "explanation": "Irregular 3sg: té (accent)."
+    },
+    {
+      "id": "pt-p11",
+      "kind": "cloze",
+      "prompt": "Jo ___ un llibre. (llegir)",
+      "hint": "I read",
+      "answer": "llegeixo",
+      "explanation": "llegir adds -eix-: llegeixo."
+    },
+    {
+      "id": "pt-p12",
+      "kind": "multiple_choice",
+      "question": "How do you say 'we read' using 'llegir'?",
+      "options": [
+        "llegim",
+        "llegeixem",
+        "llegeixim",
+        "llegem"
+      ],
+      "answer": "llegim",
+      "explanation": "'we' and 'you all' forms have no -eix-: llegim, llegiu."
+    },
+    {
+      "id": "pt-p13",
+      "kind": "type_in",
+      "prompt": "you all speak (vosaltres)",
+      "answers": [
+        "parleu",
+        "vosaltres parleu"
+      ],
+      "explanation": "-ar 'you all' → -eu."
     },
     {
       "id": "pt-l01",
