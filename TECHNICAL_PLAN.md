@@ -89,9 +89,9 @@ lessons
 decks
   id PK
   level_id FK
-  slug UNIQUE
-  title
-  sort_order
+  slug UNIQUE    -- from the file name: content/decks/<slug>_deck.json
+  title          -- DECK_TITLES in app/services/seed.py; seeding fails if a deck has none
+  sort_order     -- DECK_SORT_ORDER in app/services/seed.py
 
 cards
   id PK

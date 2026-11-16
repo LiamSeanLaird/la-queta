@@ -36,6 +36,31 @@ def test_seed_decks_into_a1(migrated_app):
         assert a2_decks == 0
 
 
+def test_every_deck_file_has_a_distinct_title():
+    from app.services.seed import CONTENT, DECK_SORT_ORDER, DECK_TITLES, _deck_slug_from_filename
+
+    slugs = {_deck_slug_from_filename(p.name) for p in (CONTENT / "decks").glob("*_deck*.json")}
+    assert slugs == set(DECK_TITLES) == set(DECK_SORT_ORDER)
+    titles = list(DECK_TITLES.values())
+    assert len(set(titles)) == len(titles)
+    for title in titles:
+        # Titles are written by hand, not derived from the file slug.
+        assert "_" not in title
+        assert "\u2014" not in title
+
+
+def test_seed_rejects_deck_without_title(migrated_app, monkeypatch):
+    import pytest
+
+    from app.services import seed
+
+    monkeypatch.delitem(seed.DECK_TITLES, "family")
+    with migrated_app.app_context():
+        seed.seed_levels()
+        with pytest.raises(ValueError, match="family"):
+            seed.seed_decks()
+
+
 def test_list_decks_requires_auth(migrated_client):
     assert migrated_client.get("/api/levels/a1/decks").status_code == 401
 
@@ -50,6 +75,7 @@ def test_list_a1_decks_and_empty_a2(migrated_app, migrated_client):
     decks = a1.get_json()["decks"]
     assert len(decks) == 15
     assert decks[0]["slug"] == "core_verbs"
+    assert decks[0]["title"] == "Core Verbs"
     assert decks[0]["total"] > 0
     assert decks[0]["retired"] == 0
     assert decks[0]["remaining"] == decks[0]["total"]

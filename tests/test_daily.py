@@ -87,7 +87,7 @@ def test_can_dos_on_level_learn_tab(migrated_app, migrated_client):
     assert vocab.status_code == 200
     assert b"goal-section" in vocab.data
     assert b"Introduce myself" in vocab.data
-    assert b"Starter" in vocab.data
+    assert b"Greetings &amp; Basics" in vocab.data
     # Fully retired starter → Done chip + goal progress fraction in markup
     assert b"badge--done" in vocab.data or b"0/" in vocab.data
 

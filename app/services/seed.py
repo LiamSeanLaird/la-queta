@@ -37,6 +37,26 @@ DECK_SORT_ORDER = {
     "signs": 15,
 }
 
+# Learner-facing deck titles. They appear on the Vocab tab, deck pages and the
+# lesson done panel ("Study vocab: <title>"), so every deck file needs one.
+DECK_TITLES = {
+    "core_verbs": "Core Verbs",
+    "starter": "Greetings & Basics",
+    "everyday": "Everyday Words",
+    "days_months": "Days, Months & Time",
+    "travel": "Travel & Directions",
+    "family": "Family",
+    "home_daily": "Home & Daily Routine",
+    "social_phrases": "Polite Phrases",
+    "shopping": "Shopping",
+    "health": "Health",
+    "admin": "Paperwork & Offices",
+    "work": "Work",
+    "leisure": "Free Time",
+    "education": "Classes & Study",
+    "signs": "Signs & Short Messages",
+}
+
 
 def seed_levels() -> int:
     """Upsert rows from content/levels.json. Returns number of level rows."""
@@ -116,7 +136,9 @@ def seed_decks(level_id: str = DEFAULT_DECK_LEVEL_ID) -> tuple[int, int]:
     seeded_ids: set[str] = set()
     for index, path in enumerate(paths, start=1):
         slug = _deck_slug_from_filename(path.name)
-        title = slug.replace("_", " ").title()
+        title = DECK_TITLES.get(slug)
+        if title is None:
+            raise ValueError(f"Deck {slug!r} has no title in DECK_TITLES")
         sort_order = DECK_SORT_ORDER.get(slug, 100 + index)
         cards_raw = json.loads(path.read_text(encoding="utf-8"))
         if not isinstance(cards_raw, list):
