@@ -34,6 +34,7 @@
     adjective: "adj",
     adverb: "adv",
     number: "num",
+    pronoun: "pron",
     interjection: "interj",
     phrase: "phrase",
   };

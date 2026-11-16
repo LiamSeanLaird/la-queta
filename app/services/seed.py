@@ -31,7 +31,7 @@ DECK_TITLES = {
     "travel": "Travel & Transport",
     "family": "Family",
     "home_daily": "Home & Daily Routine",
-    "social_phrases": "Polite & Useful Phrases",
+    "social_phrases": "Questions & Useful Phrases",
     "shopping": "Shopping",
     "health": "Health",
     "admin": "Paperwork & Offices",

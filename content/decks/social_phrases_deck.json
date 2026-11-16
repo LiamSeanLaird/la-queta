@@ -1,64 +1,91 @@
 [
   {
-    "id": "greet_008",
-    "catalan": "Gràcies",
-    "pronunciation": "GRAH-syuhs",
-    "english": "Thank you",
-    "hint": "",
+    "id": "qw_001",
+    "catalan": "Qui?",
+    "pronunciation": "kee",
+    "english": "Who?",
+    "hint": "Qui és? = Who is it?",
     "tags": ["phrases"],
-    "pos": "interjection"
+    "pos": "pronoun"
   },
   {
-    "id": "soc003",
-    "catalan": "Moltes gràcies",
-    "pronunciation": "MOL-tes GRAH-syehs",
-    "english": "Thank you very much",
-    "hint": "moltes = many",
+    "id": "qw_002",
+    "catalan": "Què?",
+    "pronunciation": "keh",
+    "english": "What?",
+    "hint": "Què és això? = What is this?",
+    "tags": ["phrases"],
+    "pos": "pronoun"
+  },
+  {
+    "id": "qw_003",
+    "catalan": "On?",
+    "pronunciation": "on",
+    "english": "Where?",
+    "hint": "D'on ets? = Where are you from?",
+    "tags": ["phrases"],
+    "pos": "adverb"
+  },
+  {
+    "id": "qw_004",
+    "catalan": "Quan?",
+    "pronunciation": "kwan",
+    "english": "When?",
+    "hint": "Quan dinem? = When do we have lunch?",
+    "tags": ["phrases"],
+    "pos": "adverb"
+  },
+  {
+    "id": "qw_005",
+    "catalan": "Com?",
+    "pronunciation": "kom",
+    "english": "How?",
+    "hint": "Com estàs? = How are you?",
+    "tags": ["phrases"],
+    "pos": "adverb"
+  },
+  {
+    "id": "qw_006",
+    "catalan": "Per què?",
+    "pronunciation": "puhr KEH",
+    "english": "Why?",
+    "hint": "two words; the answer perquè (because) is one word",
+    "tags": ["phrases"],
+    "pos": "adverb"
+  },
+  {
+    "id": "qw_007",
+    "catalan": "Quant / quanta?",
+    "pronunciation": "kwan / KWAN-tuh",
+    "english": "How much?",
+    "hint": "plural: quants / quantes = how many",
+    "tags": ["phrases"],
+    "pos": "adjective"
+  },
+  {
+    "id": "qw_008",
+    "catalan": "Quin / quina?",
+    "pronunciation": "keen / KEE-nuh",
+    "english": "Which? / What?",
+    "hint": "Quin és el teu nom? = What is your name?",
+    "tags": ["phrases"],
+    "pos": "adjective"
+  },
+  {
+    "id": "qw_009",
+    "catalan": "Com es diu això?",
+    "pronunciation": "kom uz DEE-oo uh-SHOH",
+    "english": "What is this called?",
+    "hint": "point at something and ask",
     "tags": ["phrases"],
     "pos": "phrase"
   },
   {
-    "id": "greet_009",
-    "catalan": "De res",
-    "pronunciation": "duh rehs",
-    "english": "You're welcome",
-    "hint": "literally 'of nothing'",
-    "tags": ["phrases"],
-    "pos": "phrase"
-  },
-  {
-    "id": "greet_010",
-    "catalan": "Si us plau",
-    "pronunciation": "see oos plow",
-    "english": "Please",
-    "hint": "plow rhymes with 'how'",
-    "tags": ["phrases"],
-    "pos": "phrase"
-  },
-  {
-    "id": "greet_011",
-    "catalan": "Perdona",
-    "pronunciation": "puhr-DOH-nah",
-    "english": "Excuse me / Sorry (informal)",
-    "hint": "informal; with strangers or elders say perdoni",
-    "tags": ["phrases"],
-    "pos": "phrase"
-  },
-  {
-    "id": "soc006",
-    "catalan": "Perdoni",
-    "pronunciation": "per-DOH-nee",
-    "english": "Excuse me / sorry (formal)",
-    "hint": "use with elders or strangers",
-    "tags": ["phrases"],
-    "pos": "phrase"
-  },
-  {
-    "id": "soc007",
-    "catalan": "Ho sento",
-    "pronunciation": "oh SEN-toh",
-    "english": "I'm sorry",
-    "hint": "for genuine apologies, not just excuse me",
+    "id": "qw_010",
+    "catalan": "Què vol dir...?",
+    "pronunciation": "keh bol DEE",
+    "english": "What does ... mean?",
+    "hint": "vol dir = means",
     "tags": ["phrases"],
     "pos": "phrase"
   },

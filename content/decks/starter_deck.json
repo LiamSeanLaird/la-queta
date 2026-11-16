@@ -218,5 +218,82 @@
       "greetings"
     ],
     "pos": "phrase"
+  },
+  {
+    "id": "greet_008",
+    "catalan": "Gràcies",
+    "pronunciation": "GRAH-syuhs",
+    "english": "Thank you",
+    "hint": "",
+    "tags": [
+      "greetings"
+    ],
+    "pos": "interjection"
+  },
+  {
+    "id": "soc003",
+    "catalan": "Moltes gràcies",
+    "pronunciation": "MOL-tes GRAH-syehs",
+    "english": "Thank you very much",
+    "hint": "moltes = many",
+    "tags": [
+      "greetings"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "greet_009",
+    "catalan": "De res",
+    "pronunciation": "duh rehs",
+    "english": "You're welcome",
+    "hint": "literally 'of nothing'",
+    "tags": [
+      "greetings"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "greet_010",
+    "catalan": "Si us plau",
+    "pronunciation": "see oos plow",
+    "english": "Please",
+    "hint": "plow rhymes with 'how'",
+    "tags": [
+      "greetings"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "greet_011",
+    "catalan": "Perdona",
+    "pronunciation": "puhr-DOH-nah",
+    "english": "Excuse me / Sorry (informal)",
+    "hint": "informal; with strangers or elders say perdoni",
+    "tags": [
+      "greetings"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "soc006",
+    "catalan": "Perdoni",
+    "pronunciation": "per-DOH-nee",
+    "english": "Excuse me / sorry (formal)",
+    "hint": "use with elders or strangers",
+    "tags": [
+      "greetings"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "soc007",
+    "catalan": "Ho sento",
+    "pronunciation": "oh SEN-toh",
+    "english": "I'm sorry",
+    "hint": "for genuine apologies, not just excuse me",
+    "tags": [
+      "greetings"
+    ],
+    "pos": "phrase"
   }
 ]

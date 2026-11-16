@@ -29,7 +29,7 @@ def test_seed_decks_into_a1(migrated_app):
         from app.models import Card, Deck
 
         assert db.session.scalar(select(func.count()).select_from(Deck)) == 18
-        assert db.session.scalar(select(func.count()).select_from(Card)) == 382
+        assert db.session.scalar(select(func.count()).select_from(Card)) == 392
         a2_decks = db.session.scalar(
             select(func.count()).select_from(Deck).where(Deck.level_id == "a2")
         )
@@ -105,7 +105,7 @@ def test_travel_and_directions_are_separate_one_topic_decks():
     assert {"Puc pagar amb targeta?", "l'efectiu", "el canvi"} <= shopping
 
 
-def test_greetings_and_polite_phrases_are_separate_one_topic_decks():
+def test_greetings_and_question_phrases_are_separate_one_topic_decks():
     greetings = _deck_cards("starter")
     phrases = _deck_cards("social_phrases")
     assert 20 <= len(greetings) <= 30
@@ -118,13 +118,25 @@ def test_greetings_and_polite_phrases_are_separate_one_topic_decks():
     greeting_words = {card["catalan"] for card in greetings}
     phrase_words = {card["catalan"] for card in phrases}
     assert {"Bon dia", "Em dic...", "Fins demà", "Estic bé"} <= greeting_words
-    assert {"Gràcies", "Perdoni", "No entenc", "Pots repetir?"} <= phrase_words
+    # Thanks, please and sorry belong with greetings; the question-words deck has the questions.
+    assert {"Gràcies", "Si us plau", "De res", "Perdoni", "Ho sento"} <= greeting_words
+    assert {"No entenc", "Pots repetir?", "On és...?"} <= phrase_words
     # Meal phrases and hunger/thirst live in Food & Drink.
     food = {card["catalan"] for card in _deck_cards("food_drink")}
     assert {"Tinc gana", "Tinc set", "Bon profit!", "Estava molt bo"} <= food
     # Short social messages are not signs.
     assert "Fins demà" not in {card["catalan"] for card in _deck_cards("signs")}
 
+
+
+def test_question_words_deck_has_every_word_the_lesson_teaches():
+    phrases = {card["catalan"]: card for card in _deck_cards("social_phrases")}
+    for word in ("Qui?", "Què?", "On?", "Quan?", "Com?", "Per què?", "Quant / quanta?", "Quin / quina?"):
+        assert word in phrases, word
+        assert phrases[word]["pronunciation"] and phrases[word]["english"].endswith("?")
+    # Words that change for gender show both forms, like adjectives elsewhere.
+    assert "quants / quantes" in phrases["Quant / quanta?"]["hint"]
+    assert {"Com es diu això?", "Què vol dir...?"} <= set(phrases)
 
 def test_seed_rejects_deck_without_title(migrated_app, monkeypatch):
     import pytest

@@ -65,7 +65,7 @@ def test_vocab_tab_lists_goal_decks_in_lesson_order(migrated_app, migrated_clien
     assert page.index("Describing Words") < page.index("Core Verbs")
     # Introduce myself: question-words (5), introductions (6), time-calendar (8).
     assert (
-        page.index("Polite &amp; Useful Phrases")
+        page.index("Questions &amp; Useful Phrases")
         < page.index("Greetings &amp; Introductions")
         < page.index("Days, Months &amp; Time")
     )

@@ -14,7 +14,16 @@ from app.services.seed import seed_all
 CONTENT = Path(__file__).resolve().parents[1] / "content"
 
 # Every card's `pos` must be one of these. Add to this set deliberately.
-ALLOWED_POS = {"noun", "verb", "adjective", "adverb", "number", "phrase", "interjection"}
+ALLOWED_POS = {
+    "noun",
+    "verb",
+    "adjective",
+    "adverb",
+    "pronoun",
+    "number",
+    "phrase",
+    "interjection",
+}
 
 
 def _deck(slug: str) -> list[dict]:
