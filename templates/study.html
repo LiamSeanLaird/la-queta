@@ -11,12 +11,14 @@
   data-session-url="{{ session_url }}"
   data-exit-url="{{ exit_url }}"
 >
-  <div class="progress-meta">
-    <span id="study-progress-text">Loading…</span>
-    <span id="study-remaining"></span>
-  </div>
-  <div class="progress" aria-hidden="true">
-    <div class="progress__bar" id="study-progress-bar" style="width: 0%"></div>
+  <div class="progress-group">
+    <div class="progress-meta">
+      <span id="study-progress-text">Loading…</span>
+      <span id="study-remaining"></span>
+    </div>
+    <div class="progress" aria-hidden="true">
+      <div class="progress__bar" id="study-progress-bar" style="width: 0%"></div>
+    </div>
   </div>
   <div class="flashcard" id="study-card" role="button" tabindex="0" hidden>
     <p class="flashcard__lang" id="study-lang">Català</p>

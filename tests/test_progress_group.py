@@ -1,7 +1,7 @@
 """A progress label and its bar sit close together as one unit.
 
 They used to be separate children of the lesson practice panel's .stack-lg
-(2rem gap) and the deck page's .stack (1rem gap), so 'Item 1 of 13' floated
+(2rem gap), the study page's .stack-lg and the deck page's .stack (1rem gap), so 'Item 1 of 13' floated
 far above the bar it describes.
 """
 
@@ -36,7 +36,7 @@ def test_progress_group_has_a_small_gap():
     assert "gap: 0.5rem" in rule
 
 
-def test_lesson_practice_and_deck_page_group_label_with_bar(
+def test_lesson_practice_deck_and_study_pages_group_label_with_bar(
     migrated_app, migrated_client
 ):
     with migrated_app.app_context():
@@ -56,4 +56,8 @@ def test_lesson_practice_and_deck_page_group_label_with_bar(
     )
     _assert_meta_and_bar_grouped(
         migrated_client.get("/decks/everyday").get_data(as_text=True)
+    )
+    # study.html serves both deck study and daily review.
+    _assert_meta_and_bar_grouped(
+        migrated_client.get("/decks/everyday/study").get_data(as_text=True)
     )
