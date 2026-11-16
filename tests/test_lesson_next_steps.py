@@ -60,6 +60,24 @@ def test_practice_done_panel_offers_deck_then_next_lesson(migrated_app, migrated
     assert "Next lesson: Definite Articles" in learn
 
 
+def test_learn_tab_of_completed_lesson_makes_vocab_primary(migrated_app, migrated_client):
+    with migrated_app.app_context():
+        seed_all()
+    _register(migrated_client)
+
+    learn = migrated_client.get("/lessons/noun-gender").get_data(as_text=True)
+    assert 'btn--primary btn--block" href="/lessons/noun-gender?tab=practice">Go to Practice' in learn
+    assert "Study vocab:" not in learn
+
+    _complete(migrated_client, "noun-gender")
+    learn = migrated_client.get("/lessons/noun-gender").get_data(as_text=True)
+    assert "Go to Practice" not in learn
+    assert 'btn--primary btn--block" href="/decks/everyday/study">Study vocab: Describing Words' in learn
+    assert 'btn--secondary btn--block" href="/lessons/definite-articles">Next lesson' in learn
+    assert 'btn--ghost btn--block" href="/lessons/noun-gender?tab=practice">Practice again' in learn
+    assert learn.index("Study vocab:") < learn.index("Next lesson:") < learn.index("Practice again")
+
+
 def test_lesson_without_deck_makes_next_lesson_primary(migrated_app, migrated_client):
     with migrated_app.app_context():
         seed_all()

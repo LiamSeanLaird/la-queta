@@ -53,14 +53,18 @@
       {% endif %}
     {% endfor %}
   </div>
+  {% if lesson.completed and (next_deck or next_lesson) %}
+  {# Lesson already done: point forward first, keep practice as a quieter option. #}
+  {% if next_deck %}
+  <a class="btn btn--primary btn--block" href="{{ url_for('pages.study', slug=next_deck.slug) }}">Study vocab: {{ next_deck.title }}</a>
+  {% endif %}
+  {% if next_lesson %}
+  <a class="btn {{ 'btn--secondary' if next_deck else 'btn--primary' }} btn--block" href="{{ url_for('pages.lesson', lesson_id=next_lesson.id) }}">Next lesson: {{ next_lesson.title }}</a>
+  {% endif %}
+  <a class="btn btn--ghost btn--block" href="{{ url_for('pages.lesson', lesson_id=lesson.id, tab='practice') }}">Practice again</a>
+  {% else %}
   <a class="btn btn--primary btn--block" href="{{ url_for('pages.lesson', lesson_id=lesson.id, tab='practice') }}">Go to Practice</a>
-  {% if lesson.completed and next_deck %}
-  <a class="btn btn--secondary btn--block" href="{{ url_for('pages.study', slug=next_deck.slug) }}">Study vocab: {{ next_deck.title }}</a>
   {% endif %}
-  {% if lesson.completed and next_lesson %}
-  <a class="btn btn--secondary btn--block" href="{{ url_for('pages.lesson', lesson_id=next_lesson.id) }}">Next lesson: {{ next_lesson.title }}</a>
-  {% endif %}
-
   {% else %}
   <div class="stack-lg" id="practice-panel">
     <div class="progress-meta">
