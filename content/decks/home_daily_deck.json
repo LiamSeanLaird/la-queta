@@ -8,7 +8,7 @@
     "tags": ["home", "rooms"],
     "pos": "noun",
     "gender": "f",
-    "plural": "cuines"
+    "plural": "les cuines"
   },
   {
     "id": "hd002",
@@ -19,7 +19,7 @@
     "tags": ["home", "rooms"],
     "pos": "noun",
     "gender": "m",
-    "plural": "menjadors"
+    "plural": "els menjadors"
   },
   {
     "id": "hd003",
@@ -30,7 +30,7 @@
     "tags": ["home", "rooms"],
     "pos": "noun",
     "gender": "m",
-    "plural": "salons"
+    "plural": "els salons"
   },
   {
     "id": "hd004",
@@ -41,7 +41,7 @@
     "tags": ["home", "rooms"],
     "pos": "noun",
     "gender": "m",
-    "plural": "dormitoris"
+    "plural": "els dormitoris"
   },
   {
     "id": "hd005",
@@ -52,7 +52,7 @@
     "tags": ["home", "rooms"],
     "pos": "noun",
     "gender": "m",
-    "plural": "banys"
+    "plural": "els banys"
   },
   {
     "id": "hd006",
@@ -63,7 +63,7 @@
     "tags": ["home", "rooms"],
     "pos": "noun",
     "gender": "m",
-    "plural": "lavabos"
+    "plural": "els lavabos"
   },
   {
     "id": "hd007",
@@ -74,7 +74,7 @@
     "tags": ["home", "rooms"],
     "pos": "noun",
     "gender": "f",
-    "plural": "entrades"
+    "plural": "les entrades"
   },
   {
     "id": "hd008",
@@ -85,7 +85,7 @@
     "tags": ["home", "rooms"],
     "pos": "noun",
     "gender": "f",
-    "plural": "terrasses"
+    "plural": "les terrasses"
   },
   {
     "id": "hd009",
@@ -96,7 +96,7 @@
     "tags": ["home", "furniture"],
     "pos": "noun",
     "gender": "m",
-    "plural": "llits"
+    "plural": "els llits"
   },
   {
     "id": "hd010",
@@ -107,7 +107,7 @@
     "tags": ["home", "furniture"],
     "pos": "noun",
     "gender": "f",
-    "plural": "taules"
+    "plural": "les taules"
   },
   {
     "id": "hd011",
@@ -118,7 +118,7 @@
     "tags": ["home", "furniture"],
     "pos": "noun",
     "gender": "f",
-    "plural": "cadires"
+    "plural": "les cadires"
   },
   {
     "id": "hd012",
@@ -129,7 +129,7 @@
     "tags": ["home", "furniture"],
     "pos": "noun",
     "gender": "m",
-    "plural": "sofàs"
+    "plural": "els sofàs"
   },
   {
     "id": "hd013",
@@ -140,7 +140,7 @@
     "tags": ["home", "furniture"],
     "pos": "noun",
     "gender": "m",
-    "plural": "armaris"
+    "plural": "els armaris"
   },
   {
     "id": "hd014",
@@ -151,7 +151,7 @@
     "tags": ["home", "furniture"],
     "pos": "noun",
     "gender": "f",
-    "plural": "finestres"
+    "plural": "les finestres"
   },
   {
     "id": "hd015",
@@ -162,7 +162,7 @@
     "tags": ["home", "furniture"],
     "pos": "noun",
     "gender": "f",
-    "plural": "portes"
+    "plural": "les portes"
   },
   {
     "id": "hd016",
@@ -184,7 +184,7 @@
     "tags": ["home", "appliances"],
     "pos": "noun",
     "gender": "f",
-    "plural": "neveres"
+    "plural": "les neveres"
   },
   {
     "id": "hd018",
@@ -195,7 +195,7 @@
     "tags": ["home", "appliances"],
     "pos": "noun",
     "gender": "m",
-    "plural": "forns"
+    "plural": "els forns"
   },
   {
     "id": "hd019",
@@ -206,7 +206,7 @@
     "tags": ["home", "appliances"],
     "pos": "noun",
     "gender": "m",
-    "plural": "microones"
+    "plural": "els microones"
   },
   {
     "id": "hd020",
@@ -217,7 +217,7 @@
     "tags": ["home", "appliances"],
     "pos": "noun",
     "gender": "f",
-    "plural": "rentadores"
+    "plural": "les rentadores"
   },
   {
     "id": "hd021",
@@ -228,7 +228,7 @@
     "tags": ["home", "appliances"],
     "pos": "noun",
     "gender": "f",
-    "plural": "rentavaixelles"
+    "plural": "les rentavaixelles"
   },
   {
     "id": "hd022",
@@ -239,7 +239,7 @@
     "tags": ["home", "appliances"],
     "pos": "noun",
     "gender": "f",
-    "plural": "aixetes"
+    "plural": "les aixetes"
   },
   {
     "id": "hd023",
@@ -250,7 +250,7 @@
     "tags": ["home", "daily"],
     "pos": "noun",
     "gender": "f",
-    "plural": "tovalloles"
+    "plural": "les tovalloles"
   },
   {
     "id": "hd024",

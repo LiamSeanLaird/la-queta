@@ -231,7 +231,7 @@ def test_card_payload_includes_prototype_meta(migrated_app, migrated_client):
     days = migrated_client.get("/api/decks/days_months/cards").get_json()["cards"]
     dilluns = next(c for c in days if c["external_id"] == "dm_001")
     assert dilluns["gender"] == "m"
-    assert dilluns["plural"] == "dilluns"
+    assert dilluns["plural"] == "els dilluns"
     assert dilluns["pos"] == "noun"
 
     browse = migrated_client.get("/decks/days_months/browse")
