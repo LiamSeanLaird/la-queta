@@ -7,7 +7,7 @@
   "sections": [
     {
       "type": "text",
-      "content": "One of the trickiest things for English speakers learning Catalan (and Spanish) is that there are two separate verbs that both translate as 'to be': 'ser' and 'estar'. The choice between them is not random — it follows clear rules."
+      "content": "One of the trickiest things for English speakers learning Catalan (and Spanish) is that there are two separate verbs that both translate as 'to be': 'ser' and 'estar'. The choice between them is not random - it follows clear rules."
     },
     {
       "type": "rule",
@@ -19,27 +19,27 @@
         {
           "catalan": "Soc anglès",
           "english": "I am English",
-          "note": "origin/identity — ser"
+          "note": "origin/identity - ser"
         },
         {
           "catalan": "És metge",
           "english": "He/she is a doctor",
-          "note": "profession — ser"
+          "note": "profession - ser"
         },
         {
           "catalan": "Avui és dilluns",
           "english": "Today is Monday",
-          "note": "time — ser"
+          "note": "time - ser"
         },
         {
           "catalan": "La taula és de fusta",
           "english": "The table is made of wood",
-          "note": "material — ser"
+          "note": "material - ser"
         },
         {
           "catalan": "Ets molt alt",
           "english": "You are very tall",
-          "note": "inherent physical quality — ser"
+          "note": "inherent physical quality - ser"
         }
       ]
     },
@@ -53,33 +53,33 @@
         {
           "catalan": "Estic cansat",
           "english": "I am tired",
-          "note": "temporary state — estar"
+          "note": "temporary state - estar"
         },
         {
           "catalan": "On ets?",
           "english": "Where are you?",
-          "note": "location — estar"
+          "note": "location - estar"
         },
         {
           "catalan": "El restaurant està tancat",
           "english": "The restaurant is closed",
-          "note": "temporary state — estar"
+          "note": "temporary state - estar"
         },
         {
           "catalan": "Estem a Barcelona",
           "english": "We are in Barcelona",
-          "note": "location — estar"
+          "note": "location - estar"
         },
         {
           "catalan": "Com estàs?",
           "english": "How are you?",
-          "note": "current state — estar (you know this from the starter deck!)"
+          "note": "current state - estar (you know this from the starter deck!)"
         }
       ]
     },
     {
       "type": "text",
-      "content": "Here are the present tense conjugations of both verbs — you'll need them constantly."
+      "content": "Here are the present tense conjugations of both verbs - you'll need them constantly."
     },
     {
       "type": "examples",

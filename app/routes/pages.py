@@ -193,7 +193,7 @@ def study(slug: str):
         session_url=url_for("api_vocab.deck_session", slug=slug),
         exit_url=url_for("pages.deck", slug=slug),
         back_label="Back to deck",
-        done_message="Deck complete for now — all cards retired or none left.",
+        done_message="Deck complete for now - all cards retired or none left.",
         brand_href=url_for("pages.levels"),
     )
 

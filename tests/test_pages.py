@@ -29,7 +29,7 @@ def test_index_is_gate_only(client):
     assert b"<title>La Queta</title>" in response.data
     assert b'property="og:image"' in response.data
     assert b"og-image.png" in response.data
-    assert "La Queta — start".encode() not in response.data
+    assert "La Queta - start".encode() not in response.data
 
 
 def test_levels_requires_login(client):

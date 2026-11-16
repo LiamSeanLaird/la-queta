@@ -11,7 +11,7 @@
     },
     {
       "type": "text",
-      "content": "Unlike English, Catalan verb endings carry the subject — so the pronoun is often dropped. 'Parlo' means 'I speak' by itself; you don't need 'jo' unless you're emphasising."
+      "content": "Unlike English, Catalan verb endings carry the subject - so the pronoun is often dropped. 'Parlo' means 'I speak' by itself; you don't need 'jo' unless you're emphasising."
     },
     {
       "type": "rule",
@@ -140,17 +140,17 @@
         {
           "catalan": "tinc / tens / té / tenim / teniu / tenen",
           "english": "I have / you have / he has...",
-          "note": "tenir — irregular"
+          "note": "tenir - irregular"
         },
         {
           "catalan": "vaig / vas / va / anem / aneu / van",
           "english": "I go / you go / he goes...",
-          "note": "anar — highly irregular"
+          "note": "anar - highly irregular"
         },
         {
           "catalan": "faig / fas / fa / fem / feu / fan",
           "english": "I do / you do / he does...",
-          "note": "fer — irregular"
+          "note": "fer - irregular"
         }
       ]
     }
@@ -187,10 +187,10 @@
       "kind": "multiple_choice",
       "question": "In Catalan, do you need the subject pronoun 'jo' (I) to mean 'I speak'?",
       "options": [
-        "No — 'parlo' already means 'I speak'",
-        "Yes — you must say 'jo parlo'"
+        "No - 'parlo' already means 'I speak'",
+        "Yes - you must say 'jo parlo'"
       ],
-      "answer": "No — 'parlo' already means 'I speak'",
+      "answer": "No - 'parlo' already means 'I speak'",
       "explanation": "Ending encodes subject."
     },
     {

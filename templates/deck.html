@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}{{ deck.title }} — La Queta{% endblock %}
+{% block title %}{{ deck.title }} - La Queta{% endblock %}
 {% set brand_href = url_for('pages.levels') %}
 {% block top_back %}
 <a class="topbar__back" href="{{ url_for('pages.level_home', level_id=deck.level_id, tab='vocab') }}" aria-label="Back to decks">←</a>

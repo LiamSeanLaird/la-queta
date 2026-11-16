@@ -79,7 +79,7 @@
       } catch (_err) {
         window.LaQueta.showError(
           practiceError,
-          "Could not play audio — try Chrome/Safari, or check system voices"
+          "Could not play audio - try Chrome/Safari, or check system voices"
         );
       } finally {
         btn.disabled = false;
@@ -145,7 +145,7 @@
     if (isCloze) {
       const guide = document.createElement("p");
       guide.className = "text-small text-muted";
-      guide.textContent = "Fill the blank only — not the whole sentence.";
+      guide.textContent = "Fill the blank only - not the whole sentence.";
       root.appendChild(guide);
     }
 
@@ -209,7 +209,7 @@
         const parts = [];
         if (shown) parts.push(`Answer: ${shown}`);
         if (item.explanation) parts.push(item.explanation);
-        lockAndAdvance(parts.join(" — ") || "Answer shown.");
+        lockAndAdvance(parts.join(" - ") || "Answer shown.");
       });
       actions.insertBefore(revealBtn, submit);
     }
@@ -291,7 +291,7 @@
     said.textContent = "I said it";
     said.addEventListener("click", () => {
       if (finishing) return;
-      showExplain(root, item.explanation || "Nice — keep practising aloud.", true);
+      showExplain(root, item.explanation || "Nice - keep practising aloud.", true);
       window.setTimeout(() => advance(), 350);
     });
     row.appendChild(said);
@@ -314,10 +314,10 @@
           const transcript = await Speech.listenOnce({ lang: "ca-ES" });
           const ok = answersMatch(transcript, [item.speak, ...(item.answers || [])]);
           status.textContent = ok
-            ? `Heard: “${transcript}” — close enough.`
-            : `Heard: “${transcript}” — model is “${item.speak}”. You can still tap I said it.`;
+            ? `Heard: “${transcript}” - close enough.`
+            : `Heard: “${transcript}” - model is “${item.speak}”. You can still tap I said it.`;
         } catch (_err) {
-          status.textContent = "Mic check unavailable — use I said it.";
+          status.textContent = "Mic check unavailable - use I said it.";
         }
       });
       root.appendChild(listenBtn);
