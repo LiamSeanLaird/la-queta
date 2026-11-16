@@ -421,3 +421,42 @@ def test_browse_shows_grammar_pills_in_text_column(migrated_app, migrated_client
     assert row.index('class="vocab-main"') < pills < row.index('class="vocab-meta"')
     meta = row[row.index('class="vocab-meta"'):]
     assert "gram-pill" not in meta
+
+
+def test_cards_list_in_deck_file_order_after_a_reorder(
+    migrated_app, migrated_client, monkeypatch, tmp_path
+):
+    """Production seeds on top of an old database, so card ids follow the
+    order cards were first created, not the deck file. Lists must still follow
+    the file, or a reordered or grown deck shows its new cards at the end."""
+    import json
+    import shutil
+
+    from app.services import seed
+
+    real_content = seed.CONTENT
+    old_content = tmp_path / "content"
+    shutil.copytree(real_content, old_content)
+    deck_path = old_content / "decks" / "admin_deck.json"
+    deck_path.write_text(
+        json.dumps(list(reversed(json.loads(deck_path.read_text("utf-8"))))),
+        encoding="utf-8",
+    )
+
+    with migrated_app.app_context():
+        monkeypatch.setattr(seed, "CONTENT", old_content)
+        seed.seed_all()
+        monkeypatch.setattr(seed, "CONTENT", real_content)
+        seed.seed_all()
+    _register(migrated_client)
+
+    file_ids = [
+        card["id"]
+        for card in json.loads(
+            (real_content / "decks" / "admin_deck.json").read_text("utf-8")
+        )
+    ]
+    listed = migrated_client.get("/api/decks/admin/cards").get_json()["cards"]
+    assert [card["external_id"] for card in listed] == file_ids
+    # The ids really were created in reverse, so this is not ordering by id.
+    assert listed[0]["id"] > listed[-1]["id"]

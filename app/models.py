@@ -106,6 +106,10 @@ class Card(db.Model):
     plural: Mapped[str | None] = mapped_column(String(120), nullable=True)
     tags_json: Mapped[list] = mapped_column(JSON, nullable=False, default=list)
     forms_json: Mapped[list] = mapped_column(JSON, nullable=False, default=list)
+    # Index of the card in its deck file; lists sort by this, not by id.
+    position: Mapped[int] = mapped_column(
+        Integer, nullable=False, default=0, server_default="0"
+    )
     grammar_lesson_id: Mapped[str | None] = mapped_column(
         String(64),
         ForeignKey("lessons.id"),

@@ -78,7 +78,9 @@ def list_decks_for_level(user: User, level_id: str) -> list[dict]:
 def list_cards_for_deck(user: User, slug: str) -> list[dict]:
     deck = _get_deck(slug)
     cards = db.session.scalars(
-        select(Card).where(Card.deck_id == deck.id).order_by(Card.id)
+        select(Card)
+        .where(Card.deck_id == deck.id)
+        .order_by(Card.position, Card.id)
     ).all()
     seen = _seen_map(user.id, [card.id for card in cards])
     return [_card_dict(card, seen.get(card.id, 0)) for card in cards]
@@ -104,7 +106,7 @@ def list_cards_for_level(user: User, level_id: str) -> list[dict]:
         select(Card)
         .join(Deck, Deck.id == Card.deck_id)
         .where(Deck.level_id == level_id)
-        .order_by(Card.id)
+        .order_by(Deck.sort_order, Deck.slug, Card.position, Card.id)
     ).all()
     seen = _seen_map(user.id, [card.id for card in cards])
     return [_card_dict(card, seen.get(card.id, 0)) for card in cards]

@@ -169,7 +169,7 @@ def seed_decks(level_id: str = DEFAULT_DECK_LEVEL_ID) -> tuple[int, int]:
             deck.title = title
             deck.sort_order = sort_order
 
-        for raw in cards_raw:
+        for position, raw in enumerate(cards_raw):
             external_id = raw["id"]
             if external_id in seeded_ids:
                 raise ValueError(f"Duplicate card id {external_id!r} in {path.name}")
@@ -194,6 +194,7 @@ def seed_decks(level_id: str = DEFAULT_DECK_LEVEL_ID) -> tuple[int, int]:
             card.tags_json = raw.get("tags") or []
             card.forms_json = forms
             card.grammar_lesson_id = raw.get("grammar_lesson_id")
+            card.position = position
             card_count += 1
 
     _prune_removed_cards(level_id, seeded_ids)
