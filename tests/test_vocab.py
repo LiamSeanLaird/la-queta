@@ -29,7 +29,7 @@ def test_seed_decks_into_a1(migrated_app):
         from app.models import Card, Deck
 
         assert db.session.scalar(select(func.count()).select_from(Deck)) == 18
-        assert db.session.scalar(select(func.count()).select_from(Card)) == 428
+        assert db.session.scalar(select(func.count()).select_from(Card)) == 441
         a2_decks = db.session.scalar(
             select(func.count()).select_from(Deck).where(Deck.level_id == "a2")
         )
@@ -180,6 +180,22 @@ def test_health_deck_covers_what_the_health_lesson_teaches():
     assert {"el cap", "la gola", "la panxa", "l'esquena"} <= body
     assert len(body) >= 6
 
+
+def test_work_deck_covers_what_the_work_lesson_teaches():
+    work = {card["catalan"]: card for card in _deck_cards("work")}
+    assert 20 <= len(work) <= 30
+    assert _lesson_deck("work") == "work"
+    # The lesson's example lines are all in the deck.
+    assert {
+        "Soc professor",
+        "Treballo en una oficina",
+        "Quina feina fas?",
+        "Tinc una entrevista demà",
+        "Treballo de dilluns a divendres",
+    } <= set(work)
+    # 'Soc + profession' needs several professions to practise with.
+    soc = [word for word in work if word.startswith("Soc ")]
+    assert len(soc) >= 5
 
 def test_seed_rejects_deck_without_title(migrated_app, monkeypatch):
     import pytest
