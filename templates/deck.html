@@ -10,19 +10,21 @@
 <section class="stack-lg" id="deck-page" data-deck-slug="{{ deck.slug }}">
   <div class="stack">
     <h2 class="heading-2">{{ deck.title }}</h2>
-    <div class="progress-meta">
-      <span>{{ deck.remaining }} left</span>
-      <span>{{ deck.retired }}/{{ deck.total }} retired</span>
-    </div>
-    <div
-      class="progress"
-      role="progressbar"
-      aria-label="Retired cards"
-      aria-valuenow="{{ retired_pct }}"
-      aria-valuemin="0"
-      aria-valuemax="100"
-    >
-      <div class="progress__bar" style="width: {{ retired_pct }}%"></div>
+    <div class="progress-group">
+      <div class="progress-meta">
+        <span>{{ deck.remaining }} left</span>
+        <span>{{ deck.retired }}/{{ deck.total }} retired</span>
+      </div>
+      <div
+        class="progress"
+        role="progressbar"
+        aria-label="Retired cards"
+        aria-valuenow="{{ retired_pct }}"
+        aria-valuemin="0"
+        aria-valuemax="100"
+      >
+        <div class="progress__bar" style="width: {{ retired_pct }}%"></div>
+      </div>
     </div>
   </div>
   <div class="stack">

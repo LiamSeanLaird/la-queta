@@ -67,14 +67,16 @@
   {% endif %}
   {% else %}
   <div class="stack-lg" id="practice-panel">
-    <div class="progress-meta">
-      <span id="practice-progress-text">Loading…</span>
-      {% if lesson.completed %}
-      <span class="badge badge--done">Completed</span>
-      {% endif %}
-    </div>
-    <div class="progress" aria-hidden="true">
-      <div class="progress__bar" id="practice-progress-bar" style="width: 0%"></div>
+    <div class="progress-group">
+      <div class="progress-meta">
+        <span id="practice-progress-text">Loading…</span>
+        {% if lesson.completed %}
+        <span class="badge badge--done">Completed</span>
+        {% endif %}
+      </div>
+      <div class="progress" aria-hidden="true">
+        <div class="progress__bar" id="practice-progress-bar" style="width: 0%"></div>
+      </div>
     </div>
     <div class="stack" id="practice-item" hidden></div>
     <p class="text-muted" id="practice-empty" hidden>No practice items for this lesson yet.</p>

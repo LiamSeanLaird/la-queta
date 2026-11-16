@@ -146,6 +146,7 @@ When Practice ends the learner stays on the lesson: a done panel offers the less
 - Design tokens as CSS variables on `:root` (see Visual design).
 - Mobile-first; usable at 360px width.
 - Prefer layout via flex/grid; avoid absolute positioning for primary flow.
+- Wrap a `.progress-meta` label and its `.progress` bar in `.progress-group`, so they stay one tight unit whatever gap the surrounding stack uses.
 - **No cards by default** — card chrome only when it frames an interaction (flashcard flip, exercise choice).
 - No purple/indigo gradient themes, no glow stacks, no emoji as UI.
 - Avoid generic AI defaults: Inter/Roboto/Arial system stacks as the brand voice; purple-on-white; cool limestone + teal; newspaper broadsheet layouts.

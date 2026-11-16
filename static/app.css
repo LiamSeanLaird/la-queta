@@ -504,6 +504,14 @@ a.btn.btn--primary {
   color: var(--muted);
 }
 
+/* A progress label and its bar read as one unit, so they sit close together
+   whatever gap the surrounding stack uses. */
+.progress-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
 /* ── Level tile ──────────────────────────────────────── */
 
 .level-grid {
