@@ -9,7 +9,7 @@
       "present-tense",
       "question-words"
     ],
-    "deck_slugs": ["core_verbs"]
+    "deck_slugs": ["core_verbs", "everyday"]
   },
   {
     "id": "identity-time",
@@ -27,7 +27,7 @@
     "id": "survive-daily",
     "label": "Eat, shop & survive",
     "lesson_ids": ["food-cafe", "shopping", "health", "signs-messages"],
-    "deck_slugs": ["everyday", "shopping", "health", "signs"]
+    "deck_slugs": ["food_drink", "shopping", "health", "signs"]
   },
   {
     "id": "home-people",

@@ -28,8 +28,8 @@ def test_seed_decks_into_a1(migrated_app):
         from app.extensions import db
         from app.models import Card, Deck
 
-        assert db.session.scalar(select(func.count()).select_from(Deck)) == 15
-        assert db.session.scalar(select(func.count()).select_from(Card)) == 340
+        assert db.session.scalar(select(func.count()).select_from(Deck)) == 16
+        assert db.session.scalar(select(func.count()).select_from(Card)) == 352
         a2_decks = db.session.scalar(
             select(func.count()).select_from(Deck).where(Deck.level_id == "a2")
         )
@@ -47,6 +47,36 @@ def test_every_deck_file_has_a_distinct_title():
         # Titles are written by hand, not derived from the file slug.
         assert "_" not in title
         assert "\u2014" not in title
+
+
+def _deck_cards(slug: str) -> list[dict]:
+    import json
+
+    from app.services.seed import CONTENT
+
+    return json.loads((CONTENT / "decks" / f"{slug}_deck.json").read_text(encoding="utf-8"))
+
+
+def test_describing_words_deck_is_adjectives_with_both_genders():
+    cards = _deck_cards("everyday")
+    assert 20 <= len(cards) <= 30
+    for card in cards:
+        assert card["pos"] == "adjective", card["id"]
+        # Show both genders where they differ, or say the form is shared.
+        assert " / " in card["catalan"] or card["hint"] == "same m/f form", card["id"]
+
+
+def test_food_lessons_point_to_food_and_drink_deck():
+    import json
+
+    from app.services.seed import CONTENT
+
+    cards = _deck_cards("food_drink")
+    assert 20 <= len(cards) <= 30
+    assert all("food" in card["tags"] for card in cards)
+    for lesson in ("02-definite-articles", "08-food-cafe"):
+        raw = json.loads((CONTENT / "lessons" / f"{lesson}.json").read_text(encoding="utf-8"))
+        assert raw["deck"] == "food_drink"
 
 
 def test_seed_rejects_deck_without_title(migrated_app, monkeypatch):
@@ -73,7 +103,7 @@ def test_list_a1_decks_and_empty_a2(migrated_app, migrated_client):
     a1 = migrated_client.get("/api/levels/a1/decks")
     assert a1.status_code == 200
     decks = a1.get_json()["decks"]
-    assert len(decks) == 15
+    assert len(decks) == 16
     assert decks[0]["slug"] == "core_verbs"
     assert decks[0]["title"] == "Core Verbs"
     assert decks[0]["total"] > 0

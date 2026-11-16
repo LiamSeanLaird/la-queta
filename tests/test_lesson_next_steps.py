@@ -47,16 +47,16 @@ def test_practice_done_panel_offers_deck_then_next_lesson(migrated_app, migrated
     page = migrated_client.get("/lessons/noun-gender?tab=practice").get_data(as_text=True)
     assert 'id="practice-done"' in page
     assert "/decks/everyday/study" in page
-    assert "Study vocab: Everyday" in page
+    assert "Study vocab: Describing Words" in page
     assert "Next lesson: Definite Articles" in page
-    assert page.index("Study vocab: Everyday") < page.index("Next lesson: Definite Articles")
+    assert page.index("Study vocab: Describing Words") < page.index("Next lesson: Definite Articles")
 
     # Same choices once the lesson is done, and the Learn tab offers the deck too.
     _complete(migrated_client, "noun-gender")
     page = migrated_client.get("/lessons/noun-gender?tab=practice").get_data(as_text=True)
     assert "Next lesson: Definite Articles" in page
     learn = migrated_client.get("/lessons/noun-gender").get_data(as_text=True)
-    assert "Study vocab: Everyday" in learn
+    assert "Study vocab: Describing Words" in learn
     assert "Next lesson: Definite Articles" in learn
 
 

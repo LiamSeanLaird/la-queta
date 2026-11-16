@@ -627,5 +627,49 @@
       "phrases"
     ],
     "pos": "phrase"
+  },
+  {
+    "id": "ev_037",
+    "catalan": "aquí",
+    "pronunciation": "uh-KEE",
+    "english": "here",
+    "hint": "",
+    "tags": [
+      "place"
+    ],
+    "pos": "adverb"
+  },
+  {
+    "id": "ev_038",
+    "catalan": "allà",
+    "pronunciation": "uh-YAH",
+    "english": "there",
+    "hint": "",
+    "tags": [
+      "place"
+    ],
+    "pos": "adverb"
+  },
+  {
+    "id": "ev_039",
+    "catalan": "a la dreta",
+    "pronunciation": "uh luh DREH-tuh",
+    "english": "on the right",
+    "hint": "",
+    "tags": [
+      "place"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "ev_040",
+    "catalan": "a l'esquerra",
+    "pronunciation": "uh luhs-KEH-ruh",
+    "english": "on the left",
+    "hint": "",
+    "tags": [
+      "place"
+    ],
+    "pos": "phrase"
   }
 ]

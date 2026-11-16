@@ -8,12 +8,12 @@ Programme scenarios (escenaris) → our content:
 | Programme scenario | Theme / situation | Lesson(s) | Deck(s) | Status |
 |---|---|---|---|---|
 | Personal (identity) | Greetings & introductions | `introductions` | `starter` | ok |
-| Cross-cutting | Noun gender & articles | `noun-gender`, `definite-articles` | — | ok |
+| Cross-cutting | Noun gender & articles | `noun-gender`, `definite-articles` | `everyday`, `food_drink` | ok |
 | Cross-cutting | Ser vs estar | `ser-vs-estar` | `core_verbs` | ok |
 | Cross-cutting | Present tense | `present-tense` | `core_verbs` | ok |
-| Personal / public | Numbers / price / age | `numbers` | `days_months`, `everyday` | ok |
+| Personal / public | Numbers / price / age | `numbers` | `days_months` (clock times only) | thin |
 | Cross-cutting | Question words | `question-words` | `social_phrases` | ok |
-| Comercial (bars/restaurants) | Food & café | `food-cafe` | `everyday` | ok |
+| Comercial (bars/restaurants) | Food & café | `food-cafe` | `food_drink` | ok |
 | Urbà | Directions & city | `directions` | `travel` | ok |
 | Comercial | Shopping | `shopping` | `shopping` | ok |
 | Domèstic / personal | Family | `family` | `family` | ok |
