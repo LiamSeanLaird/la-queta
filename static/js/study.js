@@ -6,7 +6,6 @@
   const TIP_SKIP_KEY = "la-queta-study-tip-skip";
 
   const sessionUrl = page.dataset.sessionUrl;
-  const exitUrl = page.dataset.exitUrl;
   const studyCard = document.getElementById("study-card");
   const studyLang = document.getElementById("study-lang");
   const studyWord = document.getElementById("study-word");
@@ -22,6 +21,11 @@
   const studyNext = document.getElementById("study-next");
   const studyRetire = document.getElementById("study-retire");
   const studyDone = document.getElementById("study-done");
+  const studyDoneTitle = document.getElementById("study-done-title");
+  const studyDoneText = document.getElementById("study-done-text");
+  const studyAgain = document.getElementById("study-again");
+  const studyExit = document.getElementById("study-exit");
+  const studyProgress = document.getElementById("study-progress");
   const studyError = document.getElementById("study-error");
   const tipDialog = document.getElementById("study-tip-dialog");
   const tipDontShow = document.getElementById("study-tip-dont-show");
@@ -43,6 +47,9 @@
   let index = 0;
   let showingCatalan = true;
   let advancing = false;
+  // Card ids the learner retired in this session, by tapping Retire or by
+  // reaching the seen threshold. Cards that were already retired don't count.
+  const retiredThisSession = new Set();
 
   function dialogOpen() {
     return (tipDialog && tipDialog.open) || (retireDialog && retireDialog.open);
@@ -105,15 +112,49 @@
     }
   }
 
+  function plural(count, word) {
+    return `${count} ${word}${count === 1 ? "" : "s"}`;
+  }
+
+  function summaryText() {
+    const total = queue.length;
+    const retired = retiredThisSession.size;
+    if (retired === total) {
+      return `You went through ${plural(total, "card")} and retired all of them.`;
+    }
+    if (retired > 0) {
+      return `You went through ${plural(total, "card")} and retired ${retired}. ` +
+        "Study again to keep the rest moving.";
+    }
+    return `You went through ${plural(total, "card")}. ` +
+      "A card retires after you have seen it 3 times, or when you tap Retire.";
+  }
+
   function finishSession() {
     studyCard.hidden = true;
     studyActions.hidden = true;
     studyDone.hidden = false;
-    studyProgressText.textContent = "Done";
     studyRemaining.textContent = "";
-    studyProgressBar.style.width = "100%";
-    if (exitUrl) {
-      window.location.assign(exitUrl);
+    if (queue.length) {
+      studyProgressText.textContent = "Done";
+      studyProgressBar.style.width = "100%";
+      studyDoneTitle.textContent = "Session complete";
+      studyDoneText.textContent = summaryText();
+    } else {
+      studyProgress.hidden = true;
+      studyDoneTitle.textContent = "Nothing to study";
+      studyDoneText.textContent = studyDoneText.dataset.emptyText;
+    }
+    // Studying again only helps if this session left unretired cards behind.
+    const canStudyAgain = queue.length > retiredThisSession.size;
+    studyAgain.hidden = !canStudyAgain;
+    studyExit.classList.toggle("btn--primary", !canStudyAgain);
+    studyExit.classList.toggle("btn--secondary", canStudyAgain);
+  }
+
+  function noteRetired(card, body) {
+    if (body && body.retired && !card.retired) {
+      retiredThisSession.add(card.id);
     }
   }
 
@@ -156,6 +197,7 @@
         window.LaQueta.showError(studyError, body.error || "Could not save seen");
         return;
       }
+      noteRetired(card, body);
       index += 1;
       renderCard();
     } finally {
@@ -193,6 +235,7 @@
         window.LaQueta.showError(studyError, body.error || "Could not retire");
         return;
       }
+      noteRetired(card, body);
       index += 1;
       renderCard();
     } finally {

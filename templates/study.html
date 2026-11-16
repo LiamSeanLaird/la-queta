@@ -9,9 +9,8 @@
   class="stack-lg"
   id="study-page"
   data-session-url="{{ session_url }}"
-  data-exit-url="{{ exit_url }}"
 >
-  <div class="progress-group">
+  <div class="progress-group" id="study-progress">
     <div class="progress-meta">
       <span id="study-progress-text">Loading…</span>
       <span id="study-remaining"></span>
@@ -35,7 +34,12 @@
       <button type="button" class="btn btn--secondary" id="study-next">Next</button>
     </div>
   </div>
-  <p class="text-muted" id="study-done" hidden>{{ done_message }}</p>
+  <div class="stack" id="study-done" hidden>
+    <h2 class="heading-3" id="study-done-title">Session complete</h2>
+    <p class="text-body" id="study-done-text" data-empty-text="{{ empty_message }}"></p>
+    <a class="btn btn--primary btn--block" href="{{ request.path }}" id="study-again">Study again</a>
+    <a class="btn btn--secondary btn--block" href="{{ exit_url }}" id="study-exit">{{ back_label }}</a>
+  </div>
   <p class="field__error" id="study-error" hidden></p>
 
   <dialog class="dialog" id="study-tip-dialog" aria-labelledby="study-tip-title">

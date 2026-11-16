@@ -193,7 +193,7 @@ def study(slug: str):
         session_url=url_for("api_vocab.deck_session", slug=slug),
         exit_url=url_for("pages.deck", slug=slug),
         back_label="Back to deck",
-        done_message="Deck complete for now - all cards retired or none left.",
+        empty_message="Every card in this deck is retired. Unretire the deck to study it again.",
         brand_href=url_for("pages.levels"),
     )
 
@@ -215,7 +215,7 @@ def daily(level_id: str):
         session_url=url_for("api_vocab.level_daily", level_id=level_id),
         exit_url=url_for("pages.level_home", level_id=level_id, tab="vocab"),
         back_label="Back to vocab",
-        done_message="Daily session complete.",
+        empty_message="There are no cards to review right now.",
         brand_href=url_for("pages.levels"),
     )
 
