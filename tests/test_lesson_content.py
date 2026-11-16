@@ -52,3 +52,19 @@ def test_practice_ids_are_unique_across_lessons():
         for item in json.loads(path.read_text(encoding="utf-8"))["practice"]
     ]
     assert len(ids) == len(set(ids))
+
+
+def test_ser_vs_estar_uses_ser_for_where_places_are():
+    lesson = _lesson("03-ser-vs-estar.json")
+    notes = {
+        item["catalan"]: item.get("note", "")
+        for section in lesson["sections"]
+        for item in section.get("items", [])
+    }
+    assert notes["On ets?"].endswith("- ser")
+    assert notes["On és l'estació?"].endswith("- ser")
+    station = next(item for item in lesson["practice"] if item["id"] == "se-p03")
+    assert station["answer"] == "On és l'estació? (ser)"
+    for item in lesson["practice"]:
+        if item["kind"] == "multiple_choice":
+            assert item["answer"] in item["options"]

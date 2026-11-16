@@ -45,7 +45,7 @@
     },
     {
       "type": "rule",
-      "content": "Use ESTAR for temporary states, location, and conditions that can change: how someone feels, where something is, ongoing actions."
+      "content": "Use ESTAR for temporary states and conditions that can change: how someone feels, how something is right now."
     },
     {
       "type": "examples",
@@ -56,9 +56,9 @@
           "note": "temporary state - estar"
         },
         {
-          "catalan": "On ets?",
-          "english": "Where are you?",
-          "note": "location - estar"
+          "catalan": "Estic bé, gràcies",
+          "english": "I'm fine, thanks",
+          "note": "how you feel - estar"
         },
         {
           "catalan": "El restaurant està tancat",
@@ -66,14 +66,38 @@
           "note": "temporary state - estar"
         },
         {
-          "catalan": "Estem a Barcelona",
-          "english": "We are in Barcelona",
-          "note": "location - estar"
-        },
-        {
           "catalan": "Com estàs?",
           "english": "How are you?",
           "note": "current state - estar (you know this from the starter deck!)"
+        }
+      ]
+    },
+    {
+      "type": "rule",
+      "content": "For WHERE something or someone is, Catalan normally uses SER + a: L'estació és a prop. With people, estar is also common: Estem a Barcelona."
+    },
+    {
+      "type": "examples",
+      "items": [
+        {
+          "catalan": "On és l'estació?",
+          "english": "Where is the station?",
+          "note": "location of a place - ser"
+        },
+        {
+          "catalan": "El bany és al fons",
+          "english": "The toilet is at the back",
+          "note": "location of a place - ser"
+        },
+        {
+          "catalan": "On ets?",
+          "english": "Where are you?",
+          "note": "location of a person - ser"
+        },
+        {
+          "catalan": "Som a Barcelona / Estem a Barcelona",
+          "english": "We are in Barcelona",
+          "note": "people: both are fine"
         }
       ]
     },
@@ -95,7 +119,7 @@
           "note": "ser / estar"
         },
         {
-          "catalan": "ell és / ell està",
+          "catalan": "ell/ella és / ell/ella està",
           "english": "he/she is",
           "note": "ser / estar"
         },
@@ -110,7 +134,7 @@
           "note": "ser / estar"
         },
         {
-          "catalan": "ells són / ells estan",
+          "catalan": "ells/elles són / ells/elles estan",
           "english": "they are",
           "note": "ser / estar"
         }
@@ -132,13 +156,13 @@
     {
       "id": "se-p02",
       "kind": "multiple_choice",
-      "question": "The café is closed today. Which is correct?",
+      "question": "I'm fine, thanks. Which is correct?",
       "options": [
-        "El cafè és tancat (ser)",
-        "El cafè està tancat (estar)"
+        "Soc bé, gràcies (ser)",
+        "Estic bé, gràcies (estar)"
       ],
-      "answer": "El cafè està tancat (estar)",
-      "explanation": "Temporary state → estar."
+      "answer": "Estic bé, gràcies (estar)",
+      "explanation": "How you feel → estar."
     },
     {
       "id": "se-p03",
@@ -148,8 +172,8 @@
         "On és l'estació? (ser)",
         "On està l'estació? (estar)"
       ],
-      "answer": "On està l'estació? (estar)",
-      "explanation": "Location → estar."
+      "answer": "On és l'estació? (ser)",
+      "explanation": "Where a place is → ser + a. 'On està...?' is common in speech, but 'On és...?' is the standard form."
     },
     {
       "id": "se-p04",
@@ -181,10 +205,10 @@
     {
       "id": "se-p07",
       "kind": "cloze",
-      "prompt": "Estem ___ Barcelona.",
+      "prompt": "Som ___ Barcelona.",
       "hint": "We are in Barcelona",
       "answer": "a",
-      "explanation": "Location with estar + a."
+      "explanation": "Location: ser/estar + a."
     },
     {
       "id": "se-p08",
@@ -214,6 +238,14 @@
         "El restaurant està tancat"
       ],
       "explanation": "Temporary → estar; està with accent."
+    },
+    {
+      "id": "se-p11",
+      "kind": "cloze",
+      "prompt": "On ___ el bany?",
+      "hint": "Where is the toilet?",
+      "answer": "és",
+      "explanation": "Where a place is → ser: és."
     },
     {
       "id": "se-l01",

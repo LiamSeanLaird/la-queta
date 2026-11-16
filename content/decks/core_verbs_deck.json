@@ -3,7 +3,7 @@
     "id": "vb_001",
     "catalan": "ser",
     "pronunciation": "SEH",
-    "english": "to be (identity, origin, job)",
+    "english": "to be (identity, origin, job, where things are)",
     "hint": "permanent traits: Soc la Marta. Soc de Londres.",
     "tags": [
       "verbs",
@@ -24,7 +24,7 @@
     "id": "vb_002",
     "catalan": "estar",
     "pronunciation": "uhs-TAH",
-    "english": "to be (state, location)",
+    "english": "to be (state, how you are)",
     "hint": "how or where you are: Estic cansat. Estic a casa.",
     "tags": [
       "verbs",
