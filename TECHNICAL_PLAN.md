@@ -159,6 +159,7 @@ Conventions: `STYLE_GUIDE.md` §3 (layers, statuses, error shape, POST-for-actio
 | GET | `/api/lessons/<id>` | Full lesson (sections + practice) |
 | POST | `/api/lessons/<id>/complete` | Perfect practice score required; mark complete |
 | GET | `/api/levels/<id>/decks` | Decks + stats |
+| GET | `/api/levels/<id>/daily` | Up to 20 unretired cards from decks the learner has started or whose lesson they completed (the first deck for a new learner), topped up from the next decks in order, then from retired ones |
 | GET | `/api/decks/<slug>/cards` | All cards + seen |
 | GET | `/api/decks/<slug>/session` | Unretired cards: already-seen ones shuffled first, then unseen ones in deck file order |
 | POST | `/api/cards/<id>/seen` | Increment seen |
@@ -244,7 +245,7 @@ Work in vertical slices. Each phase: **failing tests → structure → behaviour
 - [x] Browse: retired badge / muted row; Retire per row
 - [x] Study Retire → `POST /api/cards/<id>/retire` then advance
 - [x] Deck fully retired → Unretire deck (`POST /api/decks/<slug>/unretire`)
-- [x] Daily vocab across level unretired pool (`/levels/<id>/daily`)
+- [x] Daily vocab from the decks the learner has reached (`/levels/<id>/daily`)
 - [ ] Later (optional): browse filter active vs retired
 
 ### Phase 9 — A1 Practice ✅
