@@ -84,6 +84,27 @@
     ]
   },
   {
+    "id": "vb_023",
+    "catalan": "venir",
+    "pronunciation": "buh-NEE",
+    "english": "to come",
+    "hint": "Vinc de la feina. = I'm coming from work.",
+    "tags": [
+      "verbs",
+      "core"
+    ],
+    "pos": "verb",
+    "grammar_lesson_id": "present-tense",
+    "forms": [
+      "jo vinc",
+      "tu vens",
+      "ell/ella ve",
+      "nosaltres venim",
+      "vosaltres veniu",
+      "ells/elles venen"
+    ]
+  },
+  {
     "id": "vb_005",
     "catalan": "fer",
     "pronunciation": "FEH",
@@ -144,6 +165,27 @@
       "nosaltres podem",
       "vosaltres podeu",
       "ells/elles poden"
+    ]
+  },
+  {
+    "id": "vb_024",
+    "catalan": "haver de",
+    "pronunciation": "uh-BEH duh",
+    "english": "to have to / must",
+    "hint": "He de treballar. = I have to work.",
+    "tags": [
+      "verbs",
+      "core"
+    ],
+    "pos": "verb",
+    "grammar_lesson_id": "present-tense",
+    "forms": [
+      "jo he de",
+      "tu has de",
+      "ell/ella ha de",
+      "nosaltres hem de",
+      "vosaltres heu de",
+      "ells/elles han de"
     ]
   },
   {
@@ -459,6 +501,90 @@
       "nosaltres sortim",
       "vosaltres sortiu",
       "ells/elles surten"
+    ]
+  },
+  {
+    "id": "vb_025",
+    "catalan": "comprar",
+    "pronunciation": "koom-PRAH",
+    "english": "to buy",
+    "hint": "regular -ar verb: Compro pa i llet.",
+    "tags": [
+      "verbs",
+      "core"
+    ],
+    "pos": "verb",
+    "grammar_lesson_id": "present-tense",
+    "forms": [
+      "jo compro",
+      "tu compres",
+      "ell/ella compra",
+      "nosaltres comprem",
+      "vosaltres compreu",
+      "ells/elles compren"
+    ]
+  },
+  {
+    "id": "vb_026",
+    "catalan": "obrir",
+    "pronunciation": "oo-BREE",
+    "english": "to open",
+    "hint": "A quina hora obre? = What time does it open?",
+    "tags": [
+      "verbs",
+      "core"
+    ],
+    "pos": "verb",
+    "grammar_lesson_id": "present-tense",
+    "forms": [
+      "jo obro",
+      "tu obres",
+      "ell/ella obre",
+      "nosaltres obrim",
+      "vosaltres obriu",
+      "ells/elles obren"
+    ]
+  },
+  {
+    "id": "vb_027",
+    "catalan": "tancar",
+    "pronunciation": "tuhn-KAH",
+    "english": "to close",
+    "hint": "c becomes qu before e: tanques, tanquem.",
+    "tags": [
+      "verbs",
+      "core"
+    ],
+    "pos": "verb",
+    "grammar_lesson_id": "present-tense",
+    "forms": [
+      "jo tanco",
+      "tu tanques",
+      "ell/ella tanca",
+      "nosaltres tanquem",
+      "vosaltres tanqueu",
+      "ells/elles tanquen"
+    ]
+  },
+  {
+    "id": "vb_028",
+    "catalan": "agafar",
+    "pronunciation": "uh-guh-FAH",
+    "english": "to take / to catch",
+    "hint": "Agafo el bus. = I take the bus.",
+    "tags": [
+      "verbs",
+      "core"
+    ],
+    "pos": "verb",
+    "grammar_lesson_id": "present-tense",
+    "forms": [
+      "jo agafo",
+      "tu agafes",
+      "ell/ella agafa",
+      "nosaltres agafem",
+      "vosaltres agafeu",
+      "ells/elles agafen"
     ]
   }
 ]

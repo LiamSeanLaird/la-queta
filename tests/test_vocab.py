@@ -29,7 +29,7 @@ def test_seed_decks_into_a1(migrated_app):
         from app.models import Card, Deck
 
         assert db.session.scalar(select(func.count()).select_from(Deck)) == 18
-        assert db.session.scalar(select(func.count()).select_from(Card)) == 467
+        assert db.session.scalar(select(func.count()).select_from(Card)) == 473
         a2_decks = db.session.scalar(
             select(func.count()).select_from(Deck).where(Deck.level_id == "a2")
         )
@@ -384,14 +384,27 @@ def test_core_verbs_deck_has_full_present_tense(migrated_app, migrated_client):
 
     cards = migrated_client.get("/api/decks/core_verbs/cards").get_json()["cards"]
     by_word = {card["catalan"]: card for card in cards}
-    for verb in ("ser", "estar", "tenir", "anar", "fer", "voler", "poder", "saber", "dir"):
+    for verb in (
+        "ser", "estar", "tenir", "anar", "venir", "fer", "voler", "poder", "haver de",
+        "saber", "dir",
+    ):
         assert verb in by_word
+    assert 20 <= len(cards) <= 30
     persons = ["jo ", "tu ", "ell/ella ", "nosaltres ", "vosaltres ", "ells/elles "]
     for card in cards:
         assert card["pos"] == "verb"
         assert len(card["forms"]) == 6
         assert [form.startswith(p) for form, p in zip(card["forms"], persons)] == [True] * 6
     assert by_word["ser"]["forms"][0] == "jo soc"
+    assert by_word["venir"]["forms"] == [
+        "jo vinc", "tu vens", "ell/ella ve",
+        "nosaltres venim", "vosaltres veniu", "ells/elles venen",
+    ]
+    assert by_word["haver de"]["forms"][0] == "jo he de"
+    # The deck opens with the verbs the present-tense lesson leans on, in this order.
+    assert [card["catalan"] for card in cards[:6]] == [
+        "ser", "estar", "tenir", "anar", "venir", "fer",
+    ]
 
 
 def test_browse_shows_verb_forms_in_text_column(migrated_app, migrated_client):
