@@ -1,0 +1,464 @@
+[
+  {
+    "id": "vb_001",
+    "catalan": "ser",
+    "pronunciation": "SEH",
+    "english": "to be (identity, origin, job)",
+    "hint": "permanent traits: Soc la Marta. Soc de Londres.",
+    "tags": [
+      "verbs",
+      "core"
+    ],
+    "pos": "verb",
+    "grammar_lesson_id": "ser-vs-estar",
+    "forms": [
+      "jo soc",
+      "tu ets",
+      "ell/ella és",
+      "nosaltres som",
+      "vosaltres sou",
+      "ells/elles són"
+    ]
+  },
+  {
+    "id": "vb_002",
+    "catalan": "estar",
+    "pronunciation": "uhs-TAH",
+    "english": "to be (state, location)",
+    "hint": "how or where you are: Estic cansat. Estic a casa.",
+    "tags": [
+      "verbs",
+      "core"
+    ],
+    "pos": "verb",
+    "grammar_lesson_id": "ser-vs-estar",
+    "forms": [
+      "jo estic",
+      "tu estàs",
+      "ell/ella està",
+      "nosaltres estem",
+      "vosaltres esteu",
+      "ells/elles estan"
+    ]
+  },
+  {
+    "id": "vb_003",
+    "catalan": "tenir",
+    "pronunciation": "tuh-NEE",
+    "english": "to have",
+    "hint": "also for age: Tinc trenta anys.",
+    "tags": [
+      "verbs",
+      "core"
+    ],
+    "pos": "verb",
+    "grammar_lesson_id": "present-tense",
+    "forms": [
+      "jo tinc",
+      "tu tens",
+      "ell/ella té",
+      "nosaltres tenim",
+      "vosaltres teniu",
+      "ells/elles tenen"
+    ]
+  },
+  {
+    "id": "vb_004",
+    "catalan": "anar",
+    "pronunciation": "uh-NAH",
+    "english": "to go",
+    "hint": "Vaig a la feina. = I go to work.",
+    "tags": [
+      "verbs",
+      "core"
+    ],
+    "pos": "verb",
+    "grammar_lesson_id": "present-tense",
+    "forms": [
+      "jo vaig",
+      "tu vas",
+      "ell/ella va",
+      "nosaltres anem",
+      "vosaltres aneu",
+      "ells/elles van"
+    ]
+  },
+  {
+    "id": "vb_005",
+    "catalan": "fer",
+    "pronunciation": "FEH",
+    "english": "to do / to make",
+    "hint": "also weather: Fa calor. = It's hot.",
+    "tags": [
+      "verbs",
+      "core"
+    ],
+    "pos": "verb",
+    "grammar_lesson_id": "present-tense",
+    "forms": [
+      "jo faig",
+      "tu fas",
+      "ell/ella fa",
+      "nosaltres fem",
+      "vosaltres feu",
+      "ells/elles fan"
+    ]
+  },
+  {
+    "id": "vb_006",
+    "catalan": "voler",
+    "pronunciation": "boo-LEH",
+    "english": "to want",
+    "hint": "Vull un cafè, si us plau.",
+    "tags": [
+      "verbs",
+      "core"
+    ],
+    "pos": "verb",
+    "grammar_lesson_id": "present-tense",
+    "forms": [
+      "jo vull",
+      "tu vols",
+      "ell/ella vol",
+      "nosaltres volem",
+      "vosaltres voleu",
+      "ells/elles volen"
+    ]
+  },
+  {
+    "id": "vb_007",
+    "catalan": "poder",
+    "pronunciation": "poo-DEH",
+    "english": "can / to be able to",
+    "hint": "Puc pagar amb targeta?",
+    "tags": [
+      "verbs",
+      "core"
+    ],
+    "pos": "verb",
+    "grammar_lesson_id": "present-tense",
+    "forms": [
+      "jo puc",
+      "tu pots",
+      "ell/ella pot",
+      "nosaltres podem",
+      "vosaltres podeu",
+      "ells/elles poden"
+    ]
+  },
+  {
+    "id": "vb_008",
+    "catalan": "saber",
+    "pronunciation": "suh-BEH",
+    "english": "to know (a fact, how to)",
+    "hint": "No ho sé. = I don't know.",
+    "tags": [
+      "verbs",
+      "core"
+    ],
+    "pos": "verb",
+    "grammar_lesson_id": "present-tense",
+    "forms": [
+      "jo sé",
+      "tu saps",
+      "ell/ella sap",
+      "nosaltres sabem",
+      "vosaltres sabeu",
+      "ells/elles saben"
+    ]
+  },
+  {
+    "id": "vb_009",
+    "catalan": "conèixer",
+    "pronunciation": "koo-NEH-shuh",
+    "english": "to know (a person or place)",
+    "hint": "Conec Barcelona. = I know Barcelona.",
+    "tags": [
+      "verbs",
+      "core"
+    ],
+    "pos": "verb",
+    "grammar_lesson_id": "present-tense",
+    "forms": [
+      "jo conec",
+      "tu coneixes",
+      "ell/ella coneix",
+      "nosaltres coneixem",
+      "vosaltres coneixeu",
+      "ells/elles coneixen"
+    ]
+  },
+  {
+    "id": "vb_010",
+    "catalan": "dir",
+    "pronunciation": "DEE",
+    "english": "to say / to tell",
+    "hint": "Com es diu? = What's it called?",
+    "tags": [
+      "verbs",
+      "core"
+    ],
+    "pos": "verb",
+    "grammar_lesson_id": "present-tense",
+    "forms": [
+      "jo dic",
+      "tu dius",
+      "ell/ella diu",
+      "nosaltres diem",
+      "vosaltres dieu",
+      "ells/elles diuen"
+    ]
+  },
+  {
+    "id": "vb_011",
+    "catalan": "parlar",
+    "pronunciation": "puhr-LAH",
+    "english": "to speak",
+    "hint": "regular -ar verb: Parlo una mica de català.",
+    "tags": [
+      "verbs",
+      "core"
+    ],
+    "pos": "verb",
+    "grammar_lesson_id": "present-tense",
+    "forms": [
+      "jo parlo",
+      "tu parles",
+      "ell/ella parla",
+      "nosaltres parlem",
+      "vosaltres parleu",
+      "ells/elles parlen"
+    ]
+  },
+  {
+    "id": "vb_012",
+    "catalan": "viure",
+    "pronunciation": "BEE-oo-ruh",
+    "english": "to live",
+    "hint": "Visc a Girona. = I live in Girona.",
+    "tags": [
+      "verbs",
+      "core"
+    ],
+    "pos": "verb",
+    "grammar_lesson_id": "present-tense",
+    "forms": [
+      "jo visc",
+      "tu vius",
+      "ell/ella viu",
+      "nosaltres vivim",
+      "vosaltres viviu",
+      "ells/elles viuen"
+    ]
+  },
+  {
+    "id": "vb_013",
+    "catalan": "treballar",
+    "pronunciation": "truh-buh-YAH",
+    "english": "to work",
+    "hint": "regular -ar verb: Treballo en una botiga.",
+    "tags": [
+      "verbs",
+      "core"
+    ],
+    "pos": "verb",
+    "grammar_lesson_id": "present-tense",
+    "forms": [
+      "jo treballo",
+      "tu treballes",
+      "ell/ella treballa",
+      "nosaltres treballem",
+      "vosaltres treballeu",
+      "ells/elles treballen"
+    ]
+  },
+  {
+    "id": "vb_014",
+    "catalan": "estudiar",
+    "pronunciation": "uhs-too-dee-AH",
+    "english": "to study",
+    "hint": "regular -ar verb: Estudio català.",
+    "tags": [
+      "verbs",
+      "core"
+    ],
+    "pos": "verb",
+    "grammar_lesson_id": "present-tense",
+    "forms": [
+      "jo estudio",
+      "tu estudies",
+      "ell/ella estudia",
+      "nosaltres estudiem",
+      "vosaltres estudieu",
+      "ells/elles estudien"
+    ]
+  },
+  {
+    "id": "vb_015",
+    "catalan": "menjar",
+    "pronunciation": "muhn-ZHAH",
+    "english": "to eat",
+    "hint": "j becomes g before e: mengem, mengeu.",
+    "tags": [
+      "verbs",
+      "core"
+    ],
+    "pos": "verb",
+    "grammar_lesson_id": "present-tense",
+    "forms": [
+      "jo menjo",
+      "tu menges",
+      "ell/ella menja",
+      "nosaltres mengem",
+      "vosaltres mengeu",
+      "ells/elles mengen"
+    ]
+  },
+  {
+    "id": "vb_016",
+    "catalan": "beure",
+    "pronunciation": "BEH-oo-ruh",
+    "english": "to drink",
+    "hint": "Què vols beure? = What do you want to drink?",
+    "tags": [
+      "verbs",
+      "core"
+    ],
+    "pos": "verb",
+    "grammar_lesson_id": "present-tense",
+    "forms": [
+      "jo bec",
+      "tu beus",
+      "ell/ella beu",
+      "nosaltres bevem",
+      "vosaltres beveu",
+      "ells/elles beuen"
+    ]
+  },
+  {
+    "id": "vb_017",
+    "catalan": "veure",
+    "pronunciation": "BEH-oo-ruh",
+    "english": "to see",
+    "hint": "Ens veiem demà! = See you tomorrow!",
+    "tags": [
+      "verbs",
+      "core"
+    ],
+    "pos": "verb",
+    "grammar_lesson_id": "present-tense",
+    "forms": [
+      "jo veig",
+      "tu veus",
+      "ell/ella veu",
+      "nosaltres veiem",
+      "vosaltres veieu",
+      "ells/elles veuen"
+    ]
+  },
+  {
+    "id": "vb_018",
+    "catalan": "entendre",
+    "pronunciation": "uhn-TEN-druh",
+    "english": "to understand",
+    "hint": "No ho entenc. = I don't understand.",
+    "tags": [
+      "verbs",
+      "core"
+    ],
+    "pos": "verb",
+    "grammar_lesson_id": "present-tense",
+    "forms": [
+      "jo entenc",
+      "tu entens",
+      "ell/ella entén",
+      "nosaltres entenem",
+      "vosaltres enteneu",
+      "ells/elles entenen"
+    ]
+  },
+  {
+    "id": "vb_019",
+    "catalan": "llegir",
+    "pronunciation": "yuh-ZHEE",
+    "english": "to read",
+    "hint": "-eix- verb: llegeixo, llegeixes...",
+    "tags": [
+      "verbs",
+      "core"
+    ],
+    "pos": "verb",
+    "grammar_lesson_id": "present-tense",
+    "forms": [
+      "jo llegeixo",
+      "tu llegeixes",
+      "ell/ella llegeix",
+      "nosaltres llegim",
+      "vosaltres llegiu",
+      "ells/elles llegeixen"
+    ]
+  },
+  {
+    "id": "vb_020",
+    "catalan": "escriure",
+    "pronunciation": "uhs-KREE-oo-ruh",
+    "english": "to write",
+    "hint": "Escric un missatge. = I'm writing a message.",
+    "tags": [
+      "verbs",
+      "core"
+    ],
+    "pos": "verb",
+    "grammar_lesson_id": "present-tense",
+    "forms": [
+      "jo escric",
+      "tu escrius",
+      "ell/ella escriu",
+      "nosaltres escrivim",
+      "vosaltres escriviu",
+      "ells/elles escriuen"
+    ]
+  },
+  {
+    "id": "vb_021",
+    "catalan": "dormir",
+    "pronunciation": "door-MEE",
+    "english": "to sleep",
+    "hint": "Dormo vuit hores. = I sleep eight hours.",
+    "tags": [
+      "verbs",
+      "core"
+    ],
+    "pos": "verb",
+    "grammar_lesson_id": "present-tense",
+    "forms": [
+      "jo dormo",
+      "tu dorms",
+      "ell/ella dorm",
+      "nosaltres dormim",
+      "vosaltres dormiu",
+      "ells/elles dormen"
+    ]
+  },
+  {
+    "id": "vb_022",
+    "catalan": "sortir",
+    "pronunciation": "soor-TEE",
+    "english": "to go out / to leave",
+    "hint": "o becomes u in some forms: surto, surts, surt.",
+    "tags": [
+      "verbs",
+      "core"
+    ],
+    "pos": "verb",
+    "grammar_lesson_id": "present-tense",
+    "forms": [
+      "jo surto",
+      "tu surts",
+      "ell/ella surt",
+      "nosaltres sortim",
+      "vosaltres sortiu",
+      "ells/elles surten"
+    ]
+  }
+]

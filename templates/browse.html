@@ -23,6 +23,9 @@
         {% if card.hint %}
         <p class="vocab-hint">{{ card.hint }}</p>
         {% endif %}
+        {% if card.pos == 'verb' and card.forms %}
+        <p class="vocab-forms">{{ card.forms|join(' · ') }}</p>
+        {% endif %}
         {% if card.tags %}
         <p class="vocab-tags">
           {% for tag in card.tags %}
@@ -45,9 +48,6 @@
           <span class="gram-pill gram-pill--pl">pl: {{ card.plural }}</span>
           {% endif %}
         </div>
-        {% if card.pos == 'verb' and card.forms %}
-        <p class="vocab-forms">{{ card.forms|join(' · ') }}</p>
-        {% endif %}
         {% if card.retired %}
         <span class="badge badge--done">Retired</span>
         {% else %}

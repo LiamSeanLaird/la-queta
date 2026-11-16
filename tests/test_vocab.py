@@ -28,8 +28,8 @@ def test_seed_decks_into_a1(migrated_app):
         from app.extensions import db
         from app.models import Card, Deck
 
-        assert db.session.scalar(select(func.count()).select_from(Deck)) == 14
-        assert db.session.scalar(select(func.count()).select_from(Card)) == 318
+        assert db.session.scalar(select(func.count()).select_from(Deck)) == 15
+        assert db.session.scalar(select(func.count()).select_from(Card)) == 340
         a2_decks = db.session.scalar(
             select(func.count()).select_from(Deck).where(Deck.level_id == "a2")
         )
@@ -48,8 +48,8 @@ def test_list_a1_decks_and_empty_a2(migrated_app, migrated_client):
     a1 = migrated_client.get("/api/levels/a1/decks")
     assert a1.status_code == 200
     decks = a1.get_json()["decks"]
-    assert len(decks) == 14
-    assert decks[0]["slug"] == "starter"
+    assert len(decks) == 15
+    assert decks[0]["slug"] == "core_verbs"
     assert decks[0]["total"] > 0
     assert decks[0]["retired"] == 0
     assert decks[0]["remaining"] == decks[0]["total"]
@@ -163,3 +163,33 @@ def test_unretire_deck_resets_seen_and_restores_session(migrated_app, migrated_c
     assert all(card["seen"] == 0 and card["retired"] is False for card in restored)
     session = migrated_client.get("/api/decks/starter/session").get_json()["cards"]
     assert len(session) == len(cards)
+
+
+def test_core_verbs_deck_has_full_present_tense(migrated_app, migrated_client):
+    with migrated_app.app_context():
+        seed_all()
+    _register(migrated_client)
+
+    cards = migrated_client.get("/api/decks/core_verbs/cards").get_json()["cards"]
+    by_word = {card["catalan"]: card for card in cards}
+    for verb in ("ser", "estar", "tenir", "anar", "fer", "voler", "poder", "saber", "dir"):
+        assert verb in by_word
+    persons = ["jo ", "tu ", "ell/ella ", "nosaltres ", "vosaltres ", "ells/elles "]
+    for card in cards:
+        assert card["pos"] == "verb"
+        assert len(card["forms"]) == 6
+        assert [form.startswith(p) for form, p in zip(card["forms"], persons)] == [True] * 6
+    assert by_word["ser"]["forms"][0] == "jo soc"
+
+
+def test_browse_shows_verb_forms_in_text_column(migrated_app, migrated_client):
+    with migrated_app.app_context():
+        seed_all()
+    _register(migrated_client)
+
+    html = migrated_client.get("/decks/core_verbs/browse").get_data(as_text=True)
+    forms = '<p class="vocab-forms">jo soc · tu ets · ell/ella és'
+    assert forms in html
+    # Forms sit in the wrapping text column, not the fixed-width meta column.
+    row = html[html.index('data-card-id'):]
+    assert row.index(forms) < row.index('class="vocab-meta"')

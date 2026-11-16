@@ -9,8 +9,8 @@ Programme scenarios (escenaris) → our content:
 |---|---|---|---|---|
 | Personal (identity) | Greetings & introductions | `introductions` | `starter` | ok |
 | Cross-cutting | Noun gender & articles | `noun-gender`, `definite-articles` | — | ok |
-| Cross-cutting | Ser vs estar | `ser-vs-estar` | — | ok |
-| Cross-cutting | Present tense | `present-tense` | — | ok |
+| Cross-cutting | Ser vs estar | `ser-vs-estar` | `core_verbs` | ok |
+| Cross-cutting | Present tense | `present-tense` | `core_verbs` | ok |
 | Personal / public | Numbers / price / age | `numbers` | `days_months`, `everyday` | ok |
 | Cross-cutting | Question words | `question-words` | `social_phrases` | ok |
 | Comercial (bars/restaurants) | Food & café | `food-cafe` | `everyday` | ok |

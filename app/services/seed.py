@@ -20,20 +20,21 @@ DEFAULT_DECK_LEVEL_ID = DEFAULT_CONTENT_LEVEL_ID
 
 # Stable ordering for hub display.
 DECK_SORT_ORDER = {
-    "starter": 1,
-    "everyday": 2,
-    "days_months": 3,
-    "travel": 4,
-    "family": 5,
-    "home_daily": 6,
-    "social_phrases": 7,
-    "shopping": 8,
-    "health": 9,
-    "admin": 10,
-    "work": 11,
-    "leisure": 12,
-    "education": 13,
-    "signs": 14,
+    "core_verbs": 1,
+    "starter": 2,
+    "everyday": 3,
+    "days_months": 4,
+    "travel": 5,
+    "family": 6,
+    "home_daily": 7,
+    "social_phrases": 8,
+    "shopping": 9,
+    "health": 10,
+    "admin": 11,
+    "work": 12,
+    "leisure": 13,
+    "education": 14,
+    "signs": 15,
 }
 
 
