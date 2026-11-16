@@ -54,3 +54,41 @@ def test_singular_article_matches_the_gender():
         for article, gender in SINGULAR_ARTICLE_GENDER.items():
             if word.startswith(article):
                 assert card["gender"] == gender, (name, card["id"], word, card["gender"])
+
+
+# Every card's part of speech comes from this fixed set, so the browse page's
+# pill labels and the noun format checks above stay consistent.
+ALLOWED_POS = {
+    "noun",
+    "verb",
+    "adjective",
+    "adverb",
+    "pronoun",
+    "number",
+    "interjection",
+    "phrase",
+}
+
+
+def _cards():
+    for path in sorted(DECKS.glob("*_deck*.json")):
+        for card in json.loads(path.read_text(encoding="utf-8")):
+            yield path.name, card
+
+
+def test_every_card_has_a_pos_from_the_fixed_set():
+    for name, card in _cards():
+        assert card.get("pos") in ALLOWED_POS, (name, card["id"], card.get("pos"))
+
+
+def test_article_led_cards_are_nouns():
+    # A lowercase article starts a noun ("la data de naixement"), while a
+    # capitalised one starts a sentence ("El meu NIE és..."), which stays a phrase.
+    for name, card in _cards():
+        if card["catalan"].startswith(("el ", "la ", "l'", "els ", "les ")):
+            assert card["pos"] == "noun", (
+                name,
+                card["id"],
+                card["catalan"],
+                card["pos"],
+            )

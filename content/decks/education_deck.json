@@ -1,7 +1,7 @@
 [
   {"id": "edu_005", "catalan": "el CPNL", "pronunciation": "ul seh-peh-eh-NEHL", "english": "CPNL (language consortium)", "hint": "", "tags": ["education"], "pos": "noun", "gender": "m", "plural": "—"},
   {"id": "edu_006", "catalan": "l'EOI", "pronunciation": "leh-oh-EE", "english": "official language school (EOI)", "hint": "", "tags": ["education"], "pos": "noun", "gender": "f", "plural": "les EOI"},
-  {"id": "edu_004", "catalan": "l'escola d'adults", "pronunciation": "luhs-KO-luh duh-DOOLTS", "english": "the adult school", "hint": "", "tags": ["education"], "pos": "phrase"},
+  {"id": "edu_004", "catalan": "l'escola d'adults", "pronunciation": "luhs-KO-luh duh-DOOLTS", "english": "the adult school", "hint": "", "tags": ["education"], "pos": "noun", "gender": "f", "plural": "les escoles d'adults"},
   {"id": "edu_008", "catalan": "l'institut", "pronunciation": "lin-stee-TOOT", "english": "the secondary school", "hint": "", "tags": ["education"], "pos": "noun", "gender": "m", "plural": "els instituts"},
   {"id": "edu_007", "catalan": "la universitat", "pronunciation": "luh oo-nee-bur-see-TAT", "english": "the university", "hint": "", "tags": ["education"], "pos": "noun", "gender": "f", "plural": "les universitats"},
   {"id": "edu_001", "catalan": "el curs", "pronunciation": "ul koors", "english": "the course", "hint": "", "tags": ["education"], "pos": "noun", "gender": "m", "plural": "els cursos"},

@@ -145,13 +145,15 @@
   {
     "id": "ev_046",
     "catalan": "el pa amb tomàquet",
-    "pronunciation": "ul pan um too-MAH-kut",
+    "pronunciation": "ul pah um too-MAH-kut",
     "english": "bread with tomato",
     "hint": "",
     "tags": [
       "food"
     ],
-    "pos": "phrase"
+    "pos": "noun",
+    "gender": "m",
+    "plural": "—"
   },
   {
     "id": "ev_047",

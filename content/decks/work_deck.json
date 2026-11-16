@@ -2,7 +2,7 @@
   {"id": "wk_001", "catalan": "la feina", "pronunciation": "luh FEH-nuh", "english": "the job / work", "hint": "", "tags": ["work"], "pos": "noun", "gender": "f", "plural": "les feines"},
   {"id": "wk_012", "catalan": "l'empresa", "pronunciation": "lum-PREH-zuh", "english": "the company", "hint": "", "tags": ["work"], "pos": "noun", "gender": "f", "plural": "les empreses"},
   {"id": "wk_002", "catalan": "l'oficina", "pronunciation": "loo-fee-SEE-nuh", "english": "the office", "hint": "", "tags": ["work"], "pos": "noun", "gender": "f", "plural": "les oficines"},
-  {"id": "wk_015", "catalan": "l'Oficina de Treball", "pronunciation": "loo-fee-SEE-nuh duh truh-BAHL", "english": "the employment office", "hint": "", "tags": ["work"], "pos": "phrase"},
+  {"id": "wk_015", "catalan": "l'Oficina de Treball", "pronunciation": "loo-fee-SEE-nuh duh truh-BAHL", "english": "the employment office", "hint": "", "tags": ["work"], "pos": "noun", "gender": "f", "plural": "—"},
   {"id": "wk_011", "catalan": "el sou", "pronunciation": "ul SOH", "english": "the salary", "hint": "", "tags": ["work"], "pos": "noun", "gender": "m", "plural": "els sous"},
   {"id": "wk_016", "catalan": "l'horari", "pronunciation": "loo-RAH-ree", "english": "the working hours / timetable", "hint": "Quin horari tens? = What hours do you work?", "tags": ["work"], "pos": "noun", "gender": "m", "plural": "els horaris"},
   {"id": "wk_017", "catalan": "la reunió", "pronunciation": "luh reh-oo-nee-OH", "english": "the meeting", "hint": "", "tags": ["work"], "pos": "noun", "gender": "f", "plural": "les reunions"},
