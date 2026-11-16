@@ -29,7 +29,7 @@ def test_seed_decks_into_a1(migrated_app):
         from app.models import Card, Deck
 
         assert db.session.scalar(select(func.count()).select_from(Deck)) == 18
-        assert db.session.scalar(select(func.count()).select_from(Card)) == 454
+        assert db.session.scalar(select(func.count()).select_from(Card)) == 467
         a2_decks = db.session.scalar(
             select(func.count()).select_from(Deck).where(Deck.level_id == "a2")
         )
@@ -213,6 +213,25 @@ def test_education_deck_covers_what_the_education_lesson_teaches():
     } <= set(education)
     # Classroom phrases a learner needs in their first course.
     assert {"Com s'escriu?", "Puc fer una pregunta?"} <= set(education)
+
+
+def test_leisure_deck_covers_what_the_leisure_lesson_teaches():
+    leisure = {card["catalan"]: card for card in _deck_cards("leisure")}
+    assert 20 <= len(leisure) <= 30
+    assert _lesson_deck("leisure") == "leisure"
+    # The lesson's example lines and rule phrases are all in the deck.
+    assert {
+        "M'agrada llegir",
+        "Què fas al cap de setmana?",
+        "Vols venir al cinema?",
+        "Vols venir amb mi?",
+        "Anem a passejar",
+        "Escolto música",
+        "el cinema",
+        "el concert",
+    } <= set(leisure)
+    # Saying what you like and don't like, and arranging to meet.
+    assert {"Què t'agrada fer?", "No m'agrada", "A quina hora quedem?"} <= set(leisure)
 
 
 def test_seed_rejects_deck_without_title(migrated_app, monkeypatch):
