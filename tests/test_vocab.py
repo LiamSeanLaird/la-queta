@@ -29,7 +29,7 @@ def test_seed_decks_into_a1(migrated_app):
         from app.models import Card, Deck
 
         assert db.session.scalar(select(func.count()).select_from(Deck)) == 18
-        assert db.session.scalar(select(func.count()).select_from(Card)) == 405
+        assert db.session.scalar(select(func.count()).select_from(Card)) == 418
         a2_decks = db.session.scalar(
             select(func.count()).select_from(Deck).where(Deck.level_id == "a2")
         )
@@ -149,6 +149,25 @@ def test_question_words_deck_has_every_word_the_lesson_teaches():
     # Words that change for gender show both forms, like adjectives elsewhere.
     assert "quants / quantes" in phrases["Quant / quanta?"]["hint"]
     assert {"Com es diu això?", "Què vol dir...?"} <= set(phrases)
+
+
+def test_admin_deck_covers_what_the_public_services_lesson_teaches():
+    admin = {card["catalan"]: card for card in _deck_cards("admin")}
+    assert 20 <= len(admin) <= 30
+    assert _lesson_deck("public-admin") == "admin"
+    # The lesson's key lines and the details a form asks for are all in the deck.
+    assert {
+        "Necessito ajuda",
+        "Vull informació",
+        "Vull demanar una cita",
+        "El meu NIE és...",
+        "On és l'Ajuntament?",
+    } <= set(admin)
+    assert {"el nom", "el cognom", "l'adreça", "el número de telèfon", "la signatura"} <= set(admin)
+    # Moved from Travel with its id kept, so learner progress follows it.
+    assert admin["Necessito ajuda"]["id"] == "tr_030"
+    assert "Necessito ajuda" not in {card["catalan"] for card in _deck_cards("travel")}
+
 
 def test_seed_rejects_deck_without_title(migrated_app, monkeypatch):
     import pytest
