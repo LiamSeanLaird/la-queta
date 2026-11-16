@@ -3,6 +3,7 @@
   "title": "Family",
   "order": 11,
   "summary": "Name close family and say who people are with meu / meva.",
+  "deck": "family",
   "sections": [
     {
       "type": "text",

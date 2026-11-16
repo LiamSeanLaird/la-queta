@@ -23,6 +23,7 @@ Flashcards / browse rows carry prototype vocab meta on the Catalan side: pronunc
 Study flow: first-load tip dialog (Don’t show again); tap or Enter flips Catalan → English, then advances (seen++); Back revisits the previous card; Retire confirms once. Finished / empty session redirects to the deck. Deck page shows retired progress bar; when fully retired, Unretire deck replaces Study (POST unretire → seen 0). Interaction chrome stays off the card — only pedagogical `hint` text appears when present.
 
 Lessons use Learn | Practice tabs. Practice is one-item-at-a-time (MC / cloze / type-in / listen_* / speak); typed/STT answers normalize case/space and strip punctuation but keep accents. Cloze prompts say fill-the-blank-only; wrong typed Check offers Show answer once. Listening uses browser TTS (`speech.js`). Lesson completes only after a perfect Practice run.
+When Practice ends the learner stays on the lesson: a done panel offers the lesson's matching vocab deck (primary, while it has cards left), the next incomplete lesson, and Back to lessons.
 
 - **Markup + classes:** `templates/style_guide.html`
 - **Shared styles:** `static/app.css` (gallery chrome uses `.sg-*`; app components do not)

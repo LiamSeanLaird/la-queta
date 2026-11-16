@@ -3,6 +3,7 @@
   "title": "Leisure",
   "order": 18,
   "summary": "Talk about free time, hobbies, and simple plans with friends.",
+  "deck": "leisure",
   "sections": [
     {
       "type": "text",

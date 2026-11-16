@@ -3,6 +3,7 @@
   "title": "Home & Routine",
   "order": 12,
   "summary": "Name rooms at home and say simple daily actions.",
+  "deck": "home_daily",
   "sections": [
     {
       "type": "text",

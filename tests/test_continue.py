@@ -75,7 +75,7 @@ def test_continue_advances_after_lesson_complete(migrated_app, migrated_client):
 
     lesson = migrated_client.get("/lessons/noun-gender")
     assert lesson.status_code == 200
-    assert b"Continue: Definite Articles" in lesson.data or b"Definite Articles" in lesson.data
+    assert b"Next lesson: Definite Articles" in lesson.data
 
     level = migrated_client.get("/levels/a1")
     assert b"Continue:" not in level.data

@@ -73,6 +73,7 @@ def seed_lessons(level_id: str = DEFAULT_LESSON_LEVEL_ID) -> int:
         lesson.title = raw["title"]
         lesson.summary = raw.get("summary") or ""
         lesson.sort_order = int(raw.get("order") or raw.get("sort_order") or 0)
+        lesson.deck_slug = raw.get("deck")
         sections = list(raw.get("sections") or [])
         practice = list(raw.get("practice") or [])
         # Teach surface never keeps inline exercises.

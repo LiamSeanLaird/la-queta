@@ -8,7 +8,7 @@ from app.services.errors import ServiceError
 from app.services.can_dos import can_dos_progress, learn_groups_for_level, vocab_groups_for_level
 from app.services.lessons import get_lesson, list_lessons_for_level
 from app.services.levels import list_levels_for_user, select_level, level_is_open
-from app.services.progress import continue_target, level_completeness_pct
+from app.services.progress import continue_target, lesson_next_steps, level_completeness_pct
 from app.services.vocab import list_cards_for_deck, list_decks_for_level
 
 bp = Blueprint("pages", __name__)
@@ -129,20 +129,15 @@ def lesson(lesson_id: str):
     if tab not in {"learn", "practice"}:
         tab = "learn"
 
-    next_target = None
-    next_href = None
-    if lesson_data["completed"]:
-        next_target = continue_target(user, level_id=lesson_data["level_id"])
-        if next_target is not None:
-            next_href = _continue_href(next_target)
+    next_steps = lesson_next_steps(user, lesson_data["id"])
 
     return render_template(
         "lesson.html",
         user=user,
         lesson=lesson_data,
         tab=tab,
-        next_target=next_target,
-        next_href=next_href,
+        next_deck=next_steps["deck"],
+        next_lesson=next_steps["next_lesson"],
         brand_href=url_for("pages.levels"),
     )
 

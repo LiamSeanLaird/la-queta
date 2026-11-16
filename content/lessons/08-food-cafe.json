@@ -3,6 +3,7 @@
   "title": "Food & Café",
   "order": 8,
   "summary": "Order a drink or snack and understand simple café language.",
+  "deck": "everyday",
   "sections": [
     {
       "type": "text",

@@ -3,6 +3,7 @@
   "title": "Ser vs Estar",
   "order": 3,
   "summary": "Catalan has two verbs meaning 'to be'. Which you use depends on what you're describing.",
+  "deck": "core_verbs",
   "sections": [
     {
       "type": "text",

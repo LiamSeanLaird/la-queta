@@ -3,6 +3,7 @@
   "title": "Present Tense Verbs",
   "order": 4,
   "summary": "Most Catalan verbs follow predictable conjugation patterns in the present tense.",
+  "deck": "core_verbs",
   "sections": [
     {
       "type": "text",

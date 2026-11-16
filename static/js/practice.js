@@ -9,7 +9,6 @@
   const practiceEmpty = document.getElementById("practice-empty");
   const practiceDone = document.getElementById("practice-done");
   const practiceError = document.getElementById("practice-error");
-  const lessonsUrl = page.dataset.lessonsUrl;
   const alreadyCompleted = page.dataset.completed === "true";
   const Speech = window.LaQueta && window.LaQueta.Speech;
 
@@ -347,16 +346,22 @@
     }
   }
 
+  function showDonePanel() {
+    practiceDone.hidden = false;
+    practiceDone.querySelector("a")?.focus();
+  }
+
   async function finish() {
     if (finishing) return;
     finishing = true;
     practiceItem.hidden = true;
-    practiceDone.hidden = false;
     practiceProgressText.textContent = "Done";
     practiceProgressBar.style.width = "100%";
 
+    // The done panel (rendered by the server) offers the matching vocab deck
+    // and the next lesson, so the learner stays here instead of being redirected.
     if (alreadyCompleted) {
-      if (lessonsUrl) window.location.assign(lessonsUrl);
+      showDonePanel();
       return;
     }
 
@@ -378,25 +383,14 @@
       return;
     }
 
+    showDonePanel();
     const unlocked = Array.isArray(body.goals_unlocked) ? body.goals_unlocked : [];
-    const goNext = () => {
-      if (lessonsUrl) window.location.assign(lessonsUrl);
-    };
-    if (unlocked.length) {
-      const dialog = document.getElementById("goal-unlock-dialog");
-      const labelEl = document.getElementById("goal-unlock-label");
-      if (dialog && labelEl) {
-        labelEl.textContent = unlocked.map((g) => g.label).join(" · ");
-        const onClose = () => {
-          dialog.removeEventListener("close", onClose);
-          goNext();
-        };
-        dialog.addEventListener("close", onClose);
-        dialog.showModal();
-        return;
-      }
+    const dialog = document.getElementById("goal-unlock-dialog");
+    const labelEl = document.getElementById("goal-unlock-label");
+    if (unlocked.length && dialog && labelEl) {
+      labelEl.textContent = unlocked.map((g) => g.label).join(" · ");
+      dialog.showModal();
     }
-    goNext();
   }
 
   function advance() {

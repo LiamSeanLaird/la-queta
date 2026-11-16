@@ -3,6 +3,7 @@
   "title": "Question Words",
   "order": 6,
   "summary": "The question words that let you ask your way through any conversation.",
+  "deck": "starter",
   "sections": [
     {
       "type": "text",

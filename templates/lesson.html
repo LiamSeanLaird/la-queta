@@ -10,7 +10,6 @@
   id="lesson-page"
   data-lesson-id="{{ lesson.id }}"
   data-completed="{{ 'true' if lesson.completed else 'false' }}"
-  data-lessons-url="{{ url_for('pages.level_home', level_id=lesson.level_id) }}"
   data-tab="{{ tab }}"
 >
   <div>
@@ -55,8 +54,11 @@
     {% endfor %}
   </div>
   <a class="btn btn--primary btn--block" href="{{ url_for('pages.lesson', lesson_id=lesson.id, tab='practice') }}">Go to Practice</a>
-  {% if lesson.completed and next_href %}
-  <a class="btn btn--secondary btn--block" href="{{ next_href }}">{{ next_target.label }}</a>
+  {% if lesson.completed and next_deck %}
+  <a class="btn btn--secondary btn--block" href="{{ url_for('pages.study', slug=next_deck.slug) }}">Study vocab: {{ next_deck.title }}</a>
+  {% endif %}
+  {% if lesson.completed and next_lesson %}
+  <a class="btn btn--secondary btn--block" href="{{ url_for('pages.lesson', lesson_id=next_lesson.id) }}">Next lesson: {{ next_lesson.title }}</a>
   {% endif %}
 
   {% else %}
@@ -72,7 +74,17 @@
     </div>
     <div class="stack" id="practice-item" hidden></div>
     <p class="text-muted" id="practice-empty" hidden>No practice items for this lesson yet.</p>
-    <p class="text-muted" id="practice-done" hidden>Practice complete — well done.</p>
+    <div class="stack" id="practice-done" hidden>
+      <h2 class="heading-3">Lesson complete - well done.</h2>
+      {% if next_deck %}
+      <p class="text-body">Now learn the words that go with it: {{ next_deck.remaining }} cards in {{ next_deck.title }}.</p>
+      <a class="btn btn--primary btn--block" href="{{ url_for('pages.study', slug=next_deck.slug) }}">Study vocab: {{ next_deck.title }}</a>
+      {% endif %}
+      {% if next_lesson %}
+      <a class="btn {{ 'btn--secondary' if next_deck else 'btn--primary' }} btn--block" href="{{ url_for('pages.lesson', lesson_id=next_lesson.id) }}">Next lesson: {{ next_lesson.title }}</a>
+      {% endif %}
+      <a class="btn btn--ghost btn--block" href="{{ url_for('pages.level_home', level_id=lesson.level_id) }}">Back to lessons</a>
+    </div>
     <p class="field__error" id="practice-error" hidden></p>
   </div>
   <script type="application/json" id="practice-data">{{ lesson.practice|tojson }}</script>

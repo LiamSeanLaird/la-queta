@@ -3,6 +3,7 @@
   "title": "Work",
   "order": 17,
   "summary": "Say your job, where you work, and talk about a simple workday.",
+  "deck": "work",
   "sections": [
     {
       "type": "text",

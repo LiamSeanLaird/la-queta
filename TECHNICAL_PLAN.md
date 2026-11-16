@@ -84,6 +84,7 @@ lessons
   sort_order
   sections_json  -- teach sections: text | rule | examples
   practice_json  -- practice bank: multiple_choice | cloze | type_in
+  deck_slug      -- matching vocab deck (lesson JSON `deck`), offered when practice ends
 
 decks
   id PK

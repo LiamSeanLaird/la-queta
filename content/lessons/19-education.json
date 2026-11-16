@@ -3,6 +3,7 @@
   "title": "Education & Courses",
   "order": 19,
   "summary": "Talk about classes, enrol on a course, and name common learning places.",
+  "deck": "education",
   "sections": [
     {
       "type": "text",

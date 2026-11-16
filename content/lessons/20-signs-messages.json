@@ -3,6 +3,7 @@
   "title": "Signs & Messages",
   "order": 20,
   "summary": "Read short notices and reply to simple everyday messages — exam-style survival.",
+  "deck": "signs",
   "sections": [
     {
       "type": "text",

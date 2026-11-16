@@ -3,6 +3,7 @@
   "title": "Shopping",
   "order": 10,
   "summary": "Ask for prices, sizes, and take or refuse items in a shop.",
+  "deck": "shopping",
   "sections": [
     {
       "type": "text",

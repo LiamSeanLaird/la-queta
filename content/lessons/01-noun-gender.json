@@ -3,6 +3,7 @@
   "title": "Noun Gender",
   "order": 1,
   "summary": "Every noun is either masculine or feminine — and adjectives must match.",
+  "deck": "everyday",
   "sections": [
     {
       "type": "text",

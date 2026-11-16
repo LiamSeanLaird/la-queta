@@ -3,6 +3,7 @@
   "title": "Time & Calendar",
   "order": 14,
   "summary": "Say the day, ask the time, and place events on the calendar.",
+  "deck": "days_months",
   "sections": [
     {
       "type": "text",
