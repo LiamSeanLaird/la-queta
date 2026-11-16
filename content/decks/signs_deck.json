@@ -4,7 +4,6 @@
   {"id": "sg_005", "catalan": "Sortida", "pronunciation": "sor-TEE-duh", "english": "Exit", "hint": "", "tags": ["signs"], "pos": "noun", "gender": "f", "plural": "les sortides"},
   {"id": "sg_007", "catalan": "Empeny", "pronunciation": "um-PEN-y", "english": "Push", "hint": "door sign", "tags": ["signs"], "pos": "phrase"},
   {"id": "sg_008", "catalan": "Estira", "pronunciation": "uhs-TEE-ruh", "english": "Pull", "hint": "door sign", "tags": ["signs"], "pos": "phrase"},
-  {"id": "sg_010", "catalan": "Fins demà", "pronunciation": "feens duh-MAH", "english": "See you tomorrow", "hint": "chat", "tags": ["messages"], "pos": "phrase"},
   {"id": "sg_011", "catalan": "No puc avui", "pronunciation": "noh pook uh-VOO-ee", "english": "I can't today", "hint": "chat", "tags": ["messages"], "pos": "phrase"},
   {"id": "sg_012", "catalan": "Què et sembla?", "pronunciation": "keh ut SEM-bluh", "english": "What do you think?", "hint": "chat", "tags": ["messages"], "pos": "phrase"},
   {"id": "sg_013", "catalan": "Ens veiem allà", "pronunciation": "uns veh-YEM uh-YAH", "english": "See you there", "hint": "chat", "tags": ["messages"], "pos": "phrase"},

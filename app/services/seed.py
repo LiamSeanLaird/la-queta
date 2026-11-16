@@ -43,7 +43,7 @@ DECK_SORT_ORDER = {
 # lesson done panel ("Study vocab: <title>"), so every deck file needs one.
 DECK_TITLES = {
     "core_verbs": "Core Verbs",
-    "starter": "Greetings & Basics",
+    "starter": "Greetings & Introductions",
     "everyday": "Describing Words",
     "food_drink": "Food & Drink",
     "days_months": "Days, Months & Time",
@@ -51,7 +51,7 @@ DECK_TITLES = {
     "travel": "Travel & Transport",
     "family": "Family",
     "home_daily": "Home & Daily Routine",
-    "social_phrases": "Polite Phrases",
+    "social_phrases": "Polite & Useful Phrases",
     "shopping": "Shopping",
     "health": "Health",
     "admin": "Paperwork & Offices",

@@ -3,7 +3,7 @@
   "title": "Question Words",
   "order": 6,
   "summary": "The question words that let you ask your way through any conversation.",
-  "deck": "starter",
+  "deck": "social_phrases",
   "sections": [
     {
       "type": "text",
@@ -74,7 +74,7 @@
         {
           "catalan": "Qui és?",
           "english": "Who is it?",
-          "note": "on + és"
+          "note": "qui + és"
         },
         {
           "catalan": "Quan dinem?",

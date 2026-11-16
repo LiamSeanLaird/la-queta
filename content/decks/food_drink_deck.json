@@ -259,5 +259,49 @@
       "food"
     ],
     "pos": "phrase"
+  },
+  {
+    "id": "basic_009",
+    "catalan": "Tinc gana",
+    "pronunciation": "tink GAH-nuh",
+    "english": "I'm hungry",
+    "hint": "literally 'I have hunger'",
+    "tags": [
+      "food"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "basic_010",
+    "catalan": "Tinc set",
+    "pronunciation": "tink set",
+    "english": "I'm thirsty",
+    "hint": "literally 'I have thirst'",
+    "tags": [
+      "food"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "soc023",
+    "catalan": "Bon profit!",
+    "pronunciation": "bon proh-FEET",
+    "english": "Enjoy your meal!",
+    "hint": "said before eating — you'll hear this every day",
+    "tags": [
+      "food"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "soc024",
+    "catalan": "Estava molt bo",
+    "pronunciation": "es-TAH-vah mol BOH",
+    "english": "It was very good",
+    "hint": "say this after meals to compliment the cook",
+    "tags": [
+      "food"
+    ],
+    "pos": "phrase"
   }
 ]

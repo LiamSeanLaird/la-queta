@@ -73,7 +73,7 @@ def test_level_home_learn_and_vocab(migrated_app, migrated_client):
 
     vocab = migrated_client.get("/levels/a1?tab=vocab")
     assert vocab.status_code == 200
-    assert b"Greetings &amp; Basics" in vocab.data
+    assert b"Greetings &amp; Introductions" in vocab.data
     assert b"/decks/starter" in vocab.data
 
 

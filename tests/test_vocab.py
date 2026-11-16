@@ -105,6 +105,35 @@ def test_travel_and_directions_are_separate_one_topic_decks():
     assert {"Puc pagar amb targeta?", "l'efectiu", "el canvi"} <= shopping
 
 
+def test_greetings_and_polite_phrases_are_separate_one_topic_decks():
+    import json
+
+    from app.services.seed import CONTENT
+
+    def lesson_deck(lesson):
+        path = CONTENT / "lessons" / f"{lesson}.json"
+        return json.loads(path.read_text(encoding="utf-8"))["deck"]
+
+    greetings = _deck_cards("starter")
+    phrases = _deck_cards("social_phrases")
+    assert 20 <= len(greetings) <= 30
+    assert 20 <= len(phrases) <= 30
+    assert all(card["tags"] == ["greetings"] for card in greetings)
+    assert all(card["tags"] == ["phrases"] for card in phrases)
+    assert lesson_deck("07-introductions") == "starter"
+    assert lesson_deck("06-question-words") == "social_phrases"
+
+    greeting_words = {card["catalan"] for card in greetings}
+    phrase_words = {card["catalan"] for card in phrases}
+    assert {"Bon dia", "Em dic...", "Fins demà", "Estic bé"} <= greeting_words
+    assert {"Gràcies", "Perdoni", "No entenc", "Pots repetir?"} <= phrase_words
+    # Meal phrases and hunger/thirst live in Food & Drink.
+    food = {card["catalan"] for card in _deck_cards("food_drink")}
+    assert {"Tinc gana", "Tinc set", "Bon profit!", "Estava molt bo"} <= food
+    # Short social messages are not signs.
+    assert "Fins demà" not in {card["catalan"] for card in _deck_cards("signs")}
+
+
 def test_seed_rejects_deck_without_title(migrated_app, monkeypatch):
     import pytest
 
