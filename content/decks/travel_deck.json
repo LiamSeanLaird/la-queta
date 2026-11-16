@@ -141,17 +141,6 @@
     "pos": "phrase"
   },
   {
-    "id": "tr_012",
-    "catalan": "A quina hora...?",
-    "pronunciation": "uh KEE-nuh OH-ruh",
-    "english": "At what time...?",
-    "hint": "",
-    "tags": [
-      "phrases"
-    ],
-    "pos": "phrase"
-  },
-  {
     "id": "tr_013",
     "catalan": "Quan surt...?",
     "pronunciation": "kwan surt",
@@ -315,32 +304,6 @@
     "pos": "noun",
     "gender": "m",
     "plural": "els restaurants"
-  },
-  {
-    "id": "tr_026",
-    "catalan": "la farmàcia",
-    "pronunciation": "luh far-MAH-syuh",
-    "english": "the pharmacy",
-    "hint": "",
-    "tags": [
-      "places"
-    ],
-    "pos": "noun",
-    "gender": "f",
-    "plural": "les farmàcies"
-  },
-  {
-    "id": "tr_027",
-    "catalan": "l'hospital",
-    "pronunciation": "lus-pee-TAL",
-    "english": "the hospital",
-    "hint": "",
-    "tags": [
-      "places"
-    ],
-    "pos": "noun",
-    "gender": "m",
-    "plural": "els hospitals"
   },
   {
     "id": "tr_028",
@@ -631,19 +594,6 @@
     "pos": "noun",
     "gender": "f",
     "plural": "les parades"
-  },
-  {
-    "id": "tr_052",
-    "catalan": "el mapa",
-    "pronunciation": "ul MAH-puh",
-    "english": "the map",
-    "hint": "",
-    "tags": [
-      "travel"
-    ],
-    "pos": "noun",
-    "gender": "m",
-    "plural": "els mapes"
   },
   {
     "id": "tr_053",

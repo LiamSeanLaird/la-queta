@@ -29,7 +29,7 @@ def test_seed_decks_into_a1(migrated_app):
         from app.models import Card, Deck
 
         assert db.session.scalar(select(func.count()).select_from(Deck)) == 14
-        assert db.session.scalar(select(func.count()).select_from(Card)) == 348
+        assert db.session.scalar(select(func.count()).select_from(Card)) == 318
         a2_decks = db.session.scalar(
             select(func.count()).select_from(Deck).where(Deck.level_id == "a2")
         )

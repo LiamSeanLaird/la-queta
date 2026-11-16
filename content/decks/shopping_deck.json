@@ -131,17 +131,6 @@
     "plural": "les bosses"
   },
   {
-    "id": "sh_012",
-    "catalan": "Obert / Tancat",
-    "pronunciation": "oo-BERT / tun-KAT",
-    "english": "Open / Closed",
-    "hint": "",
-    "tags": [
-      "shopping"
-    ],
-    "pos": "phrase"
-  },
-  {
     "id": "sh_013",
     "catalan": "Busco...",
     "pronunciation": "BOOS-koo",

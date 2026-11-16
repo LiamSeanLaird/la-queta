@@ -92,7 +92,7 @@
     "catalan": "De res",
     "pronunciation": "duh rehs",
     "english": "You're welcome",
-    "hint": "",
+    "hint": "literally 'of nothing'",
     "tags": [
       "greetings"
     ],
@@ -113,16 +113,12 @@
     "id": "greet_011",
     "catalan": "Perdona",
     "pronunciation": "puhr-DOH-nah",
-    "english": "Excuse me / Sorry",
-    "hint": "",
+    "english": "Excuse me / Sorry (informal)",
+    "hint": "informal; with strangers or elders say perdoni",
     "tags": [
       "greetings"
     ],
-    "pos": "verb",
-    "forms": [
-      "perdonant",
-      "perdonat"
-    ]
+    "pos": "phrase"
   },
   {
     "id": "greet_012",
@@ -173,7 +169,7 @@
     "catalan": "No entenc",
     "pronunciation": "noh un-TENK",
     "english": "I don't understand",
-    "hint": "",
+    "hint": "also common: no ho entenc",
     "tags": [
       "basics"
     ],
@@ -213,17 +209,6 @@
     "pos": "phrase"
   },
   {
-    "id": "basic_007",
-    "catalan": "Quant costa?",
-    "pronunciation": "kwant KOS-tuh",
-    "english": "How much does it cost?",
-    "hint": "",
-    "tags": [
-      "basics"
-    ],
-    "pos": "phrase"
-  },
-  {
     "id": "basic_008",
     "catalan": "Vull...",
     "pronunciation": "bool",
@@ -239,7 +224,7 @@
     "catalan": "Tinc gana",
     "pronunciation": "tink GAH-nuh",
     "english": "I'm hungry",
-    "hint": "",
+    "hint": "literally 'I have hunger'",
     "tags": [
       "basics"
     ],
@@ -250,7 +235,7 @@
     "catalan": "Tinc set",
     "pronunciation": "tink set",
     "english": "I'm thirsty",
-    "hint": "",
+    "hint": "literally 'I have thirst'",
     "tags": [
       "basics"
     ],
@@ -316,7 +301,7 @@
     "catalan": "D'acord",
     "pronunciation": "duh-KORT",
     "english": "OK / agreed",
-    "hint": "",
+    "hint": "the everyday 'OK' in Catalan",
     "tags": [
       "basics"
     ],

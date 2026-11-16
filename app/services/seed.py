@@ -8,7 +8,7 @@ from pathlib import Path
 from sqlalchemy import select
 
 from app.extensions import db
-from app.models import Card, Deck, Lesson, Level
+from app.models import Card, Deck, Lesson, Level, UserCardProgress
 
 ROOT = Path(__file__).resolve().parents[2]
 CONTENT = ROOT / "content"
@@ -111,6 +111,7 @@ def seed_decks(level_id: str = DEFAULT_DECK_LEVEL_ID) -> tuple[int, int]:
     deck_dir = CONTENT / "decks"
     paths = sorted(deck_dir.glob("*_deck*.json"))
     card_count = 0
+    seeded_ids: set[str] = set()
     for index, path in enumerate(paths, start=1):
         slug = _deck_slug_from_filename(path.name)
         title = slug.replace("_", " ").title()
@@ -136,6 +137,12 @@ def seed_decks(level_id: str = DEFAULT_DECK_LEVEL_ID) -> tuple[int, int]:
 
         for raw in cards_raw:
             external_id = raw["id"]
+            if external_id in seeded_ids:
+                raise ValueError(f"Duplicate card id {external_id!r} in {path.name}")
+            seeded_ids.add(external_id)
+            forms = raw.get("forms") or []
+            if not isinstance(forms, list):
+                raise ValueError(f"Card {external_id!r}: forms must be a list")
             card = db.session.scalar(
                 select(Card).where(Card.external_id == external_id)
             )
@@ -151,12 +158,44 @@ def seed_decks(level_id: str = DEFAULT_DECK_LEVEL_ID) -> tuple[int, int]:
             card.gender = raw.get("gender")
             card.plural = raw.get("plural")
             card.tags_json = raw.get("tags") or []
-            card.forms_json = raw.get("forms") or []
+            card.forms_json = forms
             card.grammar_lesson_id = raw.get("grammar_lesson_id")
             card_count += 1
 
+    _prune_removed_cards(level_id, seeded_ids)
     db.session.commit()
     return len(paths), card_count
+
+
+def _prune_removed_cards(level_id: str, seeded_ids: set[str]) -> None:
+    """Delete cards no longer in content. Refuse if any still carry progress.
+
+    Removing a studied card silently would lose learner progress; write a data
+    migration that merges it into the card that replaces it instead
+    (see migrations/versions/e5f6a7b8c9d0_dedupe_vocab_cards.py).
+    """
+    stale = db.session.scalars(
+        select(Card)
+        .join(Deck, Deck.id == Card.deck_id)
+        .where(Deck.level_id == level_id, Card.external_id.not_in(seeded_ids))
+    ).all()
+    if not stale:
+        return
+    stale_ids = [card.id for card in stale]
+    studied = db.session.scalars(
+        select(Card.external_id)
+        .join(UserCardProgress, UserCardProgress.card_id == Card.id)
+        .where(Card.id.in_(stale_ids))
+        .distinct()
+    ).all()
+    if studied:
+        db.session.rollback()
+        raise ValueError(
+            "Cards removed from content still have learner progress: "
+            f"{', '.join(sorted(studied))}. Merge them with a data migration first."
+        )
+    for card in stale:
+        db.session.delete(card)
 
 
 def seed_all() -> None:

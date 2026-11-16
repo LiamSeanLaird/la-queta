@@ -70,7 +70,7 @@
     "catalan": "l'entrada",
     "pronunciation": "en-TRAH-dah",
     "english": "entrance / hallway",
-    "hint": "entrar = to enter",
+    "hint": "entrar = to enter; on signs, Entrada = way in",
     "tags": ["home", "rooms"],
     "pos": "noun",
     "gender": "f",
@@ -260,14 +260,7 @@
     "hint": "also the noun: l'esmorzar = breakfast",
     "tags": ["home", "daily"],
     "pos": "verb",
-    "forms": {
-      "jo": "esmorzo",
-      "tu": "esmorzar",
-      "ell/ella": "esmorza",
-      "nosaltres": "esmorzem",
-      "vosaltres": "esmorzeu",
-      "ells/elles": "esmorzen"
-    }
+    "forms": ["jo esmorzo", "tu esmorzes", "ell/ella esmorza", "nosaltres esmorzem", "vosaltres esmorzeu", "ells/elles esmorzen"]
   },
   {
     "id": "hd025",
@@ -277,14 +270,7 @@
     "hint": "also the noun: el dinar = lunch",
     "tags": ["home", "daily"],
     "pos": "verb",
-    "forms": {
-      "jo": "dino",
-      "tu": "dines",
-      "ell/ella": "dina",
-      "nosaltres": "dinem",
-      "vosaltres": "dineu",
-      "ells/elles": "dinen"
-    }
+    "forms": ["jo dino", "tu dines", "ell/ella dina", "nosaltres dinem", "vosaltres dineu", "ells/elles dinen"]
   },
   {
     "id": "hd026",
@@ -294,14 +280,7 @@
     "hint": "also the noun: el sopar = dinner",
     "tags": ["home", "daily"],
     "pos": "verb",
-    "forms": {
-      "jo": "sopo",
-      "tu": "sopes",
-      "ell/ella": "sopa",
-      "nosaltres": "sopem",
-      "vosaltres": "sopeu",
-      "ells/elles": "sopen"
-    }
+    "forms": ["jo sopo", "tu sopes", "ell/ella sopa", "nosaltres sopem", "vosaltres sopeu", "ells/elles sopen"]
   },
   {
     "id": "hd027",
@@ -311,14 +290,7 @@
     "hint": "reflexive verb — tx sounds like 'ch'",
     "tags": ["home", "daily"],
     "pos": "verb",
-    "forms": {
-      "jo": "em dutxo",
-      "tu": "et dutxes",
-      "ell/ella": "es dutxa",
-      "nosaltres": "ens dutxem",
-      "vosaltres": "us dutxeu",
-      "ells/elles": "es dutxen"
-    }
+    "forms": ["jo em dutxo", "tu et dutxes", "ell/ella es dutxa", "nosaltres ens dutxem", "vosaltres us dutxeu", "ells/elles es dutxen"]
   },
   {
     "id": "hd028",
