@@ -191,8 +191,25 @@ Intentional **La Queta** look — Catalan learning tool with Senyera **red + gol
   --radius: 10px;
   --font-ui: "Figtree", "Segoe UI", sans-serif;
   --font-display: "Fraunces", Georgia, serif;
+  --link: #c1001f;          /* inline link text */
+  --on-accent: #ffffff;     /* text on red buttons */
+  --gold-deep: #e8b400;     /* end of the progress gradient */
+  --tint-base: #ffffff;     /* base for color-mix tints (badges, options, pills) */
+  --glow: rgba(252, 204, 18, 0.35); /* top radial wash on body */
+  --masc: #3a5bbf;
+  --fem: #bf3a72;
+  --scrim: rgba(28, 20, 18, 0.35);  /* dialog backdrop */
+  --shadow-dialog: 0 12px 40px rgba(28, 20, 18, 0.18);
 }
 ```
+
+### Dark mode
+- `static/app.css` redefines every colour token inside `@media (prefers-color-scheme: dark) { :root { ... } }`, and `:root` sets `color-scheme: light dark` so form controls and scrollbars follow.
+- Rules outside `:root` must use tokens, never raw hex, `rgb()` or `white` (`tests/test_dark_mode_css.py` enforces this).
+  Add a token with a light and a dark value instead.
+- Dark surfaces are warm browns (`--bg #17110e`, `--bg-elevated #221a16`), ink is cream, and the gold stays the same.
+  Red buttons keep `#c1001f` with white text, while red *text* (`--senyera-red`, `--link`, `--danger`) is lightened so it stays readable on the dark surface.
+- Check every page in both schemes with `scripts/screenshots.py --dark`.
 
 ### Colour roles
 - **Red (`--accent` / `--senyera-red`):** brand title, primary buttons, links, current borders.
