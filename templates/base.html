@@ -3,6 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  {# Phone browser bar colour; keep in sync with --bg in static/app.css. #}
+  <meta name="theme-color" content="#f7f1df" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#17110e" media="(prefers-color-scheme: dark)">
   <title>{% block title %}La Queta{% endblock %}</title>
   {% set _og_desc %}{% block og_description %}Free Catalan A1 lessons, vocab practice, and progress tracking.{% endblock %}{% endset %}
   {% if config.PUBLIC_BASE_URL %}

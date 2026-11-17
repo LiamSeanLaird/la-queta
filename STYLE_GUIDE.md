@@ -200,6 +200,11 @@ Intentional **La Queta** look — Catalan learning tool with Senyera **red + gol
   --fem: #bf3a72;
   --scrim: rgba(28, 20, 18, 0.35);  /* dialog backdrop */
   --shadow-dialog: 0 12px 40px rgba(28, 20, 18, 0.18);
+  --tint-callout: color-mix(in srgb, var(--senyera-gold) 14%, var(--bg-elevated)); /* rule callout */
+  --tint-selected: color-mix(in srgb, var(--senyera-gold) 22%, var(--tint-base));  /* selected option */
+  --disabled-fill: var(--accent);        /* disabled primary button */
+  --disabled-fill-ink: var(--on-accent);
+  --disabled-fill-opacity: 0.45;
 }
 ```
 
@@ -209,6 +214,9 @@ Intentional **La Queta** look — Catalan learning tool with Senyera **red + gol
   Add a token with a light and a dark value instead.
 - Dark surfaces are warm browns (`--bg #17110e`, `--bg-elevated #221a16`), ink is cream, and the gold stays the same.
   Red buttons keep `#c1001f` with white text, while red *text* (`--senyera-red`, `--link`, `--danger`) is lightened so it stays readable on the dark surface.
+- Gold tints use a lower gold share in dark (`--tint-callout`, `--tint-selected`), because gold mixed into a dark brown turns olive.
+- A disabled primary button fades to 45% in light, but in dark it becomes a neutral surface with muted text, because faded red on a dark page looks muddy.
+- `templates/base.html` sets a `theme-color` meta tag for each scheme so the phone browser bar matches `--bg`; the test checks they stay in sync.
 - Check every page in both schemes with `scripts/screenshots.py --dark`.
 
 ### Colour roles

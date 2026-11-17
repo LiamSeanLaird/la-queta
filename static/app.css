@@ -28,6 +28,13 @@
   --fem: #bf3a72;
   --scrim: rgba(28, 20, 18, 0.35);
   --shadow-dialog: 0 12px 40px rgba(28, 20, 18, 0.18);
+  /* Gold tints: a lower gold share in dark keeps them warm brown, not olive. */
+  --tint-callout: color-mix(in srgb, var(--senyera-gold) 14%, var(--bg-elevated));
+  --tint-selected: color-mix(in srgb, var(--senyera-gold) 22%, var(--tint-base));
+  /* A disabled filled button fades in light; in dark it turns neutral instead. */
+  --disabled-fill: var(--accent);
+  --disabled-fill-ink: var(--on-accent);
+  --disabled-fill-opacity: 0.45;
   color-scheme: light dark;
 }
 
@@ -58,6 +65,11 @@
     --fem: #ff8fbf;
     --scrim: rgba(0, 0, 0, 0.6);
     --shadow-dialog: 0 12px 40px rgba(0, 0, 0, 0.6);
+    --tint-callout: color-mix(in srgb, var(--senyera-gold) 8%, var(--bg-elevated));
+    --tint-selected: color-mix(in srgb, var(--senyera-gold) 12%, var(--tint-base));
+    --disabled-fill: var(--surface-solid);
+    --disabled-fill-ink: var(--muted);
+    --disabled-fill-opacity: 1;
   }
 }
 
@@ -101,10 +113,14 @@ a.icon-btn {
 }
 
 a.level-tile,
-a.list-row,
-a.tab-btn {
+a.list-row {
   text-decoration: none;
   color: inherit;
+}
+
+/* No colour here: .tab-btn sets it, and inherit would make idle tabs look selected. */
+a.tab-btn {
+  text-decoration: none;
 }
 
 a.level-tile,
@@ -377,7 +393,7 @@ a.tab-btn {
 .rule-callout {
   margin: 0;
   padding: 0.9rem 1rem;
-  background: color-mix(in srgb, var(--senyera-gold) 14%, var(--bg-elevated));
+  background: var(--tint-callout);
   border-left: 3px solid var(--senyera-gold);
   border-radius: 0 var(--radius) var(--radius) 0;
   font-family: var(--font-display);
@@ -410,6 +426,12 @@ a.tab-btn {
 .btn--primary {
   background: var(--accent);
   color: var(--on-accent);
+}
+
+.btn--primary:disabled {
+  background: var(--disabled-fill);
+  color: var(--disabled-fill-ink);
+  opacity: var(--disabled-fill-opacity);
 }
 
 a.btn.btn--primary {
@@ -516,7 +538,7 @@ a.btn.btn--primary {
   font-family: var(--font-ui);
   font-size: 0.82rem;
   font-weight: 600;
-  color: color-mix(in srgb, var(--muted) 70%, transparent);
+  color: var(--muted);
   cursor: pointer;
   transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
 }
@@ -1087,7 +1109,7 @@ a.btn.btn--primary {
 
 .option.is-selected {
   border-color: var(--senyera-red);
-  background: color-mix(in srgb, var(--senyera-gold) 22%, var(--tint-base));
+  background: var(--tint-selected);
 }
 
 .option.is-correct {

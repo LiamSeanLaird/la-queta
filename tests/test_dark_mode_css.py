@@ -9,7 +9,8 @@ the :root blocks may only use tokens.
 import re
 from pathlib import Path
 
-CSS = (Path(__file__).resolve().parents[1] / "static" / "app.css").read_text()
+CSS_PATH = Path(__file__).resolve().parents[1] / "static" / "app.css"
+CSS = CSS_PATH.read_text()
 
 DARK_RE = re.compile(
     r"@media \(prefers-color-scheme: dark\)\s*\{\s*:root\s*\{([^}]*)\}\s*\}"
@@ -68,3 +69,23 @@ def test_rules_outside_root_use_tokens_not_raw_colours():
         if ":" in line and RAW_COLOUR.search(line.split(":", 1)[1])
     ]
     assert offenders == []
+
+
+def test_theme_color_meta_matches_bg_in_each_scheme():
+    base = (CSS_PATH.parents[1] / "templates" / "base.html").read_text()
+    light_bg = _tokens(ROOT_RE.search(CSS).group(1))["--bg"]
+    dark_bg = _tokens(DARK_RE.search(CSS).group(1))["--bg"]
+    assert (
+        f'<meta name="theme-color" content="{light_bg}" '
+        'media="(prefers-color-scheme: light)">' in base
+    )
+    assert (
+        f'<meta name="theme-color" content="{dark_bg}" '
+        'media="(prefers-color-scheme: dark)">' in base
+    )
+
+
+def test_link_tabs_keep_the_idle_tab_colour():
+    # a.tab-btn outranks .tab-btn, so a colour there would hide which tab is active.
+    for block in re.findall(r"([^{}]*a\.tab-btn[^{}]*)\{([^}]*)\}", CSS):
+        assert not re.search(r"(?m)^\s*color\s*:", block[1]), block[0].strip()
