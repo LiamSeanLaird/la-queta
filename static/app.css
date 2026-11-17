@@ -520,6 +520,23 @@ a.btn.btn--primary {
   gap: 0.5rem;
 }
 
+.level-tile__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 0 1.15rem 1.15rem;
+}
+
+.level-tile__done {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.level-tile__done-check {
+  color: var(--ok);
+  font-weight: 700;
+}
+
 .daily-cta__check {
   color: var(--ok);
   font-weight: 700;

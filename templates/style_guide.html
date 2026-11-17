@@ -169,11 +169,34 @@
     <section class="sg-section" id="levels">
       <h2 class="sg-section__title">Level tiles</h2>
       <div class="level-grid">
-        <button type="button" class="level-tile is-current">
-          <p class="level-tile__code">A1</p>
-          <p class="level-tile__meta">Beginner · current</p>
-          <div class="progress" aria-hidden="true"><div class="progress__bar" style="width: 42%"></div></div>
-        </button>
+        <div class="level-tile-card is-current">
+          <a class="level-tile" href="#">
+            <p class="level-tile__code">A1</p>
+            <p class="level-tile__meta">Beginner · 42% · current</p>
+            <div class="progress" aria-hidden="true"><div class="progress__bar" style="width: 42%"></div></div>
+          </a>
+          <div class="level-tile__actions">
+            <a class="btn btn--primary btn--block level-tile__continue" href="#">Continue: Present Tense</a>
+            <div class="daily-cta">
+              <a class="btn btn--secondary btn--block daily-cta__btn" href="#">Daily vocab</a>
+              <p class="daily-cta__streak">3-day streak - finish today's daily to keep it</p>
+            </div>
+          </div>
+        </div>
+        <div class="level-tile-card">
+          <a class="level-tile" href="#">
+            <p class="level-tile__code">A1</p>
+            <p class="level-tile__meta">Beginner · 100%</p>
+            <div class="progress" aria-hidden="true"><div class="progress__bar" style="width: 100%"></div></div>
+          </a>
+          <div class="level-tile__actions">
+            <p class="level-tile__done"><span class="level-tile__done-check" aria-hidden="true">✓</span> All A1 lessons and vocab done</p>
+            <div class="daily-cta">
+              <a class="btn btn--secondary btn--block daily-cta__btn is-done" href="#"><span class="daily-cta__check" aria-hidden="true">✓</span> Daily vocab - done for today</a>
+              <p class="daily-cta__streak">4-day streak</p>
+            </div>
+          </div>
+        </div>
         <div class="level-tile is-disabled" aria-disabled="true">
           <p class="level-tile__code">A2</p>
           <p class="level-tile__meta">Elementary · coming soon</p>

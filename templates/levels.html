@@ -2,22 +2,6 @@
 {% block title %}La Queta - levels{% endblock %}
 {% block content %}
 <section class="stack-lg">
-  {% if daily_href %}
-  <div class="daily-cta">
-    {% if daily.done_today %}
-    <a class="btn btn--secondary btn--block daily-cta__btn is-done" href="{{ daily_href }}">
-      <span class="daily-cta__check" aria-hidden="true">✓</span>
-      Daily vocab - done for today
-    </a>
-    {% else %}
-    <a class="btn btn--primary btn--block daily-cta__btn" href="{{ daily_href }}">Daily vocab</a>
-    {% endif %}
-    {% if daily.streak %}
-    <p class="daily-cta__streak">{{ daily.streak }}-day streak{% if not daily.done_today %} - finish today's daily to keep it{% endif %}</p>
-    {% endif %}
-  </div>
-  {% endif %}
-
   <div class="level-grid">
     {% for level in levels %}
       {% if level.available %}
@@ -41,6 +25,28 @@
           complete
         </p>
         {% endif %}
+        <div class="level-tile__actions">
+          {% if level.continue %}
+          <a class="btn btn--primary btn--block level-tile__continue" href="{{ url_for('pages.continue_learning', level=level.id) }}">{{ level.continue.label }}</a>
+          {% else %}
+          <p class="level-tile__done"><span class="level-tile__done-check" aria-hidden="true">✓</span> All {{ level.code }} lessons and vocab done</p>
+          {% endif %}
+          {% if daily_href and level.id == daily_level_id %}
+          <div class="daily-cta">
+            {% if daily.done_today %}
+            <a class="btn btn--secondary btn--block daily-cta__btn is-done" href="{{ daily_href }}">
+              <span class="daily-cta__check" aria-hidden="true">✓</span>
+              Daily vocab - done for today
+            </a>
+            {% else %}
+            <a class="btn btn--secondary btn--block daily-cta__btn" href="{{ daily_href }}">Daily vocab</a>
+            {% endif %}
+            {% if daily.streak %}
+            <p class="daily-cta__streak">{{ daily.streak }}-day streak{% if not daily.done_today %} - finish today's daily to keep it{% endif %}</p>
+            {% endif %}
+          </div>
+          {% endif %}
+        </div>
       </div>
       {% else %}
       <div class="level-tile is-disabled" aria-disabled="true">

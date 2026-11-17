@@ -210,7 +210,7 @@ Intentional **La Queta** look — Catalan learning tool with Senyera **red + gol
 
 ### Screens (IA)
 1. `/` — create account / sign in gate (authed → `/levels`)
-2. `/levels` — level hub (A1 / A2 + %)
+2. `/levels` — level hub (A1 / A2 + %). Each open level card is a link to the level, then a primary "Continue: <Lesson>" or "Study vocab: <Deck>" button (`/continue?level=<id>`, from `continue_target`) or "All A1 lessons and vocab done", then a secondary Daily vocab button and the streak. The card link and the buttons are siblings, never nested.
 3. `/levels/<id>` — level home (Learn | Vocab tab)
 4. `/lessons/<id>` — lesson
 5. `/decks/<slug>` → `/study` | `/browse`

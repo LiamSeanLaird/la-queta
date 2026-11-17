@@ -47,7 +47,10 @@ def continue_learning():
     user, bounced = _login_required()
     if bounced:
         return bounced
-    target = continue_target(user)
+    level_id = request.args.get("level") or None
+    if level_id is not None and not level_is_open(level_id):
+        return redirect(url_for("pages.levels"))
+    target = continue_target(user, level_id)
     if target is None:
         return redirect(url_for("pages.levels"))
     select_level(user, target["level_id"])
@@ -65,6 +68,7 @@ def levels():
         row["can_dos"] = progress["items"]
         row["goals_done"] = progress["done"]
         row["goals_total"] = progress["total"]
+        row["continue"] = continue_target(user, row["id"]) if row["available"] else None
     daily_level_id = user.current_level_id if level_is_open(user.current_level_id or "") else None
     if daily_level_id is None:
         daily_level_id = next(
@@ -79,6 +83,7 @@ def levels():
         user=user,
         levels=levels_data,
         daily_href=daily_href,
+        daily_level_id=daily_level_id,
         daily=daily_status(user) if daily_href else None,
     )
 
