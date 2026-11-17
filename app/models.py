@@ -1,6 +1,7 @@
-from datetime import datetime
+from datetime import date, datetime
 
 from sqlalchemy import (
+    Date,
     DateTime,
     ForeignKey,
     Integer,
@@ -156,3 +157,31 @@ class UserCardProgress(db.Model):
 
     user: Mapped[User] = relationship(back_populates="card_progress")
     card: Mapped[Card] = relationship(back_populates="progress")
+
+
+class UserDailySession(db.Model):
+    """One finished daily vocab session per learner per local calendar day.
+
+    local_date is the learner's date in their own timezone when they reached
+    the "Session complete" screen, so streaks follow their days, not the
+    server's. Extra sessions on the same day do not add rows.
+    """
+
+    __tablename__ = "user_daily_sessions"
+    __table_args__ = (
+        UniqueConstraint("user_id", "local_date", name="uq_user_daily_session"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
+    level_id: Mapped[str] = mapped_column(
+        String(16), ForeignKey("levels.id"), nullable=False
+    )
+    local_date: Mapped[date] = mapped_column(Date, nullable=False)
+    # IANA name the browser reported (or "UTC"), used to work out "today".
+    timezone: Mapped[str] = mapped_column(String(64), nullable=False, default="UTC")
+    completed_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        server_default=func.now(),
+        nullable=False,
+    )

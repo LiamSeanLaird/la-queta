@@ -5,6 +5,7 @@ from app.extensions import db
 from app.models import Deck, Level
 from app.services.auth import current_user
 from app.services.errors import ServiceError
+from app.services.daily import daily_status
 from app.services.can_dos import can_dos_progress, learn_groups_for_level, vocab_groups_for_level
 from app.services.lessons import get_lesson, list_lessons_for_level
 from app.services.levels import list_levels_for_user, select_level, level_is_open
@@ -78,6 +79,7 @@ def levels():
         user=user,
         levels=levels_data,
         daily_href=daily_href,
+        daily=daily_status(user) if daily_href else None,
     )
 
 
@@ -222,6 +224,7 @@ def daily(level_id: str):
         user=user,
         study_title=f"Daily vocab · {level.code}",
         session_url=url_for("api_vocab.level_daily", level_id=level_id),
+        complete_url=url_for("api_vocab.level_daily_complete", level_id=level_id),
         exit_url=url_for("pages.level_home", level_id=level_id, tab="vocab"),
         back_label="Back to vocab",
         empty_message="There are no cards to review right now.",

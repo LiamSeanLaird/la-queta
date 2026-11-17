@@ -1,6 +1,7 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 
 from app.services.auth import require_user
+from app.services.daily import record_daily_done
 from app.services.errors import ServiceError
 from app.services.vocab import (
     daily_session_for_level,
@@ -53,6 +54,21 @@ def level_daily(level_id: str):
     except ServiceError as exc:
         return jsonify({"error": exc.message}), exc.status_code
     return jsonify({"cards": cards})
+
+
+@bp.post("/api/levels/<level_id>/daily/complete")
+def level_daily_complete(level_id: str):
+    """The learner reached "Session complete" on daily vocab.
+
+    Body: {"timezone": "<IANA name>"}; unknown or missing falls back to UTC.
+    """
+    payload = request.get_json(silent=True) or {}
+    try:
+        user = require_user()
+        status = record_daily_done(user, level_id, payload.get("timezone"))
+    except ServiceError as exc:
+        return jsonify({"error": exc.message}), exc.status_code
+    return jsonify(status)
 
 
 @bp.post("/api/cards/<int:card_id>/seen")

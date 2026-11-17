@@ -6,6 +6,8 @@
   const TIP_SKIP_KEY = "la-queta-study-tip-skip";
 
   const sessionUrl = page.dataset.sessionUrl;
+  // Only daily vocab sets this: finishing it counts toward the streak.
+  const completeUrl = page.dataset.completeUrl;
   const studyCard = document.getElementById("study-card");
   const studyLang = document.getElementById("study-lang");
   const studyWord = document.getElementById("study-word");
@@ -134,6 +136,25 @@
       "A card retires after you have seen it 3 times, or when you tap Retire.";
   }
 
+  function browserTimezone() {
+    try {
+      return Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+    } catch (error) {
+      return "";
+    }
+  }
+
+  async function recordComplete() {
+    if (!completeUrl) return;
+    const { response, body } = await window.LaQueta.api(completeUrl, {
+      method: "POST",
+      body: JSON.stringify({ timezone: browserTimezone() }),
+    });
+    if (!response.ok) {
+      window.LaQueta.showError(studyError, body.error || "Could not save today's session");
+    }
+  }
+
   function finishSession() {
     studyCard.hidden = true;
     studyActions.hidden = true;
@@ -144,6 +165,7 @@
       studyProgressBar.style.width = "100%";
       studyDoneTitle.textContent = "Session complete";
       studyDoneText.textContent = summaryText();
+      recordComplete();
     } else {
       studyProgress.hidden = true;
       studyDoneTitle.textContent = "Nothing to study";

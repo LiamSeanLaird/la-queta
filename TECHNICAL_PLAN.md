@@ -122,7 +122,19 @@ user_card_progress
   card_id FK
   seen INT DEFAULT 0
   UNIQUE(user_id, card_id)
+
+user_daily_sessions            -- one finished daily vocab per learner per local day
+  user_id FK
+  level_id FK
+  local_date DATE              -- learner's date in their browser timezone
+  timezone                     -- IANA name the browser sent, or UTC
+  completed_at
+  UNIQUE(user_id, local_date)
 ```
+
+Daily vocab "done for today" and the streak come from `user_daily_sessions` (`app/services/daily.py`).
+`static/js/study.js` posts to `/api/levels/<id>/daily/complete` with the browser's timezone when a daily session reaches "Session complete".
+`/levels` works out "today" in the timezone of the learner's latest finished session.
 
 Level completeness (derived, not stored):
 ```

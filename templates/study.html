@@ -9,6 +9,7 @@
   class="stack-lg"
   id="study-page"
   data-session-url="{{ session_url }}"
+  {% if complete_url %}data-complete-url="{{ complete_url }}"{% endif %}
 >
   <div class="progress-group" id="study-progress">
     <div class="progress-meta">
