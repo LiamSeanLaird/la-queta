@@ -118,7 +118,8 @@ def upgrade():
             )
 
         conn.execute(
-            sa.text("DELETE FROM user_card_progress WHERE card_id = :r"), {"r": removed_id}
+            sa.text("DELETE FROM user_card_progress WHERE card_id = :r"),
+            {"r": removed_id},
         )
         conn.execute(sa.text("DELETE FROM cards WHERE id = :r"), {"r": removed_id})
 

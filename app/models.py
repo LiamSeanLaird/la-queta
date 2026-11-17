@@ -72,9 +72,7 @@ class Lesson(db.Model):
     deck_slug: Mapped[str | None] = mapped_column(String(64), nullable=True)
 
     level: Mapped[Level] = relationship(back_populates="lessons")
-    progress: Mapped[list["UserLessonProgress"]] = relationship(
-        back_populates="lesson"
-    )
+    progress: Mapped[list["UserLessonProgress"]] = relationship(back_populates="lesson")
 
 
 class Deck(db.Model):

@@ -5,7 +5,15 @@ from __future__ import annotations
 from sqlalchemy import func, select
 
 from app.extensions import db
-from app.models import Card, Deck, Lesson, Level, User, UserCardProgress, UserLessonProgress
+from app.models import (
+    Card,
+    Deck,
+    Lesson,
+    Level,
+    User,
+    UserCardProgress,
+    UserLessonProgress,
+)
 from app.services.lessons import list_lessons_for_level
 
 LESSON_WEIGHT = 0.7
@@ -19,26 +27,35 @@ def level_progress_counts(user_id: int, level_id: str) -> dict:
     A word is "learned" once its card is retired (seen >= RETIRED_SEEN) and
     "started" once it has been seen at least once.
     """
-    total_lessons = db.session.scalar(
-        select(func.count()).select_from(Lesson).where(Lesson.level_id == level_id)
-    ) or 0
-    completed_lessons = db.session.scalar(
-        select(func.count())
-        .select_from(UserLessonProgress)
-        .join(Lesson, Lesson.id == UserLessonProgress.lesson_id)
-        .where(
-            UserLessonProgress.user_id == user_id,
-            UserLessonProgress.completed.is_(True),
-            Lesson.level_id == level_id,
+    total_lessons = (
+        db.session.scalar(
+            select(func.count()).select_from(Lesson).where(Lesson.level_id == level_id)
         )
-    ) or 0
+        or 0
+    )
+    completed_lessons = (
+        db.session.scalar(
+            select(func.count())
+            .select_from(UserLessonProgress)
+            .join(Lesson, Lesson.id == UserLessonProgress.lesson_id)
+            .where(
+                UserLessonProgress.user_id == user_id,
+                UserLessonProgress.completed.is_(True),
+                Lesson.level_id == level_id,
+            )
+        )
+        or 0
+    )
 
-    total_cards = db.session.scalar(
-        select(func.count())
-        .select_from(Card)
-        .join(Deck, Deck.id == Card.deck_id)
-        .where(Deck.level_id == level_id)
-    ) or 0
+    total_cards = (
+        db.session.scalar(
+            select(func.count())
+            .select_from(Card)
+            .join(Deck, Deck.id == Card.deck_id)
+            .where(Deck.level_id == level_id)
+        )
+        or 0
+    )
     card_progress = (
         select(func.count())
         .select_from(UserCardProgress)
@@ -46,10 +63,13 @@ def level_progress_counts(user_id: int, level_id: str) -> dict:
         .join(Deck, Deck.id == Card.deck_id)
         .where(UserCardProgress.user_id == user_id, Deck.level_id == level_id)
     )
-    retired_cards = db.session.scalar(
-        card_progress.where(UserCardProgress.seen >= RETIRED_SEEN)
-    ) or 0
-    started_cards = db.session.scalar(card_progress.where(UserCardProgress.seen > 0)) or 0
+    retired_cards = (
+        db.session.scalar(card_progress.where(UserCardProgress.seen >= RETIRED_SEEN))
+        or 0
+    )
+    started_cards = (
+        db.session.scalar(card_progress.where(UserCardProgress.seen > 0)) or 0
+    )
 
     return {
         "lessons_done": completed_lessons,
@@ -122,7 +142,9 @@ def continue_target(user: User, level_id: str | None = None) -> dict | None:
     Prefer incomplete lessons, then a vocab deck with remaining cards.
     If level_id is set, stay within that level; else prefer current_level then others.
     """
-    levels = db.session.scalars(select(Level).order_by(Level.sort_order, Level.id)).all()
+    levels = db.session.scalars(
+        select(Level).order_by(Level.sort_order, Level.id)
+    ).all()
     if not levels:
         return None
 
@@ -197,7 +219,9 @@ def lesson_next_steps(user: User, lesson_id: str) -> dict:
 def _deck_lesson_ids(slug: str, level_id: str) -> set[str]:
     return set(
         db.session.scalars(
-            select(Lesson.id).where(Lesson.level_id == level_id, Lesson.deck_slug == slug)
+            select(Lesson.id).where(
+                Lesson.level_id == level_id, Lesson.deck_slug == slug
+            )
         )
     )
 
@@ -205,7 +229,9 @@ def _deck_lesson_ids(slug: str, level_id: str) -> set[str]:
 def deck_lessons(user: User, slug: str, level_id: str) -> list[dict]:
     """Lessons in `level_id` that link to the deck `slug`, in lesson order, with progress."""
     linked_ids = _deck_lesson_ids(slug, level_id)
-    return [row for row in list_lessons_for_level(user, level_id) if row["id"] in linked_ids]
+    return [
+        row for row in list_lessons_for_level(user, level_id) if row["id"] in linked_ids
+    ]
 
 
 def deck_next_lesson(user: User, slug: str, level_id: str) -> dict | None:

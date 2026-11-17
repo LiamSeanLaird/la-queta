@@ -39,7 +39,9 @@ def test_daily_session_fills_from_retired_when_needed(migrated_app, migrated_cli
 
     cards = migrated_client.get("/api/decks/starter/cards").get_json()["cards"]
     for card in cards:
-        assert migrated_client.post(f"/api/cards/{card['id']}/retire").status_code == 200
+        assert (
+            migrated_client.post(f"/api/cards/{card['id']}/retire").status_code == 200
+        )
 
     # Other decks still have unretired — retire nothing else; just ensure API works
     response = migrated_client.get("/api/levels/a1/daily")
@@ -162,7 +164,9 @@ def test_daily_session_follows_completed_lessons_and_started_decks(
 
     # Starting another deck in study adds it to the pool.
     leisure = migrated_client.get("/api/decks/leisure/cards").get_json()["cards"]
-    assert migrated_client.post(f"/api/cards/{leisure[0]['id']}/seen").status_code == 200
+    assert (
+        migrated_client.post(f"/api/cards/{leisure[0]['id']}/seen").status_code == 200
+    )
     decks_seen: set[str] = set()
     for _ in range(10):
         decks_seen |= _deck_of_each_daily_card(migrated_client)

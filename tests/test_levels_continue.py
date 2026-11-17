@@ -13,7 +13,11 @@ from app.services.seed import seed_all
 def _register(client, handle: str = "continuer"):
     response = client.post(
         "/api/auth/register",
-        json={"handle": handle, "email": f"{handle}@example.com", "password": "password1"},
+        json={
+            "handle": handle,
+            "email": f"{handle}@example.com",
+            "password": "password1",
+        },
     )
     assert response.status_code == 201
     return response.get_json()
@@ -76,7 +80,9 @@ def test_continue_with_level_selects_it_and_redirects(migrated_app, migrated_cli
         assert db.session.get(User, user["id"]).current_level_id == "a1"
 
 
-def test_continue_with_closed_or_unknown_level_goes_to_levels(migrated_app, migrated_client):
+def test_continue_with_closed_or_unknown_level_goes_to_levels(
+    migrated_app, migrated_client
+):
     with migrated_app.app_context():
         seed_all()
     _register(migrated_client)

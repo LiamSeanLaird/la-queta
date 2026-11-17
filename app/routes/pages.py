@@ -6,7 +6,11 @@ from app.models import Deck, Level
 from app.services.auth import current_user
 from app.services.errors import ServiceError
 from app.services.daily import daily_status
-from app.services.can_dos import can_dos_progress, learn_groups_for_level, vocab_groups_for_level
+from app.services.can_dos import (
+    can_dos_progress,
+    learn_groups_for_level,
+    vocab_groups_for_level,
+)
 from app.services.lessons import get_lesson, list_lessons_for_level
 from app.services.levels import list_levels_for_user, select_level, level_is_open
 from app.services.progress import (
@@ -72,7 +76,9 @@ def levels():
         row["goals_total"] = progress["total"]
         row["next_goal"] = progress["next"]
         row["continue"] = continue_target(user, row["id"]) if row["available"] else None
-    daily_level_id = user.current_level_id if level_is_open(user.current_level_id or "") else None
+    daily_level_id = (
+        user.current_level_id if level_is_open(user.current_level_id or "") else None
+    )
     if daily_level_id is None:
         daily_level_id = next(
             (row["id"] for row in levels_data if row.get("available")),

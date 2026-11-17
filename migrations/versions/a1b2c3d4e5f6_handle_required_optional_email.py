@@ -43,11 +43,15 @@ def _derive_handle(raw: str, user_id: int, used: set[str]) -> str:
 
 def upgrade():
     conn = op.get_bind()
-    cols = {row[1] for row in conn.execute(sa.text("PRAGMA table_info(users)")).fetchall()}
+    cols = {
+        row[1] for row in conn.execute(sa.text("PRAGMA table_info(users)")).fetchall()
+    }
 
     if "handle" not in cols:
         with op.batch_alter_table("users", schema=None) as batch_op:
-            batch_op.add_column(sa.Column("handle", sa.String(length=64), nullable=True))
+            batch_op.add_column(
+                sa.Column("handle", sa.String(length=64), nullable=True)
+            )
 
     conn = op.get_bind()
     rows = conn.execute(sa.text("SELECT id, email FROM users")).fetchall()
@@ -61,7 +65,9 @@ def upgrade():
         )
 
     with op.batch_alter_table("users", schema=None) as batch_op:
-        batch_op.alter_column("handle", existing_type=sa.String(length=64), nullable=False)
+        batch_op.alter_column(
+            "handle", existing_type=sa.String(length=64), nullable=False
+        )
         batch_op.create_unique_constraint("uq_users_handle", ["handle"])
         batch_op.alter_column(
             "email",

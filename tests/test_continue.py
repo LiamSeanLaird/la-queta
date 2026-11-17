@@ -22,7 +22,6 @@ def _register(client, handle: str = "continuer"):
     return response.get_json()
 
 
-
 def test_continue_points_at_first_incomplete_lesson(migrated_app, migrated_client):
     with migrated_app.app_context():
         seed_all()

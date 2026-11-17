@@ -32,7 +32,6 @@ def _register(client, handle: str = "liam"):
     return response.get_json()
 
 
-
 def test_seed_levels_is_idempotent(migrated_app):
     with migrated_app.app_context():
         assert seed_levels() >= 2

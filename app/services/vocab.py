@@ -73,7 +73,9 @@ def list_decks_for_level(user: User, level_id: str) -> list[dict]:
         raise ServiceError("Level not found", 404)
 
     decks = db.session.scalars(
-        select(Deck).where(Deck.level_id == level_id).order_by(Deck.sort_order, Deck.slug)
+        select(Deck)
+        .where(Deck.level_id == level_id)
+        .order_by(Deck.sort_order, Deck.slug)
     ).all()
     result = []
     for deck in decks:
@@ -97,9 +99,7 @@ def list_decks_for_level(user: User, level_id: str) -> list[dict]:
 def list_cards_for_deck(user: User, slug: str) -> list[dict]:
     deck = _get_deck(slug)
     cards = db.session.scalars(
-        select(Card)
-        .where(Card.deck_id == deck.id)
-        .order_by(Card.position, Card.id)
+        select(Card).where(Card.deck_id == deck.id).order_by(Card.position, Card.id)
     ).all()
     progress = _progress_map(user.id, [card.id for card in cards])
     return [_card_dict(card, *progress.get(card.id, (0, None))) for card in cards]
@@ -323,9 +323,7 @@ def retire_card(user: User, card_id: int) -> dict:
         )
     )
     if progress is None:
-        progress = UserCardProgress(
-            user_id=user.id, card_id=card.id, seen=RETIRED_SEEN
-        )
+        progress = UserCardProgress(user_id=user.id, card_id=card.id, seen=RETIRED_SEEN)
         db.session.add(progress)
     else:
         progress.seen = max(progress.seen, RETIRED_SEEN)
@@ -366,6 +364,9 @@ def unretire_deck(user: User, slug: str) -> dict:
 
 
 def deck_card_count(deck_id: int) -> int:
-    return db.session.scalar(
-        select(func.count()).select_from(Card).where(Card.deck_id == deck_id)
-    ) or 0
+    return (
+        db.session.scalar(
+            select(func.count()).select_from(Card).where(Card.deck_id == deck_id)
+        )
+        or 0
+    )

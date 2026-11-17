@@ -81,7 +81,9 @@ def seed_lessons(level_id: str = DEFAULT_LESSON_LEVEL_ID) -> int:
         sections = list(raw.get("sections") or [])
         practice = list(raw.get("practice") or [])
         # Teach surface never keeps inline exercises.
-        sections = [section for section in sections if section.get("type") != "exercise"]
+        sections = [
+            section for section in sections if section.get("type") != "exercise"
+        ]
         # Back-compat: if practice missing, lift leftover exercises (shouldn't happen after Phase 9 content).
         if not practice:
             practice = [
@@ -94,7 +96,11 @@ def seed_lessons(level_id: str = DEFAULT_LESSON_LEVEL_ID) -> int:
                     "explanation": section.get("explanation") or "",
                 }
                 for index, section in enumerate(
-                    (section for section in (raw.get("sections") or []) if section.get("type") == "exercise"),
+                    (
+                        section
+                        for section in (raw.get("sections") or [])
+                        if section.get("type") == "exercise"
+                    ),
                     start=1,
                 )
             ]

@@ -21,7 +21,11 @@ from app.services.seed import seed_all
 def _register(client, handle: str = "streaker"):
     response = client.post(
         "/api/auth/register",
-        json={"handle": handle, "email": f"{handle}@example.com", "password": "password1"},
+        json={
+            "handle": handle,
+            "email": f"{handle}@example.com",
+            "password": "password1",
+        },
     )
     assert response.status_code == 201
     return response.get_json()
@@ -179,7 +183,10 @@ def test_levels_page_shows_done_state_and_streak(migrated_app, migrated_client):
         seed_all()
     _register(migrated_client)
     before = migrated_client.get("/levels").get_data(as_text=True)
-    assert 'class="btn btn--secondary btn--block daily-cta__btn" href="/levels/a1/daily">Daily vocab</a>' in before
+    assert (
+        'class="btn btn--secondary btn--block daily-cta__btn" href="/levels/a1/daily">Daily vocab</a>'
+        in before
+    )
     assert "done for today" not in before
     assert "daily-cta__streak" not in before
 

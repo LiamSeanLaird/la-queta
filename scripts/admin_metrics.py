@@ -21,48 +21,67 @@ from sqlalchemy import case, func, select
 from app import create_app
 from app.extensions import db
 from app.models import Card, Deck, Lesson, User, UserCardProgress, UserLessonProgress
-from app.services.progress import LESSON_WEIGHT, RETIRED_SEEN, VOCAB_WEIGHT, level_completeness_pct
+from app.services.progress import (
+    LESSON_WEIGHT,
+    RETIRED_SEEN,
+    VOCAB_WEIGHT,
+    level_completeness_pct,
+)
 
 
 def _lesson_counts(user_id: int, level_id: str) -> tuple[int, int]:
-    total = db.session.scalar(
-        select(func.count()).select_from(Lesson).where(Lesson.level_id == level_id)
-    ) or 0
-    done = db.session.scalar(
-        select(func.count())
-        .select_from(UserLessonProgress)
-        .join(Lesson, Lesson.id == UserLessonProgress.lesson_id)
-        .where(
-            UserLessonProgress.user_id == user_id,
-            UserLessonProgress.completed.is_(True),
-            Lesson.level_id == level_id,
+    total = (
+        db.session.scalar(
+            select(func.count()).select_from(Lesson).where(Lesson.level_id == level_id)
         )
-    ) or 0
+        or 0
+    )
+    done = (
+        db.session.scalar(
+            select(func.count())
+            .select_from(UserLessonProgress)
+            .join(Lesson, Lesson.id == UserLessonProgress.lesson_id)
+            .where(
+                UserLessonProgress.user_id == user_id,
+                UserLessonProgress.completed.is_(True),
+                Lesson.level_id == level_id,
+            )
+        )
+        or 0
+    )
     return done, total
 
 
 def _vocab_counts(user_id: int, level_id: str) -> tuple[int, int]:
-    total = db.session.scalar(
-        select(func.count())
-        .select_from(Card)
-        .join(Deck, Deck.id == Card.deck_id)
-        .where(Deck.level_id == level_id)
-    ) or 0
-    retired = db.session.scalar(
-        select(func.count())
-        .select_from(UserCardProgress)
-        .join(Card, Card.id == UserCardProgress.card_id)
-        .join(Deck, Deck.id == Card.deck_id)
-        .where(
-            UserCardProgress.user_id == user_id,
-            UserCardProgress.seen >= RETIRED_SEEN,
-            Deck.level_id == level_id,
+    total = (
+        db.session.scalar(
+            select(func.count())
+            .select_from(Card)
+            .join(Deck, Deck.id == Card.deck_id)
+            .where(Deck.level_id == level_id)
         )
-    ) or 0
+        or 0
+    )
+    retired = (
+        db.session.scalar(
+            select(func.count())
+            .select_from(UserCardProgress)
+            .join(Card, Card.id == UserCardProgress.card_id)
+            .join(Deck, Deck.id == Card.deck_id)
+            .where(
+                UserCardProgress.user_id == user_id,
+                UserCardProgress.seen >= RETIRED_SEEN,
+                Deck.level_id == level_id,
+            )
+        )
+        or 0
+    )
     return retired, total
 
 
-def _complete_pct(lessons_done: int, lessons_total: int, retired: int, cards_total: int) -> int:
+def _complete_pct(
+    lessons_done: int, lessons_total: int, retired: int, cards_total: int
+) -> int:
     if lessons_total == 0 and cards_total == 0:
         return 0
     lesson_ratio = (lessons_done / lessons_total) if lessons_total else 0.0
@@ -78,9 +97,7 @@ def cmd_summary(level_id: str) -> None:
     users = db.session.scalar(select(func.count()).select_from(User)) or 0
     since = datetime.now(timezone.utc) - timedelta(hours=24)
     recent = db.session.scalars(
-        select(User)
-        .where(User.created_at >= since)
-        .order_by(User.created_at.desc())
+        select(User).where(User.created_at >= since).order_by(User.created_at.desc())
     ).all()
 
     print(f"users_total: {users}")
@@ -92,7 +109,9 @@ def cmd_summary(level_id: str) -> None:
     print("new_users:")
     for user in recent:
         created = user.created_at.isoformat() if user.created_at else ""
-        print(f"  - id={user.id} handle={user.handle} email={user.email} created_at={created}")
+        print(
+            f"  - id={user.id} handle={user.handle} email={user.email} created_at={created}"
+        )
 
 
 def cmd_user(user_id: int, level_id: str) -> None:
@@ -113,20 +132,28 @@ def cmd_user(user_id: int, level_id: str) -> None:
     print(f"level_scope: {level_id}")
     print(f"complete_pct: {complete_pct}")
     print(f"lessons_done: {lessons_done}/{lessons_total}")
-    print(f"cards_retired: {retired_cards}/{total_cards} (retired threshold: {RETIRED_SEEN})")
+    print(
+        f"cards_retired: {retired_cards}/{total_cards} (retired threshold: {RETIRED_SEEN})"
+    )
 
 
 def cmd_activity(level_id: str) -> None:
     users = db.session.scalars(select(User).order_by(User.id)).all()
-    lessons_total = db.session.scalar(
-        select(func.count()).select_from(Lesson).where(Lesson.level_id == level_id)
-    ) or 0
-    cards_total = db.session.scalar(
-        select(func.count())
-        .select_from(Card)
-        .join(Deck, Deck.id == Card.deck_id)
-        .where(Deck.level_id == level_id)
-    ) or 0
+    lessons_total = (
+        db.session.scalar(
+            select(func.count()).select_from(Lesson).where(Lesson.level_id == level_id)
+        )
+        or 0
+    )
+    cards_total = (
+        db.session.scalar(
+            select(func.count())
+            .select_from(Card)
+            .join(Deck, Deck.id == Card.deck_id)
+            .where(Deck.level_id == level_id)
+        )
+        or 0
+    )
 
     lessons_done_rows = db.session.execute(
         select(
@@ -251,7 +278,9 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="La Queta admin metrics")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
-    summary = subparsers.add_parser("summary", help="Show high-level counts + new users")
+    summary = subparsers.add_parser(
+        "summary", help="Show high-level counts + new users"
+    )
     summary.add_argument("--level", default="a1", help="Level scope (default: a1)")
 
     activity = subparsers.add_parser(

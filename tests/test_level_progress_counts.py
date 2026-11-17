@@ -30,24 +30,36 @@ def test_summary_shows_words_started_before_any_are_learned():
     assert progress_summary(_counts(lessons_done=1, words_started=20)) == (
         "1 of 20 lessons · 20 words started"
     )
-    assert progress_summary(_counts(words_started=1)) == "0 of 20 lessons · 1 word started"
+    assert (
+        progress_summary(_counts(words_started=1)) == "0 of 20 lessons · 1 word started"
+    )
 
 
 def test_summary_prefers_words_learned_once_any_exist():
-    summary = progress_summary(_counts(lessons_done=3, words_learned=89, words_started=120))
+    summary = progress_summary(
+        _counts(lessons_done=3, words_learned=89, words_started=120)
+    )
     assert summary == "3 of 20 lessons · 89 words learned"
-    assert progress_summary(_counts(words_learned=1, words_started=5)).endswith("1 word learned")
+    assert progress_summary(_counts(words_learned=1, words_started=5)).endswith(
+        "1 word learned"
+    )
 
 
 def test_summary_without_lessons():
-    assert progress_summary(_counts(lessons_total=0, words_started=4)) == "4 words started"
+    assert (
+        progress_summary(_counts(lessons_total=0, words_started=4)) == "4 words started"
+    )
     assert progress_summary(_counts(lessons_total=0)) == ""
 
 
 def _register(client, handle: str = "counter"):
     response = client.post(
         "/api/auth/register",
-        json={"handle": handle, "email": f"{handle}@example.com", "password": "password1"},
+        json={
+            "handle": handle,
+            "email": f"{handle}@example.com",
+            "password": "password1",
+        },
     )
     assert response.status_code == 201
     return response.get_json()
@@ -64,7 +76,10 @@ def _give_progress(user_id: int) -> None:
         )
     )
     cards = db.session.scalars(
-        select(Card).join(Deck, Deck.id == Card.deck_id).where(Deck.level_id == "a1").limit(6)
+        select(Card)
+        .join(Deck, Deck.id == Card.deck_id)
+        .where(Deck.level_id == "a1")
+        .limit(6)
     ).all()
     # Seen 0..5, shaped like production rows: 3 of them are retired (seen >= 3).
     for seen, card in enumerate(cards):
