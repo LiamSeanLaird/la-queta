@@ -28,6 +28,8 @@
   const studyDone = document.getElementById("study-done");
   const studyDoneTitle = document.getElementById("study-done-title");
   const studyDoneText = document.getElementById("study-done-text");
+  // Daily vocab only: "done for today" and the streak, once it is saved.
+  const studyDoneDaily = document.getElementById("study-done-daily");
   const studyAgain = document.getElementById("study-again");
   const studyExit = document.getElementById("study-exit");
   const studyNextLesson = document.getElementById("study-next-lesson");
@@ -166,7 +168,22 @@
     });
     if (!response.ok) {
       window.LaQueta.showError(studyError, body.error || "Could not save today's session");
+      return;
     }
+    showDailyDone(body);
+  }
+
+  /** "✓ Daily vocab done for today · 3-day streak", from /daily/complete. */
+  function showDailyDone(status) {
+    if (!studyDoneDaily || !status || !status.done_today) return;
+    const check = document.createElement("span");
+    check.className = "study-done__check";
+    check.setAttribute("aria-hidden", "true");
+    check.textContent = "✓";
+    const parts = ["Daily vocab done for today"];
+    if (status.streak > 0) parts.push(`${status.streak}-day streak`);
+    studyDoneDaily.replaceChildren(check, ` ${parts.join(" · ")}`);
+    studyDoneDaily.hidden = false;
   }
 
   function finishSession() {

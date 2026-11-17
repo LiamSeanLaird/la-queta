@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from datetime import date, datetime, timezone
+from pathlib import Path
 
 import pytest
 
@@ -208,3 +209,41 @@ def test_daily_page_carries_complete_url_and_deck_study_does_not(
     assert 'data-complete-url="/api/levels/a1/daily/complete"' in daily
     deck = migrated_client.get("/decks/starter/study").get_data(as_text=True)
     assert "data-complete-url" not in deck
+
+
+def test_daily_done_panel_has_a_streak_line_and_deck_study_does_not(
+    migrated_app, migrated_client
+):
+    """The daily 'Session complete' panel has a slot for 'done for today' and
+    the streak, filled from the /daily/complete reply. Deck study has none."""
+    with migrated_app.app_context():
+        seed_all()
+    _register(migrated_client)
+    daily = migrated_client.get("/levels/a1/daily").get_data(as_text=True)
+    assert (
+        '<p class="study-done__daily" id="study-done-daily" role="status" hidden>'
+        in daily
+    )
+    deck = migrated_client.get("/decks/starter/study").get_data(as_text=True)
+    assert "study-done-daily" not in deck
+
+    study_js = (
+        Path(__file__).resolve().parents[1] / "static" / "js" / "study.js"
+    ).read_text()
+    # The line is shown only after the completion is saved, from its reply.
+    assert "showDailyDone(body);" in study_js
+    assert "Daily vocab done for today" in study_js
+    assert "-day streak" in study_js
+
+
+def test_daily_complete_reply_carries_what_the_done_panel_shows(
+    migrated_app, migrated_client
+):
+    with migrated_app.app_context():
+        seed_all()
+    _register(migrated_client)
+    body = migrated_client.post(
+        "/api/levels/a1/daily/complete", json={"timezone": "Europe/Madrid"}
+    ).get_json()
+    assert body["done_today"] is True
+    assert body["streak"] == 1

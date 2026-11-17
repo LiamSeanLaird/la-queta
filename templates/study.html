@@ -42,6 +42,9 @@
   <div class="stack" id="study-done" hidden>
     <h2 class="heading-3" id="study-done-title">Session complete</h2>
     <p class="text-body" id="study-done-text" data-empty-text="{{ empty_message }}"></p>
+    {% if complete_url %}
+    <p class="study-done__daily" id="study-done-daily" role="status" hidden></p>
+    {% endif %}
     <a class="btn btn--primary btn--block" href="{{ request.path }}" id="study-again">Study again</a>
     {% if next_lesson %}
     <a class="btn btn--secondary btn--block" href="{{ url_for('pages.lesson', lesson_id=next_lesson.id) }}" id="study-next-lesson">Next lesson: {{ next_lesson.title }}</a>

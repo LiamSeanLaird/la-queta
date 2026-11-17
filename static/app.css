@@ -624,6 +624,16 @@ a.btn.btn--primary {
   color: var(--muted);
 }
 
+.study-done__daily {
+  margin: 0;
+  font-weight: 600;
+}
+
+.study-done__check {
+  color: var(--ok);
+  font-weight: 700;
+}
+
 /* ── Level tile ──────────────────────────────────────── */
 
 .level-grid {

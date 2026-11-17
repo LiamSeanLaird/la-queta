@@ -137,6 +137,7 @@ user_daily_sessions            -- one finished daily vocab per learner per local
 
 Daily vocab "done for today" and the streak come from `user_daily_sessions` (`app/services/daily.py`).
 `static/js/study.js` posts to `/api/levels/<id>/daily/complete` with the browser's timezone when a daily session reaches "Session complete".
+The reply (`done_today`, `streak`) fills the "✓ Daily vocab done for today · N-day streak" line on that screen, which only the daily page renders.
 `/levels` works out "today" in the timezone of the learner's latest finished session.
 
 Spaced repetition (`grade_card` in `app/services/vocab.py`, `POST /api/cards/<id>/grade`):
