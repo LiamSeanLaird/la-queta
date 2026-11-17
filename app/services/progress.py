@@ -13,7 +13,12 @@ VOCAB_WEIGHT = 0.3
 RETIRED_SEEN = 3
 
 
-def level_completeness_pct(user_id: int, level_id: str) -> int:
+def level_progress_counts(user_id: int, level_id: str) -> dict:
+    """Counts a learner recognises: lessons done and words learned in a level.
+
+    A word is "learned" once its card is retired (seen >= RETIRED_SEEN) and
+    "started" once it has been seen at least once.
+    """
     total_lessons = db.session.scalar(
         select(func.count()).select_from(Lesson).where(Lesson.level_id == level_id)
     ) or 0
@@ -34,29 +39,64 @@ def level_completeness_pct(user_id: int, level_id: str) -> int:
         .join(Deck, Deck.id == Card.deck_id)
         .where(Deck.level_id == level_id)
     ) or 0
-    retired_cards = db.session.scalar(
+    card_progress = (
         select(func.count())
         .select_from(UserCardProgress)
         .join(Card, Card.id == UserCardProgress.card_id)
         .join(Deck, Deck.id == Card.deck_id)
-        .where(
-            UserCardProgress.user_id == user_id,
-            UserCardProgress.seen >= RETIRED_SEEN,
-            Deck.level_id == level_id,
-        )
+        .where(UserCardProgress.user_id == user_id, Deck.level_id == level_id)
+    )
+    retired_cards = db.session.scalar(
+        card_progress.where(UserCardProgress.seen >= RETIRED_SEEN)
     ) or 0
+    started_cards = db.session.scalar(card_progress.where(UserCardProgress.seen > 0)) or 0
 
+    return {
+        "lessons_done": completed_lessons,
+        "lessons_total": total_lessons,
+        "words_learned": retired_cards,
+        "words_started": started_cards,
+        "words_total": total_cards,
+    }
+
+
+def completeness_pct(counts: dict) -> int:
+    total_lessons = counts["lessons_total"]
+    total_cards = counts["words_total"]
     if total_lessons == 0 and total_cards == 0:
         return 0
 
-    lesson_ratio = (completed_lessons / total_lessons) if total_lessons else 0.0
-    vocab_ratio = (retired_cards / total_cards) if total_cards else 0.0
+    lesson_ratio = (counts["lessons_done"] / total_lessons) if total_lessons else 0.0
+    vocab_ratio = (counts["words_learned"] / total_cards) if total_cards else 0.0
 
     if total_cards == 0:
         return round(100 * lesson_ratio)
     if total_lessons == 0:
         return round(100 * vocab_ratio)
     return round(100 * (LESSON_WEIGHT * lesson_ratio + VOCAB_WEIGHT * vocab_ratio))
+
+
+def progress_summary(counts: dict) -> str:
+    """Short line such as "3 of 20 lessons · 89 words learned".
+
+    Words show as "learned" once any card is retired. Before that, cards the
+    learner has studied show as "started", so early vocab work is visible too.
+    Nothing is said about words the learner has not touched yet.
+    """
+    parts = []
+    if counts["lessons_total"]:
+        parts.append(f"{counts['lessons_done']} of {counts['lessons_total']} lessons")
+    learned = counts["words_learned"]
+    started = counts["words_started"]
+    if learned:
+        parts.append(f"{learned} {'word' if learned == 1 else 'words'} learned")
+    elif started:
+        parts.append(f"{started} {'word' if started == 1 else 'words'} started")
+    return " · ".join(parts)
+
+
+def level_completeness_pct(user_id: int, level_id: str) -> int:
+    return completeness_pct(level_progress_counts(user_id, level_id))
 
 
 def next_incomplete_lesson(user: User, level_id: str) -> dict | None:

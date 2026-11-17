@@ -143,6 +143,9 @@ vocab_ratio  = retired_cards (seen >= 3) / total_cards_in_level
 complete_pct = round(100 * (0.7 * lesson_ratio + 0.3 * vocab_ratio))
 ```
 If a level has zero vocab, use lessons only (100% weight).
+`complete_pct` only sets the width of the progress bar.
+The text learners read comes from `level_progress_counts` and `progress_summary` in `app/services/progress.py`, for example "3 of 20 lessons · 89 words learned".
+Words count as "learned" once retired; before any are retired, cards seen at least once show as "words started".
 
 ## Auth / session
 - `POST /api/auth/register` `{ "handle", "email", "password" }` → `201` + session cookie

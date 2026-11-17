@@ -8,7 +8,10 @@
       <div class="level-tile-card{% if level.is_current %} is-current{% endif %}">
         <a class="level-tile" href="{{ url_for('pages.level_home', level_id=level.id) }}">
           <p class="level-tile__code">{{ level.code }}</p>
-          <p class="level-tile__meta">{{ level.title }} · {{ level.complete_pct }}%{% if level.is_current %} · current{% endif %}</p>
+          <p class="level-tile__meta">{{ level.title }}{% if level.is_current %} · current{% endif %}</p>
+          {% if level.progress_summary %}
+          <p class="level-tile__counts">{{ level.progress_summary }}</p>
+          {% endif %}
           <div class="progress" aria-hidden="true"><div class="progress__bar" style="width: {{ level.complete_pct }}%"></div></div>
         </a>
         {% if level.goals_total %}

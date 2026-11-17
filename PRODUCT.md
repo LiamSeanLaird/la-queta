@@ -48,7 +48,7 @@
 
 ```
 Home
-  → Level hub (A1 | A2) with % complete
+  → Level hub (A1 | A2) with lessons done, words learned and a progress bar
     → Level home
          → Lessons (ordered list, completion state)
          → Vocab decks for that level

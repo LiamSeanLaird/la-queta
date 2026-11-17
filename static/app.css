@@ -574,6 +574,8 @@ a.btn.btn--primary {
   border: 0;
   border-radius: 0;
   box-shadow: none;
+  /* Let the card's gold inset edge show through along the full height. */
+  background: transparent;
   padding-bottom: 0.55rem;
 }
 
@@ -625,6 +627,18 @@ a.btn.btn--primary {
   margin: 0.2rem 0 0.75rem;
   color: var(--muted);
   font-size: 0.9rem;
+}
+
+/* Lessons done and words learned; sits between the meta line and the bar. */
+.level-tile__meta:has(+ .level-tile__counts) {
+  margin-bottom: 0.15rem;
+}
+
+.level-tile__counts {
+  margin: 0 0 0.75rem;
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 
 .level-tile__goals {

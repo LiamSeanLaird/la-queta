@@ -14,8 +14,10 @@ from app.services.progress import (
     deck_lessons,
     deck_next_lesson,
     lesson_next_steps,
-    level_completeness_pct,
+    completeness_pct,
+    level_progress_counts,
     next_incomplete_lesson,
+    progress_summary,
 )
 from app.services.vocab import list_cards_for_deck, list_decks_for_level
 
@@ -111,6 +113,7 @@ def level_home(level_id: str):
     decks = list_decks_for_level(user, level_id) if tab == "vocab" else []
     vocab_groups = vocab_groups_for_level(user, level_id) if tab == "vocab" else []
     goals = can_dos_progress(user, level_id)
+    counts = level_progress_counts(user.id, level_id)
     return render_template(
         "level.html",
         user=user,
@@ -124,7 +127,8 @@ def level_home(level_id: str):
         goals_done=goals["done"],
         goals_total=goals["total"],
         goals_pct=goals["pct"],
-        complete_pct=level_completeness_pct(user.id, level_id),
+        complete_pct=completeness_pct(counts),
+        progress_summary=progress_summary(counts),
         brand_href=url_for("pages.levels"),
     )
 
