@@ -15,11 +15,13 @@
     {% for card in cards %}
     <div class="list-row list-row--vocab{% if card.retired %} is-retired{% endif %}" data-card-id="{{ card.id }}">
       <div class="vocab-main">
-        <p class="list-row__title">{{ card.catalan }}</p>
-        {% if card.pronunciation %}
-        <p class="vocab-pronunciation">{{ card.pronunciation }}</p>
-        {% endif %}
-        <p class="list-row__sub">{{ card.english }}</p>
+        <p class="vocab-head">
+          <span class="list-row__title vocab-word" lang="ca">{{ card.catalan }}</span>
+          {% if card.pronunciation and card.pronunciation|lower != card.catalan|lower %}
+          <span class="vocab-pronunciation">{{ card.pronunciation }}</span>
+          {% endif %}
+        </p>
+        <p class="vocab-english">{{ card.english }}</p>
         {% if card.pos or card.gender in ('m', 'f') or (card.plural and card.plural != '—') %}
         <div class="gram-pills vocab-gram">
           {% if card.pos %}
@@ -35,18 +37,11 @@
           {% endif %}
         </div>
         {% endif %}
+        {% if card.pos == 'verb' and card.forms %}
+        <p class="vocab-forms" lang="ca">{{ card.forms|join(' · ') }}</p>
+        {% endif %}
         {% if card.hint %}
         <p class="vocab-hint">{{ card.hint }}</p>
-        {% endif %}
-        {% if card.pos == 'verb' and card.forms %}
-        <p class="vocab-forms">{{ card.forms|join(' · ') }}</p>
-        {% endif %}
-        {% if card.tags %}
-        <p class="vocab-tags">
-          {% for tag in card.tags %}
-          <span class="tag-chip">{{ tag }}</span>
-          {% endfor %}
-        </p>
         {% endif %}
       </div>
       <div class="vocab-meta">

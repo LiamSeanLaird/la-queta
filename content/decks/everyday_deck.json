@@ -15,7 +15,7 @@
     "catalan": "petit / petita",
     "pronunciation": "puh-TEET / puh-TEE-tuh",
     "english": "small",
-    "hint": "masc / fem",
+    "hint": "",
     "tags": [
       "adjectives"
     ],
@@ -26,7 +26,7 @@
     "catalan": "bo / bona",
     "pronunciation": "boh / BOH-nuh",
     "english": "good",
-    "hint": "masc / fem",
+    "hint": "",
     "tags": [
       "adjectives"
     ],
@@ -37,7 +37,7 @@
     "catalan": "dolent / dolenta",
     "pronunciation": "doo-LEN / doo-LEN-tuh",
     "english": "bad",
-    "hint": "masc / fem",
+    "hint": "",
     "tags": [
       "adjectives"
     ],
@@ -48,7 +48,7 @@
     "catalan": "car / cara",
     "pronunciation": "kar / KAH-ruh",
     "english": "expensive",
-    "hint": "masc / fem",
+    "hint": "",
     "tags": [
       "adjectives"
     ],
@@ -59,7 +59,7 @@
     "catalan": "barat / barata",
     "pronunciation": "buh-RAT / buh-RAH-tuh",
     "english": "cheap",
-    "hint": "masc / fem",
+    "hint": "",
     "tags": [
       "adjectives"
     ],
@@ -70,7 +70,7 @@
     "catalan": "obert / oberta",
     "pronunciation": "oo-BERT / oo-BER-tuh",
     "english": "open",
-    "hint": "masc / fem",
+    "hint": "",
     "tags": [
       "adjectives"
     ],
@@ -81,7 +81,7 @@
     "catalan": "tancat / tancada",
     "pronunciation": "tan-KAT / tan-KAH-duh",
     "english": "closed",
-    "hint": "masc / fem",
+    "hint": "",
     "tags": [
       "adjectives"
     ],
@@ -92,7 +92,7 @@
     "catalan": "nou / nova",
     "pronunciation": "NOH-oo / NOH-buh",
     "english": "new",
-    "hint": "masc / fem",
+    "hint": "",
     "tags": [
       "adjectives"
     ],
@@ -103,7 +103,7 @@
     "catalan": "vell / vella",
     "pronunciation": "BEY / BEH-yuh",
     "english": "old",
-    "hint": "masc / fem",
+    "hint": "",
     "tags": [
       "adjectives"
     ],
@@ -125,7 +125,7 @@
     "catalan": "alt / alta",
     "pronunciation": "AL / AL-tuh",
     "english": "tall / high",
-    "hint": "masc / fem",
+    "hint": "",
     "tags": [
       "adjectives"
     ],
@@ -136,7 +136,7 @@
     "catalan": "baix / baixa",
     "pronunciation": "BASH / BAH-shuh",
     "english": "short (person) / low",
-    "hint": "masc / fem",
+    "hint": "",
     "tags": [
       "adjectives"
     ],
@@ -147,7 +147,7 @@
     "catalan": "bonic / bonica",
     "pronunciation": "boo-NEEK / boo-NEE-kuh",
     "english": "pretty / nice",
-    "hint": "masc / fem",
+    "hint": "",
     "tags": [
       "adjectives"
     ],
@@ -158,7 +158,7 @@
     "catalan": "lleig / lletja",
     "pronunciation": "YETCH / YED-juh",
     "english": "ugly",
-    "hint": "masc / fem",
+    "hint": "",
     "tags": [
       "adjectives"
     ],
@@ -169,7 +169,7 @@
     "catalan": "calent / calenta",
     "pronunciation": "kuh-LEN / kuh-LEN-tuh",
     "english": "hot (to the touch)",
-    "hint": "masc / fem",
+    "hint": "",
     "tags": [
       "adjectives"
     ],
@@ -180,7 +180,7 @@
     "catalan": "fred / freda",
     "pronunciation": "FRET / FREH-duh",
     "english": "cold",
-    "hint": "masc / fem",
+    "hint": "",
     "tags": [
       "adjectives"
     ],
@@ -191,7 +191,7 @@
     "catalan": "content / contenta",
     "pronunciation": "koon-TEN / koon-TEN-tuh",
     "english": "happy / glad",
-    "hint": "masc / fem",
+    "hint": "",
     "tags": [
       "adjectives"
     ],

@@ -413,7 +413,7 @@ def test_browse_shows_verb_forms_in_text_column(migrated_app, migrated_client):
     _register(migrated_client)
 
     html = migrated_client.get("/decks/core_verbs/browse").get_data(as_text=True)
-    forms = '<p class="vocab-forms">jo soc · tu ets · ell/ella és'
+    forms = '<p class="vocab-forms" lang="ca">jo soc · tu ets · ell/ella és'
     assert forms in html
     # Forms sit in the wrapping text column, not the fixed-width meta column.
     row = html[html.index('data-card-id'):]
@@ -434,6 +434,24 @@ def test_browse_shows_grammar_pills_in_text_column(migrated_app, migrated_client
     assert row.index('class="vocab-main"') < pills < row.index('class="vocab-meta"')
     meta = row[row.index('class="vocab-meta"'):]
     assert "gram-pill" not in meta
+
+
+def test_browse_card_shows_no_redundant_lines(migrated_app, migrated_client):
+    """Tag chips repeated the pos pill, and respellings repeated words like 'gran'."""
+    with migrated_app.app_context():
+        seed_all()
+    _register(migrated_client)
+
+    html = migrated_client.get("/decks/everyday/browse").get_data(as_text=True)
+    row_start = html.index('data-card-id')
+    gran = html[row_start:html.index('data-card-id', row_start + 1)]
+    assert '<span class="list-row__title vocab-word" lang="ca">gran</span>' in gran
+    assert "vocab-pronunciation" not in gran
+    assert "tag-chip" not in html
+    assert "masc / fem" not in html
+
+    bo = html[html.index('lang="ca">bo / bona<'):]
+    assert '<span class="vocab-pronunciation">boh / BOH-nuh</span>' in bo[:300]
 
 
 def test_cards_list_in_deck_file_order_after_a_reorder(

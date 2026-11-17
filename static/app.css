@@ -754,18 +754,18 @@ a.btn.btn--primary {
   color: var(--muted);
 }
 
-.list-row--vocab.is-retired {
-  opacity: 0.72;
+/* Browse cards are not links: top-align the progress column, no hover cue. */
+.list-row--vocab {
+  align-items: flex-start;
+  cursor: default;
 }
 
-.list-row--vocab.is-retired .list-row__title {
-  color: var(--muted);
+.list-row--vocab:hover {
+  border-color: var(--border);
 }
 
-.btn--retire {
-  padding: 0.25rem 0.55rem;
-  font-size: 0.75rem;
-  margin-top: 0.25rem;
+.list-row--vocab.is-retired .vocab-main {
+  opacity: 0.6;
 }
 
 .vocab-main {
@@ -773,25 +773,37 @@ a.btn.btn--primary {
   flex: 1;
 }
 
-.vocab-meta {
+/* Word and respelling share a line and wrap together on narrow screens. */
+.vocab-head {
+  margin: 0;
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0.35rem;
-  flex-shrink: 0;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 0.6rem;
+  row-gap: 0.1rem;
 }
 
-.vocab-pronunciation,
-.vocab-hint,
-.vocab-forms {
-  margin: 0.2rem 0 0;
-  font-size: 0.82rem;
-  color: var(--muted);
+.vocab-word {
+  font-size: 1.05rem;
 }
 
 .vocab-pronunciation {
+  font-size: 0.82rem;
   color: color-mix(in srgb, var(--senyera-gold) 75%, var(--ink));
   letter-spacing: 0.03em;
+}
+
+.vocab-english {
+  margin: 0.15rem 0 0;
+  font-size: 0.92rem;
+}
+
+.vocab-hint,
+.vocab-forms {
+  margin: 0.4rem 0 0;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--muted);
 }
 
 .vocab-forms {
@@ -801,26 +813,23 @@ a.btn.btn--primary {
 /* Grammar pills sit in the wrapping text column so they never squeeze it. */
 .gram-pills.vocab-gram {
   justify-content: flex-start;
-  margin-top: 0.35rem;
+  margin-top: 0.5rem;
 }
 
-.vocab-tags {
-  margin: 0.35rem 0 0;
+.vocab-meta {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.3rem;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  padding-top: 0.2rem;
 }
 
-.tag-chip {
-  display: inline-block;
-  padding: 0.15rem 0.5rem;
+.btn--retire {
+  padding: 0.2rem 0.6rem;
+  font-size: 0.75rem;
+  border: 1px solid var(--border);
   border-radius: 999px;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  background: var(--tab-rail);
-  color: var(--muted);
 }
 
 .badge {
