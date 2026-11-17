@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import random
+from datetime import UTC, datetime, timedelta
 
 from sqlalchemy import func, select
 
@@ -199,6 +200,70 @@ def increment_seen(user: User, card_id: int) -> dict:
     progress.seen += 1
     db.session.commit()
     return _card_dict(card, progress.seen)
+
+
+# Days until the next review after each "Knew it", in order. A card that was
+# known once comes back tomorrow, then in 3 days, then a week, and so on.
+REVIEW_INTERVALS = (1, 3, 7, 14, 30, 60)
+
+GRADES = ("knew", "not_yet")
+
+
+def next_interval(current: int, knew: bool) -> int:
+    """Interval after a self-grade: next step up on "Knew it", 0 on "Not yet"."""
+    if not knew:
+        return 0
+    for days in REVIEW_INTERVALS:
+        if days > current:
+            return days
+    return REVIEW_INTERVALS[-1]
+
+
+def _utc_now() -> datetime:
+    return datetime.now(UTC).replace(tzinfo=None)
+
+
+def grade_card(
+    user: User, card_id: int, grade: str, now: datetime | None = None
+) -> dict:
+    """Record a self-grade after the learner flipped a card.
+
+    "knew" moves the card up REVIEW_INTERVALS and counts as one more `seen`,
+    so a card retires after the learner knew it RETIRED_SEEN times.
+    "not_yet" drops the interval to 0 and makes the card due again now;
+    `seen` stays the same, so not remembering a word never retires it.
+    """
+    if grade not in GRADES:
+        raise ServiceError("grade must be 'knew' or 'not_yet'", 400)
+    card = db.session.get(Card, card_id)
+    if card is None:
+        raise ServiceError("Card not found", 404)
+
+    now = now or _utc_now()
+    knew = grade == "knew"
+    progress = db.session.scalar(
+        select(UserCardProgress).where(
+            UserCardProgress.user_id == user.id,
+            UserCardProgress.card_id == card.id,
+        )
+    )
+    if progress is None:
+        progress = UserCardProgress(
+            user_id=user.id, card_id=card.id, seen=0, interval_days=0
+        )
+        db.session.add(progress)
+
+    progress.interval_days = next_interval(progress.interval_days or 0, knew)
+    progress.due_at = now + timedelta(days=progress.interval_days)
+    progress.last_reviewed_at = now
+    if knew:
+        progress.seen += 1
+    db.session.commit()
+    return {
+        **_card_dict(card, progress.seen),
+        "interval_days": progress.interval_days,
+        "due_at": progress.due_at.isoformat(),
+    }
 
 
 def retire_card(user: User, card_id: int) -> dict:

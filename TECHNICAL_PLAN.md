@@ -120,7 +120,10 @@ user_lesson_progress
 user_card_progress
   user_id FK
   card_id FK
-  seen INT DEFAULT 0
+  seen INT DEFAULT 0            -- views, or "Knew it" grades once grading is used; retired at >= 3
+  interval_days INT DEFAULT 0   -- spaced repetition: days until next review, 0 = still learning
+  due_at NULL                   -- naive UTC; NULL = never studied
+  last_reviewed_at NULL         -- naive UTC time of the last self-grade
   UNIQUE(user_id, card_id)
 
 user_daily_sessions            -- one finished daily vocab per learner per local day
@@ -135,6 +138,12 @@ user_daily_sessions            -- one finished daily vocab per learner per local
 Daily vocab "done for today" and the streak come from `user_daily_sessions` (`app/services/daily.py`).
 `static/js/study.js` posts to `/api/levels/<id>/daily/complete` with the browser's timezone when a daily session reaches "Session complete".
 `/levels` works out "today" in the timezone of the learner's latest finished session.
+
+Spaced repetition (`grade_card` in `app/services/vocab.py`, `POST /api/cards/<id>/grade`):
+"Knew it" moves `interval_days` up the ladder 1, 3, 7, 14, 30, 60 days, sets `due_at` that far ahead, and adds 1 to `seen`.
+"Not yet" sets `interval_days` to 0 and `due_at` to now, and leaves `seen` alone, so forgetting a word never retires it.
+Migration `c9d0e1f2a3b4` carried existing progress over: seen 1 became interval 1, seen 2 became 3, seen 3 or more became 7, and every studied card was made due at once.
+`seen` was not changed, so retired cards stayed retired.
 
 Level completeness (derived, not stored):
 ```
@@ -181,6 +190,7 @@ Conventions: `STYLE_GUIDE.md` §3 (layers, statuses, error shape, POST-for-actio
 | GET | `/api/decks/<slug>/cards` | All cards + seen |
 | GET | `/api/decks/<slug>/session` | Unretired cards: already-seen ones shuffled first, then unseen ones in deck file order |
 | POST | `/api/cards/<id>/seen` | Increment seen |
+| POST | `/api/cards/<id>/grade` | Self-grade `{"grade": "knew" \| "not_yet"}`: updates interval, due date and seen |
 | POST | `/api/cards/<id>/retire` | Set seen ≥ 3 (early retire) |
 | POST | `/api/decks/<slug>/unretire` | Reset seen → 0 for all cards in deck |
 

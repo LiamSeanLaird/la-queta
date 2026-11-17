@@ -5,6 +5,7 @@ from app.services.daily import record_daily_done
 from app.services.errors import ServiceError
 from app.services.vocab import (
     daily_session_for_level,
+    grade_card,
     increment_seen,
     list_cards_for_deck,
     list_decks_for_level,
@@ -76,6 +77,18 @@ def card_seen(card_id: int):
     try:
         user = require_user()
         card = increment_seen(user, card_id)
+    except ServiceError as exc:
+        return jsonify({"error": exc.message}), exc.status_code
+    return jsonify(card)
+
+
+@bp.post("/api/cards/<int:card_id>/grade")
+def card_grade(card_id: int):
+    """Self-grade after a flip. Body: {"grade": "knew" | "not_yet"}."""
+    payload = request.get_json(silent=True) or {}
+    try:
+        user = require_user()
+        card = grade_card(user, card_id, payload.get("grade"))
     except ServiceError as exc:
         return jsonify({"error": exc.message}), exc.status_code
     return jsonify(card)

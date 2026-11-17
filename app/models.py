@@ -154,6 +154,14 @@ class UserCardProgress(db.Model):
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
     card_id: Mapped[int] = mapped_column(ForeignKey("cards.id"), nullable=False)
     seen: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    # Spaced repetition (see app/services/vocab.py grade_card). Times are naive
+    # UTC. interval_days 0 means "still learning"; due_at NULL means the card
+    # has never been studied.
+    interval_days: Mapped[int] = mapped_column(
+        Integer, nullable=False, default=0, server_default="0"
+    )
+    due_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+    last_reviewed_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
 
     user: Mapped[User] = relationship(back_populates="card_progress")
     card: Mapped[Card] = relationship(back_populates="progress")
