@@ -117,6 +117,13 @@ a.tab-btn {
   width: 100%;
 }
 
+.study-grade {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  width: 100%;
+}
+
 .study-actions__end {
   display: flex;
   align-items: center;

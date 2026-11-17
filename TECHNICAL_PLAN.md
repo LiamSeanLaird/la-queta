@@ -120,7 +120,7 @@ user_lesson_progress
 user_card_progress
   user_id FK
   card_id FK
-  seen INT DEFAULT 0            -- views, or "Knew it" grades once grading is used; retired at >= 3
+  seen INT DEFAULT 0            -- "Knew it" grades (views before grading existed); retired at >= 3
   interval_days INT DEFAULT 0   -- spaced repetition: days until next review, 0 = still learning
   due_at NULL                   -- naive UTC; NULL = never studied
   last_reviewed_at NULL         -- naive UTC time of the last self-grade
@@ -144,6 +144,8 @@ Spaced repetition (`grade_card` in `app/services/vocab.py`, `POST /api/cards/<id
 "Not yet" sets `interval_days` to 0 and `due_at` to now, and leaves `seen` alone, so forgetting a word never retires it.
 Migration `c9d0e1f2a3b4` carried existing progress over: seen 1 became interval 1, seen 2 became 3, seen 3 or more became 7, and every studied card was made due at once.
 `seen` was not changed, so retired cards stayed retired.
+In `static/js/study.js`, a flipped card shows "Not yet" and "Knew it" (keys 1 and 2), which post to `/grade`; study no longer posts to `/seen`.
+Each card is graded at most once per session, and a "Not yet" card comes back once at the end of the session for practice without a second grade.
 
 Level completeness (derived, not stored):
 ```
@@ -189,7 +191,7 @@ Conventions: `STYLE_GUIDE.md` §3 (layers, statuses, error shape, POST-for-actio
 | GET | `/api/levels/<id>/daily` | Up to 20 unretired cards from decks the learner has started or whose lesson they completed (the first deck for a new learner), topped up from the next decks in order, then from retired ones |
 | GET | `/api/decks/<slug>/cards` | All cards + seen |
 | GET | `/api/decks/<slug>/session` | Unretired cards: already-seen ones shuffled first, then unseen ones in deck file order |
-| POST | `/api/cards/<id>/seen` | Increment seen |
+| POST | `/api/cards/<id>/seen` | Increment seen (legacy; study grades instead) |
 | POST | `/api/cards/<id>/grade` | Self-grade `{"grade": "knew" \| "not_yet"}`: updates interval, due date and seen |
 | POST | `/api/cards/<id>/retire` | Set seen ≥ 3 (early retire) |
 | POST | `/api/decks/<slug>/unretire` | Reset seen → 0 for all cards in deck |
@@ -269,7 +271,7 @@ Work in vertical slices. Each phase: **failing tests → structure → behaviour
 - [ ] CI SSH deploy (optional later)
 
 ### Phase 8 — Vocab UX ✅
-- [x] Study: Enter → Next (seen++); Space / click → flip
+- [x] Study: Enter / Space / click → flip; then Knew it (2) or Not yet (1) grades the card
 - [x] Browse: retired badge / muted row; Retire per row
 - [x] Study Retire → `POST /api/cards/<id>/retire` then advance
 - [x] Deck fully retired → Unretire deck (`POST /api/decks/<slug>/unretire`)

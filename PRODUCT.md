@@ -95,7 +95,7 @@ Do not invent a third progress system.
 - [x] Backup story for SQLite file (on-VM cron; optional Mac pull)
 
 ### Phase E — Vocab UX ✅
-- [x] Study keyboard: **Enter**, **Space**, Next or a card tap flips to English, then advances and increments `seen`; each card counts at most once per session, even after **Back**
+- [x] Study: **Enter**, **Space**, Show answer or a card tap flips to English, then **Knew it** (key 2) or **Not yet** (key 1) grades the card; each card is graded at most once per session, even after **Back**, and Not yet cards come back once at the end
 - [x] Browse: retired badge / muted row when `seen >= 3`
 - [x] **Retire now** on study + browse (`POST /api/cards/<id>/retire`)
 - [x] **Unretire deck** when all cards retired (`POST /api/decks/<slug>/unretire`)
