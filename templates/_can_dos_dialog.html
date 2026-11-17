@@ -2,7 +2,7 @@
 <dialog class="dialog" id="{{ dialog_id }}" aria-labelledby="{{ dialog_id }}-title">
   <form method="dialog" class="dialog__panel stack">
     <h3 class="heading-3" id="{{ dialog_id }}-title">{{ level_code }} goals</h3>
-    <p class="text-muted">Complete the lessons in each goal to unlock it.</p>
+    <p class="text-muted">Finish every lesson in a goal to tick it off.</p>
     <ul class="can-do-list">
       {% for item in can_dos %}
       <li class="can-do{% if item.done %} is-done{% endif %}">

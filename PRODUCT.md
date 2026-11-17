@@ -106,7 +106,7 @@ Do not invent a third progress system.
 Learn \| Practice tabs; MC + cloze + type-in; complete only after perfect Practice.
 
 ### Phase G — A1 path ✅
-Programme theme coverage filled (**20** A1 lessons; see `content/a1_coverage.md`). **7 clustered goals** on Learn (`content/a1_can_dos.json`); unlock dialog when a goal completes. Browser TTS listening + speak self-check in Practice.
+Programme theme coverage filled (**20** A1 lessons; see `content/a1_coverage.md`). **7 clustered goals** on Learn (`content/a1_can_dos.json`); "Goal complete" dialog when a lesson finishes a goal. Browser TTS listening + speak self-check in Practice.
 
 ### Next (content / product)
 - Denser practice banks; richer exam-shaped read/write
