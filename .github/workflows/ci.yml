@@ -16,6 +16,11 @@ jobs:
       - name: Install Poetry
         run: pipx install poetry==2.4.1
       - name: Install dependencies
+        # poetry.toml disables virtualenvs for the local conda setup; CI needs one.
+        env:
+          POETRY_VIRTUALENVS_CREATE: "true"
         run: poetry install --no-interaction
       - name: Test
+        env:
+          POETRY_VIRTUALENVS_CREATE: "true"
         run: poetry run python -m pytest -q
