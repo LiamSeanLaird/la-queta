@@ -146,6 +146,10 @@ Migration `c9d0e1f2a3b4` carried existing progress over: seen 1 became interval 
 `seen` was not changed, so retired cards stayed retired.
 In `static/js/study.js`, a flipped card shows "Not yet" and "Knew it" (keys 1 and 2), which post to `/grade`; study no longer posts to `/seen`.
 Each card is graded at most once per session, and a "Not yet" card comes back once at the end of the session for practice without a second grade.
+Choosing cards: a card is "new" (no row, or `seen` 0 and no `due_at`), "due" (`due_at` has passed, or studied with no `due_at` yet), or "early" (studied, due later).
+Deck study plays due cards (oldest due first), then new cards in deck file order, then early cards shuffled.
+Daily vocab picks due cards from the whole level first, then new cards from the focus decks, then new cards from the next decks in order, then early cards (soonest due first), then retired cards from the focus decks, and shuffles the 20 it picked.
+"Unretire deck" (`unretire_deck`) makes its cards new again: `seen`, `interval_days` and `due_at` are reset.
 
 Level completeness (derived, not stored):
 ```
@@ -188,9 +192,9 @@ Conventions: `STYLE_GUIDE.md` §3 (layers, statuses, error shape, POST-for-actio
 | GET | `/api/lessons/<id>` | Full lesson (sections + practice) |
 | POST | `/api/lessons/<id>/complete` | Perfect practice score required; mark complete |
 | GET | `/api/levels/<id>/decks` | Decks + stats |
-| GET | `/api/levels/<id>/daily` | Up to 20 unretired cards from decks the learner has started or whose lesson they completed (the first deck for a new learner), topped up from the next decks in order, then from retired ones |
+| GET | `/api/levels/<id>/daily` | Up to 20 cards: due reviews first, then new cards from decks the learner has started or whose lesson they completed (the first deck for a new learner), then new cards from the next decks in order, then reviews not due yet, then retired ones |
 | GET | `/api/decks/<slug>/cards` | All cards + seen |
-| GET | `/api/decks/<slug>/session` | Unretired cards: already-seen ones shuffled first, then unseen ones in deck file order |
+| GET | `/api/decks/<slug>/session` | Unretired cards: due reviews (oldest first), then unseen ones in deck file order, then reviews not due yet |
 | POST | `/api/cards/<id>/seen` | Increment seen (legacy; study grades instead) |
 | POST | `/api/cards/<id>/grade` | Self-grade `{"grade": "knew" \| "not_yet"}`: updates interval, due date and seen |
 | POST | `/api/cards/<id>/retire` | Set seen ≥ 3 (early retire) |

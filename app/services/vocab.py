@@ -28,7 +28,10 @@ def _get_deck(slug: str) -> Deck:
     return deck
 
 
-def _seen_map(user_id: int, card_ids: list[int]) -> dict[int, int]:
+def _progress_map(
+    user_id: int, card_ids: list[int]
+) -> dict[int, tuple[int, datetime | None]]:
+    """card_id -> (seen, due_at) for the cards this user has progress on."""
     if not card_ids:
         return {}
     rows = db.session.scalars(
@@ -37,10 +40,16 @@ def _seen_map(user_id: int, card_ids: list[int]) -> dict[int, int]:
             UserCardProgress.card_id.in_(card_ids),
         )
     ).all()
-    return {row.card_id: row.seen for row in rows}
+    return {row.card_id: (row.seen, row.due_at) for row in rows}
 
 
-def _card_dict(card: Card, seen: int) -> dict:
+def _seen_map(user_id: int, card_ids: list[int]) -> dict[int, int]:
+    return {
+        card_id: seen for card_id, (seen, _) in _progress_map(user_id, card_ids).items()
+    }
+
+
+def _card_dict(card: Card, seen: int, due_at: datetime | None = None) -> dict:
     return {
         "id": card.id,
         "external_id": card.external_id,
@@ -55,6 +64,7 @@ def _card_dict(card: Card, seen: int) -> dict:
         "forms": card.forms_json or [],
         "seen": seen,
         "retired": seen >= RETIRED_SEEN,
+        "due_at": due_at.isoformat() if due_at else None,
     }
 
 
@@ -91,23 +101,48 @@ def list_cards_for_deck(user: User, slug: str) -> list[dict]:
         .where(Card.deck_id == deck.id)
         .order_by(Card.position, Card.id)
     ).all()
-    seen = _seen_map(user.id, [card.id for card in cards])
-    return [_card_dict(card, seen.get(card.id, 0)) for card in cards]
+    progress = _progress_map(user.id, [card.id for card in cards])
+    return [_card_dict(card, *progress.get(card.id, (0, None))) for card in cards]
 
 
-def session_for_deck(user: User, slug: str) -> list[dict]:
-    """Shuffled review of cards already seen, then new cards in deck file order.
+def _review_state(card: dict, now: datetime) -> str:
+    """Say whether a card is "new", "due" or "early" (studied, not due yet).
 
-    Deck files are curated (core verbs first, nouns grouped by topic), so a
-    learner meets new words in that order. Cards they have already seen are
-    reviewed first, shuffled, so recall does not lean on position.
+    Cards studied before scheduling existed (or through the legacy /seen
+    endpoint) have no due date; they count as due so they get a grade.
     """
+    if card["due_at"] is None:
+        return "new" if card["seen"] == 0 else "due"
+    return "due" if datetime.fromisoformat(card["due_at"]) <= now else "early"
+
+
+def _split_by_state(cards: list[dict], now: datetime) -> dict[str, list[dict]]:
+    groups: dict[str, list[dict]] = {"new": [], "due": [], "early": []}
+    for card in cards:
+        groups[_review_state(card, now)].append(card)
+    return groups
+
+
+def _by_due(cards: list[dict]) -> list[dict]:
+    """Oldest due date first; cards with no due date (overdue longest) lead."""
+    return sorted(cards, key=lambda card: card["due_at"] or "")
+
+
+def session_for_deck(user: User, slug: str, now: datetime | None = None) -> list[dict]:
+    """Due reviews, then new cards in deck file order, then early reviews.
+
+    Due reviews come first, oldest due date first, so the words the learner
+    is about to forget get graded even in a short session. Deck files are
+    curated (core verbs first, nouns grouped by topic), so new words keep
+    that order. Studied cards that are not due yet come last, shuffled, so a
+    learner who keeps going can still review the whole deck.
+    """
+    now = now or _utc_now()
     cards = list_cards_for_deck(user, slug)
-    active = [card for card in cards if not card["retired"]]
-    review = [card for card in active if card["seen"] > 0]
-    new = [card for card in active if card["seen"] == 0]
-    random.shuffle(review)
-    return review + new
+    groups = _split_by_state([card for card in cards if not card["retired"]], now)
+    early = groups["early"]
+    random.shuffle(early)
+    return _by_due(groups["due"]) + groups["new"] + early
 
 
 DAILY_LIMIT = 20
@@ -123,9 +158,9 @@ def list_cards_for_level(user: User, level_id: str) -> list[dict]:
         .where(Deck.level_id == level_id)
         .order_by(Deck.sort_order, Deck.slug, Card.position, Card.id)
     ).all()
-    seen = _seen_map(user.id, [card.id for card, _ in rows])
+    progress = _progress_map(user.id, [card.id for card, _ in rows])
     return [
-        {**_card_dict(card, seen.get(card.id, 0)), "deck_slug": deck_slug}
+        {**_card_dict(card, *progress.get(card.id, (0, None))), "deck_slug": deck_slug}
         for card, deck_slug in rows
     ]
 
@@ -154,30 +189,39 @@ def _focus_deck_slugs(user: User, level_id: str, cards: list[dict]) -> set[str]:
 
 
 def daily_session_for_level(
-    user: User, level_id: str, limit: int = DAILY_LIMIT
+    user: User, level_id: str, limit: int = DAILY_LIMIT, now: datetime | None = None
 ) -> list[dict]:
-    """Daily review drawn from the decks the learner has reached.
+    """Daily review: due cards first, then new words, then the rest.
 
-    1. Unretired cards from focus decks (see _focus_deck_slugs), at random.
-    2. If that is not enough, unretired cards from the other decks in level
-       order, so the session tops up with the vocab that comes next rather
-       than words from lessons far ahead.
-    3. Then retired cards from focus decks, as a soft reintroduction.
+    1. Unretired cards that are due for review, from any deck in the level,
+       oldest due date first. Only studied cards can be due, so these all
+       come from decks the learner has reached.
+    2. New cards from focus decks (see _focus_deck_slugs), at random.
+    3. New cards from the other decks in level order, so the session tops
+       up with the vocab that comes next rather than words from lessons far
+       ahead.
+    4. Unretired cards that are not due yet, soonest due first.
+    5. Retired cards from focus decks, as a soft reintroduction.
     The picked cards are shuffled.
     """
+    now = now or _utc_now()
     cards = list_cards_for_level(user, level_id)
     focus = _focus_deck_slugs(user, level_id, cards)
-    in_focus = [card for card in cards if card["deck_slug"] in focus]
-    focus_active = [card for card in in_focus if not card["retired"]]
-    focus_retired = [card for card in in_focus if card["retired"]]
-    next_active = [
-        card
-        for card in cards
-        if card["deck_slug"] not in focus and not card["retired"]
+    groups = _split_by_state([card for card in cards if not card["retired"]], now)
+    focus_new = [card for card in groups["new"] if card["deck_slug"] in focus]
+    next_new = [card for card in groups["new"] if card["deck_slug"] not in focus]
+    focus_retired = [
+        card for card in cards if card["retired"] and card["deck_slug"] in focus
     ]
-    random.shuffle(focus_active)
+    random.shuffle(focus_new)
     random.shuffle(focus_retired)
-    picked = (focus_active + next_active + focus_retired)[:limit]
+    picked = (
+        _by_due(groups["due"])
+        + focus_new
+        + next_new
+        + _by_due(groups["early"])
+        + focus_retired
+    )[:limit]
     random.shuffle(picked)
     return picked
 
@@ -291,7 +335,10 @@ def retire_card(user: User, card_id: int) -> dict:
 
 
 def unretire_deck(user: User, slug: str) -> dict:
-    """Reset seen to 0 for every card in the deck for this user."""
+    """Start the deck over: every card is new again for this user.
+
+    last_reviewed_at is kept as history.
+    """
     deck = _get_deck(slug)
     cards = db.session.scalars(select(Card).where(Card.deck_id == deck.id)).all()
     card_ids = [card.id for card in cards]
@@ -304,6 +351,8 @@ def unretire_deck(user: User, slug: str) -> dict:
         ).all()
         for row in rows:
             row.seen = 0
+            row.interval_days = 0
+            row.due_at = None
         db.session.commit()
 
     total = len(cards)
