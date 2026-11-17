@@ -1,0 +1,6 @@
+# Per-repo no-mistakes overrides.
+
+# The full suite runs in about 15 seconds, so run all of it.
+# .github/workflows/ci.yml runs the same command on every PR.
+commands:
+  test: 'poetry run python -m pytest -q'
