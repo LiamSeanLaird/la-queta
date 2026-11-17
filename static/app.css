@@ -390,6 +390,11 @@ a.tab-btn {
   font-size: 0.82rem;
 }
 
+/* Keep a word ending such as "-em" on one line (see app/text_filters.py). */
+.affix {
+  white-space: nowrap;
+}
+
 .rule-callout {
   margin: 0;
   padding: 0.9rem 1rem;

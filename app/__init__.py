@@ -37,6 +37,10 @@ def create_app(config_overrides: dict | None = None) -> Flask:
     application.register_blueprint(api_lessons_bp)
     application.register_blueprint(api_vocab_bp)
 
+    from app.text_filters import keep_affixes
+
+    application.add_template_filter(keep_affixes)
+
     @application.context_processor
     def inject_shell():
         from flask import current_app
