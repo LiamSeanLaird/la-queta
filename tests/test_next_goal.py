@@ -125,3 +125,25 @@ def test_levels_card_when_every_goal_is_done(migrated_app, migrated_client):
     assert "Next goal" not in line
     assert "All 7 goals complete</button>" in line
     assert "level-tile__done-check" in line
+
+
+def _dialog_metas(page: str) -> list[str]:
+    return [
+        " ".join(chunk.split("</span>")[0].split(">", 1)[1].split())
+        for chunk in page.split('class="can-do__meta')[1:]
+    ]
+
+
+def test_goals_dialog_uses_singular_for_one_lesson(migrated_app, migrated_client):
+    with migrated_app.app_context():
+        seed_all()
+    _register(migrated_client, "dialoger")
+
+    for path in ("/levels", "/levels/a1"):
+        metas = _dialog_metas(migrated_client.get(path).get_data(as_text=True))
+        assert len(metas) == 7
+        # 'Handle public services' holds a single lesson.
+        assert "0 of 1 lesson" in metas
+        assert "0 of 5 lessons" in metas
+        assert not any("1 lessons" in meta for meta in metas)
+        assert not any("/" in meta for meta in metas)

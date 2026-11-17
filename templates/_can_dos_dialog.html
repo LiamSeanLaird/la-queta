@@ -9,7 +9,7 @@
         <div class="can-do__main">
           <span class="can-do__label">{{ item.label }}</span>
           <span class="can-do__meta text-small text-muted">
-            {{ item.lessons_done }}/{{ item.lessons_total }} lessons
+            {{ item.lessons_done }} of {{ item.lessons_total }} {{ 'lesson' if item.lessons_total == 1 else 'lessons' }}
           </span>
         </div>
         <span class="badge {% if item.done %}badge--done{% else %}badge--todo{% endif %}">
