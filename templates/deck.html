@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}{{ deck.title }} — La Queta{% endblock %}
+{% block title %}{{ deck.title }} - La Queta{% endblock %}
 {% set brand_href = url_for('pages.levels') %}
 {% block top_back %}
 <a class="topbar__back" href="{{ url_for('pages.level_home', level_id=deck.level_id, tab='vocab') }}" aria-label="Back to decks">←</a>
@@ -10,19 +10,21 @@
 <section class="stack-lg" id="deck-page" data-deck-slug="{{ deck.slug }}">
   <div class="stack">
     <h2 class="heading-2">{{ deck.title }}</h2>
-    <div class="progress-meta">
-      <span>{{ deck.remaining }} left</span>
-      <span>{{ deck.retired }}/{{ deck.total }} retired</span>
-    </div>
-    <div
-      class="progress"
-      role="progressbar"
-      aria-label="Retired cards"
-      aria-valuenow="{{ retired_pct }}"
-      aria-valuemin="0"
-      aria-valuemax="100"
-    >
-      <div class="progress__bar" style="width: {{ retired_pct }}%"></div>
+    <div class="progress-group">
+      <div class="progress-meta">
+        <span>{{ deck.remaining }} left</span>
+        <span>{{ deck.retired }}/{{ deck.total }} retired</span>
+      </div>
+      <div
+        class="progress"
+        role="progressbar"
+        aria-label="Retired cards"
+        aria-valuenow="{{ retired_pct }}"
+        aria-valuemin="0"
+        aria-valuemax="100"
+      >
+        <div class="progress__bar" style="width: {{ retired_pct }}%"></div>
+      </div>
     </div>
   </div>
   <div class="stack">
@@ -34,6 +36,24 @@
     <a class="btn btn--secondary btn--block" href="{{ url_for('pages.browse', slug=deck.slug) }}">Browse</a>
   </div>
   <p class="field__error" id="deck-error" hidden></p>
+  {% if lessons %}
+  <div class="stack" id="deck-lessons">
+    <h3 class="heading-3">{% if lessons|length == 1 %}Lesson{% else %}Lessons{% endif %} for this deck</h3>
+    <div class="list">
+      {% for lesson in lessons %}
+      <a class="list-row" href="{{ url_for('pages.lesson', lesson_id=lesson.id) }}">
+        <div>
+          <p class="list-row__title">{{ lesson.title }}</p>
+          <p class="list-row__sub">{{ lesson.summary }}</p>
+        </div>
+        <span class="badge {% if lesson.completed %}badge--done{% else %}badge--todo{% endif %}">
+          {% if lesson.completed %}Done{% else %}Todo{% endif %}
+        </span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
 </section>
 {% endblock %}
 {% block scripts %}

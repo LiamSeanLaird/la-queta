@@ -19,10 +19,12 @@ make run
 That page renders every shared UI component (tokens, brand, type, buttons, forms, tabs, progress, level tiles, list rows, flashcard, exercise options, examples table, seen dots).
 
 Flashcards / browse rows carry prototype vocab meta on the Catalan side: pronunciation, grammar pills (pos including phrase / gender / plural), verb forms, tags.
+On browse rows, everything that wraps (grammar pills, verb forms, tags) sits in the text column; the right-hand column holds only seen dots and Retire, so it never squeezes the text at phone width.
 
-Study flow: first-load tip dialog (Don’t show again); tap or Enter flips Catalan → English, then advances (seen++); Back revisits the previous card; Retire confirms once. Finished / empty session redirects to the deck. Deck page shows retired progress bar; when fully retired, Unretire deck replaces Study (POST unretire → seen 0). Interaction chrome stays off the card — only pedagogical `hint` text appears when present.
+Study flow: first-load tip dialog (Don’t show again); tap or Enter flips Catalan → English, then advances (seen++); Back revisits the previous card; Retire confirms once. A finished session stays on the page and shows a 'Session complete' panel: how many cards the learner went through and retired, a primary 'Study again' (hidden when every card in it was retired), 'Next lesson: <Title>' and a link back to the deck or vocab tab. After deck study the next lesson is the deck's own lesson if it is unfinished, else the first unfinished lesson after it; after daily review it is the level's first unfinished lesson. Without Study again, the next lesson (or the exit link when there is none) becomes the primary button. An empty session shows 'Nothing to study' the same way. Deck page shows retired progress bar; when fully retired, Unretire deck replaces Study (POST unretire → seen 0). Below Study and Browse it lists the lessons linked to the deck (lesson `deck` field), in lesson order with Done/Todo badges. Interaction chrome stays off the card — only pedagogical `hint` text appears when present.
 
-Lessons use Learn | Practice tabs. Practice is one-item-at-a-time (MC / cloze / type-in / listen_* / speak); typed/STT answers normalize case/space and strip punctuation but keep accents. Cloze prompts say fill-the-blank-only; wrong typed Check offers Show answer once. Listening uses browser TTS (`speech.js`). Lesson completes only after a perfect Practice run.
+Lessons use Learn | Practice tabs. Practice is one-item-at-a-time (MC / cloze / type-in / listen_* / speak); typed/STT answers normalize case/space, treat curly apostrophes (’) as straight ones, and strip other punctuation but keep accents. Cloze prompts say fill-the-blank-only; wrong typed Check offers Show answer once. Listening uses browser TTS (`speech.js`). Lesson completes only after a perfect Practice run.
+When Practice ends the learner stays on the lesson: a done panel offers the lesson's matching vocab deck (primary, while it has cards left), the next incomplete lesson, and Back to lessons.
 
 - **Markup + classes:** `templates/style_guide.html`
 - **Shared styles:** `static/app.css` (gallery chrome uses `.sg-*`; app components do not)
@@ -138,12 +140,13 @@ Lessons use Learn | Practice tabs. Practice is one-item-at-a-time (MC / cloze / 
 - Semantic structure (`main`, `nav`, `section`, `button` for actions).
 - Accessible labels on interactive controls.
 - Catalan UI chrome can mix EN labels for learners; content language follows lesson/card data.
-- Logged-in shell (`base.html` topbar): **←** back left (`{% block top_back %}`), brand center, profile + feedback (mailto / `FEEDBACK_EMAIL`) right. Tagline (`aprèn català`) only on the gate.
+- Logged-in shell (`base.html` topbar): **←** back left (`{% block top_back %}`), brand center, profile + feedback (mailto / `FEEDBACK_EMAIL`) right, side by side in one row (never stacked). Tagline (`aprèn català`) only on the gate.
 
 ### CSS
 - Design tokens as CSS variables on `:root` (see Visual design).
 - Mobile-first; usable at 360px width.
 - Prefer layout via flex/grid; avoid absolute positioning for primary flow.
+- Wrap a `.progress-meta` label and its `.progress` bar in `.progress-group`, so they stay one tight unit whatever gap the surrounding stack uses.
 - **No cards by default** — card chrome only when it frames an interaction (flashcard flip, exercise choice).
 - No purple/indigo gradient themes, no glow stacks, no emoji as UI.
 - Avoid generic AI defaults: Inter/Roboto/Arial system stacks as the brand voice; purple-on-white; cool limestone + teal; newspaper broadsheet layouts.

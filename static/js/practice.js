@@ -9,7 +9,6 @@
   const practiceEmpty = document.getElementById("practice-empty");
   const practiceDone = document.getElementById("practice-done");
   const practiceError = document.getElementById("practice-error");
-  const lessonsUrl = page.dataset.lessonsUrl;
   const alreadyCompleted = page.dataset.completed === "true";
   const Speech = window.LaQueta && window.LaQueta.Speech;
 
@@ -26,6 +25,8 @@
   function normalizeAnswer(value) {
     return String(value || "")
       .trim()
+      // Phone keyboards type a curly apostrophe (l’estació); treat it as '.
+      .replace(/[\u2018\u2019\u02bc`\u00b4]/g, "'")
       .replace(/[^\p{L}\p{N}\s'-]+/gu, "")
       .replace(/\s+/g, " ")
       .toLocaleLowerCase();
@@ -80,7 +81,7 @@
       } catch (_err) {
         window.LaQueta.showError(
           practiceError,
-          "Could not play audio — try Chrome/Safari, or check system voices"
+          "Could not play audio - try Chrome/Safari, or check system voices"
         );
       } finally {
         btn.disabled = false;
@@ -146,7 +147,7 @@
     if (isCloze) {
       const guide = document.createElement("p");
       guide.className = "text-small text-muted";
-      guide.textContent = "Fill the blank only — not the whole sentence.";
+      guide.textContent = "Fill the blank only - not the whole sentence.";
       root.appendChild(guide);
     }
 
@@ -210,7 +211,7 @@
         const parts = [];
         if (shown) parts.push(`Answer: ${shown}`);
         if (item.explanation) parts.push(item.explanation);
-        lockAndAdvance(parts.join(" — ") || "Answer shown.");
+        lockAndAdvance(parts.join(" - ") || "Answer shown.");
       });
       actions.insertBefore(revealBtn, submit);
     }
@@ -292,7 +293,7 @@
     said.textContent = "I said it";
     said.addEventListener("click", () => {
       if (finishing) return;
-      showExplain(root, item.explanation || "Nice — keep practising aloud.", true);
+      showExplain(root, item.explanation || "Nice - keep practising aloud.", true);
       window.setTimeout(() => advance(), 350);
     });
     row.appendChild(said);
@@ -315,10 +316,10 @@
           const transcript = await Speech.listenOnce({ lang: "ca-ES" });
           const ok = answersMatch(transcript, [item.speak, ...(item.answers || [])]);
           status.textContent = ok
-            ? `Heard: “${transcript}” — close enough.`
-            : `Heard: “${transcript}” — model is “${item.speak}”. You can still tap I said it.`;
+            ? `Heard: “${transcript}” - close enough.`
+            : `Heard: “${transcript}” - model is “${item.speak}”. You can still tap I said it.`;
         } catch (_err) {
-          status.textContent = "Mic check unavailable — use I said it.";
+          status.textContent = "Mic check unavailable - use I said it.";
         }
       });
       root.appendChild(listenBtn);
@@ -347,16 +348,22 @@
     }
   }
 
+  function showDonePanel() {
+    practiceDone.hidden = false;
+    practiceDone.querySelector("a")?.focus();
+  }
+
   async function finish() {
     if (finishing) return;
     finishing = true;
     practiceItem.hidden = true;
-    practiceDone.hidden = false;
     practiceProgressText.textContent = "Done";
     practiceProgressBar.style.width = "100%";
 
+    // The done panel (rendered by the server) offers the matching vocab deck
+    // and the next lesson, so the learner stays here instead of being redirected.
     if (alreadyCompleted) {
-      if (lessonsUrl) window.location.assign(lessonsUrl);
+      showDonePanel();
       return;
     }
 
@@ -378,25 +385,14 @@
       return;
     }
 
+    showDonePanel();
     const unlocked = Array.isArray(body.goals_unlocked) ? body.goals_unlocked : [];
-    const goNext = () => {
-      if (lessonsUrl) window.location.assign(lessonsUrl);
-    };
-    if (unlocked.length) {
-      const dialog = document.getElementById("goal-unlock-dialog");
-      const labelEl = document.getElementById("goal-unlock-label");
-      if (dialog && labelEl) {
-        labelEl.textContent = unlocked.map((g) => g.label).join(" · ");
-        const onClose = () => {
-          dialog.removeEventListener("close", onClose);
-          goNext();
-        };
-        dialog.addEventListener("close", onClose);
-        dialog.showModal();
-        return;
-      }
+    const dialog = document.getElementById("goal-unlock-dialog");
+    const labelEl = document.getElementById("goal-unlock-label");
+    if (unlocked.length && dialog && labelEl) {
+      labelEl.textContent = unlocked.map((g) => g.label).join(" · ");
+      dialog.showModal();
     }
-    goNext();
   }
 
   function advance() {

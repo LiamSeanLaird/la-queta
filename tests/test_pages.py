@@ -29,7 +29,7 @@ def test_index_is_gate_only(client):
     assert b"<title>La Queta</title>" in response.data
     assert b'property="og:image"' in response.data
     assert b"og-image.png" in response.data
-    assert "La Queta — start".encode() not in response.data
+    assert "La Queta - start".encode() not in response.data
 
 
 def test_levels_requires_login(client):
@@ -73,7 +73,7 @@ def test_level_home_learn_and_vocab(migrated_app, migrated_client):
 
     vocab = migrated_client.get("/levels/a1?tab=vocab")
     assert vocab.status_code == 200
-    assert b"Starter" in vocab.data
+    assert b"Greetings &amp; Introductions" in vocab.data
     assert b"/decks/starter" in vocab.data
 
 

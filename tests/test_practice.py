@@ -2,7 +2,11 @@
 
 from __future__ import annotations
 
-from app.services.practice_match import answers_for_item, normalize_answer, answers_match
+from app.services.practice_match import (
+    answers_for_item,
+    normalize_answer,
+    answers_match,
+)
 from app.services.seed import seed_all
 
 
@@ -98,12 +102,61 @@ def test_lesson_page_has_learn_practice_tabs(migrated_app, migrated_client):
     assert b"is-active" in practice_tab.data
     from pathlib import Path
 
-    src = Path(migrated_app.root_path).parent.joinpath("static/js/practice.js").read_text()
+    src = (
+        Path(migrated_app.root_path)
+        .parent.joinpath("static/js/practice.js")
+        .read_text()
+    )
     assert "Fill the blank only" in src
     assert "Show answer" in src
 
 
 def test_answers_for_item_helpers():
-    assert answers_for_item({"kind": "type_in", "answers": ["la taula"]}) == ["la taula"]
+    assert answers_for_item({"kind": "type_in", "answers": ["la taula"]}) == [
+        "la taula"
+    ]
     assert answers_for_item({"kind": "cloze", "answer": "la"}) == ["la"]
     assert answers_for_item({"kind": "multiple_choice", "answer": "el"}) == ["el"]
+
+
+def test_curly_apostrophe_matches_straight_answer():
+    # iPhone keyboards turn ' into ’ by default; both must match the answer.
+    assert answers_match("l’estació", ["l'estació"])
+    assert answers_match("D’acord", ["D'acord."])
+    assert answers_match("l'estació", ["l’estació"])
+    assert not answers_match("lestació", ["l'estació"])
+
+
+def test_practice_js_treats_curly_apostrophe_as_straight(migrated_app):
+    import json
+    import re
+    import shutil
+    import subprocess
+    from pathlib import Path
+
+    import pytest
+
+    node = shutil.which("node")
+    if node is None:
+        pytest.skip("node is not installed")
+    src = (
+        Path(migrated_app.root_path)
+        .parent.joinpath("static/js/practice.js")
+        .read_text()
+    )
+    match = re.search(r"  function normalizeAnswer\(value\) \{.*?\n  \}\n", src, re.S)
+    assert match, "normalizeAnswer not found in practice.js"
+    inputs = ["l’estació", "l'estació", "D’acord.", "M‘agrada llegir"]
+    script = (
+        match.group(0)
+        + f"console.log(JSON.stringify({json.dumps(inputs)}.map(normalizeAnswer)));"
+    )
+    out = subprocess.run(
+        [node, "-e", script], capture_output=True, text=True, check=True
+    )
+    assert json.loads(out.stdout) == [
+        "l'estació",
+        "l'estació",
+        "d'acord",
+        "m'agrada llegir",
+    ]

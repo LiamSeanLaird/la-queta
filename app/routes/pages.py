@@ -8,7 +8,14 @@ from app.services.errors import ServiceError
 from app.services.can_dos import can_dos_progress, learn_groups_for_level, vocab_groups_for_level
 from app.services.lessons import get_lesson, list_lessons_for_level
 from app.services.levels import list_levels_for_user, select_level, level_is_open
-from app.services.progress import continue_target, level_completeness_pct
+from app.services.progress import (
+    continue_target,
+    deck_lessons,
+    deck_next_lesson,
+    lesson_next_steps,
+    level_completeness_pct,
+    next_incomplete_lesson,
+)
 from app.services.vocab import list_cards_for_deck, list_decks_for_level
 
 bp = Blueprint("pages", __name__)
@@ -129,20 +136,15 @@ def lesson(lesson_id: str):
     if tab not in {"learn", "practice"}:
         tab = "learn"
 
-    next_target = None
-    next_href = None
-    if lesson_data["completed"]:
-        next_target = continue_target(user, level_id=lesson_data["level_id"])
-        if next_target is not None:
-            next_href = _continue_href(next_target)
+    next_steps = lesson_next_steps(user, lesson_data["id"])
 
     return render_template(
         "lesson.html",
         user=user,
         lesson=lesson_data,
         tab=tab,
-        next_target=next_target,
-        next_href=next_href,
+        next_deck=next_steps["deck"],
+        next_lesson=next_steps["next_lesson"],
         brand_href=url_for("pages.levels"),
     )
 
@@ -178,6 +180,7 @@ def deck(slug: str):
         "deck.html",
         user=user,
         deck=deck_data,
+        lessons=deck_lessons(user, slug, deck_data["level_id"]),
         brand_href=url_for("pages.levels"),
     )
 
@@ -198,7 +201,8 @@ def study(slug: str):
         session_url=url_for("api_vocab.deck_session", slug=slug),
         exit_url=url_for("pages.deck", slug=slug),
         back_label="Back to deck",
-        done_message="Deck complete for now — all cards retired or none left.",
+        empty_message="Every card in this deck is retired. Unretire the deck to study it again.",
+        next_lesson=deck_next_lesson(user, slug, deck_data["level_id"]),
         brand_href=url_for("pages.levels"),
     )
 
@@ -220,7 +224,8 @@ def daily(level_id: str):
         session_url=url_for("api_vocab.level_daily", level_id=level_id),
         exit_url=url_for("pages.level_home", level_id=level_id, tab="vocab"),
         back_label="Back to vocab",
-        done_message="Daily session complete.",
+        empty_message="There are no cards to review right now.",
+        next_lesson=next_incomplete_lesson(user, level_id),
         brand_href=url_for("pages.levels"),
     )
 

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}{{ study_title }} — La Queta{% endblock %}
+{% block title %}{{ study_title }} - La Queta{% endblock %}
 {% set brand_href = url_for('pages.levels') %}
 {% block top_back %}
 <a class="topbar__back" href="{{ exit_url }}" aria-label="{{ back_label }}">←</a>
@@ -9,14 +9,15 @@
   class="stack-lg"
   id="study-page"
   data-session-url="{{ session_url }}"
-  data-exit-url="{{ exit_url }}"
 >
-  <div class="progress-meta">
-    <span id="study-progress-text">Loading…</span>
-    <span id="study-remaining"></span>
-  </div>
-  <div class="progress" aria-hidden="true">
-    <div class="progress__bar" id="study-progress-bar" style="width: 0%"></div>
+  <div class="progress-group" id="study-progress">
+    <div class="progress-meta">
+      <span id="study-progress-text">Loading…</span>
+      <span id="study-remaining"></span>
+    </div>
+    <div class="progress" aria-hidden="true">
+      <div class="progress__bar" id="study-progress-bar" style="width: 0%"></div>
+    </div>
   </div>
   <div class="flashcard" id="study-card" role="button" tabindex="0" hidden>
     <p class="flashcard__lang" id="study-lang">Català</p>
@@ -33,7 +34,15 @@
       <button type="button" class="btn btn--secondary" id="study-next">Next</button>
     </div>
   </div>
-  <p class="text-muted" id="study-done" hidden>{{ done_message }}</p>
+  <div class="stack" id="study-done" hidden>
+    <h2 class="heading-3" id="study-done-title">Session complete</h2>
+    <p class="text-body" id="study-done-text" data-empty-text="{{ empty_message }}"></p>
+    <a class="btn btn--primary btn--block" href="{{ request.path }}" id="study-again">Study again</a>
+    {% if next_lesson %}
+    <a class="btn btn--secondary btn--block" href="{{ url_for('pages.lesson', lesson_id=next_lesson.id) }}" id="study-next-lesson">Next lesson: {{ next_lesson.title }}</a>
+    {% endif %}
+    <a class="btn {{ 'btn--ghost' if next_lesson else 'btn--secondary' }} btn--block" href="{{ exit_url }}" id="study-exit">{{ back_label }}</a>
+  </div>
   <p class="field__error" id="study-error" hidden></p>
 
   <dialog class="dialog" id="study-tip-dialog" aria-labelledby="study-tip-title">

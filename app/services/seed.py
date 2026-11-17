@@ -18,22 +18,27 @@ DEFAULT_CONTENT_LEVEL_ID = "a1"
 DEFAULT_LESSON_LEVEL_ID = DEFAULT_CONTENT_LEVEL_ID
 DEFAULT_DECK_LEVEL_ID = DEFAULT_CONTENT_LEVEL_ID
 
-# Stable ordering for hub display.
-DECK_SORT_ORDER = {
-    "starter": 1,
-    "everyday": 2,
-    "days_months": 3,
-    "travel": 4,
-    "family": 5,
-    "home_daily": 6,
-    "social_phrases": 7,
-    "shopping": 8,
-    "health": 9,
-    "admin": 10,
-    "work": 11,
-    "leisure": 12,
-    "education": 13,
-    "signs": 14,
+# Learner-facing deck titles. They appear on the Vocab tab, deck pages and the
+# lesson done panel ("Study vocab: <title>"), so every deck file needs one.
+DECK_TITLES = {
+    "core_verbs": "Core Verbs",
+    "starter": "Greetings & Introductions",
+    "everyday": "Describing Words",
+    "food_drink": "Food & Drink",
+    "numbers": "Numbers",
+    "days_months": "Days, Months & Time",
+    "directions": "Places & Directions",
+    "travel": "Travel & Transport",
+    "family": "Family",
+    "home_daily": "Home & Daily Routine",
+    "social_phrases": "Questions & Useful Phrases",
+    "shopping": "Shopping",
+    "health": "Health",
+    "admin": "Paperwork & Offices",
+    "work": "Work",
+    "leisure": "Free Time",
+    "education": "Classes & Study",
+    "signs": "Signs & Short Messages",
 }
 
 
@@ -71,7 +76,8 @@ def seed_lessons(level_id: str = DEFAULT_LESSON_LEVEL_ID) -> int:
         lesson.slug = raw.get("slug") or lesson_id
         lesson.title = raw["title"]
         lesson.summary = raw.get("summary") or ""
-        lesson.sort_order = int(raw.get("order") or raw.get("sort_order") or 0)
+        lesson.sort_order = _lesson_sort_order(raw)
+        lesson.deck_slug = raw.get("deck")
         sections = list(raw.get("sections") or [])
         practice = list(raw.get("practice") or [])
         # Teach surface never keeps inline exercises.
@@ -103,6 +109,30 @@ def _deck_slug_from_filename(name: str) -> str:
     return name.split("_deck")[0]
 
 
+def _lesson_sort_order(raw: dict) -> int:
+    return int(raw.get("order") or raw.get("sort_order") or 0)
+
+
+def deck_order_from_lessons() -> dict[str, int]:
+    """Deck slug -> 1-based rank, following the lesson order.
+
+    A deck ranks by the first lesson whose `deck` field names it, so the deck
+    list (and "Continue" once every lesson is done) follows what the learner
+    has just studied. Decks no lesson names are not in the result.
+    """
+    lessons = [
+        json.loads(path.read_text(encoding="utf-8"))
+        for path in sorted((CONTENT / "lessons").glob("*.json"))
+    ]
+    lessons.sort(key=lambda raw: (_lesson_sort_order(raw), raw["id"]))
+    order: dict[str, int] = {}
+    for raw in lessons:
+        slug = raw.get("deck")
+        if slug and slug not in order:
+            order[slug] = len(order) + 1
+    return order
+
+
 def seed_decks(level_id: str = DEFAULT_DECK_LEVEL_ID) -> tuple[int, int]:
     """Upsert decks + cards from content/decks/*_deck*.json. Returns (decks, cards)."""
     if db.session.get(Level, level_id) is None:
@@ -112,10 +142,14 @@ def seed_decks(level_id: str = DEFAULT_DECK_LEVEL_ID) -> tuple[int, int]:
     paths = sorted(deck_dir.glob("*_deck*.json"))
     card_count = 0
     seeded_ids: set[str] = set()
+    lesson_order = deck_order_from_lessons()
     for index, path in enumerate(paths, start=1):
         slug = _deck_slug_from_filename(path.name)
-        title = slug.replace("_", " ").title()
-        sort_order = DECK_SORT_ORDER.get(slug, 100 + index)
+        title = DECK_TITLES.get(slug)
+        if title is None:
+            raise ValueError(f"Deck {slug!r} has no title in DECK_TITLES")
+        # Decks no lesson links to go after the linked ones, in file order.
+        sort_order = lesson_order.get(slug, len(lesson_order) + index)
         cards_raw = json.loads(path.read_text(encoding="utf-8"))
         if not isinstance(cards_raw, list):
             raise ValueError(f"Deck file must be a JSON list: {path.name}")
@@ -135,7 +169,7 @@ def seed_decks(level_id: str = DEFAULT_DECK_LEVEL_ID) -> tuple[int, int]:
             deck.title = title
             deck.sort_order = sort_order
 
-        for raw in cards_raw:
+        for position, raw in enumerate(cards_raw):
             external_id = raw["id"]
             if external_id in seeded_ids:
                 raise ValueError(f"Duplicate card id {external_id!r} in {path.name}")
@@ -160,6 +194,7 @@ def seed_decks(level_id: str = DEFAULT_DECK_LEVEL_ID) -> tuple[int, int]:
             card.tags_json = raw.get("tags") or []
             card.forms_json = forms
             card.grammar_lesson_id = raw.get("grammar_lesson_id")
+            card.position = position
             card_count += 1
 
     _prune_removed_cards(level_id, seeded_ids)

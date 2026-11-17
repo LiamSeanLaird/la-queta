@@ -1,12 +1,13 @@
 {
   "id": "education",
   "title": "Education & Courses",
-  "order": 19,
+  "order": 18,
   "summary": "Talk about classes, enrol on a course, and name common learning places.",
+  "deck": "education",
   "sections": [
     {
       "type": "text",
-      "content": "Entorn educatiu i formatiu: escola, institut, universitat, EOI, CPNL, escola d’adults — and short phrases to enrol or ask about a curs."
+      "content": "Entorn educatiu i formatiu: escola, institut, universitat, EOI, CPNL, escola d’adults - and short phrases to enrol or ask about a curs."
     },
     {
       "type": "rule",

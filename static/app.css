@@ -158,9 +158,10 @@ a.tab-btn {
 
 /* ── Brand ───────────────────────────────────────────── */
 
+/* Equal 1fr sides keep the brand centred whatever the side contents are. */
 .topbar {
   display: grid;
-  grid-template-columns: 2.75rem minmax(0, 1fr) 2.75rem;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
   gap: 0.35rem;
   margin: 0 0 1.5rem;
@@ -178,14 +179,12 @@ a.tab-btn {
 
 .topbar__side--end {
   justify-content: flex-end;
-  align-items: flex-start;
 }
 
 .topbar__actions {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 0.15rem;
+  gap: 0.4rem;
 }
 
 .topbar__actions .icon-btn {
@@ -505,6 +504,14 @@ a.btn.btn--primary {
   color: var(--muted);
 }
 
+/* A progress label and its bar read as one unit, so they sit close together
+   whatever gap the surrounding stack uses. */
+.progress-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
 /* ── Level tile ──────────────────────────────────────── */
 
 .level-grid {
@@ -789,7 +796,12 @@ a.btn.btn--primary {
 
 .vocab-forms {
   font-style: italic;
-  text-align: right;
+}
+
+/* Grammar pills sit in the wrapping text column so they never squeeze it. */
+.gram-pills.vocab-gram {
+  justify-content: flex-start;
+  margin-top: 0.35rem;
 }
 
 .vocab-tags {

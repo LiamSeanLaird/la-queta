@@ -95,11 +95,11 @@ Do not invent a third progress system.
 - [x] Backup story for SQLite file (on-VM cron; optional Mac pull)
 
 ### Phase E — Vocab UX ✅
-- [x] Study keyboard: **Enter** (and Next) advance + increment `seen`; **Space** / card click flips
+- [x] Study keyboard: **Enter**, **Space**, Next or a card tap flips to English, then advances and increments `seen`; each card counts at most once per session, even after **Back**
 - [x] Browse: retired badge / muted row when `seen >= 3`
 - [x] **Retire now** on study + browse (`POST /api/cards/<id>/retire`)
 - [x] **Unretire deck** when all cards retired (`POST /api/decks/<slug>/unretire`)
-- [x] **Daily vocab** — `/levels/<id>/daily` samples unretired pool (fill from retired)
+- [x] **Daily vocab** — `/levels/<id>/daily` samples unretired cards from decks the learner has started or whose lesson they completed, then the next decks in order, then retired cards
 - [ ] Later (optional): browse filter active vs retired
 
 ### Phase F — A1 Practice ✅

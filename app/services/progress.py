@@ -116,3 +116,76 @@ def continue_target(user: User, level_id: str | None = None) -> dict | None:
                 "label": f"Study vocab: {deck['title']}",
             }
     return None
+
+
+def lesson_next_steps(user: User, lesson_id: str) -> dict:
+    """
+    Where to go after finishing a lesson's practice.
+
+    `deck` is the lesson's matching vocab deck while it still has cards to learn.
+    `next_lesson` is the first incomplete lesson after this one (wrapping round),
+    never this lesson itself, so the answer is the same before and after this
+    lesson is marked complete.
+    """
+    from app.services.vocab import list_decks_for_level
+
+    lesson = db.session.get(Lesson, lesson_id)
+    if lesson is None:
+        return {"deck": None, "next_lesson": None}
+
+    deck = None
+    if lesson.deck_slug:
+        stats = next(
+            (
+                row
+                for row in list_decks_for_level(user, lesson.level_id)
+                if row["slug"] == lesson.deck_slug
+            ),
+            None,
+        )
+        if stats is not None and stats["remaining"] > 0:
+            deck = stats
+
+    lessons = list_lessons_for_level(user, lesson.level_id)
+    index = next((i for i, row in enumerate(lessons) if row["id"] == lesson.id), 0)
+    # Look forward from this lesson first, then wrap round to any skipped earlier ones.
+    ordered = lessons[index + 1 :] + lessons[:index]
+    next_lesson = next((row for row in ordered if not row["completed"]), None)
+    return {"deck": deck, "next_lesson": next_lesson}
+
+
+def _deck_lesson_ids(slug: str, level_id: str) -> set[str]:
+    return set(
+        db.session.scalars(
+            select(Lesson.id).where(Lesson.level_id == level_id, Lesson.deck_slug == slug)
+        )
+    )
+
+
+def deck_lessons(user: User, slug: str, level_id: str) -> list[dict]:
+    """Lessons in `level_id` that link to the deck `slug`, in lesson order, with progress."""
+    linked_ids = _deck_lesson_ids(slug, level_id)
+    return [row for row in list_lessons_for_level(user, level_id) if row["id"] in linked_ids]
+
+
+def deck_next_lesson(user: User, slug: str, level_id: str) -> dict | None:
+    """
+    Lesson to offer after a study session on the deck `slug`.
+
+    If a lesson that links to this deck is not done yet, offer it, so a learner
+    who opened the vocab first still meets its grammar. Otherwise offer the
+    first incomplete lesson after the deck's lesson (wrapping round), which is
+    the same lesson the lesson's own done panel offers as 'Next lesson'.
+    Decks with no linked lesson fall back to the level's next incomplete lesson.
+    """
+    lessons = list_lessons_for_level(user, level_id)
+    linked_ids = _deck_lesson_ids(slug, level_id)
+    linked = [i for i, row in enumerate(lessons) if row["id"] in linked_ids]
+    if not linked:
+        return next((row for row in lessons if not row["completed"]), None)
+    for i in linked:
+        if not lessons[i]["completed"]:
+            return lessons[i]
+    last = linked[-1]
+    ordered = lessons[last + 1 :] + lessons[:last]
+    return next((row for row in ordered if not row["completed"]), None)

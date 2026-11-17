@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}La Queta — {{ level.code }}{% endblock %}
+{% block title %}La Queta - {{ level.code }}{% endblock %}
 {% set brand_href = url_for('pages.levels') %}
 {% block top_back %}
 <a class="topbar__back" href="{{ url_for('pages.levels') }}" aria-label="Back to levels">←</a>
@@ -34,7 +34,7 @@
     </div>
     {% endif %}
     {% if complete_pct == 100 %}
-    <p class="text-muted">This level is complete — nice work.</p>
+    <p class="text-muted">This level is complete - nice work.</p>
     {% endif %}
   </div>
 

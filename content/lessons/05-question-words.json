@@ -1,8 +1,9 @@
 {
   "id": "question-words",
   "title": "Question Words",
-  "order": 6,
+  "order": 5,
   "summary": "The question words that let you ask your way through any conversation.",
+  "deck": "social_phrases",
   "sections": [
     {
       "type": "text",
@@ -14,53 +15,53 @@
         {
           "catalan": "qui?",
           "english": "who?",
-          "note": "KEE"
+          "note": "kee"
         },
         {
           "catalan": "què?",
           "english": "what?",
-          "note": "KEH"
+          "note": "keh"
         },
         {
           "catalan": "on?",
           "english": "where?",
-          "note": "ON"
+          "note": "on"
         },
         {
           "catalan": "quan?",
           "english": "when?",
-          "note": "KWAN"
+          "note": "kwan"
         },
         {
           "catalan": "com?",
           "english": "how?",
-          "note": "KOM"
+          "note": "kom"
         },
         {
           "catalan": "per què?",
           "english": "why?",
-          "note": "per KEH"
+          "note": "puhr KEH - two words; perquè (one word) means 'because'"
         },
         {
           "catalan": "quant / quanta?",
           "english": "how much?",
-          "note": "KWANT / KWAN-tah"
+          "note": "kwan / KWAN-tuh - the t in quant is silent"
         },
         {
           "catalan": "quants / quantes?",
           "english": "how many?",
-          "note": "KWANTS / KWAN-tes"
+          "note": "kwans / KWAN-tuhs"
         },
         {
           "catalan": "quin / quina?",
-          "english": "which?",
-          "note": "KIN / KEE-nah"
+          "english": "which? / what?",
+          "note": "keen / KEE-nuh"
         }
       ]
     },
     {
       "type": "rule",
-      "content": "To form a question in Catalan, simply put the question word at the start. The verb order is usually: question word + verb + subject. For example: On és la cuina? (Where is the kitchen?) — on (where) + és (is) + la cuina (the kitchen)."
+      "content": "To form a question in Catalan, simply put the question word at the start. The verb order is usually: question word + verb + subject. For example: On és la cuina? (Where is the kitchen?) - on (where) + és (is) + la cuina (the kitchen)."
     },
     {
       "type": "examples",
@@ -73,7 +74,7 @@
         {
           "catalan": "Qui és?",
           "english": "Who is it?",
-          "note": "on + és"
+          "note": "qui + és"
         },
         {
           "catalan": "Quan dinem?",
@@ -99,15 +100,68 @@
     },
     {
       "type": "rule",
-      "content": "Use 'puc' (can I) and 'pots' (can you) to make polite requests. These come from the verb 'poder' (to be able to). Puc usar el bany? (Can I use the bathroom?) — puc + usar + el bany. Pots repetir? (Can you repeat?) — pots + repetir."
+      "content": "Quant (how much / how many) and quin (which / what) agree with the noun that follows, like an adjective: quant (masculine), quanta (feminine), quants (masculine plural), quantes (feminine plural). In the same way: quin, quina, quins, quines."
     },
     {
       "type": "examples",
       "items": [
         {
-          "catalan": "Puc usar el bany?",
+          "catalan": "Quants anys tens?",
+          "english": "How old are you?",
+          "note": "els anys - masculine plural"
+        },
+        {
+          "catalan": "Quantes persones?",
+          "english": "How many people?",
+          "note": "les persones - feminine plural"
+        },
+        {
+          "catalan": "Quin dia és avui?",
+          "english": "What day is it today?",
+          "note": "el dia - masculine"
+        },
+        {
+          "catalan": "Quina hora és?",
+          "english": "What time is it?",
+          "note": "l'hora - feminine"
+        }
+      ]
+    },
+    {
+      "type": "rule",
+      "content": "A yes/no question has no question word and no extra word like English 'do'. Use the same words as the statement and let your voice rise at the end: Parles anglès. (You speak English.) → Parles anglès? (Do you speak English?)"
+    },
+    {
+      "type": "examples",
+      "items": [
+        {
+          "catalan": "Parles anglès?",
+          "english": "Do you speak English?",
+          "note": "no word for 'do'"
+        },
+        {
+          "catalan": "Ets de Barcelona?",
+          "english": "Are you from Barcelona?",
+          "note": ""
+        },
+        {
+          "catalan": "Tens temps?",
+          "english": "Do you have time?",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "type": "rule",
+      "content": "Use 'puc' (can I) and 'pots' (can you) to make polite requests. These come from the verb 'poder' (to be able to). Puc fer servir el bany? (Can I use the bathroom?) - puc + fer servir + el bany. Pots repetir? (Can you repeat?) - pots + repetir."
+    },
+    {
+      "type": "examples",
+      "items": [
+        {
+          "catalan": "Puc fer servir el bany?",
           "english": "Can I use the bathroom?",
-          "note": "puc = can I"
+          "note": "puc = can I; fer servir = to use"
         },
         {
           "catalan": "Puc ajudar?",
@@ -125,8 +179,8 @@
           "note": ""
         },
         {
-          "catalan": "Pots explicar?",
-          "english": "Can you explain?",
+          "catalan": "Pots parlar més fort?",
+          "english": "Can you speak louder?",
           "note": ""
         },
         {
@@ -156,13 +210,13 @@
       "kind": "multiple_choice",
       "question": "How do you ask 'Can I use the bathroom'?",
       "options": [
-        "Puc usar el bany?",
+        "Puc fer servir el bany?",
         "On és el bany?",
         "Quan és el bany?",
         "Pots el bany?"
       ],
-      "answer": "Puc usar el bany?",
-      "explanation": "puc = can I."
+      "answer": "Puc fer servir el bany?",
+      "explanation": "puc = can I; fer servir = to use."
     },
     {
       "id": "qw-p03",
@@ -243,6 +297,35 @@
         "Com es diu això"
       ],
       "explanation": "Literally 'how does this call itself'."
+    },
+    {
+      "id": "qw-p11",
+      "kind": "cloze",
+      "prompt": "___ anys tens?",
+      "hint": "How old are you?",
+      "answer": "Quants",
+      "explanation": "anys is masculine plural, so quants."
+    },
+    {
+      "id": "qw-p12",
+      "kind": "cloze",
+      "prompt": "___ hora és?",
+      "hint": "What time is it?",
+      "answer": "Quina",
+      "explanation": "hora is feminine, so quina."
+    },
+    {
+      "id": "qw-p13",
+      "kind": "multiple_choice",
+      "question": "How do you ask 'Do you speak English?'",
+      "options": [
+        "Parles anglès?",
+        "Fas parles anglès?",
+        "Què parles anglès?",
+        "On parles anglès?"
+      ],
+      "answer": "Parles anglès?",
+      "explanation": "A yes/no question uses the statement's words with a rising voice. There is no word for 'do'."
     },
     {
       "id": "qw-l01",

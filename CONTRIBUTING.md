@@ -30,6 +30,10 @@ make test
 4. Content scope today is **A1** only; A2/B1 are hub placeholders.
 5. Match existing patterns in `STYLE_GUIDE.md` and `TECHNICAL_PLAN.md`.
 6. New content: JSON under `content/` (lessons, decks, can-dos); re-seed locally with `make seed`.
+7. Noun cards carry their article (`la mare`, `l'avi`), a `gender` of `m` or `f`, and a `plural` with its article (`les mares`, `els avis`), or the no-plural marker.
+   Day, month and sign cards may show the bare word. `tests/test_card_format.py` enforces this.
+   A card that starts with a lowercase article (`la data de naixement`) is a noun, even when it is several words long.
+   Every card's `pos` is one of `noun`, `verb`, `adjective`, `adverb`, `pronoun`, `number`, `interjection` or `phrase`.
 
 ## Review
 

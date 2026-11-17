@@ -1,0 +1,332 @@
+[
+  {
+    "id": "nm_001",
+    "catalan": "zero",
+    "pronunciation": "ZEH-roo",
+    "english": "0 (zero)",
+    "hint": "used in phone numbers and prices",
+    "tags": [
+      "numbers"
+    ],
+    "pos": "number"
+  },
+  {
+    "id": "nm_002",
+    "catalan": "un / una",
+    "pronunciation": "oon / OO-nuh",
+    "english": "1 (one)",
+    "hint": "agrees with the noun: un cafè, una cervesa",
+    "tags": [
+      "numbers"
+    ],
+    "pos": "number"
+  },
+  {
+    "id": "nm_003",
+    "catalan": "dos / dues",
+    "pronunciation": "dohs / DOO-uhs",
+    "english": "2 (two)",
+    "hint": "agrees with the noun: dos cafès, dues cerveses",
+    "tags": [
+      "numbers"
+    ],
+    "pos": "number"
+  },
+  {
+    "id": "nm_004",
+    "catalan": "tres",
+    "pronunciation": "tres",
+    "english": "3 (three)",
+    "hint": "",
+    "tags": [
+      "numbers"
+    ],
+    "pos": "number"
+  },
+  {
+    "id": "nm_005",
+    "catalan": "quatre",
+    "pronunciation": "KWAH-truh",
+    "english": "4 (four)",
+    "hint": "",
+    "tags": [
+      "numbers"
+    ],
+    "pos": "number"
+  },
+  {
+    "id": "nm_006",
+    "catalan": "cinc",
+    "pronunciation": "seenk",
+    "english": "5 (five)",
+    "hint": "",
+    "tags": [
+      "numbers"
+    ],
+    "pos": "number"
+  },
+  {
+    "id": "nm_007",
+    "catalan": "sis",
+    "pronunciation": "sees",
+    "english": "6 (six)",
+    "hint": "",
+    "tags": [
+      "numbers"
+    ],
+    "pos": "number"
+  },
+  {
+    "id": "nm_008",
+    "catalan": "set",
+    "pronunciation": "set",
+    "english": "7 (seven)",
+    "hint": "",
+    "tags": [
+      "numbers"
+    ],
+    "pos": "number"
+  },
+  {
+    "id": "nm_009",
+    "catalan": "vuit",
+    "pronunciation": "BOO-eet",
+    "english": "8 (eight)",
+    "hint": "",
+    "tags": [
+      "numbers"
+    ],
+    "pos": "number"
+  },
+  {
+    "id": "nm_010",
+    "catalan": "nou",
+    "pronunciation": "NOH-oo",
+    "english": "9 (nine)",
+    "hint": "same spelling as nou (new)",
+    "tags": [
+      "numbers"
+    ],
+    "pos": "number"
+  },
+  {
+    "id": "nm_011",
+    "catalan": "deu",
+    "pronunciation": "DEH-oo",
+    "english": "10 (ten)",
+    "hint": "",
+    "tags": [
+      "numbers"
+    ],
+    "pos": "number"
+  },
+  {
+    "id": "nm_012",
+    "catalan": "onze",
+    "pronunciation": "ON-zuh",
+    "english": "11 (eleven)",
+    "hint": "11-16 all end in -ze",
+    "tags": [
+      "numbers"
+    ],
+    "pos": "number"
+  },
+  {
+    "id": "nm_013",
+    "catalan": "dotze",
+    "pronunciation": "DOD-zuh",
+    "english": "12 (twelve)",
+    "hint": "",
+    "tags": [
+      "numbers"
+    ],
+    "pos": "number"
+  },
+  {
+    "id": "nm_014",
+    "catalan": "tretze",
+    "pronunciation": "TRED-zuh",
+    "english": "13 (thirteen)",
+    "hint": "",
+    "tags": [
+      "numbers"
+    ],
+    "pos": "number"
+  },
+  {
+    "id": "nm_015",
+    "catalan": "catorze",
+    "pronunciation": "kuh-TOR-zuh",
+    "english": "14 (fourteen)",
+    "hint": "",
+    "tags": [
+      "numbers"
+    ],
+    "pos": "number"
+  },
+  {
+    "id": "nm_016",
+    "catalan": "quinze",
+    "pronunciation": "KEEN-zuh",
+    "english": "15 (fifteen)",
+    "hint": "",
+    "tags": [
+      "numbers"
+    ],
+    "pos": "number"
+  },
+  {
+    "id": "nm_017",
+    "catalan": "setze",
+    "pronunciation": "SED-zuh",
+    "english": "16 (sixteen)",
+    "hint": "the last of the -ze numbers",
+    "tags": [
+      "numbers"
+    ],
+    "pos": "number"
+  },
+  {
+    "id": "nm_018",
+    "catalan": "disset",
+    "pronunciation": "dee-SET",
+    "english": "17 (seventeen)",
+    "hint": "deu + set",
+    "tags": [
+      "numbers"
+    ],
+    "pos": "number"
+  },
+  {
+    "id": "nm_019",
+    "catalan": "divuit",
+    "pronunciation": "dee-BOO-eet",
+    "english": "18 (eighteen)",
+    "hint": "deu + vuit",
+    "tags": [
+      "numbers"
+    ],
+    "pos": "number"
+  },
+  {
+    "id": "nm_020",
+    "catalan": "dinou",
+    "pronunciation": "dee-NOH-oo",
+    "english": "19 (nineteen)",
+    "hint": "deu + nou",
+    "tags": [
+      "numbers"
+    ],
+    "pos": "number"
+  },
+  {
+    "id": "nm_021",
+    "catalan": "vint",
+    "pronunciation": "been",
+    "english": "20 (twenty)",
+    "hint": "21-29 use i: vint-i-un, vint-i-dos",
+    "tags": [
+      "numbers"
+    ],
+    "pos": "number"
+  },
+  {
+    "id": "nm_022",
+    "catalan": "trenta",
+    "pronunciation": "TREN-tuh",
+    "english": "30 (thirty)",
+    "hint": "from 30 on, no i: trenta-dos, trenta-cinc",
+    "tags": [
+      "numbers"
+    ],
+    "pos": "number"
+  },
+  {
+    "id": "nm_023",
+    "catalan": "quaranta",
+    "pronunciation": "kwuh-RAN-tuh",
+    "english": "40 (forty)",
+    "hint": "",
+    "tags": [
+      "numbers"
+    ],
+    "pos": "number"
+  },
+  {
+    "id": "nm_024",
+    "catalan": "cinquanta",
+    "pronunciation": "seeng-KWAN-tuh",
+    "english": "50 (fifty)",
+    "hint": "",
+    "tags": [
+      "numbers"
+    ],
+    "pos": "number"
+  },
+  {
+    "id": "nm_025",
+    "catalan": "seixanta",
+    "pronunciation": "suh-SHAN-tuh",
+    "english": "60 (sixty)",
+    "hint": "",
+    "tags": [
+      "numbers"
+    ],
+    "pos": "number"
+  },
+  {
+    "id": "nm_026",
+    "catalan": "setanta",
+    "pronunciation": "suh-TAN-tuh",
+    "english": "70 (seventy)",
+    "hint": "",
+    "tags": [
+      "numbers"
+    ],
+    "pos": "number"
+  },
+  {
+    "id": "nm_027",
+    "catalan": "vuitanta",
+    "pronunciation": "boo-ee-TAN-tuh",
+    "english": "80 (eighty)",
+    "hint": "",
+    "tags": [
+      "numbers"
+    ],
+    "pos": "number"
+  },
+  {
+    "id": "nm_028",
+    "catalan": "noranta",
+    "pronunciation": "noo-RAN-tuh",
+    "english": "90 (ninety)",
+    "hint": "",
+    "tags": [
+      "numbers"
+    ],
+    "pos": "number"
+  },
+  {
+    "id": "nm_029",
+    "catalan": "cent",
+    "pronunciation": "sen",
+    "english": "100 (one hundred)",
+    "hint": "200 and up agree: dos-cents, dues-centes",
+    "tags": [
+      "numbers"
+    ],
+    "pos": "number"
+  },
+  {
+    "id": "nm_030",
+    "catalan": "mil",
+    "pronunciation": "meel",
+    "english": "1,000 (one thousand)",
+    "hint": "never changes: dos mil",
+    "tags": [
+      "numbers"
+    ],
+    "pos": "number"
+  }
+]

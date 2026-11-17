@@ -1,8 +1,9 @@
 {
   "id": "introductions",
   "title": "Introductions",
-  "order": 7,
+  "order": 6,
   "summary": "Say who you are, where you’re from, and exchange basic personal details.",
+  "deck": "starter",
   "sections": [
     {
       "type": "text",

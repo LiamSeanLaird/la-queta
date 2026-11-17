@@ -9,25 +9,25 @@
       "present-tense",
       "question-words"
     ],
-    "deck_slugs": []
+    "deck_slugs": ["core_verbs", "everyday"]
   },
   {
     "id": "identity-time",
     "label": "Introduce myself & use numbers and time",
     "lesson_ids": ["introductions", "numbers", "time-calendar"],
-    "deck_slugs": ["starter", "days_months", "social_phrases"]
+    "deck_slugs": ["starter", "numbers", "days_months", "social_phrases"]
   },
   {
     "id": "around-town",
     "label": "Get around town",
     "lesson_ids": ["directions", "travel-transport"],
-    "deck_slugs": ["travel"]
+    "deck_slugs": ["directions", "travel"]
   },
   {
     "id": "survive-daily",
     "label": "Eat, shop & survive",
     "lesson_ids": ["food-cafe", "shopping", "health", "signs-messages"],
-    "deck_slugs": ["everyday", "shopping", "health", "signs"]
+    "deck_slugs": ["food_drink", "shopping", "health", "signs"]
   },
   {
     "id": "home-people",

@@ -8,7 +8,7 @@
     "tags": ["home", "rooms"],
     "pos": "noun",
     "gender": "f",
-    "plural": "cuines"
+    "plural": "les cuines"
   },
   {
     "id": "hd002",
@@ -19,7 +19,7 @@
     "tags": ["home", "rooms"],
     "pos": "noun",
     "gender": "m",
-    "plural": "menjadors"
+    "plural": "els menjadors"
   },
   {
     "id": "hd003",
@@ -30,7 +30,7 @@
     "tags": ["home", "rooms"],
     "pos": "noun",
     "gender": "m",
-    "plural": "salons"
+    "plural": "els salons"
   },
   {
     "id": "hd004",
@@ -41,7 +41,7 @@
     "tags": ["home", "rooms"],
     "pos": "noun",
     "gender": "m",
-    "plural": "dormitoris"
+    "plural": "els dormitoris"
   },
   {
     "id": "hd005",
@@ -52,18 +52,18 @@
     "tags": ["home", "rooms"],
     "pos": "noun",
     "gender": "m",
-    "plural": "banys"
+    "plural": "els banys"
   },
   {
     "id": "hd006",
     "catalan": "el lavabo",
-    "pronunciation": "lah-VAH-boh",
+    "pronunciation": "lah-BAH-boh",
     "english": "toilet / washroom",
     "hint": "colloquially used for the room with the toilet",
     "tags": ["home", "rooms"],
     "pos": "noun",
     "gender": "m",
-    "plural": "lavabos"
+    "plural": "els lavabos"
   },
   {
     "id": "hd007",
@@ -74,7 +74,7 @@
     "tags": ["home", "rooms"],
     "pos": "noun",
     "gender": "f",
-    "plural": "entrades"
+    "plural": "les entrades"
   },
   {
     "id": "hd008",
@@ -85,7 +85,7 @@
     "tags": ["home", "rooms"],
     "pos": "noun",
     "gender": "f",
-    "plural": "terrasses"
+    "plural": "les terrasses"
   },
   {
     "id": "hd009",
@@ -96,7 +96,7 @@
     "tags": ["home", "furniture"],
     "pos": "noun",
     "gender": "m",
-    "plural": "llits"
+    "plural": "els llits"
   },
   {
     "id": "hd010",
@@ -107,7 +107,7 @@
     "tags": ["home", "furniture"],
     "pos": "noun",
     "gender": "f",
-    "plural": "taules"
+    "plural": "les taules"
   },
   {
     "id": "hd011",
@@ -118,7 +118,7 @@
     "tags": ["home", "furniture"],
     "pos": "noun",
     "gender": "f",
-    "plural": "cadires"
+    "plural": "les cadires"
   },
   {
     "id": "hd012",
@@ -129,7 +129,7 @@
     "tags": ["home", "furniture"],
     "pos": "noun",
     "gender": "m",
-    "plural": "sofàs"
+    "plural": "els sofàs"
   },
   {
     "id": "hd013",
@@ -140,7 +140,7 @@
     "tags": ["home", "furniture"],
     "pos": "noun",
     "gender": "m",
-    "plural": "armaris"
+    "plural": "els armaris"
   },
   {
     "id": "hd014",
@@ -151,7 +151,7 @@
     "tags": ["home", "furniture"],
     "pos": "noun",
     "gender": "f",
-    "plural": "finestres"
+    "plural": "les finestres"
   },
   {
     "id": "hd015",
@@ -162,7 +162,7 @@
     "tags": ["home", "furniture"],
     "pos": "noun",
     "gender": "f",
-    "plural": "portes"
+    "plural": "les portes"
   },
   {
     "id": "hd016",
@@ -178,13 +178,13 @@
   {
     "id": "hd017",
     "catalan": "la nevera",
-    "pronunciation": "neh-VEH-rah",
+    "pronunciation": "neh-BEH-rah",
     "english": "fridge",
     "hint": "neu = snow",
     "tags": ["home", "appliances"],
     "pos": "noun",
     "gender": "f",
-    "plural": "neveres"
+    "plural": "les neveres"
   },
   {
     "id": "hd018",
@@ -195,7 +195,7 @@
     "tags": ["home", "appliances"],
     "pos": "noun",
     "gender": "m",
-    "plural": "forns"
+    "plural": "els forns"
   },
   {
     "id": "hd019",
@@ -206,7 +206,7 @@
     "tags": ["home", "appliances"],
     "pos": "noun",
     "gender": "m",
-    "plural": "microones"
+    "plural": "els microones"
   },
   {
     "id": "hd020",
@@ -217,7 +217,7 @@
     "tags": ["home", "appliances"],
     "pos": "noun",
     "gender": "f",
-    "plural": "rentadores"
+    "plural": "les rentadores"
   },
   {
     "id": "hd021",
@@ -228,7 +228,7 @@
     "tags": ["home", "appliances"],
     "pos": "noun",
     "gender": "f",
-    "plural": "rentavaixelles"
+    "plural": "les rentavaixelles"
   },
   {
     "id": "hd022",
@@ -239,23 +239,23 @@
     "tags": ["home", "appliances"],
     "pos": "noun",
     "gender": "f",
-    "plural": "aixetes"
+    "plural": "les aixetes"
   },
   {
     "id": "hd023",
     "catalan": "la tovallola",
-    "pronunciation": "toh-vah-YOH-lah",
+    "pronunciation": "toh-bah-YOH-lah",
     "english": "towel",
     "hint": "",
     "tags": ["home", "daily"],
     "pos": "noun",
     "gender": "f",
-    "plural": "tovalloles"
+    "plural": "les tovalloles"
   },
   {
     "id": "hd024",
     "catalan": "esmorzar",
-    "pronunciation": "ez-mor-ZAR",
+    "pronunciation": "ez-mor-ZA",
     "english": "to have breakfast",
     "hint": "also the noun: l'esmorzar = breakfast",
     "tags": ["home", "daily"],
@@ -265,7 +265,7 @@
   {
     "id": "hd025",
     "catalan": "dinar",
-    "pronunciation": "dee-NAR",
+    "pronunciation": "dee-NA",
     "english": "to have lunch",
     "hint": "also the noun: el dinar = lunch",
     "tags": ["home", "daily"],
@@ -275,7 +275,7 @@
   {
     "id": "hd026",
     "catalan": "sopar",
-    "pronunciation": "soh-PAR",
+    "pronunciation": "soh-PA",
     "english": "to have dinner",
     "hint": "also the noun: el sopar = dinner",
     "tags": ["home", "daily"],
@@ -287,7 +287,7 @@
     "catalan": "dutxar-se",
     "pronunciation": "doo-CHAR-seh",
     "english": "to have a shower",
-    "hint": "reflexive verb — tx sounds like 'ch'",
+    "hint": "reflexive verb - tx sounds like 'ch'",
     "tags": ["home", "daily"],
     "pos": "verb",
     "forms": ["jo em dutxo", "tu et dutxes", "ell/ella es dutxa", "nosaltres ens dutxem", "vosaltres us dutxeu", "ells/elles es dutxen"]
@@ -295,7 +295,7 @@
   {
     "id": "hd028",
     "catalan": "fer el llit",
-    "pronunciation": "fer el YEET",
+    "pronunciation": "feh ul YEET",
     "english": "to make the bed",
     "hint": "fer = to do/make",
     "tags": ["home", "daily"],

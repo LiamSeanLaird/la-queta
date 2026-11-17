@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Browse {{ deck.title }} — La Queta{% endblock %}
+{% block title %}Browse {{ deck.title }} - La Queta{% endblock %}
 {% set brand_href = url_for('pages.levels') %}
 {% block top_back %}
 <a class="topbar__back" href="{{ url_for('pages.deck', slug=deck.slug) }}" aria-label="Back to deck">←</a>
@@ -20,19 +20,8 @@
         <p class="vocab-pronunciation">{{ card.pronunciation }}</p>
         {% endif %}
         <p class="list-row__sub">{{ card.english }}</p>
-        {% if card.hint %}
-        <p class="vocab-hint">{{ card.hint }}</p>
-        {% endif %}
-        {% if card.tags %}
-        <p class="vocab-tags">
-          {% for tag in card.tags %}
-          <span class="tag-chip">{{ tag }}</span>
-          {% endfor %}
-        </p>
-        {% endif %}
-      </div>
-      <div class="vocab-meta">
-        <div class="gram-pills">
+        {% if card.pos or card.gender in ('m', 'f') or (card.plural and card.plural != '—') %}
+        <div class="gram-pills vocab-gram">
           {% if card.pos %}
           <span class="gram-pill gram-pill--pos">{{ card.pos }}</span>
           {% endif %}
@@ -45,9 +34,22 @@
           <span class="gram-pill gram-pill--pl">pl: {{ card.plural }}</span>
           {% endif %}
         </div>
+        {% endif %}
+        {% if card.hint %}
+        <p class="vocab-hint">{{ card.hint }}</p>
+        {% endif %}
         {% if card.pos == 'verb' and card.forms %}
         <p class="vocab-forms">{{ card.forms|join(' · ') }}</p>
         {% endif %}
+        {% if card.tags %}
+        <p class="vocab-tags">
+          {% for tag in card.tags %}
+          <span class="tag-chip">{{ tag }}</span>
+          {% endfor %}
+        </p>
+        {% endif %}
+      </div>
+      <div class="vocab-meta">
         {% if card.retired %}
         <span class="badge badge--done">Retired</span>
         {% else %}

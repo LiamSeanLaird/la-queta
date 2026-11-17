@@ -3,6 +3,7 @@
   "title": "Definite Articles",
   "order": 2,
   "summary": "Catalan has four words for 'the', plus a contraction before vowels.",
+  "deck": "food_drink",
   "sections": [
     {
       "type": "text",
@@ -35,7 +36,7 @@
     },
     {
       "type": "rule",
-      "content": "Before a noun starting with a vowel or silent h, 'el' and 'la' contract to 'l'': l'home (the man), l'aigua (the water). Els and les do not contract."
+      "content": "Before a noun starting with a vowel or silent h, 'el' and 'la' contract to 'l'': l'home (the man), l'aigua (the water). 'La' does not contract before an unstressed i- or u-: la universitat, la infermera. Els and les never contract."
     },
     {
       "type": "examples",
@@ -58,7 +59,7 @@
         {
           "catalan": "els homes",
           "english": "the men",
-          "note": "plural — no contraction"
+          "note": "plural - no contraction"
         }
       ]
     },
@@ -68,7 +69,32 @@
     },
     {
       "type": "rule",
-      "content": "To make a noun plural: nouns ending in a vowel add -s (porta → portes, gat → gats... wait, gat ends in a consonant). Nouns ending in a consonant add -s too: gat → gats, tren → trens."
+      "content": "To make a noun plural: nouns ending in -a change it to -es (porta → portes). Most other nouns just add -s (gat → gats, cotxe → cotxes). A few masculine nouns ending in -s add -os (mes → mesos)."
+    },
+    {
+      "type": "examples",
+      "items": [
+        {
+          "catalan": "la taula → les taules",
+          "english": "the table → the tables",
+          "note": "-a becomes -es"
+        },
+        {
+          "catalan": "el tren → els trens",
+          "english": "the train → the trains",
+          "note": "adds -s"
+        },
+        {
+          "catalan": "el cotxe → els cotxes",
+          "english": "the car → the cars",
+          "note": "adds -s"
+        },
+        {
+          "catalan": "el mes → els mesos",
+          "english": "the month → the months",
+          "note": "adds -os"
+        }
+      ]
     }
   ],
   "practice": [
@@ -149,6 +175,14 @@
       "explanation": "Masculine plural."
     },
     {
+      "id": "da-p11",
+      "kind": "cloze",
+      "prompt": "___ universitat",
+      "hint": "the university",
+      "answer": "la",
+      "explanation": "'La' does not contract before an unstressed u-: la universitat."
+    },
+    {
       "id": "da-p08",
       "kind": "type_in",
       "prompt": "the station",
@@ -164,7 +198,7 @@
       "answers": [
         "els homes"
       ],
-      "explanation": "Plural — no contraction."
+      "explanation": "Plural - no contraction."
     },
     {
       "id": "da-p10",
@@ -174,6 +208,15 @@
         "les portes"
       ],
       "explanation": "Feminine plural."
+    },
+    {
+      "id": "da-p12",
+      "kind": "type_in",
+      "prompt": "the tables",
+      "answers": [
+        "les taules"
+      ],
+      "explanation": "taula ends in -a, so the plural ends in -es: les taules."
     },
     {
       "id": "da-l01",

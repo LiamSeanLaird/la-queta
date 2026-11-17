@@ -81,16 +81,17 @@ lessons
   slug UNIQUE
   title
   summary
-  sort_order
+  sort_order     -- lesson JSON `order`; must follow the goal order in content/a1_can_dos.json (the Learn tab), and the file is named NN-<id>.json (tests/test_lesson_order.py)
   sections_json  -- teach sections: text | rule | examples
   practice_json  -- practice bank: multiple_choice | cloze | type_in
+  deck_slug      -- matching vocab deck (lesson JSON `deck`), offered when practice ends
 
 decks
   id PK
   level_id FK
-  slug UNIQUE
-  title
-  sort_order
+  slug UNIQUE    -- from the file name: content/decks/<slug>_deck.json
+  title          -- DECK_TITLES in app/services/seed.py; seeding fails if a deck has none
+  sort_order     -- rank of the first lesson whose `deck` field names it (deck_order_from_lessons in app/services/seed.py)
 
 cards
   id PK
@@ -158,8 +159,9 @@ Conventions: `STYLE_GUIDE.md` §3 (layers, statuses, error shape, POST-for-actio
 | GET | `/api/lessons/<id>` | Full lesson (sections + practice) |
 | POST | `/api/lessons/<id>/complete` | Perfect practice score required; mark complete |
 | GET | `/api/levels/<id>/decks` | Decks + stats |
+| GET | `/api/levels/<id>/daily` | Up to 20 unretired cards from decks the learner has started or whose lesson they completed (the first deck for a new learner), topped up from the next decks in order, then from retired ones |
 | GET | `/api/decks/<slug>/cards` | All cards + seen |
-| GET | `/api/decks/<slug>/session` | Unretired cards, shuffled |
+| GET | `/api/decks/<slug>/session` | Unretired cards: already-seen ones shuffled first, then unseen ones in deck file order |
 | POST | `/api/cards/<id>/seen` | Increment seen |
 | POST | `/api/cards/<id>/retire` | Set seen ≥ 3 (early retire) |
 | POST | `/api/decks/<slug>/unretire` | Reset seen → 0 for all cards in deck |
@@ -243,7 +245,7 @@ Work in vertical slices. Each phase: **failing tests → structure → behaviour
 - [x] Browse: retired badge / muted row; Retire per row
 - [x] Study Retire → `POST /api/cards/<id>/retire` then advance
 - [x] Deck fully retired → Unretire deck (`POST /api/decks/<slug>/unretire`)
-- [x] Daily vocab across level unretired pool (`/levels/<id>/daily`)
+- [x] Daily vocab from the decks the learner has reached (`/levels/<id>/daily`)
 - [ ] Later (optional): browse filter active vs retired
 
 ### Phase 9 — A1 Practice ✅

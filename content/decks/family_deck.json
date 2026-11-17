@@ -8,7 +8,7 @@
     "tags": ["family", "core"],
     "pos": "noun",
     "gender": "f",
-    "plural": "mares"
+    "plural": "les mares"
   },
   {
     "id": "fam002",
@@ -19,7 +19,7 @@
     "tags": ["family", "core"],
     "pos": "noun",
     "gender": "m",
-    "plural": "pares"
+    "plural": "els pares"
   },
   {
     "id": "fam003",
@@ -41,7 +41,7 @@
     "tags": ["family", "core"],
     "pos": "noun",
     "gender": "f",
-    "plural": "filles"
+    "plural": "les filles"
   },
   {
     "id": "fam005",
@@ -52,7 +52,7 @@
     "tags": ["family", "core"],
     "pos": "noun",
     "gender": "m",
-    "plural": "fills"
+    "plural": "els fills"
   },
   {
     "id": "fam006",
@@ -63,7 +63,7 @@
     "tags": ["family", "core"],
     "pos": "noun",
     "gender": "f",
-    "plural": "germanes"
+    "plural": "les germanes"
   },
   {
     "id": "fam007",
@@ -74,29 +74,29 @@
     "tags": ["family", "core"],
     "pos": "noun",
     "gender": "m",
-    "plural": "germans"
+    "plural": "els germans"
   },
   {
     "id": "fam008",
     "catalan": "l'àvia",
-    "pronunciation": "AH-vyah",
+    "pronunciation": "AH-byah",
     "english": "grandmother",
     "hint": "",
     "tags": ["family", "extended"],
     "pos": "noun",
     "gender": "f",
-    "plural": "àvies"
+    "plural": "les àvies"
   },
   {
     "id": "fam009",
     "catalan": "l'avi",
-    "pronunciation": "AH-vee",
+    "pronunciation": "AH-bee",
     "english": "grandfather",
     "hint": "plural avis = grandparents",
     "tags": ["family", "extended"],
     "pos": "noun",
     "gender": "m",
-    "plural": "avis"
+    "plural": "els avis"
   },
   {
     "id": "fam010",
@@ -107,7 +107,7 @@
     "tags": ["family", "extended"],
     "pos": "noun",
     "gender": "f",
-    "plural": "tietes"
+    "plural": "les tietes"
   },
   {
     "id": "fam011",
@@ -118,7 +118,7 @@
     "tags": ["family", "extended"],
     "pos": "noun",
     "gender": "m",
-    "plural": "oncles"
+    "plural": "els oncles"
   },
   {
     "id": "fam012",
@@ -129,7 +129,7 @@
     "tags": ["family", "extended"],
     "pos": "noun",
     "gender": "f",
-    "plural": "cosines"
+    "plural": "les cosines"
   },
   {
     "id": "fam013",
@@ -140,7 +140,7 @@
     "tags": ["family", "extended"],
     "pos": "noun",
     "gender": "m",
-    "plural": "cosins"
+    "plural": "els cosins"
   },
   {
     "id": "fam014",
@@ -151,7 +151,7 @@
     "tags": ["family", "partner"],
     "pos": "noun",
     "gender": "f",
-    "plural": "sogres"
+    "plural": "les sogres"
   },
   {
     "id": "fam015",
@@ -162,7 +162,7 @@
     "tags": ["family", "partner"],
     "pos": "noun",
     "gender": "m",
-    "plural": "sogres"
+    "plural": "els sogres"
   },
   {
     "id": "fam016",
@@ -173,7 +173,7 @@
     "tags": ["family", "partner"],
     "pos": "noun",
     "gender": "f",
-    "plural": "cunyades"
+    "plural": "les cunyades"
   },
   {
     "id": "fam017",
@@ -184,7 +184,7 @@
     "tags": ["family", "partner"],
     "pos": "noun",
     "gender": "m",
-    "plural": "cunyats"
+    "plural": "els cunyats"
   },
   {
     "id": "fam018",
@@ -195,29 +195,29 @@
     "tags": ["family", "partner"],
     "pos": "noun",
     "gender": "f",
-    "plural": "parelles"
+    "plural": "les parelles"
   },
   {
     "id": "fam019",
     "catalan": "la xicota",
     "pronunciation": "shee-KOH-tah",
     "english": "girlfriend",
-    "hint": "very common in Catalan — x sounds like 'sh'",
+    "hint": "very common in Catalan - x sounds like 'sh'",
     "tags": ["family", "partner"],
     "pos": "noun",
     "gender": "f",
-    "plural": "xicotes"
+    "plural": "les xicotes"
   },
   {
     "id": "fam020",
     "catalan": "el xicot",
     "pronunciation": "shee-KOT",
     "english": "boyfriend",
-    "hint": "common Catalan word — x sounds like 'sh'",
+    "hint": "common Catalan word - x sounds like 'sh'",
     "tags": ["family", "partner"],
     "pos": "noun",
     "gender": "m",
-    "plural": "xicots"
+    "plural": "els xicots"
   },
   {
     "id": "fam021",
@@ -228,7 +228,7 @@
     "tags": ["family", "people"],
     "pos": "noun",
     "gender": "f",
-    "plural": "noies"
+    "plural": "les noies"
   },
   {
     "id": "fam022",
@@ -239,6 +239,6 @@
     "tags": ["family", "people"],
     "pos": "noun",
     "gender": "m",
-    "plural": "nois"
+    "plural": "els nois"
   }
 ]

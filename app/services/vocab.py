@@ -7,7 +7,15 @@ import random
 from sqlalchemy import func, select
 
 from app.extensions import db
-from app.models import Card, Deck, Level, User, UserCardProgress
+from app.models import (
+    Card,
+    Deck,
+    Lesson,
+    Level,
+    User,
+    UserCardProgress,
+    UserLessonProgress,
+)
 from app.services.errors import ServiceError
 from app.services.progress import RETIRED_SEEN
 
@@ -78,50 +86,97 @@ def list_decks_for_level(user: User, level_id: str) -> list[dict]:
 def list_cards_for_deck(user: User, slug: str) -> list[dict]:
     deck = _get_deck(slug)
     cards = db.session.scalars(
-        select(Card).where(Card.deck_id == deck.id).order_by(Card.id)
+        select(Card)
+        .where(Card.deck_id == deck.id)
+        .order_by(Card.position, Card.id)
     ).all()
     seen = _seen_map(user.id, [card.id for card in cards])
     return [_card_dict(card, seen.get(card.id, 0)) for card in cards]
 
 
 def session_for_deck(user: User, slug: str) -> list[dict]:
+    """Shuffled review of cards already seen, then new cards in deck file order.
+
+    Deck files are curated (core verbs first, nouns grouped by topic), so a
+    learner meets new words in that order. Cards they have already seen are
+    reviewed first, shuffled, so recall does not lean on position.
+    """
     cards = list_cards_for_deck(user, slug)
     active = [card for card in cards if not card["retired"]]
-    random.shuffle(active)
-    return active
+    review = [card for card in active if card["seen"] > 0]
+    new = [card for card in active if card["seen"] == 0]
+    random.shuffle(review)
+    return review + new
 
 
 DAILY_LIMIT = 20
 
 
 def list_cards_for_level(user: User, level_id: str) -> list[dict]:
-    from app.models import Level
-
     if db.session.get(Level, level_id) is None:
         raise ServiceError("Level not found", 404)
 
-    cards = db.session.scalars(
-        select(Card)
+    rows = db.session.execute(
+        select(Card, Deck.slug)
         .join(Deck, Deck.id == Card.deck_id)
         .where(Deck.level_id == level_id)
-        .order_by(Card.id)
+        .order_by(Deck.sort_order, Deck.slug, Card.position, Card.id)
     ).all()
-    seen = _seen_map(user.id, [card.id for card in cards])
-    return [_card_dict(card, seen.get(card.id, 0)) for card in cards]
+    seen = _seen_map(user.id, [card.id for card, _ in rows])
+    return [
+        {**_card_dict(card, seen.get(card.id, 0)), "deck_slug": deck_slug}
+        for card, deck_slug in rows
+    ]
+
+
+def _focus_deck_slugs(user: User, level_id: str, cards: list[dict]) -> set[str]:
+    """Decks the learner has reached: started in study, or linked to a done lesson.
+
+    A learner who has reached none yet gets the level's first deck, which
+    matches the first lesson.
+    """
+    started = {card["deck_slug"] for card in cards if card["seen"] > 0}
+    completed_lesson_decks = db.session.scalars(
+        select(Lesson.deck_slug)
+        .join(UserLessonProgress, UserLessonProgress.lesson_id == Lesson.id)
+        .where(
+            UserLessonProgress.user_id == user.id,
+            UserLessonProgress.completed.is_(True),
+            Lesson.level_id == level_id,
+            Lesson.deck_slug.is_not(None),
+        )
+    ).all()
+    focus = started | set(completed_lesson_decks)
+    if not focus and cards:
+        focus = {cards[0]["deck_slug"]}
+    return focus
 
 
 def daily_session_for_level(
     user: User, level_id: str, limit: int = DAILY_LIMIT
 ) -> list[dict]:
-    """Prefer unretired cards; fill remainder from retired (soft reintroduce)."""
+    """Daily review drawn from the decks the learner has reached.
+
+    1. Unretired cards from focus decks (see _focus_deck_slugs), at random.
+    2. If that is not enough, unretired cards from the other decks in level
+       order, so the session tops up with the vocab that comes next rather
+       than words from lessons far ahead.
+    3. Then retired cards from focus decks, as a soft reintroduction.
+    The picked cards are shuffled.
+    """
     cards = list_cards_for_level(user, level_id)
-    active = [card for card in cards if not card["retired"]]
-    retired = [card for card in cards if card["retired"]]
-    random.shuffle(active)
-    random.shuffle(retired)
-    picked = active[:limit]
-    if len(picked) < limit:
-        picked.extend(retired[: limit - len(picked)])
+    focus = _focus_deck_slugs(user, level_id, cards)
+    in_focus = [card for card in cards if card["deck_slug"] in focus]
+    focus_active = [card for card in in_focus if not card["retired"]]
+    focus_retired = [card for card in in_focus if card["retired"]]
+    next_active = [
+        card
+        for card in cards
+        if card["deck_slug"] not in focus and not card["retired"]
+    ]
+    random.shuffle(focus_active)
+    random.shuffle(focus_retired)
+    picked = (focus_active + next_active + focus_retired)[:limit]
     random.shuffle(picked)
     return picked
 

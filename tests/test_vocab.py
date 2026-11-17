@@ -28,12 +28,222 @@ def test_seed_decks_into_a1(migrated_app):
         from app.extensions import db
         from app.models import Card, Deck
 
-        assert db.session.scalar(select(func.count()).select_from(Deck)) == 14
-        assert db.session.scalar(select(func.count()).select_from(Card)) == 318
+        assert db.session.scalar(select(func.count()).select_from(Deck)) == 18
+        assert db.session.scalar(select(func.count()).select_from(Card)) == 473
         a2_decks = db.session.scalar(
             select(func.count()).select_from(Deck).where(Deck.level_id == "a2")
         )
         assert a2_decks == 0
+
+
+def test_every_deck_file_has_a_distinct_title():
+    from app.services.seed import CONTENT, DECK_TITLES, _deck_slug_from_filename
+
+    slugs = {_deck_slug_from_filename(p.name) for p in (CONTENT / "decks").glob("*_deck*.json")}
+    assert slugs == set(DECK_TITLES)
+    titles = list(DECK_TITLES.values())
+    assert len(set(titles)) == len(titles)
+    for title in titles:
+        # Titles are written by hand, not derived from the file slug.
+        assert "_" not in title
+        assert "\u2014" not in title
+
+
+def _deck_cards(slug: str) -> list[dict]:
+    import json
+
+    from app.services.seed import CONTENT
+
+    return json.loads((CONTENT / "decks" / f"{slug}_deck.json").read_text(encoding="utf-8"))
+
+
+def _lesson_deck(lesson_id: str) -> str | None:
+    """The `deck` field of a lesson, looked up by id (file names carry the order)."""
+    import json
+
+    from app.services.seed import CONTENT
+
+    for path in (CONTENT / "lessons").glob("*.json"):
+        raw = json.loads(path.read_text(encoding="utf-8"))
+        if raw["id"] == lesson_id:
+            return raw.get("deck")
+    raise AssertionError(f"no lesson {lesson_id}")
+
+
+def test_describing_words_deck_is_adjectives_with_both_genders():
+    cards = _deck_cards("everyday")
+    assert 20 <= len(cards) <= 30
+    for card in cards:
+        assert card["pos"] == "adjective", card["id"]
+        # Show both genders where they differ, or say the form is shared.
+        assert " / " in card["catalan"] or card["hint"] == "same m/f form", card["id"]
+
+
+def test_food_lessons_point_to_food_and_drink_deck():
+    cards = _deck_cards("food_drink")
+    assert 20 <= len(cards) <= 30
+    assert all("food" in card["tags"] for card in cards)
+    for lesson in ("definite-articles", "food-cafe"):
+        assert _lesson_deck(lesson) == "food_drink"
+
+
+def test_travel_and_directions_are_separate_one_topic_decks():
+    travel = _deck_cards("travel")
+    directions = _deck_cards("directions")
+    assert 20 <= len(travel) <= 30
+    assert 20 <= len(directions) <= 30
+    assert _lesson_deck("directions") == "directions"
+    assert _lesson_deck("travel-transport") == "travel"
+
+    # Places and way-finding live in Places & Directions, not Travel & Transport.
+    travel_words = {card["catalan"] for card in travel}
+    assert {"el museu", "el nord", "tot recte", "aquí"}.isdisjoint(travel_words)
+    assert {"el museu", "el nord", "tot recte", "aquí"} <= {c["catalan"] for c in directions}
+    # Health and payment phrases moved to their topic decks.
+    assert "Truca a un metge!" in {c["catalan"] for c in _deck_cards("health")}
+    shopping = {c["catalan"] for c in _deck_cards("shopping")}
+    assert {"Puc pagar amb targeta?", "l'efectiu", "el canvi"} <= shopping
+
+
+def test_greetings_and_question_phrases_are_separate_one_topic_decks():
+    greetings = _deck_cards("starter")
+    phrases = _deck_cards("social_phrases")
+    assert 20 <= len(greetings) <= 30
+    assert 20 <= len(phrases) <= 30
+    assert all(card["tags"] == ["greetings"] for card in greetings)
+    assert all(card["tags"] == ["phrases"] for card in phrases)
+    assert _lesson_deck("introductions") == "starter"
+    assert _lesson_deck("question-words") == "social_phrases"
+
+    greeting_words = {card["catalan"] for card in greetings}
+    phrase_words = {card["catalan"] for card in phrases}
+    assert {"Bon dia", "Em dic...", "Fins demà", "Estic bé"} <= greeting_words
+    # Thanks, please and sorry belong with greetings; the question-words deck has the questions.
+    assert {"Gràcies", "Si us plau", "De res", "Perdoni", "Ho sento"} <= greeting_words
+    assert {"No entenc", "Pots repetir?", "On és...?"} <= phrase_words
+    # Meal phrases and hunger/thirst live in Food & Drink.
+    food = {card["catalan"] for card in _deck_cards("food_drink")}
+    assert {"Tinc gana", "Tinc set", "Bon profit!", "Estava molt bo"} <= food
+    # Short social messages are not signs.
+    assert "Fins demà" not in {card["catalan"] for card in _deck_cards("signs")}
+
+
+def test_signs_deck_has_real_signs_and_short_messages():
+    signs = _deck_cards("signs")
+    assert 20 <= len(signs) <= 30
+    assert _lesson_deck("signs-messages") == "signs"
+    # Every card is either a sign or notice, or a short chat message, as the lesson teaches.
+    assert all(card["tags"] in (["signs"], ["messages"]) for card in signs)
+    sign_words = {card["catalan"] for card in signs if card["tags"] == ["signs"]}
+    message_words = {card["catalan"] for card in signs if card["tags"] == ["messages"]}
+    assert len(sign_words) > len(message_words)
+    assert {"Sortida", "Prohibit fumar", "Lliure", "Ocupat / ocupada", "No funciona"} <= sign_words
+    assert {"No puc avui", "Faig tard", "On ets?"} <= message_words
+
+
+def test_question_words_deck_has_every_word_the_lesson_teaches():
+    phrases = {card["catalan"]: card for card in _deck_cards("social_phrases")}
+    for word in ("Qui?", "Què?", "On?", "Quan?", "Com?", "Per què?", "Quant / quanta?", "Quin / quina?"):
+        assert word in phrases, word
+        assert phrases[word]["pronunciation"] and phrases[word]["english"].endswith("?")
+    # Words that change for gender show both forms, like adjectives elsewhere.
+    assert "quants / quantes" in phrases["Quant / quanta?"]["hint"]
+    assert {"Com es diu això?", "Què vol dir...?"} <= set(phrases)
+
+
+def test_admin_deck_covers_what_the_public_services_lesson_teaches():
+    admin = {card["catalan"]: card for card in _deck_cards("admin")}
+    assert 20 <= len(admin) <= 30
+    assert _lesson_deck("public-admin") == "admin"
+    # The lesson's key lines and the details a form asks for are all in the deck.
+    assert {
+        "Necessito ajuda",
+        "Vull informació",
+        "Vull demanar una cita",
+        "El meu NIE és...",
+        "On és l'Ajuntament?",
+    } <= set(admin)
+    assert {"el nom", "el cognom", "l'adreça", "el número de telèfon", "la signatura"} <= set(admin)
+    # Moved from Travel with its id kept, so learner progress follows it.
+    assert admin["Necessito ajuda"]["id"] == "tr_030"
+    assert "Necessito ajuda" not in {card["catalan"] for card in _deck_cards("travel")}
+
+
+def test_health_deck_covers_what_the_health_lesson_teaches():
+    health = {card["catalan"]: card for card in _deck_cards("health")}
+    assert 20 <= len(health) <= 30
+    assert _lesson_deck("health") == "health"
+    # The lesson's key lines are all in the deck.
+    assert {"Em trobo malament", "Em fa mal", "Necessito un metge", "Tinc cita"} <= set(health)
+    # 'Em fa mal + body part' needs body parts to fill the gap.
+    body = {word for word, card in health.items() if "body" in card["tags"]}
+    assert {"el cap", "la gola", "la panxa", "l'esquena"} <= body
+    assert len(body) >= 6
+
+
+def test_work_deck_covers_what_the_work_lesson_teaches():
+    work = {card["catalan"]: card for card in _deck_cards("work")}
+    assert 20 <= len(work) <= 30
+    assert _lesson_deck("work") == "work"
+    # The lesson's example lines are all in the deck.
+    assert {
+        "Soc professor",
+        "Treballo en una oficina",
+        "Quina feina fas?",
+        "Tinc una entrevista demà",
+        "Treballo de dilluns a divendres",
+    } <= set(work)
+    # 'Soc + profession' needs several professions to practise with.
+    soc = [word for word in work if word.startswith("Soc ")]
+    assert len(soc) >= 5
+
+
+def test_education_deck_covers_what_the_education_lesson_teaches():
+    education = {card["catalan"]: card for card in _deck_cards("education")}
+    assert 20 <= len(education) <= 30
+    assert _lesson_deck("education") == "education"
+    # The lesson's example lines and rule phrases are all in the deck.
+    assert {
+        "Faig un curs de català",
+        "On és el CPNL?",
+        "Vull fer la inscripció",
+        "Estic a l'escola d'adults",
+        "Tinc classe demà",
+        "Estic apuntat / apuntada a un curs",
+    } <= set(education)
+    # Classroom phrases a learner needs in their first course.
+    assert {"Com s'escriu?", "Puc fer una pregunta?"} <= set(education)
+
+
+def test_leisure_deck_covers_what_the_leisure_lesson_teaches():
+    leisure = {card["catalan"]: card for card in _deck_cards("leisure")}
+    assert 20 <= len(leisure) <= 30
+    assert _lesson_deck("leisure") == "leisure"
+    # The lesson's example lines and rule phrases are all in the deck.
+    assert {
+        "M'agrada llegir",
+        "Què fas al cap de setmana?",
+        "Vols venir al cinema?",
+        "Vols venir amb mi?",
+        "Anem a passejar",
+        "Escolto música",
+        "el cinema",
+        "el concert",
+    } <= set(leisure)
+    # Saying what you like and don't like, and arranging to meet.
+    assert {"Què t'agrada fer?", "No m'agrada", "A quina hora quedem?"} <= set(leisure)
+
+
+def test_seed_rejects_deck_without_title(migrated_app, monkeypatch):
+    import pytest
+
+    from app.services import seed
+
+    monkeypatch.delitem(seed.DECK_TITLES, "family")
+    with migrated_app.app_context():
+        seed.seed_levels()
+        with pytest.raises(ValueError, match="family"):
+            seed.seed_decks()
 
 
 def test_list_decks_requires_auth(migrated_client):
@@ -48,8 +258,10 @@ def test_list_a1_decks_and_empty_a2(migrated_app, migrated_client):
     a1 = migrated_client.get("/api/levels/a1/decks")
     assert a1.status_code == 200
     decks = a1.get_json()["decks"]
-    assert len(decks) == 14
-    assert decks[0]["slug"] == "starter"
+    assert len(decks) == 18
+    # Decks follow the lesson order: lesson 1 (noun-gender) links to everyday.
+    assert decks[0]["slug"] == "everyday"
+    assert decks[0]["title"] == "Describing Words"
     assert decks[0]["total"] > 0
     assert decks[0]["retired"] == 0
     assert decks[0]["remaining"] == decks[0]["total"]
@@ -103,7 +315,7 @@ def test_card_payload_includes_prototype_meta(migrated_app, migrated_client):
     days = migrated_client.get("/api/decks/days_months/cards").get_json()["cards"]
     dilluns = next(c for c in days if c["external_id"] == "dm_001")
     assert dilluns["gender"] == "m"
-    assert dilluns["plural"] == "dilluns"
+    assert dilluns["plural"] == "els dilluns"
     assert dilluns["pos"] == "noun"
 
     browse = migrated_client.get("/decks/days_months/browse")
@@ -163,3 +375,123 @@ def test_unretire_deck_resets_seen_and_restores_session(migrated_app, migrated_c
     assert all(card["seen"] == 0 and card["retired"] is False for card in restored)
     session = migrated_client.get("/api/decks/starter/session").get_json()["cards"]
     assert len(session) == len(cards)
+
+
+def test_core_verbs_deck_has_full_present_tense(migrated_app, migrated_client):
+    with migrated_app.app_context():
+        seed_all()
+    _register(migrated_client)
+
+    cards = migrated_client.get("/api/decks/core_verbs/cards").get_json()["cards"]
+    by_word = {card["catalan"]: card for card in cards}
+    for verb in (
+        "ser", "estar", "tenir", "anar", "venir", "fer", "voler", "poder", "haver de",
+        "saber", "dir",
+    ):
+        assert verb in by_word
+    assert 20 <= len(cards) <= 30
+    persons = ["jo ", "tu ", "ell/ella ", "nosaltres ", "vosaltres ", "ells/elles "]
+    for card in cards:
+        assert card["pos"] == "verb"
+        assert len(card["forms"]) == 6
+        assert [form.startswith(p) for form, p in zip(card["forms"], persons)] == [True] * 6
+    assert by_word["ser"]["forms"][0] == "jo soc"
+    assert by_word["venir"]["forms"] == [
+        "jo vinc", "tu vens", "ell/ella ve",
+        "nosaltres venim", "vosaltres veniu", "ells/elles venen",
+    ]
+    assert by_word["haver de"]["forms"][0] == "jo he de"
+    # The deck opens with the verbs the present-tense lesson leans on, in this order.
+    assert [card["catalan"] for card in cards[:6]] == [
+        "ser", "estar", "tenir", "anar", "venir", "fer",
+    ]
+
+
+def test_browse_shows_verb_forms_in_text_column(migrated_app, migrated_client):
+    with migrated_app.app_context():
+        seed_all()
+    _register(migrated_client)
+
+    html = migrated_client.get("/decks/core_verbs/browse").get_data(as_text=True)
+    forms = '<p class="vocab-forms">jo soc · tu ets · ell/ella és'
+    assert forms in html
+    # Forms sit in the wrapping text column, not the fixed-width meta column.
+    row = html[html.index('data-card-id'):]
+    assert row.index(forms) < row.index('class="vocab-meta"')
+
+
+def test_browse_shows_grammar_pills_in_text_column(migrated_app, migrated_client):
+    """Noun pills used to sit in the fixed meta column and squeeze the text at phone width."""
+    with migrated_app.app_context():
+        seed_all()
+    _register(migrated_client)
+
+    html = migrated_client.get("/decks/family/browse").get_data(as_text=True)
+    row_start = html.index('data-card-id')
+    row = html[row_start:html.index('data-card-id', row_start + 1)]
+    pills = row.index('class="gram-pills vocab-gram"')
+    assert 'gram-pill--pos">noun' in row
+    assert row.index('class="vocab-main"') < pills < row.index('class="vocab-meta"')
+    meta = row[row.index('class="vocab-meta"'):]
+    assert "gram-pill" not in meta
+
+
+def test_cards_list_in_deck_file_order_after_a_reorder(
+    migrated_app, migrated_client, monkeypatch, tmp_path
+):
+    """Production seeds on top of an old database, so card ids follow the
+    order cards were first created, not the deck file. Lists must still follow
+    the file, or a reordered or grown deck shows its new cards at the end."""
+    import json
+    import shutil
+
+    from app.services import seed
+
+    real_content = seed.CONTENT
+    old_content = tmp_path / "content"
+    shutil.copytree(real_content, old_content)
+    deck_path = old_content / "decks" / "admin_deck.json"
+    deck_path.write_text(
+        json.dumps(list(reversed(json.loads(deck_path.read_text("utf-8"))))),
+        encoding="utf-8",
+    )
+
+    with migrated_app.app_context():
+        monkeypatch.setattr(seed, "CONTENT", old_content)
+        seed.seed_all()
+        monkeypatch.setattr(seed, "CONTENT", real_content)
+        seed.seed_all()
+    _register(migrated_client)
+
+    file_ids = [
+        card["id"]
+        for card in json.loads(
+            (real_content / "decks" / "admin_deck.json").read_text("utf-8")
+        )
+    ]
+    listed = migrated_client.get("/api/decks/admin/cards").get_json()["cards"]
+    assert [card["external_id"] for card in listed] == file_ids
+    # The ids really were created in reverse, so this is not ordering by id.
+    assert listed[0]["id"] > listed[-1]["id"]
+
+
+def test_session_shows_new_cards_in_deck_order_after_seen_cards(migrated_app, migrated_client):
+    with migrated_app.app_context():
+        seed_all()
+    _register(migrated_client)
+
+    cards = migrated_client.get("/api/decks/core_verbs/cards").get_json()["cards"]
+    file_order = [card["id"] for card in cards]
+
+    session = migrated_client.get("/api/decks/core_verbs/session").get_json()["cards"]
+    assert [card["id"] for card in session] == file_order
+    assert session[0]["catalan"] == cards[0]["catalan"]
+
+    seen_ids = {file_order[4], file_order[9]}
+    for card_id in seen_ids:
+        assert migrated_client.post(f"/api/cards/{card_id}/seen").status_code == 200
+
+    session = migrated_client.get("/api/decks/core_verbs/session").get_json()["cards"]
+    session_ids = [card["id"] for card in session]
+    assert set(session_ids[:2]) == seen_ids
+    assert session_ids[2:] == [card_id for card_id in file_order if card_id not in seen_ids]

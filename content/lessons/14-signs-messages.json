@@ -1,8 +1,9 @@
 {
   "id": "signs-messages",
   "title": "Signs & Messages",
-  "order": 20,
-  "summary": "Read short notices and reply to simple everyday messages — exam-style survival.",
+  "order": 14,
+  "summary": "Read short notices and reply to simple everyday messages - exam-style survival.",
+  "deck": "signs",
   "sections": [
     {
       "type": "text",
@@ -47,7 +48,7 @@
     {
       "id": "sm-p01",
       "kind": "multiple_choice",
-      "question": "Sign: «Obert» — what does it mean?",
+      "question": "Sign: «Obert» - what does it mean?",
       "options": ["Open", "Closed", "Free"],
       "answer": "Open",
       "explanation": "obert = open."
@@ -55,7 +56,7 @@
     {
       "id": "sm-p02",
       "kind": "multiple_choice",
-      "question": "Sign: «Tancat» — what does it mean?",
+      "question": "Sign: «Tancat» - what does it mean?",
       "options": ["Closed", "Open", "Exit"],
       "answer": "Closed",
       "explanation": "tancat = closed."

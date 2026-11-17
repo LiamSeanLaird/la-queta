@@ -1,8 +1,9 @@
 {
   "id": "numbers",
   "title": "Numbers",
-  "order": 5,
-  "summary": "Catalan numbers follow clear patterns — learn the system, not just the words.",
+  "order": 7,
+  "deck": "numbers",
+  "summary": "Catalan numbers follow clear patterns, so learn the system, not just the words.",
   "sections": [
     {
       "type": "text",
@@ -65,7 +66,7 @@
     },
     {
       "type": "rule",
-      "content": "11–15 are irregular and must be learned: onze, dotze, tretze, catorze, quinze. From 16 onwards the pattern is 'ten + and + unit': setze (16), disset (17), divuit (18), dinou (19)."
+      "content": "11–16 all end in -ze and must be learned: onze, dotze, tretze, catorze, quinze, setze. From 17 to 19 the pattern is 'ten + unit': disset (17), divuit (18), dinou (19)."
     },
     {
       "type": "examples",
@@ -98,7 +99,7 @@
         {
           "catalan": "setze",
           "english": "16",
-          "note": "set + ze"
+          "note": "last of the -ze numbers"
         },
         {
           "catalan": "disset",

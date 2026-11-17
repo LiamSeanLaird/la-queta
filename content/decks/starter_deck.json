@@ -55,6 +55,17 @@
     "pos": "interjection"
   },
   {
+    "id": "sg_010",
+    "catalan": "Fins demà",
+    "pronunciation": "feens duh-MAH",
+    "english": "See you tomorrow",
+    "hint": "chat",
+    "tags": [
+      "greetings"
+    ],
+    "pos": "phrase"
+  },
+  {
     "id": "greet_006",
     "catalan": "Com estàs?",
     "pronunciation": "kohm uhs-TAHS",
@@ -77,44 +88,33 @@
     "pos": "phrase"
   },
   {
-    "id": "greet_008",
-    "catalan": "Gràcies",
-    "pronunciation": "GRAH-syuhs",
-    "english": "Thank you",
+    "id": "soc010",
+    "catalan": "Molt bé",
+    "pronunciation": "mol BEH",
+    "english": "Very good / great",
+    "hint": "also used as 'alright then'",
+    "tags": [
+      "greetings"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "soc017",
+    "catalan": "Estic bé",
+    "pronunciation": "es-TEEK BEH",
+    "english": "I'm fine / I'm okay",
     "hint": "",
     "tags": [
       "greetings"
     ],
-    "pos": "interjection"
-  },
-  {
-    "id": "greet_009",
-    "catalan": "De res",
-    "pronunciation": "duh rehs",
-    "english": "You're welcome",
-    "hint": "literally 'of nothing'",
-    "tags": [
-      "greetings"
-    ],
     "pos": "phrase"
   },
   {
-    "id": "greet_010",
-    "catalan": "Si us plau",
-    "pronunciation": "see oos plow",
-    "english": "Please",
-    "hint": "plow rhymes with 'how'",
-    "tags": [
-      "greetings"
-    ],
-    "pos": "phrase"
-  },
-  {
-    "id": "greet_011",
-    "catalan": "Perdona",
-    "pronunciation": "puhr-DOH-nah",
-    "english": "Excuse me / Sorry (informal)",
-    "hint": "informal; with strangers or elders say perdoni",
+    "id": "soc020",
+    "catalan": "Estic cansat / cansada",
+    "pronunciation": "es-TEEK kan-SAT / kan-SAH-dah",
+    "english": "I'm tired",
+    "hint": "cansat (m) / cansada (f)",
     "tags": [
       "greetings"
     ],
@@ -139,105 +139,6 @@
     "hint": "",
     "tags": [
       "greetings"
-    ],
-    "pos": "phrase"
-  },
-  {
-    "id": "basic_001",
-    "catalan": "Sí",
-    "pronunciation": "see",
-    "english": "Yes",
-    "hint": "",
-    "tags": [
-      "basics"
-    ],
-    "pos": "adverb"
-  },
-  {
-    "id": "basic_002",
-    "catalan": "No",
-    "pronunciation": "noh",
-    "english": "No",
-    "hint": "",
-    "tags": [
-      "basics"
-    ],
-    "pos": "adverb"
-  },
-  {
-    "id": "basic_003",
-    "catalan": "No entenc",
-    "pronunciation": "noh un-TENK",
-    "english": "I don't understand",
-    "hint": "also common: no ho entenc",
-    "tags": [
-      "basics"
-    ],
-    "pos": "phrase"
-  },
-  {
-    "id": "basic_004",
-    "catalan": "No parlo català",
-    "pronunciation": "noh PAR-luh kuh-tuh-LAH",
-    "english": "I don't speak Catalan",
-    "hint": "",
-    "tags": [
-      "basics"
-    ],
-    "pos": "phrase"
-  },
-  {
-    "id": "basic_005",
-    "catalan": "Parles anglès?",
-    "pronunciation": "PAR-luhs un-GLES",
-    "english": "Do you speak English?",
-    "hint": "",
-    "tags": [
-      "basics"
-    ],
-    "pos": "phrase"
-  },
-  {
-    "id": "basic_006",
-    "catalan": "On és...?",
-    "pronunciation": "ohn ehs",
-    "english": "Where is...?",
-    "hint": "",
-    "tags": [
-      "basics"
-    ],
-    "pos": "phrase"
-  },
-  {
-    "id": "basic_008",
-    "catalan": "Vull...",
-    "pronunciation": "bool",
-    "english": "I want...",
-    "hint": "",
-    "tags": [
-      "basics"
-    ],
-    "pos": "phrase"
-  },
-  {
-    "id": "basic_009",
-    "catalan": "Tinc gana",
-    "pronunciation": "tink GAH-nuh",
-    "english": "I'm hungry",
-    "hint": "literally 'I have hunger'",
-    "tags": [
-      "basics"
-    ],
-    "pos": "phrase"
-  },
-  {
-    "id": "basic_010",
-    "catalan": "Tinc set",
-    "pronunciation": "tink set",
-    "english": "I'm thirsty",
-    "hint": "literally 'I have thirst'",
-    "tags": [
-      "basics"
     ],
     "pos": "phrase"
   },
@@ -277,7 +178,7 @@
   {
     "id": "greet_017",
     "catalan": "Visc a...",
-    "pronunciation": "veesk uh",
+    "pronunciation": "beesk uh",
     "english": "I live in...",
     "hint": "",
     "tags": [
@@ -297,58 +198,102 @@
     "pos": "phrase"
   },
   {
-    "id": "basic_011",
-    "catalan": "D'acord",
-    "pronunciation": "duh-KORT",
-    "english": "OK / agreed",
-    "hint": "the everyday 'OK' in Catalan",
+    "id": "basic_004",
+    "catalan": "No parlo català",
+    "pronunciation": "noh PAR-luh kuh-tuh-LAH",
+    "english": "I don't speak Catalan",
+    "hint": "",
     "tags": [
-      "basics"
+      "greetings"
     ],
     "pos": "phrase"
   },
   {
-    "id": "basic_012",
-    "catalan": "Una mica",
-    "pronunciation": "OO-nuh MEE-kuh",
-    "english": "A little",
+    "id": "basic_005",
+    "catalan": "Parles anglès?",
+    "pronunciation": "PAR-luhs un-GLES",
+    "english": "Do you speak English?",
     "hint": "",
     "tags": [
-      "basics"
+      "greetings"
     ],
     "pos": "phrase"
   },
   {
-    "id": "basic_013",
-    "catalan": "Molt",
-    "pronunciation": "molt",
-    "english": "Very / a lot",
+    "id": "greet_008",
+    "catalan": "Gràcies",
+    "pronunciation": "GRAH-syuhs",
+    "english": "Thank you",
     "hint": "",
     "tags": [
-      "basics"
+      "greetings"
     ],
-    "pos": "adverb"
+    "pos": "interjection"
   },
   {
-    "id": "basic_014",
-    "catalan": "Ara",
-    "pronunciation": "AH-ruh",
-    "english": "Now",
-    "hint": "",
+    "id": "soc003",
+    "catalan": "Moltes gràcies",
+    "pronunciation": "MOL-tes GRAH-syehs",
+    "english": "Thank you very much",
+    "hint": "moltes = many",
     "tags": [
-      "basics"
+      "greetings"
     ],
-    "pos": "adverb"
+    "pos": "phrase"
   },
   {
-    "id": "basic_015",
-    "catalan": "Després",
-    "pronunciation": "dus-PRES",
-    "english": "Afterwards / later",
-    "hint": "",
+    "id": "greet_009",
+    "catalan": "De res",
+    "pronunciation": "duh rehs",
+    "english": "You're welcome",
+    "hint": "literally 'of nothing'",
     "tags": [
-      "basics"
+      "greetings"
     ],
-    "pos": "adverb"
+    "pos": "phrase"
+  },
+  {
+    "id": "greet_010",
+    "catalan": "Si us plau",
+    "pronunciation": "see oos plow",
+    "english": "Please",
+    "hint": "plow rhymes with 'how'",
+    "tags": [
+      "greetings"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "greet_011",
+    "catalan": "Perdona",
+    "pronunciation": "puhr-DOH-nah",
+    "english": "Excuse me / Sorry (informal)",
+    "hint": "informal; with strangers or elders say perdoni",
+    "tags": [
+      "greetings"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "soc006",
+    "catalan": "Perdoni",
+    "pronunciation": "per-DOH-nee",
+    "english": "Excuse me / sorry (formal)",
+    "hint": "use with elders or strangers",
+    "tags": [
+      "greetings"
+    ],
+    "pos": "phrase"
+  },
+  {
+    "id": "soc007",
+    "catalan": "Ho sento",
+    "pronunciation": "oh SEN-toh",
+    "english": "I'm sorry",
+    "hint": "for genuine apologies, not just excuse me",
+    "tags": [
+      "greetings"
+    ],
+    "pos": "phrase"
   }
 ]

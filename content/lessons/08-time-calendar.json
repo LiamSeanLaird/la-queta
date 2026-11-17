@@ -1,8 +1,9 @@
 {
   "id": "time-calendar",
   "title": "Time & Calendar",
-  "order": 14,
+  "order": 8,
   "summary": "Say the day, ask the time, and place events on the calendar.",
+  "deck": "days_months",
   "sections": [
     {
       "type": "text",

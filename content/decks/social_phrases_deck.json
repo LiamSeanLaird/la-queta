@@ -1,146 +1,254 @@
 [
   {
-    "id": "soc003",
-    "catalan": "moltes gràcies",
-    "pronunciation": "MOL-tes GRAH-syehs",
-    "english": "thank you very much",
-    "hint": "moltes = many",
-    "tags": ["social", "essentials"],
+    "id": "qw_001",
+    "catalan": "Qui?",
+    "pronunciation": "kee",
+    "english": "Who?",
+    "hint": "Qui és? = Who is it?",
+    "tags": ["phrases"],
+    "pos": "pronoun"
+  },
+  {
+    "id": "qw_002",
+    "catalan": "Què?",
+    "pronunciation": "keh",
+    "english": "What?",
+    "hint": "Què és això? = What is this?",
+    "tags": ["phrases"],
+    "pos": "pronoun"
+  },
+  {
+    "id": "qw_003",
+    "catalan": "On?",
+    "pronunciation": "on",
+    "english": "Where?",
+    "hint": "D'on ets? = Where are you from?",
+    "tags": ["phrases"],
+    "pos": "adverb"
+  },
+  {
+    "id": "qw_004",
+    "catalan": "Quan?",
+    "pronunciation": "kwan",
+    "english": "When?",
+    "hint": "Quan dinem? = When do we have lunch?",
+    "tags": ["phrases"],
+    "pos": "adverb"
+  },
+  {
+    "id": "qw_005",
+    "catalan": "Com?",
+    "pronunciation": "kom",
+    "english": "How?",
+    "hint": "Com estàs? = How are you?",
+    "tags": ["phrases"],
+    "pos": "adverb"
+  },
+  {
+    "id": "qw_006",
+    "catalan": "Per què?",
+    "pronunciation": "puhr KEH",
+    "english": "Why?",
+    "hint": "two words; the answer perquè (because) is one word",
+    "tags": ["phrases"],
+    "pos": "adverb"
+  },
+  {
+    "id": "qw_007",
+    "catalan": "Quant / quanta?",
+    "pronunciation": "kwan / KWAN-tuh",
+    "english": "How much?",
+    "hint": "plural: quants / quantes = how many",
+    "tags": ["phrases"],
+    "pos": "adjective"
+  },
+  {
+    "id": "qw_008",
+    "catalan": "Quin / quina?",
+    "pronunciation": "keen / KEE-nuh",
+    "english": "Which? / What?",
+    "hint": "Quin és el teu nom? = What is your name?",
+    "tags": ["phrases"],
+    "pos": "adjective"
+  },
+  {
+    "id": "qw_009",
+    "catalan": "Com es diu això?",
+    "pronunciation": "kom uz DEE-oo uh-SHOH",
+    "english": "What is this called?",
+    "hint": "point at something and ask",
+    "tags": ["phrases"],
     "pos": "phrase"
   },
   {
-    "id": "soc006",
-    "catalan": "perdoni",
-    "pronunciation": "per-DOH-nee",
-    "english": "excuse me / sorry (formal)",
-    "hint": "use with elders or strangers",
-    "tags": ["social", "essentials"],
-    "pos": "phrase"
-  },
-  {
-    "id": "soc007",
-    "catalan": "ho sento",
-    "pronunciation": "oh SEN-toh",
-    "english": "I'm sorry",
-    "hint": "for genuine apologies, not just excuse me",
-    "tags": ["social", "essentials"],
+    "id": "qw_010",
+    "catalan": "Què vol dir...?",
+    "pronunciation": "keh bol DEE",
+    "english": "What does ... mean?",
+    "hint": "vol dir = means",
+    "tags": ["phrases"],
     "pos": "phrase"
   },
   {
     "id": "soc008",
-    "catalan": "no hi ha problema",
+    "catalan": "No hi ha problema",
     "pronunciation": "noh ee ah proh-BLEH-mah",
-    "english": "no problem",
+    "english": "No problem",
     "hint": "",
-    "tags": ["social", "essentials"],
+    "tags": ["phrases"],
     "pos": "phrase"
   },
   {
-    "id": "soc010",
-    "catalan": "molt bé",
-    "pronunciation": "mol BEH",
-    "english": "very good / great",
-    "hint": "also used as 'alright then'",
-    "tags": ["social", "essentials"],
-    "pos": "phrase"
-  },
-  {
-    "id": "soc012",
-    "catalan": "pots parlar més a poc a poc?",
-    "pronunciation": "pots par-LAR mehs ah pok ah pok",
-    "english": "can you speak more slowly?",
-    "hint": "a poc a poc = little by little",
-    "tags": ["social", "survival"],
-    "pos": "phrase"
-  },
-  {
-    "id": "soc013",
-    "catalan": "pots repetir?",
-    "pronunciation": "pots reh-peh-TEER",
-    "english": "can you repeat that?",
+    "id": "basic_001",
+    "catalan": "Sí",
+    "pronunciation": "see",
+    "english": "Yes",
     "hint": "",
-    "tags": ["social", "survival"],
-    "pos": "phrase"
+    "tags": ["phrases"],
+    "pos": "adverb"
   },
   {
-    "id": "soc014",
-    "catalan": "no sé",
-    "pronunciation": "noh SEH",
-    "english": "I don't know",
+    "id": "basic_002",
+    "catalan": "No",
+    "pronunciation": "noh",
+    "english": "No",
     "hint": "",
-    "tags": ["social", "survival"],
-    "pos": "phrase"
+    "tags": ["phrases"],
+    "pos": "adverb"
   },
   {
-    "id": "soc015",
-    "catalan": "puc ajudar?",
-    "pronunciation": "pook ah-zhoo-DAR",
-    "english": "can I help?",
-    "hint": "great to offer help around the house",
-    "tags": ["social", "helpful"],
-    "pos": "phrase"
-  },
-  {
-    "id": "soc016",
-    "catalan": "necessites ajuda?",
-    "pronunciation": "neh-seh-SEE-tes ah-ZHOO-dah",
-    "english": "do you need help?",
-    "hint": "",
-    "tags": ["social", "helpful"],
-    "pos": "phrase"
-  },
-  {
-    "id": "soc017",
-    "catalan": "estic bé",
-    "pronunciation": "es-TEEK BEH",
-    "english": "I'm fine / I'm okay",
-    "hint": "",
-    "tags": ["social", "states"],
-    "pos": "phrase"
-  },
-  {
-    "id": "soc020",
-    "catalan": "estic cansat / cansada",
-    "pronunciation": "es-TEEK kan-SAT / kan-SAH-dah",
-    "english": "I'm tired",
-    "hint": "cansat (m) / cansada (f)",
-    "tags": ["social", "states"],
+    "id": "basic_011",
+    "catalan": "D'acord",
+    "pronunciation": "duh-KORT",
+    "english": "OK / agreed",
+    "hint": "the everyday 'OK' in Catalan",
+    "tags": ["phrases"],
     "pos": "phrase"
   },
   {
     "id": "soc021",
-    "catalan": "és clar",
+    "catalan": "És clar",
     "pronunciation": "ehs KLAR",
-    "english": "of course",
+    "english": "Of course",
     "hint": "",
-    "tags": ["social", "essentials"],
+    "tags": ["phrases"],
     "pos": "phrase"
   },
   {
     "id": "soc022",
-    "catalan": "potser",
+    "catalan": "Potser",
     "pronunciation": "pot-SEH",
-    "english": "maybe / perhaps",
+    "english": "Maybe / perhaps",
     "hint": "",
-    "tags": ["social", "essentials"],
-    "pos": "adv"
+    "tags": ["phrases"],
+    "pos": "adverb"
   },
   {
-    "id": "soc023",
-    "catalan": "bon profit!",
-    "pronunciation": "bon proh-FEET",
-    "english": "enjoy your meal!",
-    "hint": "said before eating — you'll hear this every day",
-    "tags": ["social", "meals"],
+    "id": "basic_003",
+    "catalan": "No entenc",
+    "pronunciation": "noh un-TENK",
+    "english": "I don't understand",
+    "hint": "also common: no ho entenc",
+    "tags": ["phrases"],
     "pos": "phrase"
   },
   {
-    "id": "soc024",
-    "catalan": "estava molt bo",
-    "pronunciation": "es-TAH-vah mol BOH",
-    "english": "it was very good",
-    "hint": "say this after meals to compliment the cook",
-    "tags": ["social", "meals"],
+    "id": "soc012",
+    "catalan": "Pots parlar més a poc a poc?",
+    "pronunciation": "pots par-LA mehs ah pok ah pok",
+    "english": "Can you speak more slowly?",
+    "hint": "a poc a poc = little by little",
+    "tags": ["phrases"],
     "pos": "phrase"
+  },
+  {
+    "id": "soc013",
+    "catalan": "Pots repetir?",
+    "pronunciation": "pots reh-peh-TEE",
+    "english": "Can you repeat that?",
+    "hint": "",
+    "tags": ["phrases"],
+    "pos": "phrase"
+  },
+  {
+    "id": "soc014",
+    "catalan": "No sé",
+    "pronunciation": "noh SEH",
+    "english": "I don't know",
+    "hint": "",
+    "tags": ["phrases"],
+    "pos": "phrase"
+  },
+  {
+    "id": "soc015",
+    "catalan": "Puc ajudar?",
+    "pronunciation": "pook ah-zhoo-DA",
+    "english": "Can I help?",
+    "hint": "great to offer help around the house",
+    "tags": ["phrases"],
+    "pos": "phrase"
+  },
+  {
+    "id": "soc016",
+    "catalan": "Necessites ajuda?",
+    "pronunciation": "neh-seh-SEE-tes ah-ZHOO-dah",
+    "english": "Do you need help?",
+    "hint": "",
+    "tags": ["phrases"],
+    "pos": "phrase"
+  },
+  {
+    "id": "basic_006",
+    "catalan": "On és...?",
+    "pronunciation": "ohn ehs",
+    "english": "Where is...?",
+    "hint": "",
+    "tags": ["phrases"],
+    "pos": "phrase"
+  },
+  {
+    "id": "basic_008",
+    "catalan": "Vull...",
+    "pronunciation": "bool",
+    "english": "I want...",
+    "hint": "",
+    "tags": ["phrases"],
+    "pos": "phrase"
+  },
+  {
+    "id": "basic_012",
+    "catalan": "Una mica",
+    "pronunciation": "OO-nuh MEE-kuh",
+    "english": "A little",
+    "hint": "",
+    "tags": ["phrases"],
+    "pos": "phrase"
+  },
+  {
+    "id": "basic_013",
+    "catalan": "Molt",
+    "pronunciation": "molt",
+    "english": "Very / a lot",
+    "hint": "",
+    "tags": ["phrases"],
+    "pos": "adverb"
+  },
+  {
+    "id": "basic_014",
+    "catalan": "Ara",
+    "pronunciation": "AH-ruh",
+    "english": "Now",
+    "hint": "",
+    "tags": ["phrases"],
+    "pos": "adverb"
+  },
+  {
+    "id": "basic_015",
+    "catalan": "Després",
+    "pronunciation": "dus-PRES",
+    "english": "Afterwards / later",
+    "hint": "",
+    "tags": ["phrases"],
+    "pos": "adverb"
   }
 ]
