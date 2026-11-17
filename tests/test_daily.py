@@ -77,7 +77,8 @@ def test_can_dos_on_level_learn_tab(migrated_app, migrated_client):
     assert b"goals" in hub.data
     assert b"can-dos-a1" in hub.data
     assert b"Complete the lessons in each goal to unlock it." in hub.data
-    assert b"0/7" in hub.data
+    assert b"Next goal:" in hub.data
+    assert b"See all 7 goals" in hub.data
     assert b"Send feedback" in hub.data
     assert b"feedback-dialog" in hub.data
     assert b"A note for the developer (Liam)" in hub.data

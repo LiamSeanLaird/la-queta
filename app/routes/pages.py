@@ -70,6 +70,7 @@ def levels():
         row["can_dos"] = progress["items"]
         row["goals_done"] = progress["done"]
         row["goals_total"] = progress["total"]
+        row["next_goal"] = progress["next"]
         row["continue"] = continue_target(user, row["id"]) if row["available"] else None
     daily_level_id = user.current_level_id if level_is_open(user.current_level_id or "") else None
     if daily_level_id is None:

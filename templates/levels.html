@@ -16,16 +16,20 @@
         </a>
         {% if level.goals_total %}
         <p class="level-tile__goals">
-          {{ level.goals_done }}/{{ level.goals_total }}
-          <button
+          {% if level.next_goal %}
+          Next goal: <span class="level-tile__goal-name">{{ level.next_goal.label }}</span>
+          - {{ level.next_goal.lessons_done }} of {{ level.next_goal.lessons_total }} {{ 'lesson' if level.next_goal.lessons_total == 1 else 'lessons' }}
+          {% elif level.goals_done == level.goals_total %}
+          <span class="level-tile__done-check" aria-hidden="true">✓</span>
+          {% endif %}
+          <span class="level-tile__goals-link">{% if level.next_goal %}· {% endif %}<button
             type="button"
             class="text-link"
             data-can-dos-open
             data-can-dos-dialog="can-dos-{{ level.id }}"
             aria-haspopup="dialog"
             aria-controls="can-dos-{{ level.id }}"
-          >goals</button>
-          complete
+          >{% if level.goals_done == level.goals_total %}All {{ level.goals_total }} goals complete{% elif level.goals_done %}{{ level.goals_done }}/{{ level.goals_total }} goals done{% else %}See all {{ level.goals_total }} goals{% endif %}</button></span>
         </p>
         {% endif %}
         <div class="level-tile__actions">

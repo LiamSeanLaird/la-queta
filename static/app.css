@@ -648,6 +648,16 @@ a.btn.btn--primary {
   font-size: 0.9rem;
 }
 
+.level-tile__goal-name {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* Keep the "·" separator on the same line as the goals link when it wraps. */
+.level-tile__goals-link {
+  white-space: nowrap;
+}
+
 .text-link {
   display: inline;
   padding: 0;

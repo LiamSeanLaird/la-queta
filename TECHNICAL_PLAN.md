@@ -146,6 +146,9 @@ If a level has zero vocab, use lessons only (100% weight).
 `complete_pct` only sets the width of the progress bar.
 The text learners read comes from `level_progress_counts` and `progress_summary` in `app/services/progress.py`, for example "3 of 20 lessons · 89 words learned".
 Words count as "learned" once retired; before any are retired, cards seen at least once show as "words started".
+Below the bar, the card names the next goal (can-do) and its lesson count, for example "Next goal: Build core grammar - 2 of 5 lessons".
+`next_goal` in `app/services/can_dos.py` picks the unfinished goal that holds the lesson Continue would open, so the card and the Continue button agree.
+Goals only tick when every lesson in them is done, so a plain "0/7 goals complete" would sit at zero for the learner's first lessons.
 
 ## Auth / session
 - `POST /api/auth/register` `{ "handle", "email", "password" }` → `201` + session cookie
