@@ -255,11 +255,11 @@ Conventions: `STYLE_GUIDE.md` §3 (layers, statuses, error shape, POST-for-actio
 **Operator runbook:** [`DEPLOY.md`](DEPLOY.md) (inventory, first-time setup, day-2 deploys, NSG/firewall, backlog). Keep that file current when IP/paths change.
 
 Summary:
-- Ubuntu VM + systemd gunicorn (`wsgi:app` on `127.0.0.1:8000`) + nginx on `:80`
-- SQLite at `/var/lib/la-queta/app.db`; env in `/etc/la-queta/env` (`SECRET_KEY`, `DATABASE_URL`)
-- OCI NSG must allow TCP **22** and **80** (else browser timeouts while SSH still works)
+- Ubuntu VM + systemd gunicorn (`wsgi:app` on `127.0.0.1:8000`) + nginx on `:80` (redirects to HTTPS) and `:443`
+- SQLite at `/var/lib/la-queta/app.db`; env in `/etc/la-queta/env` (`SECRET_KEY`, `DATABASE_URL`, optional `PUBLIC_BASE_URL`)
+- OCI NSG and host iptables must allow TCP **22**, **80** and **443** (else browser timeouts while SSH still works)
 - Backup: daily SQLite `.backup` / copy (see `DEPLOY.md`)
-- Domain / HTTPS optional later
+- Domain + HTTPS live: `https://la-queta.com` (Let's Encrypt via certbot); `www` redirects to the apex
 
 ## Implementation order (AI execution)
 
