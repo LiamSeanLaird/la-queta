@@ -354,6 +354,26 @@
     practiceDone.querySelector("a")?.focus();
   }
 
+  // A logged-out visitor who signs up or signs in from the done panel gets this
+  // lesson saved: gate.js re-posts it to the normal, validated completion API.
+  // sessionStorage keeps it to this tab, so a shared computer does not carry it
+  // over to someone else's account later.
+  function rememberPendingCompletion(total) {
+    try {
+      window.sessionStorage.setItem(
+        "laqueta.pendingCompletion",
+        JSON.stringify({
+          lesson_id: page.dataset.lessonId,
+          exercises_correct: total,
+          exercises_total: total,
+        })
+      );
+    } catch (_err) {
+      // Storage blocked (private mode): the visitor can still sign up, the
+      // lesson just is not saved for them.
+    }
+  }
+
   async function finish() {
     if (finishing) return;
     finishing = true;
@@ -365,6 +385,7 @@
     // and the next lesson, so the learner stays here instead of being redirected.
     // A logged-out visitor has nothing to save: the panel asks them to sign up.
     if (alreadyCompleted || !loggedIn) {
+      if (!loggedIn) rememberPendingCompletion(items.length);
       showDonePanel();
       return;
     }

@@ -998,6 +998,15 @@ a.btn.btn--primary {
   color: var(--ok);
 }
 
+/* Lesson page note after a logged-out completion is saved on sign-up. */
+.lesson-saved {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
 .badge--todo {
   background: var(--tab-rail);
   color: var(--muted);

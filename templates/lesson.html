@@ -18,6 +18,9 @@
   <div>
     <h1 class="heading-1">{{ lesson.title }}</h1>
     <p class="text-muted">{{ lesson.summary }}</p>
+    {% if just_saved %}
+    <p class="lesson-saved" id="lesson-saved"><span class="badge badge--done">Completed</span> Saved to your account.</p>
+    {% endif %}
   </div>
 
   <div class="tab-bar" role="tablist">

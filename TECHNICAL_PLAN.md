@@ -177,6 +177,9 @@ Goals only tick when every lesson in them is done, so a plain "0/7 goals complet
 - Public pages: `/lessons/<id>` (Learn and Practice tabs) renders for logged-out visitors.
   Services take `user=None` for this path (`get_lesson`, `list_lessons_for_level`, `lesson_next_steps`): no progress, nothing completed, no vocab deck, no wrap-round to earlier lessons.
   Logged out, Practice never posts the completion; its last step asks the visitor to create an account or sign in instead.
+  Carry-over: when a logged-out visitor finishes Practice, `practice.js` stores `{lesson_id, exercises_correct, exercises_total}` in `sessionStorage` (`laqueta.pendingCompletion`, this tab only).
+  After register or login succeeds, `gate.js` removes the entry, re-posts it to `POST /api/lessons/<id>/complete` (the same validation as the logged-in path), and lands on `/lessons/<id>?saved=1`, which shows "Saved to your account." when the lesson is complete.
+  No redirect target comes from the URL; without a pending entry, or if the POST fails, the gate goes to `/levels`.
 - No OAuth / magic links / password-reset mail in v2
 
 ## API (initial)

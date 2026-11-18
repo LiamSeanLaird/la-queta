@@ -128,3 +128,45 @@ def test_services_logged_out_path(migrated_app):
         assert steps["next_lesson"]["id"] == lessons[1]["id"]
         # No wrap-round for a visitor: the last lesson has no next lesson.
         assert lesson_next_steps(None, lessons[-1]["id"])["next_lesson"] is None
+
+
+def test_sign_up_after_practice_saves_the_lesson(migrated_app, migrated_client):
+    """The server half of the flow gate.js runs after a logged-out Practice."""
+    lesson = _lessons(migrated_app)[0]
+    total = len(lesson["practice"])
+    _register(migrated_client)
+    response = migrated_client.post(
+        f"/api/lessons/{lesson['id']}/complete",
+        json={"exercises_correct": total, "exercises_total": total},
+    )
+    assert response.status_code == 200
+    assert response.get_json()["completed"] is True
+
+    html = migrated_client.get(f"/lessons/{lesson['id']}?saved=1").data.decode()
+    assert 'id="lesson-saved"' in html
+    assert "Saved to your account." in html
+    listed = migrated_client.get("/api/levels/a1/lessons").get_json()["lessons"]
+    assert [row["id"] for row in listed if row["completed"]] == [lesson["id"]]
+
+
+def test_carried_completion_uses_the_same_validation(migrated_app, migrated_client):
+    lesson = _lessons(migrated_app)[0]
+    total = len(lesson["practice"])
+    _register(migrated_client)
+    for payload in (
+        {"exercises_correct": total - 1, "exercises_total": total},
+        {"exercises_correct": 1, "exercises_total": 1},
+        {"exercises_correct": "9", "exercises_total": "9"},
+    ):
+        response = migrated_client.post(f"/api/lessons/{lesson['id']}/complete", json=payload)
+        assert response.status_code == 400, payload
+    html = migrated_client.get(f"/lessons/{lesson['id']}?saved=1").data.decode()
+    # Not completed, so ?saved=1 does not claim anything was saved.
+    assert 'id="lesson-saved"' not in html
+
+
+def test_saved_note_needs_an_account(migrated_app, migrated_client):
+    lesson = _lessons(migrated_app)[0]
+    html = migrated_client.get(f"/lessons/{lesson['id']}?saved=1").data.decode()
+    assert 'id="lesson-saved"' not in html
+

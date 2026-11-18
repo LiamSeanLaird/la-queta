@@ -161,6 +161,9 @@ def lesson(lesson_id: str):
         user=user,
         lesson=lesson_data,
         tab=tab,
+        # gate.js lands here with ?saved=1 after saving a lesson the visitor
+        # finished before signing up.
+        just_saved=bool(user) and lesson_data["completed"] and request.args.get("saved") == "1",
         next_deck=next_steps["deck"],
         next_lesson=next_steps["next_lesson"],
         brand_href=url_for("pages.levels") if user else url_for("pages.index"),
