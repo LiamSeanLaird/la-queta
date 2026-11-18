@@ -145,6 +145,10 @@ The hub tile shows the same message (`.level-tile__finished`) once every lesson 
 - Catalan UI chrome can mix EN labels for learners; content language follows lesson/card data.
 - Render lesson prose (text, rule and example-note sections) through the `keep_affixes` filter (`app/text_filters.py`).
   It wraps endings such as `-em`, `-er/-re` and `-eix-` in a `.affix` nowrap span, because browsers may break a line straight after the hyphen.
+- Exactly one `<h1>` per page: the page's own title (lesson title, deck title, "Your A1 course").
+  The brand in the topbar is a `<p class="brand__title">`, never a heading.
+  Heading level and look are separate: pick the element for the outline and the `.heading-*` class for the size.
+  A page with no visible title (study) gets `<h1 class="visually-hidden">`.
 - Logged-in shell (`base.html` topbar): **←** back left (`{% block top_back %}`), brand center, profile + feedback (mailto / `FEEDBACK_EMAIL`) right, side by side in one row (never stacked). Tagline (`aprèn català`) only on the gate.
 
 ### CSS

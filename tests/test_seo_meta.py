@@ -151,3 +151,33 @@ def test_logged_in_lesson_keeps_canonical(migrated_app, migrated_client):
     html = migrated_client.get(f"/lessons/{lesson_id}").get_data(as_text=True)
     assert _canonicals(html) == [f"{BASE}/lessons/{lesson_id}"]
     assert "noindex" not in _head(html)
+
+
+def test_every_page_has_one_h1(migrated_app, migrated_client):
+    lesson_id = _seed_lessons(migrated_app)[0][0]
+    public = ("/", "/signup", "/signin", f"/lessons/{lesson_id}", "/style-guide")
+    for path in public:
+        html = migrated_client.get(path).get_data(as_text=True)
+        assert html.count("<h1") == 1, path
+
+    _register(migrated_client)
+    with migrated_app.app_context():
+        deck_slug, deck_title = db.session.execute(
+            db.text("SELECT slug, title FROM decks ORDER BY sort_order LIMIT 1")
+        ).one()
+    expected = {
+        "/levels": "Your A1 course",
+        "/levels/a1": "A1 course",
+        "/levels/a1/daily": "Daily vocab · A1",
+        f"/lessons/{lesson_id}": None,
+        f"/decks/{deck_slug}": deck_title,
+        f"/decks/{deck_slug}/study": f"Study {deck_title}",
+        f"/decks/{deck_slug}/browse": deck_title,
+    }
+    for path, heading in expected.items():
+        response = migrated_client.get(path)
+        assert response.status_code == 200, path
+        html = unescape(response.get_data(as_text=True))
+        assert html.count("<h1") == 1, path
+        if heading:
+            assert re.search(rf"<h1[^>]*>{re.escape(heading)}</h1>", html), path

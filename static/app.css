@@ -166,6 +166,20 @@ a.tab-btn {
   align-items: center;
 }
 
+/* Read by screen readers and crawlers, not shown. Absolutely positioned, so it
+   is not a flex item and adds no gap inside .stack / .stack-lg. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .study-actions {
   display: flex;
   align-items: center;
