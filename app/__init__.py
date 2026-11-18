@@ -63,7 +63,21 @@ def create_app(config_overrides: dict | None = None) -> Flask:
             "feedback_href": feedback_href,
         }
 
+    register_not_found(application)
+
     return application
+
+
+def register_not_found(application: Flask) -> None:
+    """404s: JSON under /api/, a branded noindex page everywhere else."""
+    from flask import jsonify, render_template, request, url_for
+
+    @application.errorhandler(404)
+    def not_found(_error):
+        if request.path.startswith("/api/"):
+            return jsonify({"error": "Not found"}), 404
+        brand_href = url_for("pages.index")
+        return render_template("not_found.html", brand_href=brand_href), 404
 
 
 def _configure_sqlite_memory(application: Flask) -> None:

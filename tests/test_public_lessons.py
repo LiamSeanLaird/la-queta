@@ -100,11 +100,39 @@ def test_logged_out_completion_post_is_401(migrated_app, migrated_client):
     assert response.status_code == 401
 
 
-def test_unknown_lesson_logged_out_goes_home(migrated_app, migrated_client):
+def test_unknown_lesson_logged_out_is_a_real_404(migrated_app, migrated_client):
+    # A redirect home would read to crawlers as a soft 404.
     _lessons(migrated_app)
     response = migrated_client.get("/lessons/no-such-lesson")
+    assert response.status_code == 404
+    html = response.data.decode()
+    assert "Page not found" in html
+    assert '<meta name="robots" content="noindex">' in html
+    assert 'rel="canonical"' not in html
+    assert len(re.findall(r"<h1\b", html)) == 1
+    assert 'href="/"' in html
+
+
+def test_unknown_lesson_logged_in_still_goes_to_levels(migrated_app, migrated_client):
+    _lessons(migrated_app)
+    _register(migrated_client)
+    response = migrated_client.get("/lessons/no-such-lesson")
     assert response.status_code == 302
-    assert response.headers["Location"].endswith("/")
+    assert response.headers["Location"].endswith("/levels")
+
+
+def test_unknown_page_is_branded_404(migrated_app, migrated_client):
+    response = migrated_client.get("/no-such-page")
+    assert response.status_code == 404
+    html = response.data.decode()
+    assert "Page not found" in html
+    assert '<meta name="robots" content="noindex">' in html
+
+
+def test_unknown_api_route_is_json_404(migrated_app, migrated_client):
+    response = migrated_client.get("/api/no-such-route")
+    assert response.status_code == 404
+    assert response.get_json() == {"error": "Not found"}
 
 
 def test_logged_in_lesson_page_unchanged(migrated_app, migrated_client):

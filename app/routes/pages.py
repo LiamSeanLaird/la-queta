@@ -1,4 +1,4 @@
-from flask import Blueprint, current_app, redirect, render_template, request, url_for
+from flask import Blueprint, abort, current_app, redirect, render_template, request, url_for
 from sqlalchemy import func, select
 
 from app.extensions import db
@@ -213,7 +213,10 @@ def lesson(lesson_id: str):
     try:
         lesson_data = get_lesson(user, lesson_id)
     except ServiceError:
-        return redirect(url_for("pages.levels") if user else url_for("pages.index"))
+        if user:
+            return redirect(url_for("pages.levels"))
+        # A real 404, not a redirect home: crawlers treat that as a soft 404.
+        abort(404)
 
     tab = (request.args.get("tab") or "learn").strip().lower()
     if tab not in {"learn", "practice"}:
