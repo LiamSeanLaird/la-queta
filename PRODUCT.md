@@ -16,7 +16,7 @@
 ### In scope (v2)
 - Public web app (no install)
 - Handle-only identity + cookie session (not security-hardened auth)
-- Levels: A1 open; A2 and B1 hub tiles exist but disabled (“coming soon”) until content ships.
+- Levels: A1 is the whole course today. A2 and B1 rows exist in the database but are hidden from the hub until content ships; the hub reads "Your A1 course".
 - Lessons with text / rule / examples / exercises
 - Vocab study (seen-count retirement: 3 views)
 - Level hub: start or switch levels; completeness per level
@@ -24,7 +24,7 @@
 - Deploy on Oracle Always Free VM
 
 ### Out of scope (for now)
-- A2 / B1 / B2 **content** (hub shows A2/B1 as coming soon)
+- A2 / B1 / B2 **content** (not shown on the hub until it ships)
 - OAuth, email magic links, password-reset email
 - Spaced repetition (SM-2)
 - Hosted audio files / cloud STT / LLM speaking (browser TTS + speak self-check are in)

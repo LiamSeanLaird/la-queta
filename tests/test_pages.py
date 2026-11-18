@@ -1,7 +1,10 @@
 """Multi-page HTML routes and auth redirects."""
 
 from markupsafe import escape
+from sqlalchemy import select
 
+from app.extensions import db
+from app.models import Level, User
 from app.services.seed import seed_all
 
 
@@ -30,7 +33,9 @@ def test_index_is_landing_page(migrated_app, migrated_client):
     assert '<h1 class="heading-1">Free Catalan for complete beginners</h1>' in html
     assert 'href="/lessons/noun-gender">Start lesson 1</a>' in html
     assert 'href="/signin"' in html
-    assert "What you&#39;ll be able to do" in html or "What you'll be able to do" in html
+    assert (
+        "What you&#39;ll be able to do" in html or "What you'll be able to do" in html
+    )
     assert "Is it free?" in html
     assert "Do I need an account?" in html
     assert "What comes after A1?" in html
@@ -49,7 +54,9 @@ def test_index_lists_every_lesson_with_summary(migrated_app, migrated_client):
 
     with migrated_app.app_context():
         seed_all()
-        lessons = db.session.scalars(select(Lesson).where(Lesson.level_id == "a1")).all()
+        lessons = db.session.scalars(
+            select(Lesson).where(Lesson.level_id == "a1")
+        ).all()
         rows = [(lesson.id, lesson.title, lesson.summary) for lesson in lessons]
     html = migrated_client.get("/").get_data(as_text=True)
     assert len(rows) == 20
@@ -119,10 +126,34 @@ def test_levels_hub_renders(migrated_app, migrated_client):
     assert b"Your levels" not in response.data
     assert b"A1" in response.data
     assert b"/levels/a1" in response.data
-    assert b"coming soon" in response.data
-    assert b">A2<" in response.data or b"A2" in response.data
-    assert b">B1<" in response.data or b"B1" in response.data
-    assert b"is-disabled" in response.data
+    # One A1 course: the A2 and B1 placeholders stay in the database but the
+    # hub no longer shows "coming soon" tiles for them.
+    assert b"<title>La Queta - your A1 course</title>" in response.data
+    assert response.data.count(b"<h1") == 1
+    assert b"Your A1 course</h1>" in response.data
+    assert b"coming soon" not in response.data
+    assert b"is-disabled" not in response.data
+    assert b"/levels/a2" not in response.data
+    assert b"/levels/b1" not in response.data
+    assert b"\xc2\xb7 current" not in response.data
+
+
+def test_levels_hub_works_when_current_level_is_not_open(migrated_app, migrated_client):
+    with migrated_app.app_context():
+        seed_all()
+    _register(migrated_client)
+    with migrated_app.app_context():
+        user = db.session.scalars(select(User)).one()
+        assert db.session.get(Level, "a2") is not None
+        user.current_level_id = "a2"
+        db.session.commit()
+    response = migrated_client.get("/levels")
+    assert response.status_code == 200
+    assert b"Your A1 course</h1>" in response.data
+    assert b"/levels/a1" in response.data
+    assert b"/levels/a1/daily" in response.data
+    assert b"/levels/a2" not in response.data
+    assert migrated_client.get("/levels/a2").headers["Location"].endswith("/levels")
 
 
 def test_level_home_learn_and_vocab(migrated_app, migrated_client):
@@ -132,6 +163,9 @@ def test_level_home_learn_and_vocab(migrated_app, migrated_client):
 
     learn = migrated_client.get("/levels/a1")
     assert learn.status_code == 200
+    assert b"<title>La Queta - A1 course</title>" in learn.data
+    assert learn.data.count(b"<h1") == 1
+    assert b"A1 course</h1>" in learn.data
     assert b"Noun Gender" in learn.data
     assert b"/lessons/noun-gender" in learn.data
 

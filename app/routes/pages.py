@@ -102,22 +102,22 @@ def levels():
     user, bounced = _login_required()
     if bounced:
         return bounced
-    levels_data = list_levels_for_user(user)
+    # The hub reads as one A1 course: levels without content yet (A2, B1) stay
+    # in the database but are not shown. A learner whose current_level_id is
+    # one of those still gets the open levels here.
+    levels_data = [row for row in list_levels_for_user(user) if row["available"]]
     for row in levels_data:
         progress = can_dos_progress(user, row["id"])
         row["can_dos"] = progress["items"]
         row["goals_done"] = progress["done"]
         row["goals_total"] = progress["total"]
         row["next_goal"] = progress["next"]
-        row["continue"] = continue_target(user, row["id"]) if row["available"] else None
+        row["continue"] = continue_target(user, row["id"])
     daily_level_id = (
         user.current_level_id if level_is_open(user.current_level_id or "") else None
     )
     if daily_level_id is None:
-        daily_level_id = next(
-            (row["id"] for row in levels_data if row.get("available")),
-            None,
-        )
+        daily_level_id = levels_data[0]["id"] if levels_data else None
     daily_href = (
         url_for("pages.daily", level_id=daily_level_id) if daily_level_id else None
     )

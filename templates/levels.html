@@ -1,14 +1,20 @@
 {% extends "base.html" %}
-{% block title %}La Queta - levels{% endblock %}
+{% set single = levels|length == 1 %}
+{% block title %}La Queta - {% if single %}your {{ levels[0].code }} course{% else %}your courses{% endif %}{% endblock %}
 {% block content %}
 <section class="stack-lg">
+  <div class="page-intro">
+    <h1 class="heading-2">{% if single %}Your {{ levels[0].code }} course{% else %}Your courses{% endif %}</h1>
+    {% if single %}
+    <p class="text-muted">Free Catalan from complete beginner to {{ levels[0].code }}.</p>
+    {% endif %}
+  </div>
   <div class="level-grid">
     {% for level in levels %}
-      {% if level.available %}
       <div class="level-tile-card{% if level.is_current %} is-current{% endif %}">
         <a class="level-tile" href="{{ url_for('pages.level_home', level_id=level.id) }}">
           <p class="level-tile__code">{{ level.code }}</p>
-          <p class="level-tile__meta">{{ level.title }}{% if level.is_current %} · current{% endif %}</p>
+          <p class="level-tile__meta">{{ level.title }}{% if level.is_current and not single %} · current{% endif %}</p>
           {% if level.progress_summary %}
           <p class="level-tile__counts">{{ level.progress_summary }}</p>
           {% endif %}
@@ -55,17 +61,10 @@
           {% endif %}
         </div>
       </div>
-      {% else %}
-      <div class="level-tile is-disabled" aria-disabled="true">
-        <p class="level-tile__code">{{ level.code }}</p>
-        <p class="level-tile__meta">{{ level.title }} · coming soon</p>
-        <div class="progress" aria-hidden="true"><div class="progress__bar" style="width: 0%"></div></div>
-      </div>
-      {% endif %}
     {% endfor %}
   </div>
 
-  {% for level in levels if level.available and level.can_dos %}
+  {% for level in levels if level.can_dos %}
   {% with dialog_id='can-dos-' ~ level.id, level_code=level.code, can_dos=level.can_dos %}
   {% include "_can_dos_dialog.html" %}
   {% endwith %}
