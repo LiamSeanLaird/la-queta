@@ -172,7 +172,7 @@ Intentional **La Queta** look — Catalan learning tool with Senyera **red + gol
 - Tagline may reference Catalan / Català (e.g. “aprèn català”).
 - Senyera colours: gold `#FCCC12`, red `#C1001F` — used as **system accents** (brand title, primary buttons, progress, selection), not as a flag wallpaper.
 - **Favicon / bookmark mark:** gold **smiley** (two dots + smile) on senyera red (`static/favicon.svg`, `favicon-32.png`, `favicon.ico`, `apple-touch-icon.png`) — linked from `base.html`. Wordmark stays the in-app brand; full mascot (if any) is separate.
-- **Link previews (WhatsApp / iMessage / etc.):** Open Graph + Twitter cards in `base.html`; share image `static/og-image.png` (1200×630). Canonical origin via `PUBLIC_BASE_URL` (default `https://la-queta.com`).
+- **Link previews (WhatsApp / iMessage / etc.):** Open Graph + Twitter cards in `base.html`; share image `static/og-image.png` (1200×630): the smiley, **La Queta**, *aprèn català* and "Free Catalan for complete beginners" on senyera red. It is rendered from `scripts/og_image/og-image.html`; edit that file and run `poetry run python scripts/og_image.py` (needs network for Google Fonts), never hand-edit the PNG. Canonical origin via `PUBLIC_BASE_URL` (default `https://la-queta.com`).
 - **No** `.senyera-bar` / flag strip at the top of screens.
 
 ### Tokens

@@ -1,0 +1,65 @@
+<!doctype html>
+<!-- Source for static/og-image.png. Render it with scripts/og_image.py. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@700&family=Fraunces:opsz,wght@9..144,600&display=block" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      width: 1200px;
+      height: 630px;
+      overflow: hidden;
+    }
+    body {
+      background: #c1001f;
+      color: #fccc12;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .smile {
+      width: 200px;
+      height: auto;
+      display: block;
+      margin-bottom: 18px;
+    }
+    .brand {
+      font-family: "Fraunces", serif;
+      font-weight: 600;
+      font-size: 148px;
+      line-height: 1;
+      letter-spacing: -0.01em;
+      margin: 0;
+    }
+    .accent {
+      font-family: "Figtree", sans-serif;
+      font-weight: 700;
+      font-size: 40px;
+      line-height: 1;
+      margin: 14px 0 0;
+    }
+    .line {
+      font-family: "Figtree", sans-serif;
+      font-weight: 700;
+      font-size: 54px;
+      line-height: 1.1;
+      color: #ffffff;
+      margin: 46px 0 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Same face as static/favicon.svg, without the rounded square. -->
+  <svg class="smile" viewBox="8 9 16 15" aria-hidden="true">
+    <circle cx="11.5" cy="12.5" r="2.1" fill="#fccc12"/>
+    <circle cx="20.5" cy="12.5" r="2.1" fill="#fccc12"/>
+    <path d="M10 18.5 C12.5 22.5, 19.5 22.5, 22 18.5" fill="none" stroke="#fccc12" stroke-width="2.8" stroke-linecap="round"/>
+  </svg>
+  <p class="brand">La Queta</p>
+  <p class="accent" lang="ca">aprèn català</p>
+  <p class="line">Free Catalan for complete beginners</p>
+</body>
+</html>
