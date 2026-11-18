@@ -199,6 +199,11 @@ Goals only tick when every lesson in them is done, so a plain "0/7 goals complet
   `/` has `Course` (free, online, `inLanguage` en, teaches Catalan, A1) and `FAQPage`; lesson pages have `LearningResource` with `isPartOf` the course.
   The landing FAQ lives in `landing_faq()` so the page text and the `FAQPage` markup cannot drift.
   `url` fields come from `PUBLIC_BASE_URL` only and are left out when it is unset.
+- Crawl basics (`app/routes/crawl.py`): `GET /robots.txt` allows everything except the logged-in-only prefixes `/api/`, `/continue`, `/levels` and `/decks/`, and ends with an absolute `Sitemap:` line from `PUBLIC_BASE_URL` (left out when it is unset).
+  `/signin`, `/signup` and `/style-guide` stay crawlable so Google can read their `noindex`.
+  `GET /sitemap.xml` lists `/` and every lesson in an open level (the pages that set `canonical_path`), with absolute URLs from `PUBLIC_BASE_URL` and no `<lastmod>` (the server has no honest source for it).
+  With `PUBLIC_BASE_URL` unset it is a 404, because a sitemap needs absolute URLs.
+  A new indexable page must be added to `sitemap_paths()` as well as setting `canonical_path`.
 - No OAuth / magic links / password-reset mail in v2
 
 ## API (initial)
