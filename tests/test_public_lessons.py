@@ -70,12 +70,14 @@ def test_practice_tab_renders_logged_out(migrated_app, migrated_client):
     # The completion step asks for an account instead of claiming it was saved.
     assert "Create a free account to save this lesson and keep going." in html
     assert "Lesson complete - well done." not in html
+    assert 'href="/signup">Create a free account</a>' in html
+    assert 'href="/signin">Sign in</a>' in html
 
 
 def test_logged_out_topbar_offers_sign_in(migrated_app, migrated_client):
     lesson = _lessons(migrated_app)[0]
     html = migrated_client.get(f"/lessons/{lesson['id']}").data.decode()
-    assert 'class="btn btn--secondary topbar__signin" href="/#signin"' in html
+    assert 'class="btn btn--secondary topbar__signin" href="/signin"' in html
     assert 'id="profile-open"' not in html
     assert 'id="profile-dialog"' not in html
     assert "profile-logout" not in html

@@ -1,5 +1,5 @@
 from flask import Blueprint, redirect, render_template, request, url_for
-from sqlalchemy import select
+from sqlalchemy import func, select
 
 from app.extensions import db
 from app.models import Deck, Level
@@ -31,7 +31,7 @@ bp = Blueprint("pages", __name__)
 def _login_required():
     user = current_user()
     if user is None:
-        return None, redirect(url_for("pages.index"))
+        return None, redirect(url_for("pages.signin"))
     return user, None
 
 
@@ -41,11 +41,45 @@ def _continue_href(target: dict) -> str:
     return url_for("pages.study", slug=target["slug"])
 
 
+COURSE_LEVEL_ID = "a1"
+
+
 @bp.get("/")
 def index():
+    """Public landing page: the A1 course pitch, every lesson, goals and FAQ."""
     if current_user() is not None:
         return redirect(url_for("pages.levels"))
-    return render_template("index.html")
+    try:
+        lessons = list_lessons_for_level(None, COURSE_LEVEL_ID)
+        learn_groups = learn_groups_for_level(None, COURSE_LEVEL_ID)
+    except ServiceError:  # content not seeded yet
+        lessons, learn_groups = [], []
+    deck_count = db.session.scalar(
+        select(func.count(Deck.id)).where(Deck.level_id == COURSE_LEVEL_ID)
+    )
+    return render_template(
+        "index.html",
+        first_lesson=lessons[0] if lessons else None,
+        lesson_count=len(lessons),
+        deck_count=deck_count or 0,
+        learn_groups=learn_groups,
+    )
+
+
+def _auth_page(mode: str):
+    if current_user() is not None:
+        return redirect(url_for("pages.levels"))
+    return render_template("auth.html", mode=mode, brand_href=url_for("pages.index"))
+
+
+@bp.get("/signup")
+def signup():
+    return _auth_page("signup")
+
+
+@bp.get("/signin")
+def signin():
+    return _auth_page("signin")
 
 
 @bp.get("/continue")

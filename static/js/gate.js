@@ -3,6 +3,7 @@
   const loginForm = document.getElementById("login-form");
   const tabRegister = document.getElementById("tab-register");
   const tabLogin = document.getElementById("tab-login");
+  const gateTitle = document.getElementById("gate-title");
   const gateBlurb = document.getElementById("gate-blurb");
   const gateError = document.getElementById("gate-error");
   const loginError = document.getElementById("login-error");
@@ -15,8 +16,10 @@
     tabLogin.classList.remove("is-active");
     tabRegister.setAttribute("aria-selected", "true");
     tabLogin.setAttribute("aria-selected", "false");
-    gateBlurb.textContent =
-      "Create an account to save progress and sign in on any device.";
+    gateTitle.textContent = "Create a free account";
+    gateBlurb.textContent = "Save your progress and pick up on any device.";
+    document.title = "Create a free account - La Queta";
+    window.history.replaceState(null, "", "/signup");
     window.LaQueta.showError(gateError, "");
     window.LaQueta.showError(loginError, "");
   }
@@ -28,7 +31,10 @@
     tabRegister.classList.remove("is-active");
     tabLogin.setAttribute("aria-selected", "true");
     tabRegister.setAttribute("aria-selected", "false");
+    gateTitle.textContent = "Sign in";
     gateBlurb.textContent = "Sign in with your email and password.";
+    document.title = "Sign in - La Queta";
+    window.history.replaceState(null, "", "/signin");
     window.LaQueta.showError(gateError, "");
     window.LaQueta.showError(loginError, "");
   }
@@ -63,8 +69,6 @@
   tabRegister.addEventListener("click", showRegister);
   tabLogin.addEventListener("click", showLogin);
 
-  // Links such as the lesson topbar's "Sign in" point at /#signin.
-  if (window.location.hash === "#signin") showLogin();
 
   registerForm.addEventListener("submit", async (event) => {
     event.preventDefault();

@@ -97,7 +97,7 @@ def test_continue_requires_login(migrated_app, migrated_client):
         seed_all()
     response = migrated_client.get("/continue?level=a1")
     assert response.status_code == 302
-    assert response.headers["Location"].endswith("/")
+    assert response.headers["Location"].endswith("/signin")
 
 
 def test_finished_level_says_done_instead_of_dead_button(

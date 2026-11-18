@@ -1,47 +1,101 @@
 {% extends "base.html" %}
-{% block title %}La Queta{% endblock %}
-{% block content %}
-<section class="stack-lg">
-  <p class="text-muted" style="text-align: center;" id="gate-blurb">
-    Create an account to save progress and sign in on any device.
-  </p>
-  <div class="tab-bar" role="tablist">
-    <button type="button" class="tab-btn is-active" id="tab-register" role="tab" aria-selected="true">Create account</button>
-    <button type="button" class="tab-btn" id="tab-login" role="tab" aria-selected="false">Sign in</button>
-  </div>
-
-  <form id="register-form" class="stack">
-    <label class="field">
-      <span class="field__label">Your name</span>
-      <input class="input" id="handle-input" name="handle" type="text" autocomplete="nickname" placeholder="e.g. Liam" required minlength="2" maxlength="40">
-    </label>
-    <label class="field">
-      <span class="field__label">Email</span>
-      <input class="input" id="reg-email-input" name="email" type="email" autocomplete="email" placeholder="you@example.com" required maxlength="254">
-    </label>
-    <label class="field">
-      <span class="field__label">Password</span>
-      <input class="input" id="reg-password-input" name="password" type="password" autocomplete="new-password" placeholder="At least 6 characters" required minlength="6" maxlength="128">
-      <p class="field__error" id="gate-error" hidden></p>
-    </label>
-    <button type="submit" class="btn btn--primary btn--block">Create account</button>
-  </form>
-
-  <form id="login-form" class="stack" hidden>
-    <label class="field">
-      <span class="field__label">Email</span>
-      <input class="input" id="login-email-input" name="email" type="email" autocomplete="username" placeholder="you@example.com" required maxlength="254">
-    </label>
-    <label class="field">
-      <span class="field__label">Password</span>
-      <input class="input" id="login-password-input" name="password" type="password" autocomplete="current-password" required minlength="6" maxlength="128">
-      <p class="field__error" id="login-error" hidden></p>
-    </label>
-    <button type="submit" class="btn btn--primary btn--block">Sign in</button>
-  </form>
-</section>
+{% block title %}La Queta - Free Catalan for complete beginners{% endblock %}
+{% block og_description %}A short, free Catalan course that takes complete beginners from zero to A1: {{ lesson_count }} lessons with practice, plus vocab flashcards.{% endblock %}
+{% block head %}
+{# Old links pointed at the sign-in form as /#signin; it now lives at /signin. #}
+<script>if (window.location.hash === "#signin") window.location.replace("{{ url_for('pages.signin') }}");</script>
 {% endblock %}
-{% block scripts %}
-<script src="{{ url_for('static', filename='js/api.js') }}"></script>
-<script src="{{ url_for('static', filename='js/gate.js') }}"></script>
+{% block top_guest %}
+<a class="btn btn--secondary topbar__signin" href="{{ url_for('pages.signin') }}">Sign in</a>
+{% endblock %}
+{% block content %}
+<div class="stack-lg landing">
+  <section class="landing-hero page-intro stack">
+    <h1 class="heading-1">Free Catalan for complete beginners</h1>
+    <p class="text-body">
+      La Queta is a short, free course that takes you from zero to A1, the first level of Catalan.
+      It has {{ lesson_count }} lessons on grammar and everyday topics, each with practice{% if deck_count %}, plus {{ deck_count }} vocab flashcard decks{% endif %}.
+      It runs in your browser, so there is no app to install, and a free account saves your progress across devices.
+    </p>
+    {% if first_lesson %}
+    <div class="landing-hero__actions">
+      <a class="btn btn--primary" href="{{ url_for('pages.lesson', lesson_id=first_lesson.id) }}">Start lesson 1</a>
+      <p class="text-muted">Already have an account? <a href="{{ url_for('pages.signin') }}">Sign in</a></p>
+    </div>
+    {% endif %}
+  </section>
+
+  {% if learn_groups %}
+  <section class="stack" aria-labelledby="goals-title">
+    <h2 class="heading-2" id="goals-title">What you'll be able to do</h2>
+    <p class="text-body">The course is built around {{ learn_groups|length }} goals, each a small set of lessons:</p>
+    <ul class="landing-goals">
+      {% for group in learn_groups %}
+      <li>{{ group.label }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <section class="stack" aria-labelledby="lessons-title">
+    <h2 class="heading-2" id="lessons-title">The {{ lesson_count }} lessons</h2>
+    <p class="text-body">Every lesson is open: read it, then practise. No account needed to start.</p>
+    {% for group in learn_groups %}
+    <div class="goal-section">
+      <h3 class="heading-3 goal-section__title">{{ group.label }}</h3>
+      <ol class="list landing-lessons">
+        {% for lesson in group.lessons %}
+        <li>
+          <a class="list-row" href="{{ url_for('pages.lesson', lesson_id=lesson.id) }}">
+            <div>
+              <p class="list-row__title">{{ lesson.sort_order }}. {{ lesson.title }}</p>
+              <p class="list-row__sub">{{ lesson.summary }}</p>
+            </div>
+          </a>
+        </li>
+        {% endfor %}
+      </ol>
+    </div>
+    {% endfor %}
+  </section>
+  {% endif %}
+
+  <section class="stack" aria-labelledby="faq-title">
+    <h2 class="heading-2" id="faq-title">Questions</h2>
+    <div class="landing-faq">
+      <h3 class="heading-3">Is it free?</h3>
+      <p class="text-body">Yes. Every lesson, every practice and every vocab deck is free.</p>
+    </div>
+    <div class="landing-faq">
+      <h3 class="heading-3">Do I need an account?</h3>
+      <p class="text-body">
+        Not to start. You can read and practise any lesson without one.
+        A free account saves the lessons you finish and gives you the vocab flashcards and a daily vocab review.
+      </p>
+    </div>
+    <div class="landing-faq">
+      <h3 class="heading-3">Is this Central Catalan?</h3>
+      <p class="text-body">Yes. The lessons teach standard Central Catalan, the variety spoken in Barcelona.</p>
+    </div>
+    <div class="landing-faq">
+      <h3 class="heading-3">How long does A1 take?</h3>
+      <p class="text-body">
+        It depends on your pace, and there is no deadline.
+        The course is {{ lesson_count }} lessons, and you can take them in any order.
+      </p>
+    </div>
+    <div class="landing-faq">
+      <h3 class="heading-3">What comes after A1?</h3>
+      <p class="text-body">
+        A2 is not here yet.
+        Once you finish A1, keep reviewing your vocab every day so the words stay fresh.
+      </p>
+    </div>
+  </section>
+
+  {% if first_lesson %}
+  <section class="landing-hero page-intro stack">
+    <a class="btn btn--primary" href="{{ url_for('pages.lesson', lesson_id=first_lesson.id) }}">Start lesson 1</a>
+  </section>
+  {% endif %}
+</div>
 {% endblock %}

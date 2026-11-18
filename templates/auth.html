@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% set signin = mode == 'signin' %}
+{% block title %}{{ 'Sign in' if signin else 'Create a free account' }} - La Queta{% endblock %}
+{% block head %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+<section class="stack-lg" id="gate" data-mode="{{ mode }}">
+  <div class="page-intro">
+    <h1 class="heading-2" id="gate-title">{{ 'Sign in' if signin else 'Create a free account' }}</h1>
+    <p class="text-muted" id="gate-blurb">
+      {% if signin %}Sign in with your email and password.{% else %}Save your progress and pick up on any device.{% endif %}
+    </p>
+  </div>
+  <div class="tab-bar" role="tablist">
+    <button type="button" class="tab-btn{% if not signin %} is-active{% endif %}" id="tab-register" role="tab" aria-selected="{{ 'false' if signin else 'true' }}">Create account</button>
+    <button type="button" class="tab-btn{% if signin %} is-active{% endif %}" id="tab-login" role="tab" aria-selected="{{ 'true' if signin else 'false' }}">Sign in</button>
+  </div>
+
+  <form id="register-form" class="stack"{% if signin %} hidden{% endif %}>
+    <label class="field">
+      <span class="field__label">Your name</span>
+      <input class="input" id="handle-input" name="handle" type="text" autocomplete="nickname" placeholder="e.g. Liam" required minlength="2" maxlength="40">
+    </label>
+    <label class="field">
+      <span class="field__label">Email</span>
+      <input class="input" id="reg-email-input" name="email" type="email" autocomplete="email" placeholder="you@example.com" required maxlength="254">
+    </label>
+    <label class="field">
+      <span class="field__label">Password</span>
+      <input class="input" id="reg-password-input" name="password" type="password" autocomplete="new-password" placeholder="At least 6 characters" required minlength="6" maxlength="128">
+      <p class="field__error" id="gate-error" hidden></p>
+    </label>
+    <button type="submit" class="btn btn--primary btn--block">Create account</button>
+  </form>
+
+  <form id="login-form" class="stack"{% if not signin %} hidden{% endif %}>
+    <label class="field">
+      <span class="field__label">Email</span>
+      <input class="input" id="login-email-input" name="email" type="email" autocomplete="username" placeholder="you@example.com" required maxlength="254">
+    </label>
+    <label class="field">
+      <span class="field__label">Password</span>
+      <input class="input" id="login-password-input" name="password" type="password" autocomplete="current-password" required minlength="6" maxlength="128">
+      <p class="field__error" id="login-error" hidden></p>
+    </label>
+    <button type="submit" class="btn btn--primary btn--block">Sign in</button>
+  </form>
+</section>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/api.js') }}"></script>
+<script src="{{ url_for('static', filename='js/gate.js') }}"></script>
+{% endblock %}

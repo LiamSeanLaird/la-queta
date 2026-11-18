@@ -173,8 +173,12 @@ Goals only tick when every lesson in them is done, so a plain "0/7 goals complet
 - Email: regex shape check only (no confirmation email). Password: min 6 chars; Werkzeug hash.
 - Cookie: Flask session; HTTP-only; `SameSite=Lax`; `SECRET_KEY`-signed; permanent ~1 year
 - Name (`handle`): 2–40 chars, unique case-insensitive. Email unique lowercased.
-- Unauthenticated API → 401; pages redirect to gate, except public pages
-- Public pages: `/lessons/<id>` (Learn and Practice tabs) renders for logged-out visitors.
+- Unauthenticated API → 401; logged-in-only pages redirect to `/signin`, except public pages
+- The gate (sign-up and sign-in forms, `templates/auth.html` + `gate.js`) lives at `/signup` and `/signin` (`noindex`; logged in → `/levels`).
+  The tabs switch in place and `replaceState` the URL between the two; old `/#signin` links are forwarded to `/signin` by a one-line script on `/`.
+- Public pages: `/` is the landing page for logged-out visitors (logged in → `/levels`): the pitch, "Start lesson 1", every A1 lesson grouped by goal (`learn_groups_for_level(None, "a1")`), the goals, and an FAQ.
+  It still renders before content is seeded (no lesson list).
+- `/lessons/<id>` (Learn and Practice tabs) renders for logged-out visitors.
   Services take `user=None` for this path (`get_lesson`, `list_lessons_for_level`, `lesson_next_steps`): no progress, nothing completed, no vocab deck, no wrap-round to earlier lessons.
   Logged out, Practice never posts the completion; its last step asks the visitor to create an account or sign in instead.
   Carry-over: when a logged-out visitor finishes Practice, `practice.js` stores `{lesson_id, exercises_correct, exercises_total}` in `sessionStorage` (`laqueta.pendingCompletion`, this tab only).
@@ -188,7 +192,8 @@ Conventions: `STYLE_GUIDE.md` §3 (layers, statuses, error shape, POST-for-actio
 
 | Method | Route | Description |
 |---|---|---|
-| GET | `/` | App shell |
+| GET | `/` | Public landing page (logged in → `/levels`) |
+| GET | `/signup`, `/signin` | Account forms (gate) |
 | POST | `/api/auth/register` | Create account (name + email + password) + set cookie |
 | POST | `/api/auth/login` | Email + password → session |
 | POST | `/api/auth/logout` | Clear session |

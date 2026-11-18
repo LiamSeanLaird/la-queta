@@ -4,7 +4,7 @@
 <a class="topbar__back" href="{{ back_href }}" aria-label="{{ 'Back to lessons' if current_user else 'Back to home' }}">←</a>
 {% endblock %}
 {% block top_guest %}
-<a class="btn btn--secondary topbar__signin" href="{{ url_for('pages.index') }}#signin">Sign in</a>
+<a class="btn btn--secondary topbar__signin" href="{{ url_for('pages.signin') }}">Sign in</a>
 {% endblock %}
 {% block content %}
 <section
@@ -91,8 +91,8 @@
     <div class="stack" id="practice-done" hidden>
       <h2 class="heading-3">Every answer right - well done.</h2>
       <p class="text-body">Create a free account to save this lesson and keep going.</p>
-      <a class="btn btn--primary btn--block" href="{{ url_for('pages.index') }}">Create a free account</a>
-      <a class="btn btn--secondary btn--block" href="{{ url_for('pages.index') }}#signin">Sign in</a>
+      <a class="btn btn--primary btn--block" href="{{ url_for('pages.signup') }}">Create a free account</a>
+      <a class="btn btn--secondary btn--block" href="{{ url_for('pages.signin') }}">Sign in</a>
       {% if next_lesson %}
       <a class="btn btn--ghost btn--block" href="{{ url_for('pages.lesson', lesson_id=next_lesson.id) }}">Next lesson without saving: {{ next_lesson.title }}</a>
       {% endif %}

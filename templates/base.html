@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#f7f1df" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#17110e" media="(prefers-color-scheme: dark)">
   <title>{% block title %}La Queta{% endblock %}</title>
-  {% set _og_desc %}{% block og_description %}Free Catalan A1 lessons, vocab practice, and progress tracking.{% endblock %}{% endset %}
+  {% set _og_desc %}{% block og_description %}Free Catalan for complete beginners: a short A1 course with lessons, practice and vocab flashcards.{% endblock %}{% endset %}
   {% if config.PUBLIC_BASE_URL %}
     {% set _og_image = config.PUBLIC_BASE_URL.rstrip('/') ~ url_for('static', filename='og-image.png') %}
     {% set _og_url = config.PUBLIC_BASE_URL.rstrip('/') ~ request.path %}
@@ -45,13 +45,13 @@
         {% block top_back %}{% endblock %}
       </div>
       <div class="topbar__brand brand">
-        <h1 class="brand__title">
+        <p class="brand__title">
           {% if brand_href %}
             <a class="brand__link" href="{{ brand_href }}">La Queta</a>
           {% else %}
             La Queta
           {% endif %}
-        </h1>
+        </p>
         {% if not current_user %}
         <p class="brand__tagline">{% block tagline %}aprèn català{% endblock %}</p>
         {% endif %}
