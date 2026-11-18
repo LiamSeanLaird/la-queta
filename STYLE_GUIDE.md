@@ -149,6 +149,10 @@ The hub tile shows the same message (`.level-tile__finished`) once every lesson 
   The brand in the topbar is a `<p class="brand__title">`, never a heading.
   Heading level and look are separate: pick the element for the outline and the `.heading-*` class for the size.
   A page with no visible title (study) gets `<h1 class="visually-hidden">`.
+- `<html lang="en">` stays, because the interface is English.
+  Mark Catalan text with `lang="ca"` on the element that holds it: example cells, vocab words, plurals and verb forms, the spoken target in Practice, and the `aprèn català` tagline.
+  When JS swaps a flashcard between Catalan and English, it sets `lang` to match the side.
+  Mixed English and Catalan text (prompts, rules, notes) stays unmarked.
 - Logged-in shell (`base.html` topbar): **←** back left (`{% block top_back %}`), brand center, profile + feedback (mailto / `FEEDBACK_EMAIL`) right, side by side in one row (never stacked). Tagline (`aprèn català`) only on the gate.
 
 ### CSS

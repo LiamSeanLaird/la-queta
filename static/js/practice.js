@@ -274,6 +274,7 @@
 
     const target = document.createElement("p");
     target.className = "flashcard__word";
+    target.lang = "ca";
     target.textContent = item.speak || "";
     root.appendChild(target);
 

@@ -53,11 +53,11 @@
         <p class="rule-callout">{{ section.content | keep_affixes }}</p>
       {% elif section.type == 'examples' %}
         <table class="examples">
-          <thead><tr><th>Català</th><th>English</th><th>Note</th></tr></thead>
+          <thead><tr><th lang="ca">Català</th><th>English</th><th>Note</th></tr></thead>
           <tbody>
             {% for item in section.get('items', []) %}
             <tr>
-              <td class="examples__ca">{{ item.catalan }}</td>
+              <td class="examples__ca" lang="ca">{{ item.catalan }}</td>
               <td>{{ item.english }}</td>
               <td class="examples__note">{{ item.note | keep_affixes }}</td>
             </tr>
