@@ -195,6 +195,10 @@ Goals only tick when every lesson in them is done, so a plain "0/7 goals complet
   With `PUBLIC_BASE_URL` unset (tests, unless a test sets it) there is no canonical.
   Every page without `canonical_path` (gate, hub, level, deck, study, daily, browse, style guide) gets `<meta name="robots" content="noindex">`.
   Lesson pages use `lesson_page_title` ("Ser vs estar in Catalan - free A1 lesson | La Queta") and `lesson_page_description` (summary plus a fixed line) in `app/routes/pages.py`; the h1 keeps the lesson's own title.
+- Structured data (`app/seo.py`): a route passes `json_ld=[...]` (plain dicts) and `base.html` renders each as `<script type="application/ld+json">` with `tojson`, which escapes `<`, `>` and `&`.
+  `/` has `Course` (free, online, `inLanguage` en, teaches Catalan, A1) and `FAQPage`; lesson pages have `LearningResource` with `isPartOf` the course.
+  The landing FAQ lives in `landing_faq()` so the page text and the `FAQPage` markup cannot drift.
+  `url` fields come from `PUBLIC_BASE_URL` only and are left out when it is unset.
 - No OAuth / magic links / password-reset mail in v2
 
 ## API (initial)

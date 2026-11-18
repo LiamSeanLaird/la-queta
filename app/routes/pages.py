@@ -1,8 +1,9 @@
-from flask import Blueprint, redirect, render_template, request, url_for
+from flask import Blueprint, current_app, redirect, render_template, request, url_for
 from sqlalchemy import func, select
 
 from app.extensions import db
 from app.models import Deck, Level
+from app.seo import course_json_ld, faq_json_ld, landing_faq, lesson_json_ld
 from app.services.auth import current_user
 from app.services.errors import ServiceError
 from app.services.daily import daily_status
@@ -57,12 +58,26 @@ def index():
     deck_count = db.session.scalar(
         select(func.count(Deck.id)).where(Deck.level_id == COURSE_LEVEL_ID)
     )
+    level = db.session.get(Level, COURSE_LEVEL_ID)
+    level_code = level.code if level else COURSE_LEVEL_ID.upper()
+    description = (
+        "A short, free Catalan course that takes complete beginners from zero to "
+        f"{level_code}: {len(lessons)} lessons with practice, plus vocab flashcards."
+    )
+    faq = landing_faq(len(lessons))
+    base_url = current_app.config.get("PUBLIC_BASE_URL", "")
     return render_template(
         "index.html",
         first_lesson=lessons[0] if lessons else None,
         lesson_count=len(lessons),
         deck_count=deck_count or 0,
         learn_groups=learn_groups,
+        page_description=description,
+        faq=faq,
+        json_ld=[
+            course_json_ld(base_url, description, level_code),
+            faq_json_ld(faq),
+        ],
     )
 
 
@@ -207,13 +222,24 @@ def lesson(lesson_id: str):
     next_steps = lesson_next_steps(user, lesson_data["id"])
     neighbours = lesson_neighbours(lesson_data["id"])
     level = db.session.get(Level, lesson_data["level_id"])
+    level_code = level.code if level else lesson_data["level_id"].upper()
+    page_description = lesson_page_description(lesson_data["summary"])
 
     return render_template(
         "lesson.html",
         user=user,
         lesson=lesson_data,
         page_title=lesson_page_title(lesson_data["title"]),
-        page_description=lesson_page_description(lesson_data["summary"]),
+        page_description=page_description,
+        json_ld=[
+            lesson_json_ld(
+                current_app.config.get("PUBLIC_BASE_URL", ""),
+                lesson_data,
+                page_description,
+                level_code,
+                url_for("pages.lesson", lesson_id=lesson_data["id"]),
+            )
+        ],
         tab=tab,
         # gate.js lands here with ?saved=1 after saving a lesson the visitor
         # finished before signing up.
@@ -223,7 +249,7 @@ def lesson(lesson_id: str):
         next_deck=next_steps["deck"],
         next_lesson=next_steps["next_lesson"],
         finishes_level=next_steps["finishes_level"],
-        level_code=level.code if level else lesson_data["level_id"].upper(),
+        level_code=level_code,
         previous_in_course=neighbours["previous"],
         next_in_course=neighbours["next"],
         # Logged out, the public course page is the lesson list on /.

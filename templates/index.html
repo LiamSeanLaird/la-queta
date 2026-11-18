@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% set canonical_path = url_for('pages.index') %}
 {% block title %}La Queta - Free Catalan for complete beginners{% endblock %}
-{% block og_description %}A short, free Catalan course that takes complete beginners from zero to A1: {{ lesson_count }} lessons with practice, plus vocab flashcards.{% endblock %}
+{% block og_description %}{{ page_description }}{% endblock %}
 {% block head %}
 {# Old links pointed at the sign-in form as /#signin; it now lives at /signin. #}
 <script>if (window.location.hash === "#signin") window.location.replace("{{ url_for('pages.signin') }}");</script>
@@ -62,35 +62,12 @@
 
   <section class="stack" aria-labelledby="faq-title">
     <h2 class="heading-2" id="faq-title">Questions</h2>
+    {% for item in faq %}
     <div class="landing-faq">
-      <h3 class="heading-3">Is it free?</h3>
-      <p class="text-body">Yes. Every lesson, every practice and every vocab deck is free.</p>
+      <h3 class="heading-3">{{ item.question }}</h3>
+      <p class="text-body">{{ item.answer }}</p>
     </div>
-    <div class="landing-faq">
-      <h3 class="heading-3">Do I need an account?</h3>
-      <p class="text-body">
-        Not to start. You can read and practise any lesson without one.
-        A free account saves the lessons you finish and gives you the vocab flashcards and a daily vocab review.
-      </p>
-    </div>
-    <div class="landing-faq">
-      <h3 class="heading-3">Is this Central Catalan?</h3>
-      <p class="text-body">Yes. The lessons teach standard Central Catalan, the variety spoken in Barcelona.</p>
-    </div>
-    <div class="landing-faq">
-      <h3 class="heading-3">How long does A1 take?</h3>
-      <p class="text-body">
-        It depends on your pace, and there is no deadline.
-        The course is {{ lesson_count }} lessons, and you can take them in any order.
-      </p>
-    </div>
-    <div class="landing-faq">
-      <h3 class="heading-3">What comes after A1?</h3>
-      <p class="text-body">
-        A2 is not here yet.
-        Once you finish A1, keep reviewing your vocab every day so the words stay fresh.
-      </p>
-    </div>
+    {% endfor %}
   </section>
 
   {% if first_lesson %}
