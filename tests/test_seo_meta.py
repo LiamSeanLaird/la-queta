@@ -94,7 +94,7 @@ def test_canonical_ignores_request_host(migrated_app, migrated_client):
     migrated_app.config["PUBLIC_BASE_URL"] = BASE
     lesson_id = _seed_lessons(migrated_app)[0][0]
     html = migrated_client.get(
-        f"/lessons/{lesson_id}", headers={"Host": "www.la-queta.com"}
+        f"/lessons/{lesson_id}", headers={"Host": "www.example.org"}
     ).get_data(as_text=True)
     assert _canonicals(html) == [f"{BASE}/lessons/{lesson_id}"]
 

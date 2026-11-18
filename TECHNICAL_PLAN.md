@@ -204,6 +204,9 @@ Goals only tick when every lesson in them is done, so a plain "0/7 goals complet
   `GET /sitemap.xml` lists `/` and every lesson in an open level (the pages that set `canonical_path`), with absolute URLs from `PUBLIC_BASE_URL` and no `<lastmod>` (the server has no honest source for it).
   With `PUBLIC_BASE_URL` unset it is a 404, because a sitemap needs absolute URLs.
   A new indexable page must be added to `sitemap_paths()` as well as setting `canonical_path`.
+- www to apex (`app/www_redirect.py`): a `before_request` hook 301-redirects any request whose host is `www.` + the `PUBLIC_BASE_URL` host to the same path and query string on `PUBLIC_BASE_URL` (308 for non-GET/HEAD, so a POST keeps its body).
+  It does nothing when `PUBLIC_BASE_URL` is unset (the test default), never redirects `/api/health`, and leaves every other host (apex, localhost, IP) alone.
+  nginx does the same at the edge (`deploy/nginx-la-queta.conf`: HTTP to HTTPS, and HTTPS www to apex); the Flask hook is the fallback if the live nginx config lacks it.
 - No OAuth / magic links / password-reset mail in v2
 
 ## API (initial)

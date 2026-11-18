@@ -39,6 +39,10 @@ def create_app(config_overrides: dict | None = None) -> Flask:
     application.register_blueprint(api_lessons_bp)
     application.register_blueprint(api_vocab_bp)
 
+    from app.www_redirect import register_www_redirect
+
+    register_www_redirect(application)
+
     from app.text_filters import keep_affixes
 
     application.add_template_filter(keep_affixes)
