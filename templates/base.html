@@ -10,12 +10,22 @@
   {% set _og_desc %}{% block og_description %}Free Catalan for complete beginners: a short A1 course with lessons, practice and vocab flashcards.{% endblock %}{% endset %}
   {% if config.PUBLIC_BASE_URL %}
     {% set _og_image = config.PUBLIC_BASE_URL.rstrip('/') ~ url_for('static', filename='og-image.png') %}
-    {% set _og_url = config.PUBLIC_BASE_URL.rstrip('/') ~ request.path %}
+    {% set _og_url = config.PUBLIC_BASE_URL.rstrip('/') ~ (canonical_path if canonical_path is defined else request.path) %}
   {% else %}
     {% set _og_image = url_for('static', filename='og-image.png', _external=True) %}
     {% set _og_url = request.url %}
   {% endif %}
   <meta name="description" content="{{ _og_desc|trim }}">
+  {#- Public pages set canonical_path (a path with no query string). The canonical
+      URL always comes from PUBLIC_BASE_URL, never the request host, so it is left
+      out when that is unset (tests, local dev). Every other page is noindex. #}
+  {% if canonical_path is defined %}
+  {% if config.PUBLIC_BASE_URL %}
+  <link rel="canonical" href="{{ config.PUBLIC_BASE_URL.rstrip('/') ~ canonical_path }}">
+  {% endif %}
+  {% else %}
+  <meta name="robots" content="noindex">
+  {% endif %}
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="La Queta">
   <meta property="og:title" content="{% block og_title %}{{ self.title() }}{% endblock %}">

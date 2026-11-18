@@ -191,6 +191,10 @@ Goals only tick when every lesson in them is done, so a plain "0/7 goals complet
   The `/levels` hub tile shows a short version once `lessons_done == lessons_total`.
 - The hub (`/levels`, "Your A1 course") lists only open levels (`OPEN_LEVEL_IDS`); A2 and B1 stay in `levels` (a foreign key target for `users.current_level_id`) but are hidden.
   A learner whose `current_level_id` is not open still gets the hub, with daily vocab pointing at the first open level.
+- SEO meta (`templates/base.html`): a public page sets `{% set canonical_path = ... %}` (a path with no query string), which emits `<link rel="canonical">` built from `PUBLIC_BASE_URL`, never the request host, and makes `og:url` match.
+  With `PUBLIC_BASE_URL` unset (tests, unless a test sets it) there is no canonical.
+  Every page without `canonical_path` (gate, hub, level, deck, study, daily, browse, style guide) gets `<meta name="robots" content="noindex">`.
+  Lesson pages use `lesson_page_title` ("Ser vs estar in Catalan - free A1 lesson | La Queta") and `lesson_page_description` (summary plus a fixed line) in `app/routes/pages.py`; the h1 keeps the lesson's own title.
 - No OAuth / magic links / password-reset mail in v2
 
 ## API (initial)

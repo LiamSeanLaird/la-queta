@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% set signin = mode == 'signin' %}
 {% block title %}{{ 'Sign in' if signin else 'Create a free account' }} - La Queta{% endblock %}
-{% block head %}<meta name="robots" content="noindex">{% endblock %}
 {% block content %}
 <section class="stack-lg" id="gate" data-mode="{{ mode }}">
   <div class="page-intro">

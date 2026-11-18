@@ -174,6 +174,22 @@ def level_home(level_id: str):
     )
 
 
+def lesson_page_title(title: str) -> str:
+    """Search-friendly <title> for a lesson, e.g. 'Ser vs estar in Catalan - ...'.
+
+    The on-page h1 keeps the lesson's own title; only the <title> says 'Catalan',
+    because that is how people search ('Catalan noun gender').
+    """
+    phrase = title[:1] + title[1:].lower()
+    return f"{phrase} in Catalan - free A1 lesson | La Queta"
+
+
+def lesson_page_description(summary: str) -> str:
+    return (
+        f"{summary.strip()} A free A1 Catalan lesson with practice, no sign-up needed."
+    )
+
+
 @bp.get("/lessons/<lesson_id>")
 def lesson(lesson_id: str):
     # Public: a logged-out visitor (user=None) can read and practise any lesson.
@@ -196,6 +212,8 @@ def lesson(lesson_id: str):
         "lesson.html",
         user=user,
         lesson=lesson_data,
+        page_title=lesson_page_title(lesson_data["title"]),
+        page_description=lesson_page_description(lesson_data["summary"]),
         tab=tab,
         # gate.js lands here with ?saved=1 after saving a lesson the visitor
         # finished before signing up.
