@@ -1232,6 +1232,8 @@ a.btn.btn--primary {
 
 .examples__ca {
   font-weight: 600;
+  /* Keep short examples like "la porta" on one line at phone width. */
+  min-width: 7.5rem;
 }
 
 .examples__note {

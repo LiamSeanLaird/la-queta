@@ -69,7 +69,6 @@
   tabRegister.addEventListener("click", showRegister);
   tabLogin.addEventListener("click", showLogin);
 
-
   registerForm.addEventListener("submit", async (event) => {
     event.preventDefault();
     window.LaQueta.showError(gateError, "");
