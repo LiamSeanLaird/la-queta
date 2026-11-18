@@ -38,6 +38,12 @@
           >{% if level.goals_done == level.goals_total %}All {{ level.goals_total }} goals complete{% elif level.goals_done %}{{ level.goals_done }}/{{ level.goals_total }} goals done{% else %}See all {{ level.goals_total }} goals{% endif %}</button></span>
         </p>
         {% endif %}
+        {% if level.counts.lessons_total and level.counts.lessons_done == level.counts.lessons_total %}
+        <div class="level-tile__finished" id="finished-{{ level.id }}">
+          <p class="level-tile__finished-title"><span class="level-tile__done-check" aria-hidden="true">✓</span> You've finished {{ level.code }}</p>
+          <p class="level-tile__finished-text">Every {{ level.code }} lesson is complete - well done. Keep reviewing your vocab daily so the words stay with you. A2 is not here yet.</p>
+        </div>
+        {% endif %}
         <div class="level-tile__actions">
           {% if level.continue %}
           <a class="btn btn--primary btn--block level-tile__continue" href="{{ url_for('pages.continue_learning', level=level.id) }}">{{ level.continue.label }}</a>

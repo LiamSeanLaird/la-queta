@@ -26,6 +26,8 @@ Study flow: first-load tip dialog (Don’t show again); tap or Enter flips Catal
 Lessons use Learn | Practice tabs. Practice is one-item-at-a-time (MC / cloze / type-in / listen_* / speak); typed/STT answers normalize case/space, treat curly apostrophes (’) as straight ones, and strip other punctuation but keep accents. Cloze prompts say fill-the-blank-only; wrong typed Check offers Show answer once. Listening uses browser TTS (`speech.js`). Lesson completes only after a perfect Practice run.
 When Practice ends the learner stays on the lesson: a done panel offers the lesson's matching vocab deck (primary, while it has cards left), the next incomplete lesson, and Back to lessons.
 The Learn tab ends with a course nav (`.lesson-nav`): previous and next lesson in course order as two list-row cards (stacked at phone width), and an "All lessons" link.
+When a learner finishes the last lesson of a level, the Practice done panel shows the "You've finished A1" moment (`templates/_finished_level.html`): daily vocab as the next step and an honest "A2 is not here yet" line.
+The hub tile shows the same message (`.level-tile__finished`) once every lesson in the level is complete.
 
 - **Markup + classes:** `templates/style_guide.html`
 - **Shared styles:** `static/app.css` (gallery chrome uses `.sg-*`; app components do not)

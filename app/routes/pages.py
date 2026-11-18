@@ -190,6 +190,7 @@ def lesson(lesson_id: str):
 
     next_steps = lesson_next_steps(user, lesson_data["id"])
     neighbours = lesson_neighbours(lesson_data["id"])
+    level = db.session.get(Level, lesson_data["level_id"])
 
     return render_template(
         "lesson.html",
@@ -203,6 +204,8 @@ def lesson(lesson_id: str):
         and request.args.get("saved") == "1",
         next_deck=next_steps["deck"],
         next_lesson=next_steps["next_lesson"],
+        finishes_level=next_steps["finishes_level"],
+        level_code=level.code if level else lesson_data["level_id"].upper(),
         previous_in_course=neighbours["previous"],
         next_in_course=neighbours["next"],
         # Logged out, the public course page is the lesson list on /.

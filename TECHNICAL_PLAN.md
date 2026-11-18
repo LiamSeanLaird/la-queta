@@ -186,6 +186,9 @@ Goals only tick when every lesson in them is done, so a plain "0/7 goals complet
   No redirect target comes from the URL; without a pending entry, or if the POST fails, the gate goes to `/levels`.
 - Every lesson's Learn tab ends with a course nav: previous and next lesson in plain course order (`lesson_neighbours`, which ignores progress, so the links are the same for everyone and a crawler can walk the course), plus "All lessons".
   "All lessons" goes to the lesson list on `/` (`/#lessons-title`) when logged out and to `/levels/<level>` when logged in.
+- "You've finished A1": `lesson_next_steps` returns `finishes_level`, True for a logged-in learner when every other lesson in the level is complete.
+  The Practice done panel then renders `_finished_level.html` instead of the normal completion step, and the Learn tab shows it after a `?saved=1` carry-over.
+  The `/levels` hub tile shows a short version once `lessons_done == lessons_total`.
 - The hub (`/levels`, "Your A1 course") lists only open levels (`OPEN_LEVEL_IDS`); A2 and B1 stay in `levels` (a foreign key target for `users.current_level_id`) but are hidden.
   A learner whose `current_level_id` is not open still gets the hub, with daily vocab pointing at the first open level.
 - No OAuth / magic links / password-reset mail in v2

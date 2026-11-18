@@ -996,6 +996,32 @@ a.btn.btn--primary {
   font-size: 0.9rem;
 }
 
+/* "You've finished A1": a carried-over completion that was the last lesson. */
+.finished-level {
+  padding: 1.1rem 1.15rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-elevated);
+  box-shadow: inset 3px 0 0 var(--senyera-gold);
+}
+
+/* The same moment on the hub tile, once every lesson in the level is done. */
+.level-tile__finished {
+  margin: 0;
+  padding: 0 1.15rem 1rem;
+  font-size: 0.95rem;
+}
+
+.level-tile__finished-title {
+  margin: 0 0 0.25rem;
+  font-weight: 700;
+}
+
+.level-tile__finished-text {
+  margin: 0;
+  color: var(--muted);
+}
+
 /* Previous / next lesson in course order, under the Learn tab. */
 .lesson-nav {
   display: flex;
