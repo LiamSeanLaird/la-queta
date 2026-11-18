@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "la-queta"
 version = "0.2.0"
-description = "La Queta — free public Catalan learning app (A1–A2)"
+description = "La Queta - free Catalan for complete beginners (A1 course)"
 authors = ["Liam Laird"]
 packages = [{ include = "app" }]
 

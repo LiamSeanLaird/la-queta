@@ -1,4 +1,12 @@
-from flask import Blueprint, abort, current_app, redirect, render_template, request, url_for
+from flask import (
+    Blueprint,
+    abort,
+    current_app,
+    redirect,
+    render_template,
+    request,
+    url_for,
+)
 from sqlalchemy import func, select
 
 from app.extensions import db

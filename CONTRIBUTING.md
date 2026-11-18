@@ -4,8 +4,8 @@ Thanks for helping. Live app: [la-queta.com](https://la-queta.com). Product inte
 
 ## Ways to help
 
-- **Issues** — bugs, content mistakes, UX friction. One issue per problem; Catalan corrections welcome.
-- **Pull requests** — small, focused changes. Fork the repo, open a PR against `main`.
+- **Issues** - bugs, content mistakes, UX friction. One issue per problem; Catalan corrections welcome.
+- **Pull requests** - small, focused changes. Fork the repo, open a PR against `main`.
 - You do **not** need collaborator access; fork → branch → PR is enough.
 
 ## Local setup
@@ -25,7 +25,7 @@ make test
 ## Before you open a PR
 
 1. Run `make test` and keep it green.
-2. Keep diffs small and on-topic — no drive-by refactors.
+2. Keep diffs small and on-topic - no drive-by refactors.
 3. Do **not** edit `prototype/` (frozen reference only).
 4. Content scope today is **A1** only; A2/B1 are hub placeholders.
 5. Match existing patterns in `STYLE_GUIDE.md` and `TECHNICAL_PLAN.md`.

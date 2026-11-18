@@ -19,14 +19,14 @@ Programme scenarios (escenaris) → our content:
 | Domèstic / personal | Family | `family` | `family` | ok |
 | Domèstic | Home & daily routine | `home-routine` | `home_daily` | ok |
 | Urbà / transports | Travel / transport | `travel-transport` | `travel` | ok |
-| — | Time / calendar | `time-calendar` | `days_months` | ok |
+| - | Time / calendar | `time-calendar` | `days_months` | ok |
 | Sanitari i assistencial | Health / CAP / pharmacy | `health` | `health` | ok |
 | Administració pública | Padró / OAC / public services | `public-admin` | `admin` | ok |
 | Laboral | Work / job basics | `work` | `work` | ok |
 | Lúdic | Leisure / free time | `leisure` | `leisure` | ok |
 | Educatiu i formatiu | School / courses | `education` | `education` | ok |
-| Skills | Listening | Practice `listen_*` (browser TTS) | — | ok (hosted audio later) |
-| Skills | Speaking | Practice `speak` self-check | — | ok (LLM later) |
+| Skills | Listening | Practice `listen_*` (browser TTS) | - | ok (hosted audio later) |
+| Skills | Speaking | Practice `speak` self-check | - | ok (LLM later) |
 | Skills | Reading signs/ads/web | `signs-messages` | `signs` | ok (first exam-shaped slice) |
 | Skills | Short written replies | `signs-messages` | `signs` | ok (first exam-shaped slice) |
 

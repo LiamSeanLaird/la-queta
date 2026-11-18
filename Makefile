@@ -1,4 +1,4 @@
-# La Queta — common local commands (conda env `la-queta` should be active).
+# La Queta - common local commands (conda env `la-queta` should be active).
 # On the production VM, prefer: make deploy
 
 .PHONY: run test seed migrate upgrade deploy
