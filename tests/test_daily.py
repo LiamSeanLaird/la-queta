@@ -39,7 +39,9 @@ def test_daily_session_fills_from_retired_when_needed(migrated_app, migrated_cli
 
     cards = migrated_client.get("/api/decks/starter/cards").get_json()["cards"]
     for card in cards:
-        assert migrated_client.post(f"/api/cards/{card['id']}/retire").status_code == 200
+        assert (
+            migrated_client.post(f"/api/cards/{card['id']}/retire").status_code == 200
+        )
 
     # Other decks still have unretired — retire nothing else; just ensure API works
     response = migrated_client.get("/api/levels/a1/daily")
@@ -66,7 +68,7 @@ def test_can_dos_on_level_learn_tab(migrated_app, migrated_client):
     assert b"can-dos-dialog" in page.data
     assert b"data-can-dos-open" in page.data
     assert b"goals" in page.data
-    assert b"Complete the lessons in each goal to unlock it." in page.data
+    assert b"Finish every lesson in a goal to tick it off." in page.data
     assert b"Build core grammar" in page.data
     assert b"goal-section" in page.data
     assert b"Daily vocab" not in page.data
@@ -76,8 +78,9 @@ def test_can_dos_on_level_learn_tab(migrated_app, migrated_client):
     assert b"Daily vocab" in hub.data
     assert b"goals" in hub.data
     assert b"can-dos-a1" in hub.data
-    assert b"Complete the lessons in each goal to unlock it." in hub.data
-    assert b"0/7" in hub.data
+    assert b"Finish every lesson in a goal to tick it off." in hub.data
+    assert b"Next goal:" in hub.data
+    assert b"See all 7 goals" in hub.data
     assert b"Send feedback" in hub.data
     assert b"feedback-dialog" in hub.data
     assert b"A note for the developer (Liam)" in hub.data
@@ -161,8 +164,25 @@ def test_daily_session_follows_completed_lessons_and_started_decks(
 
     # Starting another deck in study adds it to the pool.
     leisure = migrated_client.get("/api/decks/leisure/cards").get_json()["cards"]
-    assert migrated_client.post(f"/api/cards/{leisure[0]['id']}/seen").status_code == 200
+    assert (
+        migrated_client.post(f"/api/cards/{leisure[0]['id']}/seen").status_code == 200
+    )
     decks_seen: set[str] = set()
     for _ in range(10):
         decks_seen |= _deck_of_each_daily_card(migrated_client)
     assert decks_seen == {deck_slug, "leisure"}
+
+
+def test_goal_dialogs_never_say_unlock(migrated_app, migrated_client):
+    """Goals are never locked, so learner-facing goal text must not say 'unlock'."""
+    with migrated_app.app_context():
+        seed_all()
+    _register(migrated_client)
+    for path in ("/levels", "/levels/a1", "/lessons/public-admin?tab=practice"):
+        text = migrated_client.get(path).get_data(as_text=True)
+        visible = text.replace("goal-unlock", "")
+        assert "nlock" not in visible, path
+    practice = migrated_client.get("/lessons/public-admin?tab=practice").get_data(
+        as_text=True
+    )
+    assert 'id="goal-unlock-title">Goal complete</h3>' in practice

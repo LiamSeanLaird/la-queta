@@ -34,9 +34,7 @@ def upgrade():
         if not email:
             email = f"legacy{user_id}@invalid.local"
         conn.execute(
-            sa.text(
-                "UPDATE users SET password_hash = :p, email = :e WHERE id = :id"
-            ),
+            sa.text("UPDATE users SET password_hash = :p, email = :e WHERE id = :id"),
             {"p": pwd_hash, "e": email, "id": user_id},
         )
 

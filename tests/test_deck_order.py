@@ -18,13 +18,19 @@ CONTENT = Path(__file__).resolve().parents[1] / "content"
 def _register(client, handle: str = "orderly"):
     response = client.post(
         "/api/auth/register",
-        json={"handle": handle, "email": f"{handle}@example.com", "password": "password1"},
+        json={
+            "handle": handle,
+            "email": f"{handle}@example.com",
+            "password": "password1",
+        },
     )
     assert response.status_code == 201
 
 
 def test_every_deck_is_linked_from_a_lesson():
-    deck_slugs = {p.name.split("_deck")[0] for p in (CONTENT / "decks").glob("*_deck*.json")}
+    deck_slugs = {
+        p.name.split("_deck")[0] for p in (CONTENT / "decks").glob("*_deck*.json")
+    }
     assert set(deck_order_from_lessons()) == deck_slugs
 
 
@@ -38,7 +44,13 @@ def test_seeded_deck_order_follows_first_linked_lesson(migrated_app):
                 expected.append(lesson.deck_slug)
         decks = db.session.scalars(select(Deck).order_by(Deck.sort_order)).all()
         assert [deck.slug for deck in decks] == expected
-        assert expected[:5] == ["everyday", "food_drink", "core_verbs", "social_phrases", "starter"]
+        assert expected[:5] == [
+            "everyday",
+            "food_drink",
+            "core_verbs",
+            "social_phrases",
+            "starter",
+        ]
         assert len({deck.sort_order for deck in decks}) == len(decks)
 
 
@@ -71,7 +83,9 @@ def test_vocab_tab_lists_goal_decks_in_lesson_order(migrated_app, migrated_clien
     )
 
 
-def test_continue_after_all_lessons_offers_first_lesson_deck(migrated_app, migrated_client):
+def test_continue_after_all_lessons_offers_first_lesson_deck(
+    migrated_app, migrated_client
+):
     with migrated_app.app_context():
         seed_all()
     _register(migrated_client)

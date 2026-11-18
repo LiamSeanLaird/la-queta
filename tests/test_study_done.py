@@ -55,22 +55,62 @@ def test_study_js_shows_the_panel_instead_of_redirecting():
 
 
 def _function_body(name: str) -> str:
-    match = re.search(rf"async function {name}\(\) {{\n(.*?)\n  }}\n", STUDY_JS, re.S)
+    match = re.search(
+        rf"async function {name}\([^)]*\) {{\n(.*?)\n  }}\n", STUDY_JS, re.S
+    )
     assert match, f"no {name} in study.js"
     return match.group(1)
 
 
 def test_study_js_counts_each_card_once_per_session():
-    """Going Back and stepping through a card again must not post /seen twice.
+    """Going Back and grading a card again must not post a second grade.
 
     Before, Back then Next posted /seen again, so one session could take a
-    card two thirds of the way to retirement.
+    card two thirds of the way to retirement. The same guard now stops a
+    Not yet card that comes back at the end of the session from being
+    graded twice.
     """
-    advance = _function_body("advanceSeen")
-    guard = advance.index("countedThisSession.has(card.id)")
-    assert guard < advance.index("/seen"), "seen POST must come after the guard"
-    assert "countedThisSession.add(card.id)" in advance
+    grade = _function_body("gradeCurrent")
+    guard = grade.index("countedThisSession.has(card.id)")
+    assert guard < grade.index("/grade"), "grade POST must come after the guard"
+    assert "countedThisSession.add(card.id)" in grade
     assert "countedThisSession.add(card.id)" in _function_body("retireCurrent")
+
+
+def test_study_js_grades_instead_of_counting_views():
+    """Flipped cards are graded Knew it / Not yet; study no longer posts /seen.
+
+    Grading already adds to seen on Knew it, so also posting /seen would
+    count every card twice.
+    """
+    assert "/seen" not in STUDY_JS
+    assert '"knew"' in STUDY_JS and '"not_yet"' in STUDY_JS
+    # Not yet cards come back once at the end of the session.
+    assert "requeuedThisSession.has(card.id)" in STUDY_JS
+    assert "queue.push(card)" in STUDY_JS
+
+
+def test_study_page_has_grade_buttons(migrated_app, migrated_client):
+    with migrated_app.app_context():
+        seed_all()
+    response = migrated_client.post(
+        "/api/auth/register",
+        json={
+            "handle": "grader",
+            "email": "grader@example.com",
+            "password": "password1",
+        },
+    )
+    assert response.status_code == 201
+    page = migrated_client.get("/decks/signs/study").get_data(as_text=True)
+    grade = re.search(
+        r'<div class="study-grade" id="study-grade"[^>]*hidden>(.*?)</div>', page, re.S
+    )
+    assert grade, "grade row must start hidden until the card is flipped"
+    assert 'id="study-not-yet">Not yet</button>' in grade.group(1)
+    assert 'class="btn btn--primary" id="study-knew">Knew it</button>' in grade.group(1)
+    assert 'id="study-flip">Show answer</button>' in page
+    assert 'id="study-next"' not in page
 
 
 def _next_lesson_link(client, path: str) -> str | None:
@@ -102,7 +142,11 @@ def test_done_panel_offers_the_next_lesson(migrated_app, migrated_client):
         seed_all()
     response = migrated_client.post(
         "/api/auth/register",
-        json={"handle": "pathfinder", "email": "path@example.com", "password": "password1"},
+        json={
+            "handle": "pathfinder",
+            "email": "path@example.com",
+            "password": "password1",
+        },
     )
     assert response.status_code == 201
 
@@ -126,9 +170,14 @@ def test_done_panel_offers_the_next_lesson(migrated_app, migrated_client):
         "noun-gender | Noun Gender"
     )
     panel = _done_panel(migrated_client.get("/levels/a1/daily").get_data(as_text=True))
-    assert 'class="btn btn--ghost btn--block" href="/levels/a1?tab=vocab" id="study-exit"' in panel
+    assert (
+        'class="btn btn--ghost btn--block" href="/levels/a1?tab=vocab" id="study-exit"'
+        in panel
+    )
 
 
 def test_study_js_promotes_next_lesson_when_nothing_is_left():
     assert 'getElementById("study-next-lesson")' in STUDY_JS
-    assert 'studyNextLesson.classList.toggle("btn--primary", !canStudyAgain)' in STUDY_JS
+    assert (
+        'studyNextLesson.classList.toggle("btn--primary", !canStudyAgain)' in STUDY_JS
+    )

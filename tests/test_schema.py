@@ -47,9 +47,7 @@ def test_upgrade_creates_expected_tables(migrated_app):
 def test_user_handle_and_email_unique(migrated_app):
     with migrated_app.app_context():
         pwd = generate_password_hash("password1")
-        db.session.add(
-            User(handle="liam", email="liam@example.com", password_hash=pwd)
-        )
+        db.session.add(User(handle="liam", email="liam@example.com", password_hash=pwd))
         db.session.commit()
         db.session.add(
             User(handle="liam", email="other@example.com", password_hash=pwd)
@@ -99,7 +97,9 @@ def test_lesson_slug_is_unique(migrated_app):
 def test_card_external_id_is_unique(migrated_app):
     with migrated_app.app_context():
         db.session.add(Level(id="a1", code="A1", title="Beginner", sort_order=1))
-        db.session.add(Deck(level_id="a1", slug="starter", title="Starter", sort_order=1))
+        db.session.add(
+            Deck(level_id="a1", slug="starter", title="Starter", sort_order=1)
+        )
         db.session.flush()
         deck_id = db.session.scalar(select(Deck.id).where(Deck.slug == "starter"))
         db.session.add(
@@ -174,7 +174,9 @@ def test_user_lesson_progress_unique_per_user(migrated_app):
 def test_user_card_progress_unique_per_user(migrated_app):
     with migrated_app.app_context():
         db.session.add(Level(id="a1", code="A1", title="Beginner", sort_order=1))
-        db.session.add(Deck(level_id="a1", slug="starter", title="Starter", sort_order=1))
+        db.session.add(
+            Deck(level_id="a1", slug="starter", title="Starter", sort_order=1)
+        )
         db.session.flush()
         deck_id = db.session.scalar(select(Deck.id).where(Deck.slug == "starter"))
         db.session.add(
@@ -194,7 +196,9 @@ def test_user_card_progress_unique_per_user(migrated_app):
         )
         db.session.commit()
         user_id = db.session.scalar(select(User.id).where(User.handle == "liam"))
-        card_id = db.session.scalar(select(Card.id).where(Card.external_id == "greet_001"))
+        card_id = db.session.scalar(
+            select(Card.id).where(Card.external_id == "greet_001")
+        )
         db.session.add(UserCardProgress(user_id=user_id, card_id=card_id, seen=1))
         db.session.commit()
         db.session.add(UserCardProgress(user_id=user_id, card_id=card_id, seen=2))

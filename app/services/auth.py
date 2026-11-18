@@ -10,9 +10,7 @@ from app.models import User
 from app.services.errors import ServiceError
 
 # Display name stored in `handle`
-NAME_RE = re.compile(
-    r"^[a-zA-ZÀ-ÿ0-9](?:[a-zA-ZÀ-ÿ0-9 '\-]{0,38}[a-zA-ZÀ-ÿ0-9])?$"
-)
+NAME_RE = re.compile(r"^[a-zA-ZÀ-ÿ0-9](?:[a-zA-ZÀ-ÿ0-9 '\-]{0,38}[a-zA-ZÀ-ÿ0-9])?$")
 EMAIL_RE = re.compile(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
 MAX_EMAIL_LEN = 254
 MIN_PASSWORD_LEN = 6

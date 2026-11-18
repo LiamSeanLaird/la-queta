@@ -18,6 +18,59 @@
   --font-ui: "Figtree", "Segoe UI", sans-serif;
   --font-display: "Fraunces", Georgia, serif;
   --shadow-soft: 0 1px 4px rgba(90, 40, 20, 0.1);
+  /* Colours below are light-mode values; the dark block redefines them. */
+  --link: #c1001f;
+  --on-accent: #ffffff;
+  --gold-deep: #e8b400;
+  --tint-base: #ffffff;
+  --glow: rgba(252, 204, 18, 0.35);
+  --masc: #3a5bbf;
+  --fem: #bf3a72;
+  --scrim: rgba(28, 20, 18, 0.35);
+  --shadow-dialog: 0 12px 40px rgba(28, 20, 18, 0.18);
+  /* Gold tints: a lower gold share in dark keeps them warm brown, not olive. */
+  --tint-callout: color-mix(in srgb, var(--senyera-gold) 14%, var(--bg-elevated));
+  --tint-selected: color-mix(in srgb, var(--senyera-gold) 22%, var(--tint-base));
+  /* A disabled filled button fades in light; in dark it turns neutral instead. */
+  --disabled-fill: var(--accent);
+  --disabled-fill-ink: var(--on-accent);
+  --disabled-fill-opacity: 0.45;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #17110e;
+    --bg-elevated: #221a16;
+    --ink: #f4ead8;
+    --muted: #bba78f;
+    --accent: #c1001f;
+    --accent-hover: #dd1f3c;
+    --senyera-gold: #fccc12;
+    --senyera-red: #f0475c;
+    --highlight: #fccc12;
+    --danger: #fb7185;
+    --ok: #4ade80;
+    --border: #4a3a2a;
+    --track: #3a2e22;
+    --tab-rail: #2c221c;
+    --surface-solid: #3a2e26;
+    --shadow-soft: 0 1px 4px rgba(0, 0, 0, 0.45);
+    --link: #ff7a88;
+    --on-accent: #ffffff;
+    --gold-deep: #e8b400;
+    --tint-base: #221a16;
+    --glow: rgba(252, 204, 18, 0.1);
+    --masc: #8fa8ff;
+    --fem: #ff8fbf;
+    --scrim: rgba(0, 0, 0, 0.6);
+    --shadow-dialog: 0 12px 40px rgba(0, 0, 0, 0.6);
+    --tint-callout: color-mix(in srgb, var(--senyera-gold) 8%, var(--bg-elevated));
+    --tint-selected: color-mix(in srgb, var(--senyera-gold) 12%, var(--tint-base));
+    --disabled-fill: var(--surface-solid);
+    --disabled-fill-ink: var(--muted);
+    --disabled-fill-opacity: 1;
+  }
 }
 
 *,
@@ -31,14 +84,14 @@ body {
   min-height: 100vh;
   font-family: var(--font-ui);
   background:
-    radial-gradient(ellipse 90% 50% at 50% -10%, rgba(252, 204, 18, 0.35), transparent 55%),
+    radial-gradient(ellipse 90% 50% at 50% -10%, var(--glow), transparent 55%),
     var(--bg);
   color: var(--ink);
   line-height: 1.5;
 }
 
 a {
-  color: var(--accent);
+  color: var(--link);
 }
 
 [hidden] {
@@ -60,10 +113,14 @@ a.icon-btn {
 }
 
 a.level-tile,
-a.list-row,
-a.tab-btn {
+a.list-row {
   text-decoration: none;
   color: inherit;
+}
+
+/* No colour here: .tab-btn sets it, and inherit would make idle tabs look selected. */
+a.tab-btn {
+  text-decoration: none;
 }
 
 a.level-tile,
@@ -117,6 +174,13 @@ a.tab-btn {
   width: 100%;
 }
 
+.study-grade {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  width: 100%;
+}
+
 .study-actions__end {
   display: flex;
   align-items: center;
@@ -131,11 +195,11 @@ a.tab-btn {
   background: var(--bg-elevated);
   color: var(--ink);
   max-width: min(22rem, calc(100vw - 2rem));
-  box-shadow: 0 12px 40px color-mix(in srgb, var(--ink) 18%, transparent);
+  box-shadow: var(--shadow-dialog);
 }
 
 .dialog::backdrop {
-  background: color-mix(in srgb, var(--ink) 35%, transparent);
+  background: var(--scrim);
 }
 
 .dialog__panel {
@@ -326,10 +390,15 @@ a.tab-btn {
   font-size: 0.82rem;
 }
 
+/* Keep a word ending such as "-em" on one line (see app/text_filters.py). */
+.affix {
+  white-space: nowrap;
+}
+
 .rule-callout {
   margin: 0;
   padding: 0.9rem 1rem;
-  background: color-mix(in srgb, var(--senyera-gold) 14%, var(--bg-elevated));
+  background: var(--tint-callout);
   border-left: 3px solid var(--senyera-gold);
   border-radius: 0 var(--radius) var(--radius) 0;
   font-family: var(--font-display);
@@ -361,16 +430,22 @@ a.tab-btn {
 
 .btn--primary {
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
+}
+
+.btn--primary:disabled {
+  background: var(--disabled-fill);
+  color: var(--disabled-fill-ink);
+  opacity: var(--disabled-fill-opacity);
 }
 
 a.btn.btn--primary {
-  color: #fff;
+  color: var(--on-accent);
 }
 
 .btn--primary:hover:not(:disabled) {
   background: var(--accent-hover);
-  color: #fff;
+  color: var(--on-accent);
 }
 
 .btn--secondary {
@@ -468,7 +543,7 @@ a.btn.btn--primary {
   font-family: var(--font-ui);
   font-size: 0.82rem;
   font-weight: 600;
-  color: color-mix(in srgb, var(--muted) 70%, transparent);
+  color: var(--muted);
   cursor: pointer;
   transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
 }
@@ -491,7 +566,7 @@ a.btn.btn--primary {
 
 .progress__bar {
   height: 100%;
-  background: linear-gradient(90deg, var(--senyera-gold), #e8b400);
+  background: linear-gradient(90deg, var(--senyera-gold), var(--gold-deep));
   border-radius: inherit;
   transition: width 0.2s ease;
 }
@@ -510,6 +585,53 @@ a.btn.btn--primary {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+}
+
+/* ── Daily vocab call to action ──────────────────────── */
+
+.daily-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.level-tile__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 0 1.15rem 1.15rem;
+}
+
+.level-tile__done {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.level-tile__done-check {
+  color: var(--ok);
+  font-weight: 700;
+}
+
+.daily-cta__check {
+  color: var(--ok);
+  font-weight: 700;
+}
+
+.daily-cta__streak {
+  margin: 0;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.study-done__daily {
+  margin: 0;
+  font-weight: 600;
+}
+
+.study-done__check {
+  color: var(--ok);
+  font-weight: 700;
 }
 
 /* ── Level tile ──────────────────────────────────────── */
@@ -537,6 +659,8 @@ a.btn.btn--primary {
   border: 0;
   border-radius: 0;
   box-shadow: none;
+  /* Let the card's gold inset edge show through along the full height. */
+  background: transparent;
   padding-bottom: 0.55rem;
 }
 
@@ -590,11 +714,33 @@ a.btn.btn--primary {
   font-size: 0.9rem;
 }
 
+/* Lessons done and words learned; sits between the meta line and the bar. */
+.level-tile__meta:has(+ .level-tile__counts) {
+  margin-bottom: 0.15rem;
+}
+
+.level-tile__counts {
+  margin: 0 0 0.75rem;
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
 .level-tile__goals {
   margin: 0;
   padding: 0 1.15rem 1rem;
   color: var(--muted);
   font-size: 0.9rem;
+}
+
+.level-tile__goal-name {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* Keep the "·" separator on the same line as the goals link when it wraps. */
+.level-tile__goals-link {
+  white-space: nowrap;
 }
 
 .text-link {
@@ -842,7 +988,7 @@ a.btn.btn--primary {
 }
 
 .badge--done {
-  background: color-mix(in srgb, var(--ok) 15%, white);
+  background: color-mix(in srgb, var(--ok) 15%, var(--tint-base));
   color: var(--ok);
 }
 
@@ -937,13 +1083,13 @@ a.btn.btn--primary {
 }
 
 .gram-pill--m {
-  background: color-mix(in srgb, #3a5bbf 12%, white);
-  color: #3a5bbf;
+  background: color-mix(in srgb, var(--masc) 12%, var(--tint-base));
+  color: var(--masc);
 }
 
 .gram-pill--f {
-  background: color-mix(in srgb, #bf3a72 12%, white);
-  color: #bf3a72;
+  background: color-mix(in srgb, var(--fem) 12%, var(--tint-base));
+  color: var(--fem);
 }
 
 .gram-pill--pl {
@@ -978,17 +1124,17 @@ a.btn.btn--primary {
 
 .option.is-selected {
   border-color: var(--senyera-red);
-  background: color-mix(in srgb, var(--senyera-gold) 22%, white);
+  background: var(--tint-selected);
 }
 
 .option.is-correct {
   border-color: var(--ok);
-  background: color-mix(in srgb, var(--ok) 10%, white);
+  background: color-mix(in srgb, var(--ok) 10%, var(--tint-base));
 }
 
 .option.is-wrong {
   border-color: var(--danger);
-  background: color-mix(in srgb, var(--danger) 8%, white);
+  background: color-mix(in srgb, var(--danger) 8%, var(--tint-base));
 }
 
 /* ── Examples table ──────────────────────────────────── */

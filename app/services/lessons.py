@@ -42,7 +42,9 @@ def list_lessons_for_level(user: User, level_id: str) -> list[dict]:
             "title": lesson.title,
             "summary": lesson.summary,
             "sort_order": lesson.sort_order,
-            "completed": bool(progress.get(lesson.id) and progress[lesson.id].completed),
+            "completed": bool(
+                progress.get(lesson.id) and progress[lesson.id].completed
+            ),
         }
         for lesson in lessons
     ]
@@ -87,8 +89,14 @@ def complete_lesson(
     expected_total = len(practice)
 
     if not isinstance(exercises_correct, int) or not isinstance(exercises_total, int):
-        raise ServiceError("exercises_correct and exercises_total must be integers", 400)
-    if exercises_correct < 0 or exercises_total < 0 or exercises_correct > exercises_total:
+        raise ServiceError(
+            "exercises_correct and exercises_total must be integers", 400
+        )
+    if (
+        exercises_correct < 0
+        or exercises_total < 0
+        or exercises_correct > exercises_total
+    ):
         raise ServiceError("Invalid exercise score", 400)
     if expected_total == 0:
         raise ServiceError("Lesson has no practice items", 400)

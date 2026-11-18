@@ -140,6 +140,8 @@ When Practice ends the learner stays on the lesson: a done panel offers the less
 - Semantic structure (`main`, `nav`, `section`, `button` for actions).
 - Accessible labels on interactive controls.
 - Catalan UI chrome can mix EN labels for learners; content language follows lesson/card data.
+- Render lesson prose (text, rule and example-note sections) through the `keep_affixes` filter (`app/text_filters.py`).
+  It wraps endings such as `-em`, `-er/-re` and `-eix-` in a `.affix` nowrap span, because browsers may break a line straight after the hyphen.
 - Logged-in shell (`base.html` topbar): **←** back left (`{% block top_back %}`), brand center, profile + feedback (mailto / `FEEDBACK_EMAIL`) right, side by side in one row (never stacked). Tagline (`aprèn català`) only on the gate.
 
 ### CSS
@@ -191,8 +193,33 @@ Intentional **La Queta** look — Catalan learning tool with Senyera **red + gol
   --radius: 10px;
   --font-ui: "Figtree", "Segoe UI", sans-serif;
   --font-display: "Fraunces", Georgia, serif;
+  --link: #c1001f;          /* inline link text */
+  --on-accent: #ffffff;     /* text on red buttons */
+  --gold-deep: #e8b400;     /* end of the progress gradient */
+  --tint-base: #ffffff;     /* base for color-mix tints (badges, options, pills) */
+  --glow: rgba(252, 204, 18, 0.35); /* top radial wash on body */
+  --masc: #3a5bbf;
+  --fem: #bf3a72;
+  --scrim: rgba(28, 20, 18, 0.35);  /* dialog backdrop */
+  --shadow-dialog: 0 12px 40px rgba(28, 20, 18, 0.18);
+  --tint-callout: color-mix(in srgb, var(--senyera-gold) 14%, var(--bg-elevated)); /* rule callout */
+  --tint-selected: color-mix(in srgb, var(--senyera-gold) 22%, var(--tint-base));  /* selected option */
+  --disabled-fill: var(--accent);        /* disabled primary button */
+  --disabled-fill-ink: var(--on-accent);
+  --disabled-fill-opacity: 0.45;
 }
 ```
+
+### Dark mode
+- `static/app.css` redefines every colour token inside `@media (prefers-color-scheme: dark) { :root { ... } }`, and `:root` sets `color-scheme: light dark` so form controls and scrollbars follow.
+- Rules outside `:root` must use tokens, never raw hex, `rgb()` or `white` (`tests/test_dark_mode_css.py` enforces this).
+  Add a token with a light and a dark value instead.
+- Dark surfaces are warm browns (`--bg #17110e`, `--bg-elevated #221a16`), ink is cream, and the gold stays the same.
+  Red buttons keep `#c1001f` with white text, while red *text* (`--senyera-red`, `--link`, `--danger`) is lightened so it stays readable on the dark surface.
+- Gold tints use a lower gold share in dark (`--tint-callout`, `--tint-selected`), because gold mixed into a dark brown turns olive.
+- A disabled primary button fades to 45% in light, but in dark it becomes a neutral surface with muted text, because faded red on a dark page looks muddy.
+- `templates/base.html` sets a `theme-color` meta tag for each scheme so the phone browser bar matches `--bg`; the test checks they stay in sync.
+- Check every page in both schemes with `scripts/screenshots.py --dark`.
 
 ### Colour roles
 - **Red (`--accent` / `--senyera-red`):** brand title, primary buttons, links, current borders.
@@ -210,7 +237,7 @@ Intentional **La Queta** look — Catalan learning tool with Senyera **red + gol
 
 ### Screens (IA)
 1. `/` — create account / sign in gate (authed → `/levels`)
-2. `/levels` — level hub (A1 / A2 + %)
+2. `/levels` — level hub (A1 / A2). Each open level card is a link to the level (counts and bar), then the next goal with its lesson count and a link to all goals, then a primary "Continue: <Lesson>" or "Study vocab: <Deck>" button (`/continue?level=<id>`, from `continue_target`) or "All A1 lessons and vocab done", then a secondary Daily vocab button and the streak. The card link and the buttons are siblings, never nested.
 3. `/levels/<id>` — level home (Learn | Vocab tab)
 4. `/lessons/<id>` — lesson
 5. `/decks/<slug>` → `/study` | `/browse`

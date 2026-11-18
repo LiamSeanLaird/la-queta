@@ -21,9 +21,10 @@ def _raw_can_dos() -> list[dict]:
 def list_can_dos_for_level(user: User, level_id: str) -> list[dict]:
     if level_id != "a1":
         return []
+    return _can_dos_items(_raw_can_dos(), list_lessons_for_level(user, level_id))
 
-    raw = _raw_can_dos()
-    lessons = list_lessons_for_level(user, level_id)
+
+def _can_dos_items(raw: list[dict], lessons: list[dict]) -> list[dict]:
     by_id = {row["id"]: row for row in lessons}
     completed = {row["id"] for row in lessons if row["completed"]}
 
@@ -47,8 +48,31 @@ def list_can_dos_for_level(user: User, level_id: str) -> list[dict]:
     return result
 
 
+def next_goal(items: list[dict], next_lesson_id: str | None) -> dict | None:
+    """
+    The unfinished goal the learner is working towards.
+
+    That is the goal holding the next lesson Continue would open, so the card
+    and the Continue button agree. If that lesson belongs to no goal (or all
+    lessons are done), fall back to the first unfinished goal with lessons.
+    """
+    open_goals = [item for item in items if not item["done"] and item["lessons_total"]]
+    if next_lesson_id is not None:
+        for item in open_goals:
+            if next_lesson_id in item["lesson_ids"]:
+                return item
+    return open_goals[0] if open_goals else None
+
+
 def can_dos_progress(user: User, level_id: str) -> dict:
-    items = list_can_dos_for_level(user, level_id)
+    if level_id == "a1":
+        lessons = list_lessons_for_level(user, level_id)
+        items = _can_dos_items(_raw_can_dos(), lessons)
+        next_lesson_id = next(
+            (row["id"] for row in lessons if not row["completed"]), None
+        )
+    else:
+        items, next_lesson_id = [], None
     done = sum(1 for item in items if item["done"])
     total = len(items)
     return {
@@ -56,6 +80,7 @@ def can_dos_progress(user: User, level_id: str) -> dict:
         "done": done,
         "total": total,
         "pct": round(100 * done / total) if total else 0,
+        "next": next_goal(items, next_lesson_id),
     }
 
 

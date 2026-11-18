@@ -8,7 +8,7 @@
 <section class="stack-lg">
   <div class="page-intro">
     <h2 class="heading-2">{{ level.code }}</h2>
-    <p class="text-muted">{{ level.title }} · {{ complete_pct }}% complete</p>
+    <p class="text-muted">{{ level.title }}{% if progress_summary %} · {{ progress_summary }}{% endif %}</p>
     {% if goals_total %}
     <p class="text-muted">
       {{ goals_done }}/{{ goals_total }}

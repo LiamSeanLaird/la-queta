@@ -6,6 +6,8 @@
   const TIP_SKIP_KEY = "la-queta-study-tip-skip";
 
   const sessionUrl = page.dataset.sessionUrl;
+  // Only daily vocab sets this: finishing it counts toward the streak.
+  const completeUrl = page.dataset.completeUrl;
   const studyCard = document.getElementById("study-card");
   const studyLang = document.getElementById("study-lang");
   const studyWord = document.getElementById("study-word");
@@ -18,11 +20,16 @@
   const studyProgressBar = document.getElementById("study-progress-bar");
   const studyActions = document.getElementById("study-actions");
   const studyBack = document.getElementById("study-back");
-  const studyNext = document.getElementById("study-next");
+  const studyFlip = document.getElementById("study-flip");
+  const studyGrade = document.getElementById("study-grade");
+  const studyNotYet = document.getElementById("study-not-yet");
+  const studyKnew = document.getElementById("study-knew");
   const studyRetire = document.getElementById("study-retire");
   const studyDone = document.getElementById("study-done");
   const studyDoneTitle = document.getElementById("study-done-title");
   const studyDoneText = document.getElementById("study-done-text");
+  // Daily vocab only: "done for today" and the streak, once it is saved.
+  const studyDoneDaily = document.getElementById("study-done-daily");
   const studyAgain = document.getElementById("study-again");
   const studyExit = document.getElementById("study-exit");
   const studyNextLesson = document.getElementById("study-next-lesson");
@@ -51,9 +58,14 @@
   // Card ids the learner retired in this session, by tapping Retire or by
   // reaching the seen threshold. Cards that were already retired don't count.
   const retiredThisSession = new Set();
-  // Card ids already counted in this session (seen or retired). Going Back and
-  // stepping through a card again must not count it a second time.
+  // Card ids already counted in this session (graded or retired). Going Back
+  // and grading a card again, or meeting a Not yet card again at the end of
+  // the session, must not count it a second time.
   const countedThisSession = new Set();
+  // Card ids the learner graded Knew it the first time they met them.
+  const knewThisSession = new Set();
+  // Card ids graded Not yet and queued again at the end (once per session).
+  const requeuedThisSession = new Set();
 
   function dialogOpen() {
     return (tipDialog && tipDialog.open) || (retireDialog && retireDialog.open);
@@ -114,28 +126,69 @@
       studyWord.textContent = card.english;
       setMeta(card, false);
     }
+    // The grade buttons only make sense once the learner has seen the answer.
+    studyFlip.hidden = !catalanSide;
+    studyGrade.hidden = catalanSide;
   }
 
   function plural(count, word) {
     return `${count} ${word}${count === 1 ? "" : "s"}`;
   }
 
+  /** Distinct cards in the session; Not yet cards appear in the queue twice. */
+  function uniqueCardCount() {
+    return new Set(queue.map((card) => card.id)).size;
+  }
+
   function summaryText() {
-    const total = queue.length;
+    const total = uniqueCardCount();
     const retired = retiredThisSession.size;
     if (retired === total) {
       return `You went through ${plural(total, "card")} and retired all of them.`;
     }
-    if (retired > 0) {
-      return `You went through ${plural(total, "card")} and retired ${retired}. ` +
-        "Study again to keep the rest moving.";
+    const knew = `You knew ${knewThisSession.size} of ${plural(total, "card")}`;
+    const retiredPart = retired > 0 ? ` and retired ${retired}` : "";
+    return `${knew}${retiredPart}. ` +
+      "A card retires after you knew it 3 times, or when you tap Retire.";
+  }
+
+  function browserTimezone() {
+    try {
+      return Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+    } catch (error) {
+      return "";
     }
-    return `You went through ${plural(total, "card")}. ` +
-      "A card retires after you have seen it 3 times, or when you tap Retire.";
+  }
+
+  async function recordComplete() {
+    if (!completeUrl) return;
+    const { response, body } = await window.LaQueta.api(completeUrl, {
+      method: "POST",
+      body: JSON.stringify({ timezone: browserTimezone() }),
+    });
+    if (!response.ok) {
+      window.LaQueta.showError(studyError, body.error || "Could not save today's session");
+      return;
+    }
+    showDailyDone(body);
+  }
+
+  /** "✓ Daily vocab done for today · 3-day streak", from /daily/complete. */
+  function showDailyDone(status) {
+    if (!studyDoneDaily || !status || !status.done_today) return;
+    const check = document.createElement("span");
+    check.className = "study-done__check";
+    check.setAttribute("aria-hidden", "true");
+    check.textContent = "✓";
+    const parts = ["Daily vocab done for today"];
+    if (status.streak > 0) parts.push(`${status.streak}-day streak`);
+    studyDoneDaily.replaceChildren(check, ` ${parts.join(" · ")}`);
+    studyDoneDaily.hidden = false;
   }
 
   function finishSession() {
     studyCard.hidden = true;
+    studyGrade.hidden = true;
     studyActions.hidden = true;
     studyDone.hidden = false;
     studyRemaining.textContent = "";
@@ -144,13 +197,14 @@
       studyProgressBar.style.width = "100%";
       studyDoneTitle.textContent = "Session complete";
       studyDoneText.textContent = summaryText();
+      recordComplete();
     } else {
       studyProgress.hidden = true;
       studyDoneTitle.textContent = "Nothing to study";
       studyDoneText.textContent = studyDoneText.dataset.emptyText;
     }
     // Studying again only helps if this session left unretired cards behind.
-    const canStudyAgain = queue.length > retiredThisSession.size;
+    const canStudyAgain = uniqueCardCount() > retiredThisSession.size;
     studyAgain.hidden = !canStudyAgain;
     // Without Study again, the next button down becomes the main one:
     // the next lesson when there is one, else the way back.
@@ -189,14 +243,22 @@
     studyProgressBar.style.width = `${pct}%`;
   }
 
-  function flipToEnglish() {
-    if (!queue[index] || !showingCatalan) return;
-    showFace(false);
+  /** Tap / Enter / Show answer: turn the card over (either way). */
+  function flip() {
+    if (!queue[index] || advancing) return;
+    showFace(!showingCatalan);
   }
 
-  async function advanceSeen() {
+  function requeue(card) {
+    if (requeuedThisSession.has(card.id)) return;
+    requeuedThisSession.add(card.id);
+    queue.push(card);
+  }
+
+  /** Knew it / Not yet: save the grade once per card, then move on. */
+  async function gradeCurrent(grade) {
     const card = queue[index];
-    if (!card || advancing) return;
+    if (!card || advancing || showingCatalan) return;
     if (countedThisSession.has(card.id)) {
       index += 1;
       renderCard();
@@ -205,31 +267,26 @@
     advancing = true;
     window.LaQueta.showError(studyError, "");
     try {
-      const { response, body } = await window.LaQueta.api(`/api/cards/${card.id}/seen`, {
+      const { response, body } = await window.LaQueta.api(`/api/cards/${card.id}/grade`, {
         method: "POST",
-        body: "{}",
+        body: JSON.stringify({ grade }),
       });
       if (!response.ok) {
-        window.LaQueta.showError(studyError, body.error || "Could not save seen");
+        window.LaQueta.showError(studyError, body.error || "Could not save your answer");
         return;
       }
       countedThisSession.add(card.id);
       noteRetired(card, body);
+      if (grade === "knew") {
+        knewThisSession.add(card.id);
+      } else {
+        requeue(card);
+      }
       index += 1;
       renderCard();
     } finally {
       advancing = false;
     }
-  }
-
-  /** Tap / Enter / Next: Catalan → English → next card (seen++). */
-  async function stepThrough() {
-    if (!queue[index] || advancing) return;
-    if (showingCatalan) {
-      flipToEnglish();
-      return;
-    }
-    await advanceSeen();
   }
 
   function goBack() {
@@ -297,7 +354,7 @@
 
   studyCard.addEventListener("click", () => {
     if (dialogOpen()) return;
-    stepThrough();
+    flip();
   });
 
   document.addEventListener("keydown", (event) => {
@@ -306,11 +363,17 @@
     if (tag && ["INPUT", "TEXTAREA", "SELECT", "BUTTON"].includes(tag)) return;
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
-      stepThrough();
+      flip();
+    } else if (event.key === "1" && !showingCatalan) {
+      gradeCurrent("not_yet");
+    } else if (event.key === "2" && !showingCatalan) {
+      gradeCurrent("knew");
     }
   });
 
-  studyNext.addEventListener("click", () => stepThrough());
+  studyFlip.addEventListener("click", flip);
+  studyNotYet.addEventListener("click", () => gradeCurrent("not_yet"));
+  studyKnew.addEventListener("click", () => gradeCurrent("knew"));
   studyBack.addEventListener("click", goBack);
   studyRetire.addEventListener("click", requestRetire);
 

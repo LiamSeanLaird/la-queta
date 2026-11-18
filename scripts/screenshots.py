@@ -45,15 +45,16 @@ def _chromium_path() -> str | None:
         return explicit
     # Fall back to any cached Chromium if the pinned one is missing.
     pattern = os.path.expanduser(
-        "~/Library/Caches/ms-playwright/chromium-*/chrome-mac*/"
-        "*.app/Contents/MacOS/*"
+        "~/Library/Caches/ms-playwright/chromium-*/chrome-mac*/*.app/Contents/MacOS/*"
     )
     matches = sorted(glob.glob(pattern))
     return matches[-1] if matches else None
 
 
 def _slug(path: str) -> str:
-    return path.strip("/").replace("/", "_").replace("?", "_").replace("=", "-") or "home"
+    return (
+        path.strip("/").replace("/", "_").replace("?", "_").replace("=", "-") or "home"
+    )
 
 
 def main() -> int:
@@ -62,7 +63,9 @@ def main() -> int:
     parser.add_argument("--out", default="/tmp/la-queta-shots")
     parser.add_argument("--dark", action="store_true", help="also capture dark mode")
     parser.add_argument(
-        "--viewport", action="store_true", help="capture only the first screen, not the full page"
+        "--viewport",
+        action="store_true",
+        help="capture only the first screen, not the full page",
     )
     parser.add_argument("paths", nargs="*")
     args = parser.parse_args()
@@ -93,23 +96,31 @@ def main() -> int:
                     },
                 )
                 if not resp.ok:
-                    print(f"register failed: {resp.status} {resp.text()}", file=sys.stderr)
+                    print(
+                        f"register failed: {resp.status} {resp.text()}", file=sys.stderr
+                    )
                     return 1
                 page = context.new_page()
                 current = {"path": ""}
                 page.on(
                     "console",
                     lambda msg: msg.type == "error"
-                    and problems.append(f"[{label}/{scheme}] {current['path']}: console {msg.text}"),
+                    and problems.append(
+                        f"[{label}/{scheme}] {current['path']}: console {msg.text}"
+                    ),
                 )
                 page.on(
                     "pageerror",
-                    lambda err: problems.append(f"[{label}/{scheme}] {current['path']}: {err}"),
+                    lambda err: problems.append(
+                        f"[{label}/{scheme}] {current['path']}: {err}"
+                    ),
                 )
                 page.on(
                     "response",
                     lambda r: r.status >= 400
-                    and problems.append(f"[{label}/{scheme}] {current['path']}: HTTP {r.status} {r.url}"),
+                    and problems.append(
+                        f"[{label}/{scheme}] {current['path']}: HTTP {r.status} {r.url}"
+                    ),
                 )
                 for path in paths:
                     current["path"] = path

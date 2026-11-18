@@ -92,7 +92,7 @@
         <h3 class="heading-3">Heading 3 - subsection</h3>
         <div class="page-intro" style="margin: 1rem 0;">
           <h2 class="heading-2">A1</h2>
-          <p class="text-muted">Beginner · 19% complete</p>
+          <p class="text-muted">Beginner · 3 of 20 lessons · 89 words learned</p>
           <p class="text-muted">1/7 <button type="button" class="text-link">goals</button> complete</p>
         </div>
         <p class="text-small">`.page-intro` - centered page title/meta under the topbar; list/card body stays left.</p>
@@ -169,11 +169,38 @@
     <section class="sg-section" id="levels">
       <h2 class="sg-section__title">Level tiles</h2>
       <div class="level-grid">
-        <button type="button" class="level-tile is-current">
-          <p class="level-tile__code">A1</p>
-          <p class="level-tile__meta">Beginner · current</p>
-          <div class="progress" aria-hidden="true"><div class="progress__bar" style="width: 42%"></div></div>
-        </button>
+        <div class="level-tile-card is-current">
+          <a class="level-tile" href="#">
+            <p class="level-tile__code">A1</p>
+            <p class="level-tile__meta">Beginner · current</p>
+            <p class="level-tile__counts">3 of 20 lessons · 89 words learned</p>
+            <div class="progress" aria-hidden="true"><div class="progress__bar" style="width: 42%"></div></div>
+          </a>
+          <p class="level-tile__goals">Next goal: <span class="level-tile__goal-name">Build core grammar</span> - 3 of 5 lessons <span class="level-tile__goals-link">· <button type="button" class="text-link">See all 7 goals</button></span></p>
+          <div class="level-tile__actions">
+            <a class="btn btn--primary btn--block level-tile__continue" href="#">Continue: Present Tense</a>
+            <div class="daily-cta">
+              <a class="btn btn--secondary btn--block daily-cta__btn" href="#">Daily vocab</a>
+              <p class="daily-cta__streak">3-day streak - finish today's daily to keep it</p>
+            </div>
+          </div>
+        </div>
+        <div class="level-tile-card">
+          <a class="level-tile" href="#">
+            <p class="level-tile__code">A1</p>
+            <p class="level-tile__meta">Beginner</p>
+            <p class="level-tile__counts">20 of 20 lessons</p>
+            <div class="progress" aria-hidden="true"><div class="progress__bar" style="width: 100%"></div></div>
+          </a>
+          <p class="level-tile__goals"><span class="level-tile__done-check" aria-hidden="true">✓</span> <button type="button" class="text-link">All 7 goals complete</button></p>
+          <div class="level-tile__actions">
+            <p class="level-tile__done"><span class="level-tile__done-check" aria-hidden="true">✓</span> All A1 lessons and vocab done</p>
+            <div class="daily-cta">
+              <a class="btn btn--secondary btn--block daily-cta__btn is-done" href="#"><span class="daily-cta__check" aria-hidden="true">✓</span> Daily vocab - done for today</a>
+              <p class="daily-cta__streak">4-day streak</p>
+            </div>
+          </div>
+        </div>
         <div class="level-tile is-disabled" aria-disabled="true">
           <p class="level-tile__code">A2</p>
           <p class="level-tile__meta">Elementary · coming soon</p>
@@ -225,8 +252,13 @@
           <button type="button" class="btn btn--secondary">Back</button>
           <div class="study-actions__end">
             <button type="button" class="btn btn--ghost">Retire</button>
-            <button type="button" class="btn btn--secondary">Next</button>
+            <button type="button" class="btn btn--primary">Show answer</button>
           </div>
+        </div>
+        <p class="text-muted">After the flip, the grade row replaces Show answer:</p>
+        <div class="study-grade">
+          <button type="button" class="btn btn--secondary">Not yet</button>
+          <button type="button" class="btn btn--primary">Knew it</button>
         </div>
       </div>
     </section>

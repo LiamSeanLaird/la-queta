@@ -2,33 +2,58 @@
 {% block title %}La Queta - levels{% endblock %}
 {% block content %}
 <section class="stack-lg">
-  {% if daily_href %}
-  <a class="btn btn--primary btn--block" href="{{ daily_href }}">Daily vocab</a>
-  {% endif %}
-
   <div class="level-grid">
     {% for level in levels %}
       {% if level.available %}
       <div class="level-tile-card{% if level.is_current %} is-current{% endif %}">
         <a class="level-tile" href="{{ url_for('pages.level_home', level_id=level.id) }}">
           <p class="level-tile__code">{{ level.code }}</p>
-          <p class="level-tile__meta">{{ level.title }} · {{ level.complete_pct }}%{% if level.is_current %} · current{% endif %}</p>
+          <p class="level-tile__meta">{{ level.title }}{% if level.is_current %} · current{% endif %}</p>
+          {% if level.progress_summary %}
+          <p class="level-tile__counts">{{ level.progress_summary }}</p>
+          {% endif %}
           <div class="progress" aria-hidden="true"><div class="progress__bar" style="width: {{ level.complete_pct }}%"></div></div>
         </a>
         {% if level.goals_total %}
         <p class="level-tile__goals">
-          {{ level.goals_done }}/{{ level.goals_total }}
-          <button
+          {% if level.next_goal %}
+          Next goal: <span class="level-tile__goal-name">{{ level.next_goal.label }}</span>
+          - {{ level.next_goal.lessons_done }} of {{ level.next_goal.lessons_total }} {{ 'lesson' if level.next_goal.lessons_total == 1 else 'lessons' }}
+          {% elif level.goals_done == level.goals_total %}
+          <span class="level-tile__done-check" aria-hidden="true">✓</span>
+          {% endif %}
+          <span class="level-tile__goals-link">{% if level.next_goal %}· {% endif %}<button
             type="button"
             class="text-link"
             data-can-dos-open
             data-can-dos-dialog="can-dos-{{ level.id }}"
             aria-haspopup="dialog"
             aria-controls="can-dos-{{ level.id }}"
-          >goals</button>
-          complete
+          >{% if level.goals_done == level.goals_total %}All {{ level.goals_total }} goals complete{% elif level.goals_done %}{{ level.goals_done }}/{{ level.goals_total }} goals done{% else %}See all {{ level.goals_total }} goals{% endif %}</button></span>
         </p>
         {% endif %}
+        <div class="level-tile__actions">
+          {% if level.continue %}
+          <a class="btn btn--primary btn--block level-tile__continue" href="{{ url_for('pages.continue_learning', level=level.id) }}">{{ level.continue.label }}</a>
+          {% else %}
+          <p class="level-tile__done"><span class="level-tile__done-check" aria-hidden="true">✓</span> All {{ level.code }} lessons and vocab done</p>
+          {% endif %}
+          {% if daily_href and level.id == daily_level_id %}
+          <div class="daily-cta">
+            {% if daily.done_today %}
+            <a class="btn btn--secondary btn--block daily-cta__btn is-done" href="{{ daily_href }}">
+              <span class="daily-cta__check" aria-hidden="true">✓</span>
+              Daily vocab - done for today
+            </a>
+            {% else %}
+            <a class="btn btn--secondary btn--block daily-cta__btn" href="{{ daily_href }}">Daily vocab</a>
+            {% endif %}
+            {% if daily.streak %}
+            <p class="daily-cta__streak">{{ daily.streak }}-day streak{% if not daily.done_today %} - finish today's daily to keep it{% endif %}</p>
+            {% endif %}
+          </div>
+          {% endif %}
+        </div>
       </div>
       {% else %}
       <div class="level-tile is-disabled" aria-disabled="true">

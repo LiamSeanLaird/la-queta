@@ -27,13 +27,19 @@ ALLOWED_POS = {
 
 
 def _deck(slug: str) -> list[dict]:
-    return json.loads((CONTENT / "decks" / f"{slug}_deck.json").read_text(encoding="utf-8"))
+    return json.loads(
+        (CONTENT / "decks" / f"{slug}_deck.json").read_text(encoding="utf-8")
+    )
 
 
 def test_every_card_pos_comes_from_the_fixed_set():
     for path in sorted((CONTENT / "decks").glob("*_deck*.json")):
         for card in json.loads(path.read_text(encoding="utf-8")):
-            assert card.get("pos") in ALLOWED_POS, (path.name, card["id"], card.get("pos"))
+            assert card.get("pos") in ALLOWED_POS, (
+                path.name,
+                card["id"],
+                card.get("pos"),
+            )
 
 
 def test_numbers_deck_covers_zero_to_twenty_tens_hundred_and_thousand():
@@ -43,13 +49,24 @@ def test_numbers_deck_covers_zero_to_twenty_tens_hundred_and_thousand():
     assert {tuple(card["tags"]) for card in cards} == {("numbers",)}
     words = [card["catalan"] for card in cards]
     assert words[:4] == ["zero", "un / una", "dos / dues", "tres"]
-    for word in ["quinze", "setze", "disset", "vint", "trenta", "noranta", "cent", "mil"]:
+    for word in [
+        "quinze",
+        "setze",
+        "disset",
+        "vint",
+        "trenta",
+        "noranta",
+        "cent",
+        "mil",
+    ]:
         assert word in words
     assert all(card["id"].startswith("nm_") for card in cards)
 
 
 def test_numbers_lesson_links_to_numbers_deck_and_it_sorts_in_place(migrated_app):
-    lesson = json.loads((CONTENT / "lessons" / "07-numbers.json").read_text(encoding="utf-8"))
+    lesson = json.loads(
+        (CONTENT / "lessons" / "07-numbers.json").read_text(encoding="utf-8")
+    )
     assert lesson["deck"] == "numbers"
     with migrated_app.app_context():
         seed_all()

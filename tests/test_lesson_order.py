@@ -43,7 +43,11 @@ def test_lesson_file_names_carry_their_order():
 def _register(client):
     response = client.post(
         "/api/auth/register",
-        json={"handle": "inorder", "email": "inorder@example.com", "password": "password1"},
+        json={
+            "handle": "inorder",
+            "email": "inorder@example.com",
+            "password": "password1",
+        },
     )
     assert response.status_code == 201
 
@@ -73,7 +77,9 @@ def test_next_lesson_is_the_next_row_on_the_learn_tab(migrated_app, migrated_cli
     # A learner who works down the Learn tab is sent to the next row, not elsewhere.
     for lesson_id in _goal_lesson_ids()[:6]:
         _complete(migrated_client, lesson_id)
-    practice = migrated_client.get("/lessons/introductions?tab=practice").get_data(as_text=True)
+    practice = migrated_client.get("/lessons/introductions?tab=practice").get_data(
+        as_text=True
+    )
     assert 'href="/lessons/numbers"' in practice
     assert "/lessons/food-cafe" not in practice
 

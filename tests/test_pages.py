@@ -17,7 +17,6 @@ def _register(client, handle: str = "pageuser"):
     return response.get_json()
 
 
-
 def test_index_is_gate_only(client):
     response = client.get("/")
     assert response.status_code == 200

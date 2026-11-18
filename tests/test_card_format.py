@@ -37,7 +37,12 @@ def test_noun_plurals_carry_the_article_that_matches_the_gender():
         if plural == NO_PLURAL:
             continue
         expected = PLURAL_ARTICLE[card["gender"]]
-        assert plural.startswith(expected), (name, card["id"], plural, f"expected '{expected}...'")
+        assert plural.startswith(expected), (
+            name,
+            card["id"],
+            plural,
+            f"expected '{expected}...'",
+        )
 
 
 def test_nouns_carry_their_article_unless_days_months_or_signs():
@@ -45,7 +50,11 @@ def test_nouns_carry_their_article_unless_days_months_or_signs():
         if BARE_NOUN_TAGS & set(card.get("tags", [])):
             continue
         word = card["catalan"]
-        assert word.startswith(("el ", "la ", "l'", "els ", "les ")), (name, card["id"], word)
+        assert word.startswith(("el ", "la ", "l'", "els ", "les ")), (
+            name,
+            card["id"],
+            word,
+        )
 
 
 def test_singular_article_matches_the_gender():
@@ -53,7 +62,12 @@ def test_singular_article_matches_the_gender():
         word = card["catalan"]
         for article, gender in SINGULAR_ARTICLE_GENDER.items():
             if word.startswith(article):
-                assert card["gender"] == gender, (name, card["id"], word, card["gender"])
+                assert card["gender"] == gender, (
+                    name,
+                    card["id"],
+                    word,
+                    card["gender"],
+                )
 
 
 # Every card's part of speech comes from this fixed set, so the browse page's

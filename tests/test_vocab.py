@@ -19,7 +19,6 @@ def _register(client, handle: str = "liam"):
     return response.get_json()
 
 
-
 def test_seed_decks_into_a1(migrated_app):
     with migrated_app.app_context():
         seed_all()
@@ -39,7 +38,10 @@ def test_seed_decks_into_a1(migrated_app):
 def test_every_deck_file_has_a_distinct_title():
     from app.services.seed import CONTENT, DECK_TITLES, _deck_slug_from_filename
 
-    slugs = {_deck_slug_from_filename(p.name) for p in (CONTENT / "decks").glob("*_deck*.json")}
+    slugs = {
+        _deck_slug_from_filename(p.name)
+        for p in (CONTENT / "decks").glob("*_deck*.json")
+    }
     assert slugs == set(DECK_TITLES)
     titles = list(DECK_TITLES.values())
     assert len(set(titles)) == len(titles)
@@ -54,7 +56,9 @@ def _deck_cards(slug: str) -> list[dict]:
 
     from app.services.seed import CONTENT
 
-    return json.loads((CONTENT / "decks" / f"{slug}_deck.json").read_text(encoding="utf-8"))
+    return json.loads(
+        (CONTENT / "decks" / f"{slug}_deck.json").read_text(encoding="utf-8")
+    )
 
 
 def _lesson_deck(lesson_id: str) -> str | None:
@@ -98,7 +102,9 @@ def test_travel_and_directions_are_separate_one_topic_decks():
     # Places and way-finding live in Places & Directions, not Travel & Transport.
     travel_words = {card["catalan"] for card in travel}
     assert {"el museu", "el nord", "tot recte", "aquí"}.isdisjoint(travel_words)
-    assert {"el museu", "el nord", "tot recte", "aquí"} <= {c["catalan"] for c in directions}
+    assert {"el museu", "el nord", "tot recte", "aquí"} <= {
+        c["catalan"] for c in directions
+    }
     # Health and payment phrases moved to their topic decks.
     assert "Truca a un metge!" in {c["catalan"] for c in _deck_cards("health")}
     shopping = {c["catalan"] for c in _deck_cards("shopping")}
@@ -137,13 +143,28 @@ def test_signs_deck_has_real_signs_and_short_messages():
     sign_words = {card["catalan"] for card in signs if card["tags"] == ["signs"]}
     message_words = {card["catalan"] for card in signs if card["tags"] == ["messages"]}
     assert len(sign_words) > len(message_words)
-    assert {"Sortida", "Prohibit fumar", "Lliure", "Ocupat / ocupada", "No funciona"} <= sign_words
+    assert {
+        "Sortida",
+        "Prohibit fumar",
+        "Lliure",
+        "Ocupat / ocupada",
+        "No funciona",
+    } <= sign_words
     assert {"No puc avui", "Faig tard", "On ets?"} <= message_words
 
 
 def test_question_words_deck_has_every_word_the_lesson_teaches():
     phrases = {card["catalan"]: card for card in _deck_cards("social_phrases")}
-    for word in ("Qui?", "Què?", "On?", "Quan?", "Com?", "Per què?", "Quant / quanta?", "Quin / quina?"):
+    for word in (
+        "Qui?",
+        "Què?",
+        "On?",
+        "Quan?",
+        "Com?",
+        "Per què?",
+        "Quant / quanta?",
+        "Quin / quina?",
+    ):
         assert word in phrases, word
         assert phrases[word]["pronunciation"] and phrases[word]["english"].endswith("?")
     # Words that change for gender show both forms, like adjectives elsewhere.
@@ -163,7 +184,13 @@ def test_admin_deck_covers_what_the_public_services_lesson_teaches():
         "El meu NIE és...",
         "On és l'Ajuntament?",
     } <= set(admin)
-    assert {"el nom", "el cognom", "l'adreça", "el número de telèfon", "la signatura"} <= set(admin)
+    assert {
+        "el nom",
+        "el cognom",
+        "l'adreça",
+        "el número de telèfon",
+        "la signatura",
+    } <= set(admin)
     # Moved from Travel with its id kept, so learner progress follows it.
     assert admin["Necessito ajuda"]["id"] == "tr_030"
     assert "Necessito ajuda" not in {card["catalan"] for card in _deck_cards("travel")}
@@ -174,7 +201,9 @@ def test_health_deck_covers_what_the_health_lesson_teaches():
     assert 20 <= len(health) <= 30
     assert _lesson_deck("health") == "health"
     # The lesson's key lines are all in the deck.
-    assert {"Em trobo malament", "Em fa mal", "Necessito un metge", "Tinc cita"} <= set(health)
+    assert {"Em trobo malament", "Em fa mal", "Necessito un metge", "Tinc cita"} <= set(
+        health
+    )
     # 'Em fa mal + body part' needs body parts to fill the gap.
     body = {word for word, card in health.items() if "body" in card["tags"]}
     assert {"el cap", "la gola", "la panxa", "l'esquena"} <= body
@@ -355,7 +384,9 @@ def test_unretire_deck_resets_seen_and_restores_session(migrated_app, migrated_c
 
     cards = migrated_client.get("/api/decks/starter/cards").get_json()["cards"]
     for card in cards:
-        assert migrated_client.post(f"/api/cards/{card['id']}/retire").status_code == 200
+        assert (
+            migrated_client.post(f"/api/cards/{card['id']}/retire").status_code == 200
+        )
 
     session = migrated_client.get("/api/decks/starter/session").get_json()["cards"]
     assert session == []
@@ -385,8 +416,17 @@ def test_core_verbs_deck_has_full_present_tense(migrated_app, migrated_client):
     cards = migrated_client.get("/api/decks/core_verbs/cards").get_json()["cards"]
     by_word = {card["catalan"]: card for card in cards}
     for verb in (
-        "ser", "estar", "tenir", "anar", "venir", "fer", "voler", "poder", "haver de",
-        "saber", "dir",
+        "ser",
+        "estar",
+        "tenir",
+        "anar",
+        "venir",
+        "fer",
+        "voler",
+        "poder",
+        "haver de",
+        "saber",
+        "dir",
     ):
         assert verb in by_word
     assert 20 <= len(cards) <= 30
@@ -394,16 +434,27 @@ def test_core_verbs_deck_has_full_present_tense(migrated_app, migrated_client):
     for card in cards:
         assert card["pos"] == "verb"
         assert len(card["forms"]) == 6
-        assert [form.startswith(p) for form, p in zip(card["forms"], persons)] == [True] * 6
+        assert [form.startswith(p) for form, p in zip(card["forms"], persons)] == [
+            True
+        ] * 6
     assert by_word["ser"]["forms"][0] == "jo soc"
     assert by_word["venir"]["forms"] == [
-        "jo vinc", "tu vens", "ell/ella ve",
-        "nosaltres venim", "vosaltres veniu", "ells/elles venen",
+        "jo vinc",
+        "tu vens",
+        "ell/ella ve",
+        "nosaltres venim",
+        "vosaltres veniu",
+        "ells/elles venen",
     ]
     assert by_word["haver de"]["forms"][0] == "jo he de"
     # The deck opens with the verbs the present-tense lesson leans on, in this order.
     assert [card["catalan"] for card in cards[:6]] == [
-        "ser", "estar", "tenir", "anar", "venir", "fer",
+        "ser",
+        "estar",
+        "tenir",
+        "anar",
+        "venir",
+        "fer",
     ]
 
 
@@ -416,7 +467,7 @@ def test_browse_shows_verb_forms_in_text_column(migrated_app, migrated_client):
     forms = '<p class="vocab-forms" lang="ca">jo soc · tu ets · ell/ella és'
     assert forms in html
     # Forms sit in the wrapping text column, not the fixed-width meta column.
-    row = html[html.index('data-card-id'):]
+    row = html[html.index("data-card-id") :]
     assert row.index(forms) < row.index('class="vocab-meta"')
 
 
@@ -427,12 +478,12 @@ def test_browse_shows_grammar_pills_in_text_column(migrated_app, migrated_client
     _register(migrated_client)
 
     html = migrated_client.get("/decks/family/browse").get_data(as_text=True)
-    row_start = html.index('data-card-id')
-    row = html[row_start:html.index('data-card-id', row_start + 1)]
+    row_start = html.index("data-card-id")
+    row = html[row_start : html.index("data-card-id", row_start + 1)]
     pills = row.index('class="gram-pills vocab-gram"')
     assert 'gram-pill--pos">noun' in row
     assert row.index('class="vocab-main"') < pills < row.index('class="vocab-meta"')
-    meta = row[row.index('class="vocab-meta"'):]
+    meta = row[row.index('class="vocab-meta"') :]
     assert "gram-pill" not in meta
 
 
@@ -443,14 +494,14 @@ def test_browse_card_shows_no_redundant_lines(migrated_app, migrated_client):
     _register(migrated_client)
 
     html = migrated_client.get("/decks/everyday/browse").get_data(as_text=True)
-    row_start = html.index('data-card-id')
-    gran = html[row_start:html.index('data-card-id', row_start + 1)]
+    row_start = html.index("data-card-id")
+    gran = html[row_start : html.index("data-card-id", row_start + 1)]
     assert '<span class="list-row__title vocab-word" lang="ca">gran</span>' in gran
     assert "vocab-pronunciation" not in gran
     assert "tag-chip" not in html
     assert "masc / fem" not in html
 
-    bo = html[html.index('lang="ca">bo / bona<'):]
+    bo = html[html.index('lang="ca">bo / bona<') :]
     assert '<span class="vocab-pronunciation">boh / BOH-nuh</span>' in bo[:300]
 
 
@@ -493,7 +544,9 @@ def test_cards_list_in_deck_file_order_after_a_reorder(
     assert listed[0]["id"] > listed[-1]["id"]
 
 
-def test_session_shows_new_cards_in_deck_order_after_seen_cards(migrated_app, migrated_client):
+def test_session_shows_new_cards_in_deck_order_after_seen_cards(
+    migrated_app, migrated_client
+):
     with migrated_app.app_context():
         seed_all()
     _register(migrated_client)
@@ -512,4 +565,6 @@ def test_session_shows_new_cards_in_deck_order_after_seen_cards(migrated_app, mi
     session = migrated_client.get("/api/decks/core_verbs/session").get_json()["cards"]
     session_ids = [card["id"] for card in session]
     assert set(session_ids[:2]) == seen_ids
-    assert session_ids[2:] == [card_id for card_id in file_order if card_id not in seen_ids]
+    assert session_ids[2:] == [
+        card_id for card_id in file_order if card_id not in seen_ids
+    ]

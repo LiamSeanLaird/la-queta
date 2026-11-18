@@ -1,6 +1,7 @@
-from datetime import datetime
+from datetime import date, datetime
 
 from sqlalchemy import (
+    Date,
     DateTime,
     ForeignKey,
     Integer,
@@ -71,9 +72,7 @@ class Lesson(db.Model):
     deck_slug: Mapped[str | None] = mapped_column(String(64), nullable=True)
 
     level: Mapped[Level] = relationship(back_populates="lessons")
-    progress: Mapped[list["UserLessonProgress"]] = relationship(
-        back_populates="lesson"
-    )
+    progress: Mapped[list["UserLessonProgress"]] = relationship(back_populates="lesson")
 
 
 class Deck(db.Model):
@@ -153,6 +152,42 @@ class UserCardProgress(db.Model):
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
     card_id: Mapped[int] = mapped_column(ForeignKey("cards.id"), nullable=False)
     seen: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    # Spaced repetition (see app/services/vocab.py grade_card). Times are naive
+    # UTC. interval_days 0 means "still learning"; due_at NULL means the card
+    # has never been studied.
+    interval_days: Mapped[int] = mapped_column(
+        Integer, nullable=False, default=0, server_default="0"
+    )
+    due_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+    last_reviewed_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
 
     user: Mapped[User] = relationship(back_populates="card_progress")
     card: Mapped[Card] = relationship(back_populates="progress")
+
+
+class UserDailySession(db.Model):
+    """One finished daily vocab session per learner per local calendar day.
+
+    local_date is the learner's date in their own timezone when they reached
+    the "Session complete" screen, so streaks follow their days, not the
+    server's. Extra sessions on the same day do not add rows.
+    """
+
+    __tablename__ = "user_daily_sessions"
+    __table_args__ = (
+        UniqueConstraint("user_id", "local_date", name="uq_user_daily_session"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
+    level_id: Mapped[str] = mapped_column(
+        String(16), ForeignKey("levels.id"), nullable=False
+    )
+    local_date: Mapped[date] = mapped_column(Date, nullable=False)
+    # IANA name the browser reported (or "UTC"), used to work out "today".
+    timezone: Mapped[str] = mapped_column(String(64), nullable=False, default="UTC")
+    completed_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        server_default=func.now(),
+        nullable=False,
+    )

@@ -85,9 +85,15 @@ def test_dedupe_migration_keeps_most_significant_progress(migrated_app):
         only_removed = _user("c")
         db.session.add_all(
             [
-                UserCardProgress(user_id=higher_on_removed.id, card_id=greet_008.id, seen=1),
-                UserCardProgress(user_id=higher_on_removed.id, card_id=soc002.id, seen=3),
-                UserCardProgress(user_id=higher_on_kept.id, card_id=greet_008.id, seen=4),
+                UserCardProgress(
+                    user_id=higher_on_removed.id, card_id=greet_008.id, seen=1
+                ),
+                UserCardProgress(
+                    user_id=higher_on_removed.id, card_id=soc002.id, seen=3
+                ),
+                UserCardProgress(
+                    user_id=higher_on_kept.id, card_id=greet_008.id, seen=4
+                ),
                 UserCardProgress(user_id=higher_on_kept.id, card_id=soc002.id, seen=2),
                 UserCardProgress(user_id=only_removed.id, card_id=soc002.id, seen=2),
                 UserCardProgress(user_id=only_removed.id, card_id=sh_012.id, seen=3),
@@ -110,9 +116,7 @@ def test_dedupe_migration_keeps_most_significant_progress(migrated_app):
         assert _seen(only_removed, "ev_035") == 3
         assert _seen(only_removed, "ev_036") == 3
         orphans = db.session.scalars(
-            select(UserCardProgress).where(
-                UserCardProgress.card_id.in_(removed_ids)
-            )
+            select(UserCardProgress).where(UserCardProgress.card_id.in_(removed_ids))
         ).all()
         assert orphans == []
 

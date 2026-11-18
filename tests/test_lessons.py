@@ -19,7 +19,6 @@ def _register(client, handle: str = "liam"):
     return response.get_json()
 
 
-
 def test_seed_lessons_into_a1(migrated_app):
     with migrated_app.app_context():
         seed_all()

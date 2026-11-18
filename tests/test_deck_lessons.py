@@ -12,14 +12,18 @@ from app.services.seed import seed_all
 
 def _lesson_rows(client, slug: str) -> list[tuple[str, str, str]]:
     page = client.get(f"/decks/{slug}").get_data(as_text=True)
-    section = re.search(r'<div class="stack" id="deck-lessons">(.*?)\n  </div>\n', page, re.S)
+    section = re.search(
+        r'<div class="stack" id="deck-lessons">(.*?)\n  </div>\n', page, re.S
+    )
     assert section, f"no lessons section on /decks/{slug}"
     rows = re.findall(
         r'href="/lessons/([\w-]+)">.*?list-row__title">([^<]+)</p>.*?badge--(\w+)',
         section.group(1),
         re.S,
     )
-    return [(lesson_id, html.unescape(title), state) for lesson_id, title, state in rows]
+    return [
+        (lesson_id, html.unescape(title), state) for lesson_id, title, state in rows
+    ]
 
 
 def test_deck_page_lists_its_lessons_with_progress(migrated_app, migrated_client):
@@ -27,7 +31,11 @@ def test_deck_page_lists_its_lessons_with_progress(migrated_app, migrated_client
         seed_all()
     response = migrated_client.post(
         "/api/auth/register",
-        json={"handle": "decklinks", "email": "decklinks@example.com", "password": "password1"},
+        json={
+            "handle": "decklinks",
+            "email": "decklinks@example.com",
+            "password": "password1",
+        },
     )
     assert response.status_code == 201
 
