@@ -11,7 +11,7 @@ from app.services.can_dos import (
     learn_groups_for_level,
     vocab_groups_for_level,
 )
-from app.services.lessons import get_lesson, list_lessons_for_level
+from app.services.lessons import get_lesson, lesson_neighbours, list_lessons_for_level
 from app.services.levels import list_levels_for_user, select_level, level_is_open
 from app.services.progress import (
     continue_target,
@@ -189,6 +189,7 @@ def lesson(lesson_id: str):
         tab = "learn"
 
     next_steps = lesson_next_steps(user, lesson_data["id"])
+    neighbours = lesson_neighbours(lesson_data["id"])
 
     return render_template(
         "lesson.html",
@@ -197,9 +198,19 @@ def lesson(lesson_id: str):
         tab=tab,
         # gate.js lands here with ?saved=1 after saving a lesson the visitor
         # finished before signing up.
-        just_saved=bool(user) and lesson_data["completed"] and request.args.get("saved") == "1",
+        just_saved=bool(user)
+        and lesson_data["completed"]
+        and request.args.get("saved") == "1",
         next_deck=next_steps["deck"],
         next_lesson=next_steps["next_lesson"],
+        previous_in_course=neighbours["previous"],
+        next_in_course=neighbours["next"],
+        # Logged out, the public course page is the lesson list on /.
+        course_href=(
+            url_for("pages.level_home", level_id=lesson_data["level_id"])
+            if user
+            else url_for("pages.index", _anchor="lessons-title")
+        ),
         brand_href=url_for("pages.levels") if user else url_for("pages.index"),
         back_href=(
             url_for("pages.level_home", level_id=lesson_data["level_id"])

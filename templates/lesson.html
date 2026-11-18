@@ -71,6 +71,29 @@
   {% else %}
   <a class="btn btn--primary btn--block" href="{{ url_for('pages.lesson', lesson_id=lesson.id, tab='practice') }}">Go to Practice</a>
   {% endif %}
+  <nav class="lesson-nav" aria-label="Course">
+    {% if previous_in_course or next_in_course %}
+    <div class="lesson-nav__steps">
+      {% if previous_in_course %}
+      <a class="list-row lesson-nav__link" rel="prev" href="{{ url_for('pages.lesson', lesson_id=previous_in_course.id) }}">
+        <div>
+          <p class="list-row__sub">← Previous lesson</p>
+          <p class="list-row__title">{{ previous_in_course.sort_order }}. {{ previous_in_course.title }}</p>
+        </div>
+      </a>
+      {% endif %}
+      {% if next_in_course %}
+      <a class="list-row lesson-nav__link lesson-nav__link--next" rel="next" href="{{ url_for('pages.lesson', lesson_id=next_in_course.id) }}">
+        <div>
+          <p class="list-row__sub">Next lesson →</p>
+          <p class="list-row__title">{{ next_in_course.sort_order }}. {{ next_in_course.title }}</p>
+        </div>
+      </a>
+      {% endif %}
+    </div>
+    {% endif %}
+    <a class="lesson-nav__all" href="{{ course_href }}">All lessons</a>
+  </nav>
   {% else %}
   <div class="stack-lg" id="practice-panel">
     <div class="progress-group">

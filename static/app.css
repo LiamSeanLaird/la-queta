@@ -1007,6 +1007,31 @@ a.btn.btn--primary {
   font-size: 0.9rem;
 }
 
+/* Previous / next lesson in course order, under the Learn tab. */
+.lesson-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.lesson-nav__steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 0.5rem;
+}
+
+.lesson-nav__link--next {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.lesson-nav__all {
+  align-self: center;
+  font-size: 0.9rem;
+}
+
 .badge--todo {
   background: var(--tab-rail);
   color: var(--muted);

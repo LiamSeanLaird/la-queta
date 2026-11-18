@@ -35,7 +35,11 @@ def _lessons(app):
 def _register(client):
     response = client.post(
         "/api/auth/register",
-        json={"handle": "Visitor", "email": "visitor@example.com", "password": "password1"},
+        json={
+            "handle": "Visitor",
+            "email": "visitor@example.com",
+            "password": "password1",
+        },
     )
     assert response.status_code == 201
 
@@ -160,7 +164,9 @@ def test_carried_completion_uses_the_same_validation(migrated_app, migrated_clie
         {"exercises_correct": 1, "exercises_total": 1},
         {"exercises_correct": "9", "exercises_total": "9"},
     ):
-        response = migrated_client.post(f"/api/lessons/{lesson['id']}/complete", json=payload)
+        response = migrated_client.post(
+            f"/api/lessons/{lesson['id']}/complete", json=payload
+        )
         assert response.status_code == 400, payload
     html = migrated_client.get(f"/lessons/{lesson['id']}?saved=1").data.decode()
     # Not completed, so ?saved=1 does not claim anything was saved.
@@ -172,3 +178,56 @@ def test_saved_note_needs_an_account(migrated_app, migrated_client):
     html = migrated_client.get(f"/lessons/{lesson['id']}?saved=1").data.decode()
     assert 'id="lesson-saved"' not in html
 
+
+def _nav_hrefs(html: str) -> dict[str, str | None]:
+    nav = re.search(r'<nav class="lesson-nav".*?</nav>', html, re.S)
+    assert nav, "lesson page has no course nav"
+    block = nav.group(0)
+
+    def href(rel):
+        match = re.search(rf'rel="{rel}" href="([^"]+)"', block)
+        return match.group(1) if match else None
+
+    all_link = re.search(r'class="lesson-nav__all" href="([^"]+)"', block)
+    return {"prev": href("prev"), "next": href("next"), "all": all_link.group(1)}
+
+
+def test_lessons_link_to_neighbours_in_course_order(migrated_app, migrated_client):
+    lessons = _lessons(migrated_app)
+    for index, lesson in enumerate(lessons):
+        html = migrated_client.get(f"/lessons/{lesson['id']}").data.decode()
+        nav = _nav_hrefs(html)
+        expected_prev = f"/lessons/{lessons[index - 1]['id']}" if index > 0 else None
+        expected_next = (
+            f"/lessons/{lessons[index + 1]['id']}" if index + 1 < len(lessons) else None
+        )
+        assert nav["prev"] == expected_prev, lesson["id"]
+        assert nav["next"] == expected_next, lesson["id"]
+        # Logged out, "All lessons" goes to the public lesson list on /.
+        assert nav["all"] == "/#lessons-title"
+
+
+def test_course_nav_ignores_progress_and_links_logged_in_to_level(
+    migrated_app, migrated_client
+):
+    lessons = _lessons(migrated_app)
+    _register(migrated_client)
+    second = lessons[1]
+    response = migrated_client.post(
+        f"/api/lessons/{second['id']}/complete",
+        json={
+            "exercises_correct": len(second["practice"]),
+            "exercises_total": len(second["practice"]),
+        },
+    )
+    assert response.status_code == 200
+    # Lesson 1's next link is still lesson 2, even though lesson 2 is done.
+    nav = _nav_hrefs(migrated_client.get(f"/lessons/{lessons[0]['id']}").data.decode())
+    assert nav["next"] == f"/lessons/{second['id']}"
+    assert nav["all"] == "/levels/a1"
+
+
+def test_course_nav_only_on_learn_tab(migrated_app, migrated_client):
+    lesson = _lessons(migrated_app)[0]
+    html = migrated_client.get(f"/lessons/{lesson['id']}?tab=practice").data.decode()
+    assert 'class="lesson-nav"' not in html
