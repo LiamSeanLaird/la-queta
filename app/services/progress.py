@@ -180,13 +180,15 @@ def continue_target(user: User, level_id: str | None = None) -> dict | None:
     return None
 
 
-def lesson_next_steps(user: User, lesson_id: str) -> dict:
+def lesson_next_steps(user: User | None, lesson_id: str) -> dict:
     """
     Where to go after finishing a lesson's practice.
 
     `deck` is the lesson's matching vocab deck while it still has cards to learn.
-    `next_lesson` is the first incomplete lesson after this one (wrapping round),
-    never this lesson itself, so the answer is the same before and after this
+    It is always None for a logged-out visitor (`user=None`), because vocab
+    study needs an account.
+    `next_lesson` is the first incomplete lesson after this one (wrapping round
+    for a logged-in learner), never this lesson itself, so the answer is the same before and after this
     lesson is marked complete.
     """
     from app.services.vocab import list_decks_for_level
@@ -196,7 +198,7 @@ def lesson_next_steps(user: User, lesson_id: str) -> dict:
         return {"deck": None, "next_lesson": None}
 
     deck = None
-    if lesson.deck_slug:
+    if user is not None and lesson.deck_slug:
         stats = next(
             (
                 row
@@ -210,8 +212,9 @@ def lesson_next_steps(user: User, lesson_id: str) -> dict:
 
     lessons = list_lessons_for_level(user, lesson.level_id)
     index = next((i for i, row in enumerate(lessons) if row["id"] == lesson.id), 0)
-    # Look forward from this lesson first, then wrap round to any skipped earlier ones.
-    ordered = lessons[index + 1 :] + lessons[:index]
+    # Look forward from this lesson first, then wrap round to any skipped earlier
+    # ones. A logged-out visitor has skipped nothing, so the last lesson has no next.
+    ordered = lessons[index + 1 :] + (lessons[:index] if user is not None else [])
     next_lesson = next((row for row in ordered if not row["completed"]), None)
     return {"deck": deck, "next_lesson": next_lesson}
 

@@ -88,6 +88,8 @@
           </button>
           {% endif %}
         </div>
+        {% else %}
+        {% block top_guest %}{% endblock %}
         {% endif %}
       </div>
     </header>

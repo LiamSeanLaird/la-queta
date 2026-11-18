@@ -173,7 +173,10 @@ Goals only tick when every lesson in them is done, so a plain "0/7 goals complet
 - Email: regex shape check only (no confirmation email). Password: min 6 chars; Werkzeug hash.
 - Cookie: Flask session; HTTP-only; `SameSite=Lax`; `SECRET_KEY`-signed; permanent ~1 year
 - Name (`handle`): 2–40 chars, unique case-insensitive. Email unique lowercased.
-- Unauthenticated API → 401; pages redirect to gate
+- Unauthenticated API → 401; pages redirect to gate, except public pages
+- Public pages: `/lessons/<id>` (Learn and Practice tabs) renders for logged-out visitors.
+  Services take `user=None` for this path (`get_lesson`, `list_lessons_for_level`, `lesson_next_steps`): no progress, nothing completed, no vocab deck, no wrap-round to earlier lessons.
+  Logged out, Practice never posts the completion; its last step asks the visitor to create an account or sign in instead.
 - No OAuth / magic links / password-reset mail in v2
 
 ## API (initial)

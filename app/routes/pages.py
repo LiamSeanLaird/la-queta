@@ -142,13 +142,13 @@ def level_home(level_id: str):
 
 @bp.get("/lessons/<lesson_id>")
 def lesson(lesson_id: str):
-    user, bounced = _login_required()
-    if bounced:
-        return bounced
+    # Public: a logged-out visitor (user=None) can read and practise any lesson.
+    # Only saving the completion (POST /api/lessons/<id>/complete) needs an account.
+    user = current_user()
     try:
         lesson_data = get_lesson(user, lesson_id)
     except ServiceError:
-        return redirect(url_for("pages.levels"))
+        return redirect(url_for("pages.levels") if user else url_for("pages.index"))
 
     tab = (request.args.get("tab") or "learn").strip().lower()
     if tab not in {"learn", "practice"}:
@@ -163,7 +163,12 @@ def lesson(lesson_id: str):
         tab=tab,
         next_deck=next_steps["deck"],
         next_lesson=next_steps["next_lesson"],
-        brand_href=url_for("pages.levels"),
+        brand_href=url_for("pages.levels") if user else url_for("pages.index"),
+        back_href=(
+            url_for("pages.level_home", level_id=lesson_data["level_id"])
+            if user
+            else url_for("pages.index")
+        ),
     )
 
 

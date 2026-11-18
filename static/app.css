@@ -256,6 +256,12 @@ a.tab-btn {
   color: inherit;
 }
 
+/* Logged-out visitors on public pages: a compact "Sign in" in place of the profile button. */
+.topbar__signin {
+  padding: 0.45rem 0.85rem;
+  white-space: nowrap;
+}
+
 .topbar__brand {
   text-align: center;
   min-width: 0;

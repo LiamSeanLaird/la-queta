@@ -36,6 +36,9 @@
   tabRegister.addEventListener("click", showRegister);
   tabLogin.addEventListener("click", showLogin);
 
+  // Links such as the lesson topbar's "Sign in" point at /#signin.
+  if (window.location.hash === "#signin") showLogin();
+
   registerForm.addEventListener("submit", async (event) => {
     event.preventDefault();
     window.LaQueta.showError(gateError, "");

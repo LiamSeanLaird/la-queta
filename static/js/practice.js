@@ -10,6 +10,7 @@
   const practiceDone = document.getElementById("practice-done");
   const practiceError = document.getElementById("practice-error");
   const alreadyCompleted = page.dataset.completed === "true";
+  const loggedIn = page.dataset.loggedIn === "true";
   const Speech = window.LaQueta && window.LaQueta.Speech;
 
   let items = [];
@@ -362,7 +363,8 @@
 
     // The done panel (rendered by the server) offers the matching vocab deck
     // and the next lesson, so the learner stays here instead of being redirected.
-    if (alreadyCompleted) {
+    // A logged-out visitor has nothing to save: the panel asks them to sign up.
+    if (alreadyCompleted || !loggedIn) {
       showDonePanel();
       return;
     }

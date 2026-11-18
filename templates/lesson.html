@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 {% block title %}{{ lesson.title }} - La Queta{% endblock %}
-{% set brand_href = url_for('pages.levels') %}
 {% block top_back %}
-<a class="topbar__back" href="{{ url_for('pages.level_home', level_id=lesson.level_id) }}" aria-label="Back to lessons">←</a>
+<a class="topbar__back" href="{{ back_href }}" aria-label="{{ 'Back to lessons' if current_user else 'Back to home' }}">←</a>
+{% endblock %}
+{% block top_guest %}
+<a class="btn btn--secondary topbar__signin" href="{{ url_for('pages.index') }}#signin">Sign in</a>
 {% endblock %}
 {% block content %}
 <section
@@ -10,6 +12,7 @@
   id="lesson-page"
   data-lesson-id="{{ lesson.id }}"
   data-completed="{{ 'true' if lesson.completed else 'false' }}"
+  data-logged-in="{{ 'true' if current_user else 'false' }}"
   data-tab="{{ tab }}"
 >
   <div>
@@ -80,6 +83,18 @@
     </div>
     <div class="stack" id="practice-item" hidden></div>
     <p class="text-muted" id="practice-empty" hidden>No practice items for this lesson yet.</p>
+    {% if not current_user %}
+    {# Logged out: nothing is saved, so ask for an account in place of the completion step. #}
+    <div class="stack" id="practice-done" hidden>
+      <h2 class="heading-3">Every answer right - well done.</h2>
+      <p class="text-body">Create a free account to save this lesson and keep going.</p>
+      <a class="btn btn--primary btn--block" href="{{ url_for('pages.index') }}">Create a free account</a>
+      <a class="btn btn--secondary btn--block" href="{{ url_for('pages.index') }}#signin">Sign in</a>
+      {% if next_lesson %}
+      <a class="btn btn--ghost btn--block" href="{{ url_for('pages.lesson', lesson_id=next_lesson.id) }}">Next lesson without saving: {{ next_lesson.title }}</a>
+      {% endif %}
+    </div>
+    {% else %}
     <div class="stack" id="practice-done" hidden>
       <h2 class="heading-3">Lesson complete - well done.</h2>
       {% if next_deck %}
@@ -91,6 +106,7 @@
       {% endif %}
       <a class="btn btn--ghost btn--block" href="{{ url_for('pages.level_home', level_id=lesson.level_id) }}">Back to lessons</a>
     </div>
+    {% endif %}
     <p class="field__error" id="practice-error" hidden></p>
   </div>
   <script type="application/json" id="practice-data">{{ lesson.practice|tojson }}</script>
