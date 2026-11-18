@@ -628,6 +628,7 @@ a.btn.btn--primary {
 }
 
 .level-tile__done-check {
+  margin-inline-end: 0.2em;
   color: var(--ok);
   font-weight: 700;
 }
