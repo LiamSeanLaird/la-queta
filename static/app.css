@@ -377,9 +377,11 @@ a.tab-btn {
   margin: 0 0 0.35rem;
 }
 
-/* Page titles / meta under the topbar — centered; list/card body stays LTR left. */
+/* Page titles / meta under the topbar - centered; list/card body stays LTR left. */
 .page-intro {
   text-align: center;
+  /* Centred lines read better evened out than with one word left on the last. */
+  text-wrap: balance;
 }
 
 .page-intro .text-muted + .text-muted {

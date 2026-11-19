@@ -185,6 +185,8 @@ Goals only tick when every lesson in them is done, so a plain "0/7 goals complet
 - Unauthenticated API → 401; logged-in-only pages redirect to `/signin`, except public pages
 - The gate (sign-up and sign-in forms, `templates/auth.html` + `gate.js`) lives at `/signup` and `/signin` (`noindex`; logged in → `/levels`).
   The tabs switch in place and `replaceState` the URL between the two; old `/#signin` links are forwarded to `/signin` by a one-line script on `/`.
+  After a successful submit, `gate.js` first saves any pending logged-out completion and lands on that lesson; with nothing pending, sign-up goes to `/continue` (lesson 1 for a new account) and sign-in to `/levels`.
+  The blurb under the heading comes from `data-signup` / `data-signin` on `#gate-blurb`, so the template holds both texts once.
 - No OAuth / magic links / password-reset mail in v2
 
 ## Public pages and SEO

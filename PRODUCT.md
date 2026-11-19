@@ -77,6 +77,8 @@ Home (/): short pitch, "Start learning - it's free" (→ /signup) or "or try a l
 
 - The lesson completion is carried over by re-posting it after sign-up or sign-in through the same validated completion API the logged-in path uses; the server never trusts the client's word that a lesson is done.
 - `/signup` and `/signin` hold the account forms; old `/#signin` links still work.
+- After sign-up with no lesson to save, the new learner goes to `/continue`, which opens lesson 1; after sign-in they go to the `/levels` hub.
+- `/signup` says in one line what the account gives: progress saved on any device, vocab flashcards and a daily review.
 
 ### Logged-in learner
 ```

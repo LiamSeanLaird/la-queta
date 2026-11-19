@@ -133,6 +133,13 @@ def test_index_renders_before_content_is_seeded(migrated_client):
     assert "Free Catalan for complete beginners" in response.get_data(as_text=True)
 
 
+def _gate_blurb(html: str) -> str:
+    """Visible text of the gate's blurb paragraph."""
+    match = re.search(r'<p[^>]*id="gate-blurb"[^>]*>(.*?)</p>', html, re.S)
+    assert match is not None
+    return match.group(1).strip()
+
+
 def test_signup_and_signin_pages_hold_the_gate(migrated_client):
     signup = migrated_client.get("/signup").get_data(as_text=True)
     assert "<title>Create a free account - La Queta</title>" in signup
@@ -141,12 +148,16 @@ def test_signup_and_signin_pages_hold_the_gate(migrated_client):
     assert '<meta name="robots" content="noindex">' in signup
     assert "js/gate.js" in signup
     assert signup.count("<h1") == 1
+    assert _gate_blurb(signup) == (
+        "An account saves your progress on any device and adds vocab flashcards and a daily review."
+    )
 
     signin = migrated_client.get("/signin").get_data(as_text=True)
     assert "<title>Sign in - La Queta</title>" in signin
     assert '<form id="register-form" class="stack" hidden>' in signin
     assert '<form id="login-form" class="stack">' in signin
     assert '<meta name="robots" content="noindex">' in signin
+    assert _gate_blurb(signin) == "Sign in with your email and password."
 
 
 def test_auth_pages_redirect_when_logged_in(migrated_client):
