@@ -1,6 +1,6 @@
 (() => {
   const page = document.getElementById("lesson-page");
-  if (!page || page.dataset.tab !== "practice") return;
+  if (!page || page.dataset.tab !== "test") return;
 
   const dataEl = document.getElementById("practice-data");
   const practiceItem = document.getElementById("practice-item");
@@ -9,6 +9,9 @@
   const practiceEmpty = document.getElementById("practice-empty");
   const practiceDone = document.getElementById("practice-done");
   const practiceError = document.getElementById("practice-error");
+  const practiceProgress = document.getElementById("practice-progress");
+  const testIntro = document.getElementById("test-intro");
+  const testStart = document.getElementById("test-start");
   const alreadyCompleted = page.dataset.completed === "true";
   const loggedIn = page.dataset.loggedIn === "true";
   const Speech = window.LaQueta && window.LaQueta.Speech;
@@ -50,8 +53,8 @@
     const total = items.length;
     const done = Math.min(index, total);
     practiceProgressText.textContent = total
-      ? `Item ${Math.min(index + 1, total)} of ${total}`
-      : "No items";
+      ? `Question ${Math.min(index + 1, total)} of ${total}`
+      : "No questions";
     practiceProgressBar.style.width = total ? `${(done / total) * 100}%` : "0%";
   }
 
@@ -430,9 +433,26 @@
 
   if (!items.length) {
     practiceEmpty.hidden = false;
-    practiceProgressText.textContent = "No items";
     return;
   }
 
-  renderItem();
+  // The intro card (question count, words, rule) stays up until the learner
+  // chooses to start, so they can review the words right before the test.
+  function start() {
+    if (testIntro) testIntro.hidden = true;
+    practiceProgress.hidden = false;
+    renderItem();
+    // The Start button is gone: keep keyboard focus in the first question.
+    window.setTimeout(() => {
+      if (!practiceItem.contains(document.activeElement)) {
+        practiceItem.querySelector("input, button")?.focus();
+      }
+    }, 0);
+  }
+
+  if (testStart) {
+    testStart.addEventListener("click", start);
+  } else {
+    start();
+  }
 })();

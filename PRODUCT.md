@@ -2,8 +2,8 @@
 
 ## Goal
 **La Queta** is free Catalan for complete beginners.
-It is a short, complete web course that takes someone from zero to A1: 20 grammar and topic lessons with practice, plus vocab flashcard decks.
-Anyone can read and practise every lesson without an account.
+It is a short, complete web course that takes someone from zero to A1: 20 grammar and topic lessons, each with a short test, plus vocab flashcard decks.
+Anyone can read every lesson and take its test without an account.
 A free account saves progress, so learners can pick up on any device.
 
 The positioning line is "Free Catalan for complete beginners", with "aprèn català" as the small Catalan accent line under the brand.
@@ -30,11 +30,11 @@ The positioning line is "Free Catalan for complete beginners", with "aprèn cata
 
 ### In scope
 - Public web app (no install).
-- Public landing page on `/` and public lesson pages (Learn and Practice) for logged-out visitors.
+- Public landing page on `/` and public lesson pages (Learn and Test) for logged-out visitors.
 - Email + password accounts with a cookie session (simple auth, not security-hardened).
 - One course: A1.
   A2 and B1 rows exist in the database but are hidden from the hub until content ships; the hub reads "Your A1 course".
-- Lessons with text, rules, examples and a Practice bank (multiple choice, cloze, type-in, listening, speak self-check).
+- Lessons with text, rules, examples and a Test (multiple choice, cloze, type-in, listening, speak self-check).
 - Vocab decks with self-graded flashcards on a spaced repetition schedule, plus browse and a daily vocab session with a streak.
 - A "You've finished A1" moment when every A1 lesson is done.
 - On-page SEO and crawl basics: unique titles and descriptions, canonical URLs, JSON-LD, `robots.txt`, `sitemap.xml`, and a `www` to apex redirect.
@@ -69,8 +69,8 @@ The positioning line is "Free Catalan for complete beginners", with "aprèn cata
 ### Logged-out visitor
 ```
 Home (/): pitch, "Start lesson 1", all 20 lessons grouped by goal, goals, FAQ
-  → Lesson (Learn | Practice), with previous / next lesson links and "All lessons"
-    → Practice all correct → "Create a free account to save this lesson and keep going"
+  → Lesson (Learn | Test), with previous / next lesson links and "All lessons"
+    → Test all correct → "Create a free account to save this lesson and keep going"
       → /signup or /signin → the lesson is saved as complete → back on the lesson, "Saved to your account."
 ```
 
@@ -87,7 +87,7 @@ Home (/): pitch, "Start lesson 1", all 20 lessons grouped by goal, goals, FAQ
 ```
 
 - Default path: `/continue` goes to the next incomplete lesson, or to a deck with cards left once every lesson is done.
-- A lesson is complete when Practice finishes with every item correct.
+- A lesson is complete when its Test finishes with every question correct.
 - Finishing a lesson that completes a goal shows a "Goal complete" dialog.
 - Finishing the last A1 lesson shows "You've finished A1" on the lesson and on the hub: keep reviewing vocab daily, and A2 is not here yet.
 
@@ -183,7 +183,7 @@ New lessons and decks are authored as seed data, not by changing the prototype a
 Learner progress is keyed by these ids, and lesson ids are public URLs.
 
 ## Success criteria
-- A stranger can find a lesson on Google, read it and finish Practice without an account.
+- A stranger can find a lesson on Google, read it and finish its Test without an account.
 - They can create an account from that lesson, have it saved as complete, study vocab, sign in later on another device and see their progress.
 - A learner can work through all 20 lessons and reach the "You've finished A1" moment.
 - Operator cost: **$0**/month within Oracle Always Free limits.

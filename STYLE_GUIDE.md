@@ -23,10 +23,10 @@ On browse rows, everything that wraps (grammar pills, verb forms, tags) sits in 
 
 Study flow: first-load tip dialog (Don’t show again); tap or Enter flips Catalan → English, then Knew it or Not yet grades the card and advances (Knew it counts towards retirement, Not yet queues the card again at the end of the session); Back revisits the previous card; Retire confirms once. A finished session stays on the page and shows a 'Session complete' panel: how many cards the learner went through and retired, a primary 'Study again' (hidden when every card in it was retired), 'Next lesson: <Title>' and a link back to the deck or vocab tab. After deck study the next lesson is the deck's own lesson if it is unfinished, else the first unfinished lesson after it; after daily review it is the level's first unfinished lesson. Without Study again, the next lesson (or the exit link when there is none) becomes the primary button. An empty session shows 'Nothing to study' the same way. Deck page shows retired progress bar; when fully retired, Unretire deck replaces Study (POST unretire → seen 0). Below Study and Browse it lists the lessons linked to the deck (lesson `deck` field), in lesson order with Done/Todo badges. Interaction chrome stays off the card - only pedagogical `hint` text appears when present.
 
-Lessons use Learn | Practice tabs. Practice is one-item-at-a-time (MC / cloze / type-in / listen_* / speak); typed/STT answers normalize case/space, treat curly apostrophes (’) as straight ones, and strip other punctuation but keep accents. Cloze prompts say fill-the-blank-only; wrong typed Check offers Show answer once. Listening uses browser TTS (`speech.js`). Lesson completes only after a perfect Practice run.
-When Practice ends the learner stays on the lesson: a done panel offers the lesson's matching vocab deck (primary, while it has cards left), the next incomplete lesson, and Back to lessons.
+Lessons use Learn | Test tabs (the Test tab was called Practice; `?tab=practice` 301-redirects to `?tab=test`). The Test opens on an intro card - the question count, the rule "Get every question right to complete the lesson.", the lesson's "Words in this lesson" list and a primary "Start the test" button - then goes one question at a time (MC / cloze / type-in / listen_* / speak); typed/STT answers normalize case/space, treat curly apostrophes (’) as straight ones, and strip other punctuation but keep accents. Cloze prompts say fill-the-blank-only; wrong typed Check offers Show answer once. Listening uses browser TTS (`speech.js`). Lesson completes only after a perfect Test run. Learn-tab buttons say "Take the test", or "Take the test again" once the lesson is done.
+When the Test ends the learner stays on the lesson: a done panel offers the lesson's matching vocab deck (primary, while it has cards left), the next incomplete lesson, and Back to lessons.
 The Learn tab ends with a course nav (`.lesson-nav`): previous and next lesson in course order as two list-row cards (stacked at phone width), and an "All lessons" link.
-When a learner finishes the last lesson of a level, the Practice done panel shows the "You've finished A1" moment (`templates/_finished_level.html`): daily vocab as the next step and an honest "A2 is not here yet" line.
+When a learner finishes the last lesson of a level, the Test done panel shows the "You've finished A1" moment (`templates/_finished_level.html`): daily vocab as the next step and an honest "A2 is not here yet" line.
 The hub tile shows the same message (`.level-tile__finished`) once every lesson in the level is complete.
 
 - **Markup + classes:** `templates/style_guide.html`
@@ -150,7 +150,7 @@ The hub tile shows the same message (`.level-tile__finished`) once every lesson 
   Heading level and look are separate: pick the element for the outline and the `.heading-*` class for the size.
   A page with no visible title (study) gets `<h1 class="visually-hidden">`.
 - `<html lang="en">` stays, because the interface is English.
-  Mark Catalan text with `lang="ca"` on the element that holds it: example cells, vocab words, plurals and verb forms, the spoken target in Practice, and the `aprèn català` tagline.
+  Mark Catalan text with `lang="ca"` on the element that holds it: example cells, vocab words, plurals and verb forms, the spoken target in the Test, and the `aprèn català` tagline.
   When JS swaps a flashcard between Catalan and English, it sets `lang` to match the side.
   Mixed English and Catalan text (prompts, rules, notes) stays unmarked.
 - Logged-in shell (`base.html` topbar): **←** back left (`{% block top_back %}`), brand center, profile + feedback (mailto / `FEEDBACK_EMAIL`) right, side by side in one row (never stacked). Tagline (`aprèn català`) only on the gate.
@@ -251,7 +251,7 @@ Intentional **La Queta** look - Catalan learning tool with Senyera **red + gold*
 2. `/signup`, `/signin` - account forms (`gate.js`); `/#signin` forwards to `/signin`
 3. `/levels` - "Your A1 course" hub; only open levels (`OPEN_LEVEL_IDS`) show, so A2 and B1 tiles are hidden. Each open level card is a link to the level (counts and bar), then the next goal with its lesson count and a link to all goals, then a primary "Continue: <Lesson>" or "Study vocab: <Deck>" button (`/continue?level=<id>`, from `continue_target`) or "All A1 lessons and vocab done", then a secondary Daily vocab button and the streak. The card link and the buttons are siblings, never nested.
 4. `/levels/<id>` - level home (Learn | Vocab tab)
-5. `/lessons/<id>` - lesson, public: logged-out visitors get the full Learn and Practice tabs, and a perfect Practice run ends in a "Create a free account" prompt instead of the done panel
+5. `/lessons/<id>` - lesson, public: logged-out visitors get the full Learn and Test tabs, and a perfect Test run ends in a "Create a free account" prompt instead of the done panel
 6. `/decks/<slug>` → `/study` | `/browse`
 
 One URL = one job. No multi-screen mega-page. Browser back/refresh keep place.

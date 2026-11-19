@@ -83,22 +83,22 @@ def test_complete_requires_full_practice_bank(migrated_app, migrated_client):
     assert ok.get_json()["completed"] is True
 
 
-def test_lesson_page_has_learn_practice_tabs(migrated_app, migrated_client):
+def test_lesson_page_has_learn_test_tabs(migrated_app, migrated_client):
     with migrated_app.app_context():
         seed_all()
     _register(migrated_client)
 
     page = migrated_client.get("/lessons/noun-gender")
     assert page.status_code == 200
-    assert b"Practice" in page.data
-    assert b"tab=practice" in page.data
+    assert b">Test</a" in page.data
+    assert b"tab=test" in page.data
     assert b"complete-lesson" not in page.data
-    assert b"Go to Practice" in page.data
+    assert b">Take the test</a>" in page.data
 
-    practice_tab = migrated_client.get("/lessons/noun-gender?tab=practice")
+    practice_tab = migrated_client.get("/lessons/noun-gender?tab=test")
     assert practice_tab.status_code == 200
     assert b"js/practice.js" in practice_tab.data
-    assert b'data-tab="practice"' in practice_tab.data
+    assert b'data-tab="test"' in practice_tab.data
     assert b"is-active" in practice_tab.data
     from pathlib import Path
 

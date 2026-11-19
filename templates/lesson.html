@@ -32,9 +32,9 @@
       >Learn</a
     >
     <a
-      class="tab-btn{% if tab == 'practice' %} is-active{% endif %}"
-      href="{{ url_for('pages.lesson', lesson_id=lesson.id, tab='practice') }}"
-      >Practice</a
+      class="tab-btn{% if tab == 'test' %} is-active{% endif %}"
+      href="{{ url_for('pages.lesson', lesson_id=lesson.id, tab='test') }}"
+      >Test</a
     >
   </div>
 
@@ -72,16 +72,16 @@
     {% endfor %}
   </div>
   {% if lesson.completed and (next_deck or next_lesson) %}
-  {# Lesson already done: point forward first, keep practice as a quieter option. #}
+  {# Lesson already done: point forward first, keep the test as a quieter option. #}
   {% if next_deck %}
   <a class="btn btn--primary btn--block" href="{{ url_for('pages.study', slug=next_deck.slug) }}">Study vocab: {{ next_deck.title }}</a>
   {% endif %}
   {% if next_lesson %}
   <a class="btn {{ 'btn--secondary' if next_deck else 'btn--primary' }} btn--block" href="{{ url_for('pages.lesson', lesson_id=next_lesson.id) }}">Next lesson: {{ next_lesson.title }}</a>
   {% endif %}
-  <a class="btn btn--ghost btn--block" href="{{ url_for('pages.lesson', lesson_id=lesson.id, tab='practice') }}">Practice again</a>
+  <a class="btn btn--ghost btn--block" href="{{ url_for('pages.lesson', lesson_id=lesson.id, tab='test') }}">Take the test again</a>
   {% else %}
-  <a class="btn btn--primary btn--block" href="{{ url_for('pages.lesson', lesson_id=lesson.id, tab='practice') }}">Go to Practice</a>
+  <a class="btn btn--primary btn--block" href="{{ url_for('pages.lesson', lesson_id=lesson.id, tab='test') }}">Take the test</a>
   {% endif %}
   <nav class="lesson-nav" aria-label="Course">
     {% if previous_in_course or next_in_course %}
@@ -108,7 +108,21 @@
   </nav>
   {% else %}
   <div class="stack-lg" id="practice-panel">
-    <div class="progress-group">
+    {% if lesson.practice %}
+    {# Shown until the learner starts: what the test asks and the words it uses. #}
+    <div class="stack-lg test-intro" id="test-intro">
+      <div class="test-intro__head">
+        <h2 class="heading-2" id="test-intro-title">{{ lesson.practice|length }} question{{ "s" if lesson.practice|length != 1 }}</h2>
+        <p class="text-body">Get every question right to complete the lesson.</p>
+      </div>
+      {% if lesson.words %}
+      {% set words_heading_id = "test-words-title" %}
+      {% include "_lesson_words.html" %}
+      {% endif %}
+      <button type="button" class="btn btn--primary btn--block" id="test-start">Start the test</button>
+    </div>
+    {% endif %}
+    <div class="progress-group" id="practice-progress" hidden>
       <div class="progress-meta">
         <span id="practice-progress-text">Loading…</span>
         {% if lesson.completed %}
@@ -120,7 +134,7 @@
       </div>
     </div>
     <div class="stack" id="practice-item" hidden></div>
-    <p class="text-muted" id="practice-empty" hidden>No practice items for this lesson yet.</p>
+    <p class="text-muted" id="practice-empty" hidden>No test questions for this lesson yet.</p>
     {% if not current_user %}
     {# Logged out: nothing is saved, so ask for an account in place of the completion step. #}
     <div class="stack" id="practice-done" hidden>
@@ -165,7 +179,7 @@
 </section>
 {% endblock %}
 {% block scripts %}
-{% if tab == 'practice' %}
+{% if tab == 'test' %}
 <script src="{{ url_for('static', filename='js/api.js') }}"></script>
 <script src="{{ url_for('static', filename='js/speech.js') }}"></script>
 <script src="{{ url_for('static', filename='js/practice.js') }}"></script>

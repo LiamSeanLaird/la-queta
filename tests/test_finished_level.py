@@ -47,7 +47,7 @@ def test_last_remaining_lesson_shows_finished_moment(migrated_app, migrated_clie
         if lesson_id != last:
             _complete(migrated_client, lesson_id)
 
-    page = migrated_client.get(f"/lessons/{last}?tab=practice").get_data(as_text=True)
+    page = migrated_client.get(f"/lessons/{last}?tab=test").get_data(as_text=True)
     assert "You've finished A1 - well done." in page
     assert "A2 is not here yet" in page
     assert 'href="/levels/a1/daily"' in page
@@ -69,7 +69,7 @@ def test_other_lessons_keep_the_normal_completion_step(migrated_app, migrated_cl
     for lesson_id in ids[:-2]:
         _complete(migrated_client, lesson_id)
 
-    page = migrated_client.get(f"/lessons/{ids[-1]}?tab=practice").get_data(
+    page = migrated_client.get(f"/lessons/{ids[-1]}?tab=test").get_data(
         as_text=True
     )
     assert "Lesson complete - well done." in page
@@ -83,7 +83,7 @@ def test_logged_out_never_sees_finished_moment(migrated_app, migrated_client):
     with migrated_app.app_context():
         seed_all()
     ids = _lesson_ids_public(migrated_client)
-    page = migrated_client.get(f"/lessons/{ids[-1]}?tab=practice").get_data(
+    page = migrated_client.get(f"/lessons/{ids[-1]}?tab=test").get_data(
         as_text=True
     )
     assert "finished A1" not in page
@@ -122,7 +122,7 @@ def test_redoing_a_lesson_after_finishing_keeps_normal_step(
     for lesson_id in ids:
         _complete(migrated_client, lesson_id)
 
-    page = migrated_client.get(f"/lessons/{ids[3]}?tab=practice").get_data(
+    page = migrated_client.get(f"/lessons/{ids[3]}?tab=test").get_data(
         as_text=True
     )
     assert "Lesson complete - well done." in page

@@ -182,10 +182,10 @@ def test_lesson_page_renders(migrated_app, migrated_client):
     response = migrated_client.get("/lessons/noun-gender")
     assert response.status_code == 200
     assert b"Noun Gender" in response.data
-    assert b"Practice" in response.data
-    assert b"tab=practice" in response.data
+    assert b">Test</a" in response.data
+    assert b"tab=test" in response.data
 
-    practice = migrated_client.get("/lessons/noun-gender?tab=practice")
+    practice = migrated_client.get("/lessons/noun-gender?tab=test")
     assert practice.status_code == 200
     assert b"js/practice.js" in practice.data
 

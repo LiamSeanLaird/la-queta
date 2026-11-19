@@ -80,7 +80,7 @@ def test_lesson_pages_have_learning_resource_json_ld(migrated_app, migrated_clie
     lessons = _seed(migrated_app)
     assert lessons
     for lesson_id, title, summary, sort_order in lessons:
-        html = migrated_client.get(f"/lessons/{lesson_id}?tab=practice").get_data(
+        html = migrated_client.get(f"/lessons/{lesson_id}?tab=test").get_data(
             as_text=True
         )
         items = _json_ld(html)

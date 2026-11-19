@@ -37,7 +37,7 @@ def test_practice_page_loads_speech_js(migrated_app, migrated_client):
     with migrated_app.app_context():
         seed_all()
     _register(migrated_client)
-    page = migrated_client.get("/lessons/noun-gender?tab=practice")
+    page = migrated_client.get("/lessons/noun-gender?tab=test")
     assert page.status_code == 200
     assert b"js/speech.js" in page.data
     assert b"js/practice.js" in page.data

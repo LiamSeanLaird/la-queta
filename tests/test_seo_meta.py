@@ -58,7 +58,7 @@ def test_lesson_page_title_and_description_helpers():
     )
     assert lesson_page_title("Food & Café").startswith("Food & café in Catalan")
     assert lesson_page_description("Say hello.") == (
-        "Say hello. A free A1 Catalan lesson with practice, no sign-up needed."
+        "Say hello. A free A1 Catalan lesson with a short test, no sign-up needed."
     )
 
 
@@ -69,7 +69,7 @@ def test_every_lesson_has_unique_title_description_and_canonical(
     lessons = _seed_lessons(migrated_app)
     titles, descriptions = set(), set()
     for lesson_id, title, summary in lessons:
-        html = migrated_client.get(f"/lessons/{lesson_id}?tab=practice").get_data(
+        html = migrated_client.get(f"/lessons/{lesson_id}?tab=test").get_data(
             as_text=True
         )
         page_title = _title(html)

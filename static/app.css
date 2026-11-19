@@ -1374,3 +1374,13 @@ a.btn.btn--primary {
 .landing-faq .text-body + .text-body {
   margin-top: 0.5rem;
 }
+
+/* ── Test intro (before the first question) ─────────── */
+
+.test-intro__head .heading-2 {
+  margin: 0 0 0.35rem;
+}
+
+.test-intro__head .text-body {
+  margin: 0;
+}

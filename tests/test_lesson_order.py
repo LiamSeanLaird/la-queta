@@ -77,7 +77,7 @@ def test_next_lesson_is_the_next_row_on_the_learn_tab(migrated_app, migrated_cli
     # A learner who works down the Learn tab is sent to the next row, not elsewhere.
     for lesson_id in _goal_lesson_ids()[:6]:
         _complete(migrated_client, lesson_id)
-    practice = migrated_client.get("/lessons/introductions?tab=practice").get_data(
+    practice = migrated_client.get("/lessons/introductions?tab=test").get_data(
         as_text=True
     )
     assert 'href="/lessons/numbers"' in practice

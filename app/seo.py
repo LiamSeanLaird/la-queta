@@ -18,12 +18,12 @@ def landing_faq(lesson_count: int) -> list[dict]:
     return [
         {
             "question": "Is it free?",
-            "answer": "Yes. Every lesson, every practice and every vocab deck is free.",
+            "answer": "Yes. Every lesson, every test and every vocab deck is free.",
         },
         {
             "question": "Do I need an account?",
             "answer": (
-                "Not to start. You can read and practise any lesson without one. "
+                "Not to start. You can read any lesson and take its test without one. "
                 "A free account saves the lessons you finish and gives you the vocab "
                 "flashcards and a daily vocab review."
             ),

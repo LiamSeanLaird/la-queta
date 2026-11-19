@@ -70,7 +70,7 @@ def index():
     level_code = level.code if level else COURSE_LEVEL_ID.upper()
     description = (
         "A short, free Catalan course that takes complete beginners from zero to "
-        f"{level_code}: {len(lessons)} lessons with practice, plus vocab flashcards."
+        f"{level_code}: {len(lessons)} lessons with tests, plus vocab flashcards."
     )
     faq = landing_faq(len(lessons))
     base_url = current_app.config.get("PUBLIC_BASE_URL", "")
@@ -209,13 +209,13 @@ def lesson_page_title(title: str) -> str:
 
 def lesson_page_description(summary: str) -> str:
     return (
-        f"{summary.strip()} A free A1 Catalan lesson with practice, no sign-up needed."
+        f"{summary.strip()} A free A1 Catalan lesson with a short test, no sign-up needed."
     )
 
 
 @bp.get("/lessons/<lesson_id>")
 def lesson(lesson_id: str):
-    # Public: a logged-out visitor (user=None) can read and practise any lesson.
+    # Public: a logged-out visitor (user=None) can read any lesson and take its test.
     # Only saving the completion (POST /api/lessons/<id>/complete) needs an account.
     user = current_user()
     try:
@@ -227,7 +227,14 @@ def lesson(lesson_id: str):
         abort(404)
 
     tab = (request.args.get("tab") or "learn").strip().lower()
-    if tab not in {"learn", "practice"}:
+    if tab == "practice":
+        # The Test tab used to be called Practice, and ?tab=practice URLs are
+        # public and indexed: send them to the new name, keeping other args.
+        args = request.args.to_dict()
+        args.pop("lesson_id", None)
+        args["tab"] = "test"
+        return redirect(url_for("pages.lesson", lesson_id=lesson_id, **args), 301)
+    if tab not in {"learn", "test"}:
         tab = "learn"
 
     next_steps = lesson_next_steps(user, lesson_data["id"])

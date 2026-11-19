@@ -195,10 +195,11 @@ Only `/` and `/lessons/<id>` are indexable.
 
 - Public pages: `/` is the landing page for logged-out visitors (logged in → `/levels`): the pitch, "Start lesson 1", every A1 lesson grouped by goal (`learn_groups_for_level(None, "a1")`), the goals, and an FAQ.
   It still renders before content is seeded (no lesson list).
-- `/lessons/<id>` (Learn and Practice tabs) renders for logged-out visitors.
+- `/lessons/<id>` (Learn and Test tabs, `?tab=test`; the old `?tab=practice` 301-redirects there keeping other args) renders for logged-out visitors.
+  Internally the Test is still called practice: `practice_json`, the API's `practice` key, `practice.js` and the `practice-*` element ids.
   Services take `user=None` for this path (`get_lesson`, `list_lessons_for_level`, `lesson_next_steps`): no progress, nothing completed, no vocab deck, no wrap-round to earlier lessons.
-  Logged out, Practice never posts the completion; its last step asks the visitor to create an account or sign in instead.
-  Carry-over: when a logged-out visitor finishes Practice, `practice.js` stores `{lesson_id, exercises_correct, exercises_total}` in `sessionStorage` (`laqueta.pendingCompletion`, this tab only).
+  Logged out, the Test never posts the completion; its last step asks the visitor to create an account or sign in instead.
+  Carry-over: when a logged-out visitor finishes the Test, `practice.js` stores `{lesson_id, exercises_correct, exercises_total}` in `sessionStorage` (`laqueta.pendingCompletion`, this tab only).
   After register or login succeeds, `gate.js` removes the entry, reads the lesson's `completed` state, re-posts it to `POST /api/lessons/<id>/complete` (the same validation as the logged-in path), and lands on `/lessons/<id>?saved=1`, which shows "Saved to your account." when the lesson is complete.
   It adds `&finished=1` only when the lesson was not already complete before the POST.
   No redirect target comes from the URL; without a pending entry, or if either request fails (including a network error), the gate goes to `/levels`.
@@ -207,7 +208,7 @@ Only `/` and `/lessons/<id>` are indexable.
 - Every lesson's Learn tab ends with a course nav: previous and next lesson in plain course order (`lesson_neighbours`, which ignores progress, so the links are the same for everyone and a crawler can walk the course), plus "All lessons".
   "All lessons" goes to the lesson list on `/` (`/#lessons-title`) when logged out and to `/levels/<level>` when logged in.
 - "You've finished A1": `lesson_next_steps` returns `finishes_level`, True for a logged-in learner when every other lesson in the level is complete.
-  The Practice done panel renders `_finished_level.html` instead of the normal completion step only when this lesson was not already complete, so redoing a lesson after finishing A1 shows the normal step.
+  The Test done panel renders `_finished_level.html` instead of the normal completion step only when this lesson was not already complete, so redoing a lesson after finishing A1 shows the normal step.
   The Learn tab shows it after a carry-over only with `?saved=1&finished=1` (`just_finished_level`), so a repeat completion or a reload of a plain `?saved=1` URL does not.
   The `/levels` hub tile shows a short version once `lessons_done == lessons_total`.
 - The hub (`/levels`, "Your A1 course") lists only open levels (`OPEN_LEVEL_IDS`); A2 and B1 stay in `levels` (a foreign key target for `users.current_level_id`) but are hidden.
@@ -237,7 +238,7 @@ Conventions: `STYLE_GUIDE.md` §3 (layers, statuses, error shape, POST-for-actio
 |---|---|---|
 | GET | `/` | Public landing page (logged in → `/levels`) |
 | GET | `/signup`, `/signin` | Account forms (gate, `noindex`) |
-| GET | `/lessons/<id>` | Lesson page, public (logged out: no progress, sign-up prompt after Practice) |
+| GET | `/lessons/<id>` | Lesson page, public (logged out: no progress, sign-up prompt after the Test) |
 | GET | `/robots.txt`, `/sitemap.xml` | Crawl files, see Public pages and SEO |
 | GET | `/api/health` | Health check (never redirected) |
 | POST | `/api/auth/register` | Create account (name + email + password) + set cookie |

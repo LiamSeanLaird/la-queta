@@ -52,7 +52,7 @@ def test_lesson_practice_deck_and_study_pages_group_label_with_bar(
     assert response.status_code == 201
 
     _assert_meta_and_bar_grouped(
-        migrated_client.get("/lessons/noun-gender?tab=practice").get_data(as_text=True)
+        migrated_client.get("/lessons/noun-gender?tab=test").get_data(as_text=True)
     )
     _assert_meta_and_bar_grouped(
         migrated_client.get("/decks/everyday").get_data(as_text=True)
