@@ -149,3 +149,119 @@ def test_noun_gender_words_cover_everything_the_test_asks_for():
     for word in lesson["words"]:
         for part in word["catalan"].split(" / "):
             assert part.lower() in examples, part
+
+
+# Lessons whose `words` list has not been written yet. Each one is audited
+# against its test and removed from this set, until the set is empty.
+LESSONS_WITHOUT_WORDS = {
+    "03-ser-vs-estar.json",
+    "04-present-tense.json",
+    "05-question-words.json",
+    "06-introductions.json",
+    "07-numbers.json",
+    "08-time-calendar.json",
+    "09-directions.json",
+    "10-travel-transport.json",
+    "11-food-cafe.json",
+    "12-shopping.json",
+    "13-health.json",
+    "14-signs-messages.json",
+    "15-family.json",
+    "16-home-routine.json",
+    "17-work.json",
+    "18-education.json",
+    "19-leisure.json",
+    "20-public-admin.json",
+}
+
+# Grammar words taught in lessons 1 and 2, allowed in any test without being
+# listed again in each lesson's words.
+GRAMMAR_WORDS = {"el", "la", "els", "les", "l'", "un", "una", "uns", "unes", "i", "de", "d'"}
+
+# Multiple-choice answers that are English, so they ask for no Catalan word.
+ENGLISH_ANSWERS = {
+    "Masculine",
+    "Feminine",
+    "It contracts to l'",
+    "No - 'parlo' already means 'I speak'",
+    "Open",
+    "Closed",
+    "Free entry",
+    "No smoking",
+}
+
+_EDGE_PUNCTUATION = ".,;:?!¿¡…«»\"()"
+
+
+def _tokens(phrase: str) -> list[str]:
+    """Lowercased words of a Catalan phrase, with a (ser)-style note removed."""
+    phrase = re.sub(r"\([^)]*\)", " ", phrase.replace("’", "'"))
+    tokens = []
+    for raw in phrase.replace("/", " ").split():
+        token = raw.strip(_EDGE_PUNCTUATION).lower()
+        if token and token != "-":
+            tokens.append(token)
+    return tokens
+
+
+def _asked_phrases(lesson: dict) -> list[str]:
+    """Every Catalan phrase the lesson's test asks the learner to produce or recognise."""
+    asked = []
+    for item in lesson["practice"]:
+        asked += item.get("answers", [])
+        if item.get("speak"):
+            asked.append(item["speak"])
+        if item["kind"] == "cloze":
+            asked.append(item["answer"])
+        if item["kind"] == "multiple_choice" and item["answer"] not in ENGLISH_ANSWERS:
+            asked.append(item["answer"])
+        # Catalan signs quoted in a question, like «Obert».
+        asked += re.findall(r"«([^»]+)»", item.get("question", ""))
+    return asked
+
+
+def _is_taught(token: str, forms: set[str]) -> bool:
+    if token in forms or token in GRAMMAR_WORDS:
+        return True
+    # l'estació is taught if its parts are: the article and estació.
+    parts = [p for p in re.split(r"(?<=')|-", token) if p]
+    return len(parts) > 1 and all(_is_taught(p, forms) for p in parts)
+
+
+def _lesson_files() -> list[Path]:
+    return sorted(LESSONS.glob("*.json"))
+
+
+def test_lessons_without_words_are_listed_explicitly():
+    names = {path.name for path in _lesson_files()}
+    assert LESSONS_WITHOUT_WORDS <= names
+    for path in _lesson_files():
+        has_words = bool(json.loads(path.read_text(encoding="utf-8")).get("words"))
+        assert has_words == (path.name not in LESSONS_WITHOUT_WORDS), path.name
+
+
+def test_every_test_only_uses_words_its_lesson_teaches():
+    for path in _lesson_files():
+        if path.name in LESSONS_WITHOUT_WORDS:
+            continue
+        lesson = json.loads(path.read_text(encoding="utf-8"))
+        forms = {t for word in lesson["words"] for t in _tokens(word["catalan"])}
+        missing = sorted(
+            {
+                token
+                for phrase in _asked_phrases(lesson)
+                for token in _tokens(phrase)
+                if not _is_taught(token, forms)
+            }
+        )
+        assert not missing, f"{path.name}: {missing}"
+
+
+def test_every_listed_word_is_shown_on_the_learn_tab():
+    for path in _lesson_files():
+        lesson = json.loads(path.read_text(encoding="utf-8"))
+        learn = _text(lesson).lower().replace("’", "'")
+        for word in lesson.get("words", []):
+            assert word["english"].strip(), f"{path.name}: {word}"
+            for part in word["catalan"].split(" / "):
+                assert part.lower() in learn, f"{path.name}: {part}"

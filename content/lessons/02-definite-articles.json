@@ -4,6 +4,56 @@
   "order": 2,
   "summary": "Catalan has four words for 'the', plus a contraction before vowels.",
   "deck": "food_drink",
+  "words": [
+    {
+      "catalan": "el / la",
+      "english": "the (masculine / feminine singular)"
+    },
+    {
+      "catalan": "els / les",
+      "english": "the (masculine / feminine plural)"
+    },
+    {
+      "catalan": "l'",
+      "english": "the, before a vowel or silent h"
+    },
+    {
+      "catalan": "els gats",
+      "english": "the cats"
+    },
+    {
+      "catalan": "les portes",
+      "english": "the doors"
+    },
+    {
+      "catalan": "les taules",
+      "english": "the tables"
+    },
+    {
+      "catalan": "els trens",
+      "english": "the trains"
+    },
+    {
+      "catalan": "l'home / els homes",
+      "english": "the man / the men"
+    },
+    {
+      "catalan": "l'aigua",
+      "english": "the water"
+    },
+    {
+      "catalan": "l'estació",
+      "english": "the station"
+    },
+    {
+      "catalan": "l'aeroport",
+      "english": "the airport"
+    },
+    {
+      "catalan": "la universitat",
+      "english": "the university"
+    }
+  ],
   "sections": [
     {
       "type": "text",
@@ -55,6 +105,11 @@
           "catalan": "l'estació",
           "english": "the station",
           "note": "la + estació → l'estació"
+        },
+        {
+          "catalan": "l'aeroport",
+          "english": "the airport",
+          "note": "el + aeroport → l'aeroport"
         },
         {
           "catalan": "els homes",
