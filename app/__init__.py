@@ -27,15 +27,21 @@ def create_app(config_overrides: dict | None = None) -> Flask:
     from app.routes.api_lessons import bp as api_lessons_bp
     from app.routes.api_levels import bp as api_levels_bp
     from app.routes.api_vocab import bp as api_vocab_bp
+    from app.routes.crawl import bp as crawl_bp
     from app.routes.health import bp as health_bp
     from app.routes.pages import bp as pages_bp
 
     application.register_blueprint(health_bp)
     application.register_blueprint(pages_bp)
+    application.register_blueprint(crawl_bp)
     application.register_blueprint(api_auth_bp)
     application.register_blueprint(api_levels_bp)
     application.register_blueprint(api_lessons_bp)
     application.register_blueprint(api_vocab_bp)
+
+    from app.www_redirect import register_www_redirect
+
+    register_www_redirect(application)
 
     from app.text_filters import keep_affixes
 
@@ -57,7 +63,21 @@ def create_app(config_overrides: dict | None = None) -> Flask:
             "feedback_href": feedback_href,
         }
 
+    register_not_found(application)
+
     return application
+
+
+def register_not_found(application: Flask) -> None:
+    """404s: JSON under /api/, a branded noindex page everywhere else."""
+    from flask import jsonify, render_template, request, url_for
+
+    @application.errorhandler(404)
+    def not_found(_error):
+        if request.path.startswith("/api/"):
+            return jsonify({"error": "Not found"}), 404
+        brand_href = url_for("pages.index")
+        return render_template("not_found.html", brand_href=brand_href), 404
 
 
 def _configure_sqlite_memory(application: Flask) -> None:

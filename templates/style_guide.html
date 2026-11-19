@@ -17,7 +17,7 @@
   <div class="sg-page">
     <header class="brand">
       <h1 class="brand__title">La Queta</h1>
-      <p class="brand__tagline">Style guide - living component gallery</p>
+      <p class="brand__tagline" lang="ca">Style guide - living component gallery</p>
     </header>
 
     <p class="text-muted" style="margin-top: 1rem; text-align: center;">
@@ -87,7 +87,7 @@
     <section class="sg-section" id="type">
       <h2 class="sg-section__title">Typography</h2>
       <div class="sg-demo">
-        <h1 class="heading-1">Heading 1 - level / screen</h1>
+        <p class="heading-1">Heading 1 - level / screen</p>
         <h2 class="heading-2">Heading 2 - section</h2>
         <h3 class="heading-3">Heading 3 - subsection</h3>
         <div class="page-intro" style="margin: 1rem 0;">
@@ -193,6 +193,10 @@
             <div class="progress" aria-hidden="true"><div class="progress__bar" style="width: 100%"></div></div>
           </a>
           <p class="level-tile__goals"><span class="level-tile__done-check" aria-hidden="true">✓</span> <button type="button" class="text-link">All 7 goals complete</button></p>
+          <div class="level-tile__finished">
+            <p class="level-tile__finished-title"><span class="level-tile__done-check" aria-hidden="true">✓</span> You've finished A1</p>
+            <p class="level-tile__finished-text">Every A1 lesson is complete - well done. Keep reviewing your vocab daily so the words stay with you. A2 is not here yet.</p>
+          </div>
           <div class="level-tile__actions">
             <p class="level-tile__done"><span class="level-tile__done-check" aria-hidden="true">✓</span> All A1 lessons and vocab done</p>
             <div class="daily-cta">
@@ -200,16 +204,6 @@
               <p class="daily-cta__streak">4-day streak</p>
             </div>
           </div>
-        </div>
-        <div class="level-tile is-disabled" aria-disabled="true">
-          <p class="level-tile__code">A2</p>
-          <p class="level-tile__meta">Elementary · coming soon</p>
-          <div class="progress" aria-hidden="true"><div class="progress__bar" style="width: 0%"></div></div>
-        </div>
-        <div class="level-tile is-disabled" aria-disabled="true">
-          <p class="level-tile__code">B1</p>
-          <p class="level-tile__meta">Intermediate · coming soon</p>
-          <div class="progress" aria-hidden="true"><div class="progress__bar" style="width: 0%"></div></div>
         </div>
       </div>
     </section>
@@ -232,14 +226,31 @@
           <span class="badge badge--todo">Todo</span>
         </button>
       </div>
+      <nav class="lesson-nav" aria-label="Course (sample)">
+        <div class="lesson-nav__steps">
+          <a class="list-row lesson-nav__link" href="#">
+            <div>
+              <p class="list-row__sub">← Previous lesson</p>
+              <p class="list-row__title">2. Definite Articles</p>
+            </div>
+          </a>
+          <a class="list-row lesson-nav__link lesson-nav__link--next" href="#">
+            <div>
+              <p class="list-row__sub">Next lesson →</p>
+              <p class="list-row__title">4. Present Tense Verbs</p>
+            </div>
+          </a>
+        </div>
+        <a class="lesson-nav__all" href="#">All lessons</a>
+      </nav>
     </section>
 
     <section class="sg-section" id="flashcard">
       <h2 class="sg-section__title">Flashcard</h2>
       <div class="sg-demo">
         <div class="flashcard" role="button" tabindex="0">
-          <p class="flashcard__lang">Català</p>
-          <p class="flashcard__word">la mare</p>
+          <p class="flashcard__lang" lang="ca">Català</p>
+          <p class="flashcard__word" lang="ca">la mare</p>
           <p class="flashcard__pronunciation">MAH-reh</p>
           <div class="flashcard__grammar">
             <span class="gram-pill gram-pill--pos">noun</span>
@@ -278,19 +289,19 @@
       <table class="examples">
         <thead>
           <tr>
-            <th>Català</th>
+            <th lang="ca">Català</th>
             <th>English</th>
             <th>Note</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td class="examples__ca">el gat</td>
+            <td class="examples__ca" lang="ca">el gat</td>
             <td>the cat (m)</td>
             <td class="examples__note">ends in consonant</td>
           </tr>
           <tr>
-            <td class="examples__ca">la porta</td>
+            <td class="examples__ca" lang="ca">la porta</td>
             <td>the door (f)</td>
             <td class="examples__note">ends in -a</td>
           </tr>

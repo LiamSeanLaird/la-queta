@@ -23,7 +23,8 @@ def _progress_map(user_id: int, lesson_ids: list[str]) -> dict[str, UserLessonPr
     return {row.lesson_id: row for row in rows}
 
 
-def list_lessons_for_level(user: User, level_id: str) -> list[dict]:
+def list_lessons_for_level(user: User | None, level_id: str) -> list[dict]:
+    """Lessons in `level_id` in course order; `user=None` (logged out) has nothing completed."""
     from app.models import Level
 
     if db.session.get(Level, level_id) is None:
@@ -34,7 +35,7 @@ def list_lessons_for_level(user: User, level_id: str) -> list[dict]:
         .where(Lesson.level_id == level_id)
         .order_by(Lesson.sort_order, Lesson.id)
     ).all()
-    progress = _progress_map(user.id, [lesson.id for lesson in lessons])
+    progress = _progress_map(user.id, [lesson.id for lesson in lessons]) if user else {}
     return [
         {
             "id": lesson.id,
@@ -50,16 +51,19 @@ def list_lessons_for_level(user: User, level_id: str) -> list[dict]:
     ]
 
 
-def get_lesson(user: User, lesson_id: str) -> dict:
+def get_lesson(user: User | None, lesson_id: str) -> dict:
+    """Lesson content plus `user`'s progress; `user=None` (logged out) has no progress."""
     lesson = db.session.get(Lesson, lesson_id)
     if lesson is None:
         raise ServiceError("Lesson not found", 404)
-    progress = db.session.scalar(
-        select(UserLessonProgress).where(
-            UserLessonProgress.user_id == user.id,
-            UserLessonProgress.lesson_id == lesson.id,
+    progress = None
+    if user is not None:
+        progress = db.session.scalar(
+            select(UserLessonProgress).where(
+                UserLessonProgress.user_id == user.id,
+                UserLessonProgress.lesson_id == lesson.id,
+            )
         )
-    )
     return {
         "id": lesson.id,
         "level_id": lesson.level_id,
@@ -72,6 +76,23 @@ def get_lesson(user: User, lesson_id: str) -> dict:
         "completed": bool(progress and progress.completed),
         "exercises_correct": progress.exercises_correct if progress else 0,
         "exercises_total": progress.exercises_total if progress else 0,
+    }
+
+
+def lesson_neighbours(lesson_id: str) -> dict:
+    """The lessons just before and after `lesson_id` in course order, ignoring progress.
+
+    Used for the previous / next links on every lesson page, so a visitor can walk
+    the course in order. Either side is None at the ends of the level.
+    """
+    lesson = db.session.get(Lesson, lesson_id)
+    if lesson is None:
+        raise ServiceError("Lesson not found", 404)
+    ordered = list_lessons_for_level(None, lesson.level_id)
+    index = next(i for i, row in enumerate(ordered) if row["id"] == lesson.id)
+    return {
+        "previous": ordered[index - 1] if index > 0 else None,
+        "next": ordered[index + 1] if index + 1 < len(ordered) else None,
     }
 
 

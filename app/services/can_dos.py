@@ -84,7 +84,7 @@ def can_dos_progress(user: User, level_id: str) -> dict:
     }
 
 
-def learn_groups_for_level(user: User, level_id: str) -> list[dict]:
+def learn_groups_for_level(user: User | None, level_id: str) -> list[dict]:
     """Ordered Learn-tab sections: each goal + its lessons."""
     lessons = list_lessons_for_level(user, level_id)
     by_id = {row["id"]: row for row in lessons}

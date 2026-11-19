@@ -9,7 +9,8 @@ Usage (app already running, e.g. on port 5077):
     poetry run python scripts/screenshots.py --base http://127.0.0.1:5077 \
         --out /tmp/la-queta-shots /levels/a1 /decks/starter/study
 
-With no paths, a default learner walk is used. Set PLAYWRIGHT_CHROMIUM to a
+With no paths, a default learner walk is used. Pass --logged-out to visit the
+pages as a visitor with no account (public pages such as lessons). Set PLAYWRIGHT_CHROMIUM to a
 Chromium binary if the version Playwright expects is not installed.
 """
 
@@ -67,6 +68,11 @@ def main() -> int:
         action="store_true",
         help="capture only the first screen, not the full page",
     )
+    parser.add_argument(
+        "--logged-out",
+        action="store_true",
+        help="visit as a visitor with no account instead of registering one",
+    )
     parser.add_argument("paths", nargs="*")
     args = parser.parse_args()
     paths = args.paths or DEFAULT_PATHS
@@ -86,20 +92,22 @@ def main() -> int:
                     viewport={"width": width, "height": 900},
                     color_scheme=scheme,
                 )
-                handle = f"shot{uuid.uuid4().hex[:8]}"
-                resp = context.request.post(
-                    f"{args.base}/api/auth/register",
-                    data={
-                        "handle": handle,
-                        "email": f"{handle}@example.com",
-                        "password": "password123",
-                    },
-                )
-                if not resp.ok:
-                    print(
-                        f"register failed: {resp.status} {resp.text()}", file=sys.stderr
+                if not args.logged_out:
+                    handle = f"shot{uuid.uuid4().hex[:8]}"
+                    resp = context.request.post(
+                        f"{args.base}/api/auth/register",
+                        data={
+                            "handle": handle,
+                            "email": f"{handle}@example.com",
+                            "password": "password123",
+                        },
                     )
-                    return 1
+                    if not resp.ok:
+                        print(
+                            f"register failed: {resp.status} {resp.text()}",
+                            file=sys.stderr,
+                        )
+                        return 1
                 page = context.new_page()
                 current = {"path": ""}
                 page.on(

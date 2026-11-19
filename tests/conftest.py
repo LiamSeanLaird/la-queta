@@ -11,6 +11,9 @@ def app():
         {
             "TESTING": TestConfig.TESTING,
             "SQLALCHEMY_DATABASE_URI": TestConfig.SQLALCHEMY_DATABASE_URI,
+            # Unset unless a test sets it, so canonical URLs and the www redirect
+            # do not depend on the production host or the PUBLIC_BASE_URL env var.
+            "PUBLIC_BASE_URL": TestConfig.PUBLIC_BASE_URL,
         }
     )
     yield application

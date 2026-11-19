@@ -85,7 +85,7 @@
       pills.push('<span class="gram-pill gram-pill--f">feminine</span>');
     }
     if (card.plural && card.plural !== "—") {
-      pills.push(`<span class="gram-pill gram-pill--pl">pl: ${card.plural}</span>`);
+      pills.push(`<span class="gram-pill gram-pill--pl">pl: <span lang="ca">${card.plural}</span></span>`);
     }
     return pills.join("");
   }
@@ -119,11 +119,15 @@
     showingCatalan = catalanSide;
     if (catalanSide) {
       studyLang.textContent = "Català";
+      studyLang.lang = "ca";
       studyWord.textContent = card.catalan;
+      studyWord.lang = "ca";
       setMeta(card, true);
     } else {
       studyLang.textContent = "English";
+      studyLang.lang = "en";
       studyWord.textContent = card.english;
+      studyWord.lang = "en";
       setMeta(card, false);
     }
     // The grade buttons only make sense once the learner has seen the answer.

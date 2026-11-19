@@ -7,7 +7,7 @@
 {% block content %}
 <section class="stack-lg" id="browse-page" data-deck-slug="{{ deck.slug }}">
   <div>
-    <h2 class="heading-2">{{ deck.title }}</h2>
+    <h1 class="heading-2">{{ deck.title }}</h1>
     <p class="text-muted">{{ cards|length }} cards</p>
   </div>
   <p class="field__error" id="browse-error" hidden></p>
@@ -33,7 +33,7 @@
           <span class="gram-pill gram-pill--f">feminine</span>
           {% endif %}
           {% if card.plural and card.plural != '—' %}
-          <span class="gram-pill gram-pill--pl">pl: {{ card.plural }}</span>
+          <span class="gram-pill gram-pill--pl">pl: <span lang="ca">{{ card.plural }}</span></span>
           {% endif %}
         </div>
         {% endif %}

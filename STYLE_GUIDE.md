@@ -1,9 +1,9 @@
-# Style Guide — La Queta
+# Style Guide - La Queta
 
 Living conventions for humans and AI. Cursor enforces the same via `.cursor/rules/`.
 If code and this doc diverge, update both in the same change.
 
-**Product:** La Queta (`la-queta`). **Language taught:** Catalan (vocab field `catalan` stays — that is content, not the brand).
+**Product:** La Queta (`la-queta`). **Language taught:** Catalan (vocab field `catalan` stays - that is content, not the brand).
 
 ## Live component gallery
 
@@ -14,17 +14,20 @@ make run
 # → http://127.0.0.1:5001/style-guide
 ```
 
-(`make test`, `make seed`, `make upgrade` also available — see `TECHNICAL_PLAN.md` Running.)
+(`make test`, `make seed`, `make upgrade` also available - see `TECHNICAL_PLAN.md` Running.)
 
 That page renders every shared UI component (tokens, brand, type, buttons, forms, tabs, progress, level tiles, list rows, flashcard, exercise options, examples table, seen dots).
 
 Flashcards / browse rows carry prototype vocab meta on the Catalan side: pronunciation, grammar pills (pos including phrase / gender / plural), verb forms, tags.
 On browse rows, everything that wraps (grammar pills, verb forms, tags) sits in the text column; the right-hand column holds only seen dots and Retire, so it never squeezes the text at phone width.
 
-Study flow: first-load tip dialog (Don’t show again); tap or Enter flips Catalan → English, then advances (seen++); Back revisits the previous card; Retire confirms once. A finished session stays on the page and shows a 'Session complete' panel: how many cards the learner went through and retired, a primary 'Study again' (hidden when every card in it was retired), 'Next lesson: <Title>' and a link back to the deck or vocab tab. After deck study the next lesson is the deck's own lesson if it is unfinished, else the first unfinished lesson after it; after daily review it is the level's first unfinished lesson. Without Study again, the next lesson (or the exit link when there is none) becomes the primary button. An empty session shows 'Nothing to study' the same way. Deck page shows retired progress bar; when fully retired, Unretire deck replaces Study (POST unretire → seen 0). Below Study and Browse it lists the lessons linked to the deck (lesson `deck` field), in lesson order with Done/Todo badges. Interaction chrome stays off the card — only pedagogical `hint` text appears when present.
+Study flow: first-load tip dialog (Don’t show again); tap or Enter flips Catalan → English, then Knew it or Not yet grades the card and advances (Knew it counts towards retirement, Not yet queues the card again at the end of the session); Back revisits the previous card; Retire confirms once. A finished session stays on the page and shows a 'Session complete' panel: how many cards the learner went through and retired, a primary 'Study again' (hidden when every card in it was retired), 'Next lesson: <Title>' and a link back to the deck or vocab tab. After deck study the next lesson is the deck's own lesson if it is unfinished, else the first unfinished lesson after it; after daily review it is the level's first unfinished lesson. Without Study again, the next lesson (or the exit link when there is none) becomes the primary button. An empty session shows 'Nothing to study' the same way. Deck page shows retired progress bar; when fully retired, Unretire deck replaces Study (POST unretire → seen 0). Below Study and Browse it lists the lessons linked to the deck (lesson `deck` field), in lesson order with Done/Todo badges. Interaction chrome stays off the card - only pedagogical `hint` text appears when present.
 
 Lessons use Learn | Practice tabs. Practice is one-item-at-a-time (MC / cloze / type-in / listen_* / speak); typed/STT answers normalize case/space, treat curly apostrophes (’) as straight ones, and strip other punctuation but keep accents. Cloze prompts say fill-the-blank-only; wrong typed Check offers Show answer once. Listening uses browser TTS (`speech.js`). Lesson completes only after a perfect Practice run.
 When Practice ends the learner stays on the lesson: a done panel offers the lesson's matching vocab deck (primary, while it has cards left), the next incomplete lesson, and Back to lessons.
+The Learn tab ends with a course nav (`.lesson-nav`): previous and next lesson in course order as two list-row cards (stacked at phone width), and an "All lessons" link.
+When a learner finishes the last lesson of a level, the Practice done panel shows the "You've finished A1" moment (`templates/_finished_level.html`): daily vocab as the next step and an honest "A2 is not here yet" line.
+The hub tile shows the same message (`.level-tile__finished`) once every lesson in the level is complete.
 
 - **Markup + classes:** `templates/style_guide.html`
 - **Shared styles:** `static/app.css` (gallery chrome uses `.sg-*`; app components do not)
@@ -62,7 +65,7 @@ When Practice ends the learner stays on the lesson: a done panel offers the less
 - Models are the schema source of truth. Declare FKs/uniques/relationships on the model.
 - `db.session` via Flask-SQLAlchemy. **Commit in the service** (or a helper the service owns), not in the route.
 - JSON columns (`sections_json`, `tags_json`): opaque at the ORM edge; validate/shape in services.
-- API/services return plain dicts (or simple structures) for JSON — do not serialize live ORM instances from routes (avoids lazy-load / detached-instance surprises).
+- API/services return plain dicts (or simple structures) for JSON - do not serialize live ORM instances from routes (avoids lazy-load / detached-instance surprises).
 - Enforce uniqueness in the DB (`UNIQUE`). Catch `IntegrityError` → map to HTTP `409`.
 - Prefer explicit `select(...)` with the columns/entities you need; no “fetch everything then filter in Python” for list endpoints.
 
@@ -86,7 +89,7 @@ When Practice ends the learner stays on the lesson: a done panel offers the less
 ### Dependencies
 - Poetry only for app packages. Dev tools in `[tool.poetry.group.dev.dependencies]`.
 - Do not `poetry add` a package already constrained in `pyproject.toml` to a different major without updating the existing pin first.
-- **Conda + Poetry:** activate a **valid** env first (`la-queta` via `environment.yml`). `poetry.toml` sets `virtualenvs.create = false` so deps install into that env. A broken/empty activated env (e.g. husk `catalan` with no `python`) makes Poetry fail or recreate empties — fix/recreate the conda env, don’t leave it activated.
+- **Conda + Poetry:** activate a **valid** env first (`la-queta` via `environment.yml`). `poetry.toml` sets `virtualenvs.create = false` so deps install into that env. A broken/empty activated env (e.g. husk `catalan` with no `python`) makes Poetry fail or recreate empties - fix/recreate the conda env, don't leave it activated.
 
 ---
 
@@ -101,7 +104,7 @@ When Practice ends the learner stays on the lesson: a done panel offers the less
 ### Layers
 - Route: parse/validate input, require session if needed, call service, return `jsonify` + status.
 - Service: business rules, queries, commits.
-- No OpenAPI/Marshmallow/pydantic required — validate with small explicit checks (`if not handle: …`).
+- No OpenAPI/Marshmallow/pydantic required - validate with small explicit checks (`if not handle: …`).
 
 ### Auth
 - Cookie session (`session_user` = user id in signed Flask session). Missing or invalid session on protected routes → `401` `{ "error": "…" }`.
@@ -131,7 +134,7 @@ When Practice ends the learner stays on the lesson: a done panel offers the less
 
 ### Stack rules
 - Flask templates + vanilla CSS/JS only.
-- **No** React, Vue, Next, Tailwind, Bootstrap, HTMX, Alpine — unless PRODUCT/TECHNICAL_PLAN explicitly change.
+- **No** React, Vue, Next, Tailwind, Bootstrap, HTMX, Alpine - unless PRODUCT/TECHNICAL_PLAN explicitly change.
 - One shell template is fine early; split when a file becomes hard to navigate (~800+ lines of mixed concerns).
 - JS in `static/app.js` (split later by screen if needed). CSS in `static/app.css`.
 - No build step, no bundler.
@@ -142,6 +145,14 @@ When Practice ends the learner stays on the lesson: a done panel offers the less
 - Catalan UI chrome can mix EN labels for learners; content language follows lesson/card data.
 - Render lesson prose (text, rule and example-note sections) through the `keep_affixes` filter (`app/text_filters.py`).
   It wraps endings such as `-em`, `-er/-re` and `-eix-` in a `.affix` nowrap span, because browsers may break a line straight after the hyphen.
+- Exactly one `<h1>` per page: the page's own title (lesson title, deck title, "Your A1 course").
+  The brand in the topbar is a `<p class="brand__title">`, never a heading.
+  Heading level and look are separate: pick the element for the outline and the `.heading-*` class for the size.
+  A page with no visible title (study) gets `<h1 class="visually-hidden">`.
+- `<html lang="en">` stays, because the interface is English.
+  Mark Catalan text with `lang="ca"` on the element that holds it: example cells, vocab words, plurals and verb forms, the spoken target in Practice, and the `aprèn català` tagline.
+  When JS swaps a flashcard between Catalan and English, it sets `lang` to match the side.
+  Mixed English and Catalan text (prompts, rules, notes) stays unmarked.
 - Logged-in shell (`base.html` topbar): **←** back left (`{% block top_back %}`), brand center, profile + feedback (mailto / `FEEDBACK_EMAIL`) right, side by side in one row (never stacked). Tagline (`aprèn català`) only on the gate.
 
 ### CSS
@@ -149,7 +160,7 @@ When Practice ends the learner stays on the lesson: a done panel offers the less
 - Mobile-first; usable at 360px width.
 - Prefer layout via flex/grid; avoid absolute positioning for primary flow.
 - Wrap a `.progress-meta` label and its `.progress` bar in `.progress-group`, so they stay one tight unit whatever gap the surrounding stack uses.
-- **No cards by default** — card chrome only when it frames an interaction (flashcard flip, exercise choice).
+- **No cards by default** - card chrome only when it frames an interaction (flashcard flip, exercise choice).
 - No purple/indigo gradient themes, no glow stacks, no emoji as UI.
 - Avoid generic AI defaults: Inter/Roboto/Arial system stacks as the brand voice; purple-on-white; cool limestone + teal; newspaper broadsheet layouts.
 
@@ -162,14 +173,14 @@ When Practice ends the learner stays on the lesson: a done panel offers the less
 
 ## 5. Visual design
 
-Intentional **La Queta** look — Catalan learning tool with Senyera **red + gold** as the primary colour language (gold-washed surface, red CTAs, gold progress/highlights). Not teal-limestone, not a marketing landing page, not café-terracotta pastiche.
+Intentional **La Queta** look - Catalan learning tool with Senyera **red + gold** as the primary colour language (gold-washed surface, red CTAs, gold progress/highlights). Not teal-limestone, not a marketing landing page, not café-terracotta pastiche.
 
 ### Brand signals
 - Product name **La Queta** is the primary identity on the home/hub (not the word “Catalan” alone).
 - Tagline may reference Catalan / Català (e.g. “aprèn català”).
-- Senyera colours: gold `#FCCC12`, red `#C1001F` — used as **system accents** (brand title, primary buttons, progress, selection), not as a flag wallpaper.
-- **Favicon / bookmark mark:** gold **smiley** (two dots + smile) on senyera red (`static/favicon.svg`, `favicon-32.png`, `favicon.ico`, `apple-touch-icon.png`) — linked from `base.html`. Wordmark stays the in-app brand; full mascot (if any) is separate.
-- **Link previews (WhatsApp / iMessage / etc.):** Open Graph + Twitter cards in `base.html`; share image `static/og-image.png` (1200×630). Canonical origin via `PUBLIC_BASE_URL` (default `https://la-queta.com`).
+- Senyera colours: gold `#FCCC12`, red `#C1001F` - used as **system accents** (brand title, primary buttons, progress, selection), not as a flag wallpaper.
+- **Favicon / bookmark mark:** gold **smiley** (two dots + smile) on senyera red (`static/favicon.svg`, `favicon-32.png`, `favicon.ico`, `apple-touch-icon.png`) - linked from `base.html`. Wordmark stays the in-app brand; full mascot (if any) is separate.
+- **Link previews (WhatsApp / iMessage / etc.):** Open Graph + Twitter cards in `base.html`; share image `static/og-image.png` (1200×630): the smiley, **La Queta**, *aprèn català* and "Free Catalan for complete beginners" on senyera red. It is rendered from `scripts/og_image/og-image.html`; edit that file and run `poetry run python scripts/og_image.py` (needs network for Google Fonts), never hand-edit the PNG. Canonical origin via `PUBLIC_BASE_URL` (default `https://la-queta.com`).
 - **No** `.senyera-bar` / flag strip at the top of screens.
 
 ### Tokens
@@ -179,7 +190,7 @@ Intentional **La Queta** look — Catalan learning tool with Senyera **red + gol
   --bg-elevated: #fffdf6;
   --ink: #1c1412;
   --muted: #6e5a48;
-  --accent: #c1001f;        /* senyera red — primary actions */
+  --accent: #c1001f;        /* senyera red - primary actions */
   --accent-hover: #9e0019;
   --senyera-gold: #FCCC12;
   --senyera-red: #C1001F;
@@ -224,7 +235,7 @@ Intentional **La Queta** look — Catalan learning tool with Senyera **red + gol
 ### Colour roles
 - **Red (`--accent` / `--senyera-red`):** brand title, primary buttons, links, current borders.
 - **Gold (`--senyera-gold` / `--highlight`):** progress fill, seen dots, rule-callout accent, current-tile inset.
-- **Surface:** soft gold wash + optional top radial wash in `body` background — atmosphere without flag chrome.
+- **Surface:** soft gold wash + optional top radial wash in `body` background - atmosphere without flag chrome.
 
 ### Typography
 - **Fraunces** (display) for brand, level titles, lesson headings.
@@ -236,11 +247,12 @@ Intentional **La Queta** look — Catalan learning tool with Senyera **red + gol
 - Prefer `transform` / `opacity`; keep durations ≤ 250ms for UI chrome.
 
 ### Screens (IA)
-1. `/` — create account / sign in gate (authed → `/levels`)
-2. `/levels` — level hub (A1 / A2). Each open level card is a link to the level (counts and bar), then the next goal with its lesson count and a link to all goals, then a primary "Continue: <Lesson>" or "Study vocab: <Deck>" button (`/continue?level=<id>`, from `continue_target`) or "All A1 lessons and vocab done", then a secondary Daily vocab button and the streak. The card link and the buttons are siblings, never nested.
-3. `/levels/<id>` — level home (Learn | Vocab tab)
-4. `/lessons/<id>` — lesson
-5. `/decks/<slug>` → `/study` | `/browse`
+1. `/` - public landing page: positioning `<h1>`, "Start lesson 1", the full lesson list, can-dos and FAQ (authed → `/levels`)
+2. `/signup`, `/signin` - account forms (`gate.js`); `/#signin` forwards to `/signin`
+3. `/levels` - "Your A1 course" hub; only open levels (`OPEN_LEVEL_IDS`) show, so A2 and B1 tiles are hidden. Each open level card is a link to the level (counts and bar), then the next goal with its lesson count and a link to all goals, then a primary "Continue: <Lesson>" or "Study vocab: <Deck>" button (`/continue?level=<id>`, from `continue_target`) or "All A1 lessons and vocab done", then a secondary Daily vocab button and the streak. The card link and the buttons are siblings, never nested.
+4. `/levels/<id>` - level home (Learn | Vocab tab)
+5. `/lessons/<id>` - lesson, public: logged-out visitors get the full Learn and Practice tabs, and a perfect Practice run ends in a "Create a free account" prompt instead of the done panel
+6. `/decks/<slug>` → `/study` | `/browse`
 
 One URL = one job. No multi-screen mega-page. Browser back/refresh keep place.
 
@@ -251,9 +263,9 @@ One URL = one job. No multi-screen mega-page. Browser back/refresh keep place.
 
 - Runtime source of truth: **SQLite**.
 - Authoring/seed: `content/` JSON → `scripts/seed.py` (idempotent).
-- Levels in v2: **A1 and A2 only**.
+- Levels: only **A1** is open (`OPEN_LEVEL_IDS`); A2 and B1 rows stay in `content/levels.json` and the database but are hidden.
 - Lesson section types stay aligned with prototype: `text`, `rule`, `examples`, `exercise`.
-- Vocab retirement: `seen >= 3` per user/card.
+- Vocab retirement: `seen >= 3` per user/card, where `seen` counts Knew it grades.
 
 ---
 
@@ -273,3 +285,4 @@ One URL = one job. No multi-screen mega-page. Browser back/refresh keep place.
 | 2026-07-22 | Live component gallery at `/style-guide` |
 | 2026-07-22 | Visual SoT: Senyera red + gold (Fraunces/Figtree); no flag bar |
 | 2026-07-22 | API / ORM / migration conventions expanded in §2–3 |
+| 2026-11-18 | Screens list updated for the public landing page, /signup and /signin, public lessons and the A1-only hub; plain dashes only |

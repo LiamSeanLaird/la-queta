@@ -3,6 +3,7 @@
   const loginForm = document.getElementById("login-form");
   const tabRegister = document.getElementById("tab-register");
   const tabLogin = document.getElementById("tab-login");
+  const gateTitle = document.getElementById("gate-title");
   const gateBlurb = document.getElementById("gate-blurb");
   const gateError = document.getElementById("gate-error");
   const loginError = document.getElementById("login-error");
@@ -15,8 +16,10 @@
     tabLogin.classList.remove("is-active");
     tabRegister.setAttribute("aria-selected", "true");
     tabLogin.setAttribute("aria-selected", "false");
-    gateBlurb.textContent =
-      "Create an account to save progress and sign in on any device.";
+    gateTitle.textContent = "Create a free account";
+    gateBlurb.textContent = "Save your progress and pick up on any device.";
+    document.title = "Create a free account - La Queta";
+    window.history.replaceState(null, "", "/signup");
     window.LaQueta.showError(gateError, "");
     window.LaQueta.showError(loginError, "");
   }
@@ -28,9 +31,48 @@
     tabRegister.classList.remove("is-active");
     tabLogin.setAttribute("aria-selected", "true");
     tabRegister.setAttribute("aria-selected", "false");
+    gateTitle.textContent = "Sign in";
     gateBlurb.textContent = "Sign in with your email and password.";
+    document.title = "Sign in - La Queta";
+    window.history.replaceState(null, "", "/signin");
     window.LaQueta.showError(gateError, "");
     window.LaQueta.showError(loginError, "");
+  }
+
+  const PENDING_KEY = "laqueta.pendingCompletion";
+
+  // After sign-up or sign-in, save a lesson the visitor finished logged out
+  // (stored by practice.js), then land on that lesson. The server validates the
+  // score exactly as it does for a logged-in learner.
+  async function afterAuthHref() {
+    let pending = null;
+    try {
+      pending = JSON.parse(window.sessionStorage.getItem(PENDING_KEY) || "null");
+      window.sessionStorage.removeItem(PENDING_KEY);
+    } catch (_err) {
+      pending = null;
+    }
+    if (!pending || typeof pending.lesson_id !== "string" || !pending.lesson_id) {
+      return "/levels";
+    }
+    const lessonId = encodeURIComponent(pending.lesson_id);
+    try {
+      const before = await window.LaQueta.api(`/api/lessons/${lessonId}`);
+      const wasCompleted = before.response.ok && before.body.completed === true;
+      const { response } = await window.LaQueta.api(`/api/lessons/${lessonId}/complete`, {
+        method: "POST",
+        body: JSON.stringify({
+          exercises_correct: pending.exercises_correct,
+          exercises_total: pending.exercises_total,
+        }),
+      });
+      if (!response.ok) {
+        return "/levels";
+      }
+      return `/lessons/${lessonId}?saved=1${wasCompleted ? "" : "&finished=1"}`;
+    } catch (_err) {
+      return "/levels";
+    }
   }
 
   tabRegister.addEventListener("click", showRegister);
@@ -50,7 +92,7 @@
       window.LaQueta.showError(gateError, body.error || "Could not create account");
       return;
     }
-    window.location.href = "/levels";
+    window.location.href = await afterAuthHref();
   });
 
   loginForm.addEventListener("submit", async (event) => {
@@ -66,6 +108,6 @@
       window.LaQueta.showError(loginError, body.error || "Could not sign in");
       return;
     }
-    window.location.href = "/levels";
+    window.location.href = await afterAuthHref();
   });
 })();

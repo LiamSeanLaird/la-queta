@@ -1,13 +1,13 @@
 {% extends "base.html" %}
-{% block title %}La Queta - {{ level.code }}{% endblock %}
+{% block title %}La Queta - {{ level.code }} course{% endblock %}
 {% set brand_href = url_for('pages.levels') %}
 {% block top_back %}
-<a class="topbar__back" href="{{ url_for('pages.levels') }}" aria-label="Back to levels">←</a>
+<a class="topbar__back" href="{{ url_for('pages.levels') }}" aria-label="Back to your course">←</a>
 {% endblock %}
 {% block content %}
 <section class="stack-lg">
   <div class="page-intro">
-    <h2 class="heading-2">{{ level.code }}</h2>
+    <h1 class="heading-2">{{ level.code }} course</h1>
     <p class="text-muted">{{ level.title }}{% if progress_summary %} · {{ progress_summary }}{% endif %}</p>
     {% if goals_total %}
     <p class="text-muted">

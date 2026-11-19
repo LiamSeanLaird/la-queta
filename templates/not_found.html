@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{#- No canonical_path, so base.html marks this page noindex. #}
+{% block title %}Page not found - La Queta{% endblock %}
+{% block top_guest %}
+<a class="btn btn--secondary topbar__signin" href="{{ url_for('pages.signin') }}">Sign in</a>
+{% endblock %}
+{% block content %}
+<section class="stack-lg">
+  <div class="page-intro stack">
+    <h1 class="heading-1">Page not found</h1>
+    <p class="text-body">There is no page at this address. The link may be mistyped or out of date.</p>
+  </div>
+  <div class="landing-hero__actions">
+    {% if current_user %}
+    <a class="btn btn--primary" href="{{ url_for('pages.levels') }}">Back to your course</a>
+    {% else %}
+    <a class="btn btn--primary" href="{{ url_for('pages.index') }}">See all lessons</a>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

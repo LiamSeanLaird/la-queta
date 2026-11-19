@@ -1,0 +1,11 @@
+{# The "You've finished A1" moment, shown when a learner completes the last
+   lesson of a level. Expects lesson, level_code and next_deck. #}
+<h2 class="heading-3">You've finished {{ level_code }} - well done.</h2>
+<p class="text-body">That was your last {{ level_code }} lesson. Every lesson in the course is now complete.</p>
+<p class="text-body">To keep what you've learned, review your vocab a little every day.</p>
+{% if next_deck %}
+<a class="btn btn--primary btn--block" href="{{ url_for('pages.study', slug=next_deck.slug) }}">Study vocab: {{ next_deck.title }}</a>
+{% endif %}
+<a class="btn {{ 'btn--secondary' if next_deck else 'btn--primary' }} btn--block" href="{{ url_for('pages.daily', level_id=lesson.level_id) }}">Daily vocab</a>
+<p class="text-muted">A2 is not here yet, so for now this is the whole course.</p>
+<a class="btn btn--ghost btn--block" href="{{ url_for('pages.level_home', level_id=lesson.level_id) }}">Back to your course</a>

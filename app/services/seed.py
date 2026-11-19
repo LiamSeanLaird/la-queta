@@ -61,7 +61,7 @@ def seed_levels() -> int:
 def seed_lessons(level_id: str = DEFAULT_LESSON_LEVEL_ID) -> int:
     """Upsert lessons from content/lessons/*.json into the given level."""
     if db.session.get(Level, level_id) is None:
-        raise ValueError(f"Level {level_id!r} missing — seed levels first")
+        raise ValueError(f"Level {level_id!r} missing - seed levels first")
 
     lesson_dir = CONTENT / "lessons"
     paths = sorted(lesson_dir.glob("*.json"))
@@ -142,7 +142,7 @@ def deck_order_from_lessons() -> dict[str, int]:
 def seed_decks(level_id: str = DEFAULT_DECK_LEVEL_ID) -> tuple[int, int]:
     """Upsert decks + cards from content/decks/*_deck*.json. Returns (decks, cards)."""
     if db.session.get(Level, level_id) is None:
-        raise ValueError(f"Level {level_id!r} missing — seed levels first")
+        raise ValueError(f"Level {level_id!r} missing - seed levels first")
 
     deck_dir = CONTENT / "decks"
     paths = sorted(deck_dir.glob("*_deck*.json"))
