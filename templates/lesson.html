@@ -39,7 +39,7 @@
   </div>
 
   {% if tab == 'learn' %}
-  {% if just_saved and finishes_level %}
+  {% if just_finished_level %}
   {# A visitor's carried-over completion was their last lesson of the level. #}
   <div class="stack finished-level" id="finished-level">
     {% include "_finished_level.html" %}

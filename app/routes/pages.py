@@ -260,6 +260,11 @@ def lesson(lesson_id: str):
         next_deck=next_steps["deck"],
         next_lesson=next_steps["next_lesson"],
         finishes_level=next_steps["finishes_level"],
+        just_finished_level=bool(user)
+        and lesson_data["completed"]
+        and next_steps["finishes_level"]
+        and request.args.get("saved") == "1"
+        and request.args.get("finished") == "1",
         level_code=level_code,
         previous_in_course=neighbours["previous"],
         next_in_course=neighbours["next"],

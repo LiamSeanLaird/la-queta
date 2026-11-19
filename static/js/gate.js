@@ -57,6 +57,8 @@
     }
     const lessonId = encodeURIComponent(pending.lesson_id);
     try {
+      const before = await window.LaQueta.api(`/api/lessons/${lessonId}`);
+      const wasCompleted = before.response.ok && before.body.completed === true;
       const { response } = await window.LaQueta.api(`/api/lessons/${lessonId}/complete`, {
         method: "POST",
         body: JSON.stringify({
@@ -64,7 +66,10 @@
           exercises_total: pending.exercises_total,
         }),
       });
-      return response.ok ? `/lessons/${lessonId}?saved=1` : "/levels";
+      if (!response.ok) {
+        return "/levels";
+      }
+      return `/lessons/${lessonId}?saved=1${wasCompleted ? "" : "&finished=1"}`;
     } catch (_err) {
       return "/levels";
     }

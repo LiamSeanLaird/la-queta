@@ -106,7 +106,9 @@ def test_carried_over_last_lesson_shows_finished_moment(migrated_app, migrated_c
     for lesson_id in ids:
         _complete(migrated_client, lesson_id)
 
-    page = migrated_client.get(f"/lessons/{ids[-1]}?saved=1").get_data(as_text=True)
+    page = migrated_client.get(f"/lessons/{ids[-1]}?saved=1&finished=1").get_data(
+        as_text=True
+    )
     assert 'id="finished-level"' in page
     # Without ?saved=1 a completed lesson's Learn tab stays as it was.
     page = migrated_client.get(f"/lessons/{ids[-1]}").get_data(as_text=True)
@@ -125,3 +127,19 @@ def test_redoing_a_lesson_after_finishing_keeps_normal_step(
     )
     assert "Lesson complete - well done." in page
     assert "finished A1" not in page
+
+
+def test_carried_over_lesson_that_was_already_done_keeps_learn_tab(
+    migrated_app, migrated_client
+):
+    ids = _setup(migrated_app, migrated_client)
+    for lesson_id in ids:
+        _complete(migrated_client, lesson_id)
+
+    # A returning learner redoes lesson 3 logged out, then signs in: gate.js reads
+    # the lesson first, sees it was already complete, and lands without the marker.
+    assert migrated_client.get(f"/api/lessons/{ids[3]}").get_json()["completed"]
+    _complete(migrated_client, ids[3])
+    page = migrated_client.get(f"/lessons/{ids[3]}?saved=1").get_data(as_text=True)
+    assert "Saved to your account." in page
+    assert 'id="finished-level"' not in page
