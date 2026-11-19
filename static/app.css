@@ -1357,12 +1357,54 @@ a.btn.btn--primary {
   gap: 0.75rem;
 }
 
-.landing-goals {
+/* Sign-up call to action: primary button, then a quiet text link under it. */
+.landing-cta {
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.landing-cta__quiet {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.landing-steps {
   margin: 0;
-  padding-left: 1.25rem;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 1rem;
+}
+
+.landing-steps li {
+  counter-increment: step;
+  position: relative;
+  padding-left: 2.5rem;
+}
+
+.landing-steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  display: grid;
+  place-items: center;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.landing-footer {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
 }
 
 .landing-lessons {

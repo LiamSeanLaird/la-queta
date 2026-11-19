@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% set canonical_path = url_for('pages.lessons_index') %}
+{% block title %}All {{ level_code }} Catalan lessons - free course | La Queta{% endblock %}
+{% block og_description %}{{ page_description }}{% endblock %}
+{% block top_back %}
+<a class="topbar__back" href="{{ brand_href }}" aria-label="{{ 'Back to your course' if current_user else 'Back to home' }}">←</a>
+{% endblock %}
+{% block top_guest %}
+<a class="btn btn--secondary topbar__signin" href="{{ url_for('pages.signin') }}">Sign in</a>
+{% endblock %}
+{% block content %}
+<div class="stack-lg">
+  <section class="page-intro stack">
+    <h1 class="heading-1">All {{ level_code }} lessons</h1>
+    <p class="text-body">
+      {{ lesson_count }} short lessons, grouped by what they help you do.
+      Every lesson is open: read it, then take its test.
+    </p>
+  </section>
+
+  {% for group in learn_groups %}
+  <section class="goal-section" aria-labelledby="goal-{{ group.id }}">
+    <h2 class="heading-3 goal-section__title" id="goal-{{ group.id }}">{{ group.label }}</h2>
+    <ol class="list landing-lessons">
+      {% for lesson in group.lessons %}
+      <li>
+        <a class="list-row" href="{{ url_for('pages.lesson', lesson_id=lesson.id) }}">
+          <div>
+            <p class="list-row__title">{{ lesson.sort_order }}. {{ lesson.title }}</p>
+            <p class="list-row__sub">{{ lesson.summary }}</p>
+          </div>
+          {% if current_user and lesson.completed %}
+          <span class="badge badge--done">Done</span>
+          {% endif %}
+        </a>
+      </li>
+      {% endfor %}
+    </ol>
+  </section>
+  {% else %}
+  <p class="text-muted page-intro">No lessons yet.</p>
+  {% endfor %}
+
+  {% if not current_user %}
+  <section class="landing-cta page-intro stack" aria-labelledby="lessons-cta-title">
+    <h2 class="heading-2" id="lessons-cta-title">Save the lessons you finish</h2>
+    <p class="text-body">A free account keeps your progress on any device and adds vocab flashcards and a daily review.</p>
+    <a class="btn btn--primary" href="{{ url_for('pages.signup') }}">Start learning - it's free</a>
+  </section>
+  {% endif %}
+</div>
+{% endblock %}

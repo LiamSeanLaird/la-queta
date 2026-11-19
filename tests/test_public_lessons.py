@@ -231,8 +231,8 @@ def test_lessons_link_to_neighbours_in_course_order(migrated_app, migrated_clien
         )
         assert nav["prev"] == expected_prev, lesson["id"]
         assert nav["next"] == expected_next, lesson["id"]
-        # Logged out, "All lessons" goes to the public lesson list on /.
-        assert nav["all"] == "/#lessons-title"
+        # Logged out, "All lessons" goes to the public lesson list.
+        assert nav["all"] == "/lessons"
 
 
 def test_course_nav_ignores_progress_and_links_logged_in_to_level(

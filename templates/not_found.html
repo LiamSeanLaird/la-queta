@@ -14,7 +14,7 @@
     {% if current_user %}
     <a class="btn btn--primary" href="{{ url_for('pages.levels') }}">Back to your course</a>
     {% else %}
-    <a class="btn btn--primary" href="{{ url_for('pages.index') }}">See all lessons</a>
+    <a class="btn btn--primary" href="{{ url_for('pages.lessons_index') }}">See all lessons</a>
     {% endif %}
   </div>
 </section>

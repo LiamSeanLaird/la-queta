@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% set canonical_path = url_for('pages.faq') %}
+{% block title %}Questions about learning Catalan for free | La Queta{% endblock %}
+{% block og_description %}{{ page_description }}{% endblock %}
+{% block top_back %}
+<a class="topbar__back" href="{{ brand_href }}" aria-label="{{ 'Back to your course' if current_user else 'Back to home' }}">←</a>
+{% endblock %}
+{% block top_guest %}
+<a class="btn btn--secondary topbar__signin" href="{{ url_for('pages.signin') }}">Sign in</a>
+{% endblock %}
+{% block content %}
+<div class="stack-lg">
+  <section class="page-intro">
+    <h1 class="heading-1">Questions</h1>
+  </section>
+
+  {% for item in faq %}
+  <section class="landing-faq" aria-labelledby="faq-{{ loop.index }}">
+    <h2 class="heading-3" id="faq-{{ loop.index }}">{{ item.question }}</h2>
+    <p class="text-body">{{ item.answer }}</p>
+  </section>
+  {% endfor %}
+
+  {% if not current_user %}
+  <section class="landing-cta page-intro stack">
+    <a class="btn btn--primary" href="{{ url_for('pages.signup') }}">Start learning - it's free</a>
+    {% if first_lesson %}
+    <a class="landing-cta__quiet" href="{{ url_for('pages.lesson', lesson_id=first_lesson.id) }}">or try a lesson first</a>
+    {% endif %}
+  </section>
+  {% endif %}
+</div>
+{% endblock %}

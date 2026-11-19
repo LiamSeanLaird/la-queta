@@ -35,7 +35,7 @@ la-queta/
 │   ├── __init__.py            # create_app factory
 │   ├── config.py              # incl. PUBLIC_BASE_URL (canonical origin)
 │   ├── models.py
-│   ├── seo.py                 # JSON-LD builders + landing FAQ
+│   ├── seo.py                 # JSON-LD builders + site FAQ
 │   ├── www_redirect.py        # www -> apex before_request hook
 │   ├── routes/
 │   │   ├── pages.py           # HTML pages (public: /, /signup, /signin, /lessons/<id>)
@@ -190,10 +190,14 @@ Goals only tick when every lesson in them is done, so a plain "0/7 goals complet
 ## Public pages and SEO
 
 Logged-out visitors can read the landing page and every lesson; everything else (hub, level page, decks, study, daily, browse, every progress API) needs an account.
-Public routes: `/`, `/signup`, `/signin`, `/lessons/<id>`, `/robots.txt`, `/sitemap.xml`, `/style-guide` and `/api/health`.
+Public routes: `/`, `/lessons`, `/faq`, `/signup`, `/signin`, `/lessons/<id>`, `/robots.txt`, `/sitemap.xml`, `/style-guide` and `/api/health`.
 Only `/` and `/lessons/<id>` are indexable.
 
-- Public pages: `/` is the landing page for logged-out visitors (logged in → `/levels`): the pitch, "Start lesson 1", every A1 lesson grouped by goal (`learn_groups_for_level(None, "a1")`), the goals, and an FAQ.
+- Public pages: `/` is the landing page for logged-out visitors (logged in → `/levels`): the `<h1>`, one sentence, a primary "Start learning - it's free" button to `/signup` with a quiet "or try a lesson first" link to lesson 1, "How it works" in three steps, a closing sign-up button and a footer linking to `/lessons` and `/faq`.
+  It has no lesson list and no FAQ, and its visible copy stays under 150 words (a test checks this).
+  `/lessons` lists every A1 lesson grouped by goal (`learn_groups_for_level(user, "a1")`), with a sign-up call to action logged out and "Done" badges logged in.
+  `/faq` renders `site_faq()`.
+  Both stay public when logged in.
   It still renders before content is seeded (no lesson list).
 - `/lessons/<id>` (Learn and Test tabs, `?tab=test`; the old `?tab=practice` 301-redirects there keeping other args) renders for logged-out visitors.
   Internally the Test is still called practice: `practice_json`, the API's `practice` key, `practice.js` and the `practice-*` element ids.
@@ -206,7 +210,7 @@ Only `/` and `/lessons/<id>` are indexable.
 - Unknown URLs: the app-wide 404 handler (`register_not_found` in `app/__init__.py`) returns `{"error": "Not found"}` under `/api/` and the branded, noindex `not_found.html` everywhere else.
   A logged-out visit to an unknown `/lessons/<id>` is a real 404 too, not a redirect home, which crawlers would read as a soft 404; logged in, it still redirects to `/levels`.
 - Every lesson's Learn tab ends with a course nav: previous and next lesson in plain course order (`lesson_neighbours`, which ignores progress, so the links are the same for everyone and a crawler can walk the course), plus "All lessons".
-  "All lessons" goes to the lesson list on `/` (`/#lessons-title`) when logged out and to `/levels/<level>` when logged in.
+  "All lessons" goes to `/lessons` when logged out and to `/levels/<level>` when logged in.
 - "You've finished A1": `lesson_next_steps` returns `finishes_level`, True for a logged-in learner when every other lesson in the level is complete.
   The Test done panel renders `_finished_level.html` instead of the normal completion step only when this lesson was not already complete, so redoing a lesson after finishing A1 shows the normal step.
   The Learn tab shows it after a carry-over only with `?saved=1&finished=1` (`just_finished_level`), so a repeat completion or a reload of a plain `?saved=1` URL does not.
@@ -218,12 +222,12 @@ Only `/` and `/lessons/<id>` are indexable.
   Every page without `canonical_path` (gate, hub, level, deck, study, daily, browse, style guide) gets `<meta name="robots" content="noindex">`.
   Lesson pages use `lesson_page_title` ("Ser vs estar in Catalan - free A1 lesson | La Queta") and `lesson_page_description` (summary plus a fixed line) in `app/routes/pages.py`; the h1 keeps the lesson's own title.
 - Structured data (`app/seo.py`): a route passes `json_ld=[...]` (plain dicts) and `base.html` renders each as `<script type="application/ld+json">` with `tojson`, which escapes `<`, `>` and `&`.
-  `/` has `Course` (free, online, `inLanguage` en, teaches Catalan, A1) and `FAQPage`; lesson pages have `LearningResource` with `isPartOf` the course.
-  The landing FAQ lives in `landing_faq()` so the page text and the `FAQPage` markup cannot drift.
+  `/` has `Course` (free, online, `inLanguage` en, teaches Catalan, A1), `/faq` has `FAQPage`; lesson pages have `LearningResource` with `isPartOf` the course.
+  The FAQ lives in `site_faq()` so the page text and the `FAQPage` markup cannot drift.
   `url` fields come from `PUBLIC_BASE_URL` only and are left out when it is unset.
 - Crawl basics (`app/routes/crawl.py`): `GET /robots.txt` allows everything except the logged-in-only prefixes `/api/`, `/continue`, `/levels` and `/decks/`, and ends with an absolute `Sitemap:` line from `PUBLIC_BASE_URL` (left out when it is unset).
   `/signin`, `/signup` and `/style-guide` stay crawlable so Google can read their `noindex`.
-  `GET /sitemap.xml` lists `/` and every lesson in an open level (the pages that set `canonical_path`), with absolute URLs from `PUBLIC_BASE_URL` and no `<lastmod>` (the server has no honest source for it).
+  `GET /sitemap.xml` lists `/`, `/lessons`, `/faq` and every lesson in an open level (the pages that set `canonical_path`), with absolute URLs from `PUBLIC_BASE_URL` and no `<lastmod>` (the server has no honest source for it).
   With `PUBLIC_BASE_URL` unset it is a 404, because a sitemap needs absolute URLs.
   A new indexable page must be added to `sitemap_paths()` as well as setting `canonical_path`.
 - www to apex (`app/www_redirect.py`): a `before_request` hook 301-redirects any request whose host is `www.` + the `PUBLIC_BASE_URL` host to the same path and query string on `PUBLIC_BASE_URL` (308 for non-GET/HEAD, so a POST keeps its body).
@@ -237,6 +241,8 @@ Conventions: `STYLE_GUIDE.md` §3 (layers, statuses, error shape, POST-for-actio
 | Method | Route | Description |
 |---|---|---|
 | GET | `/` | Public landing page (logged in → `/levels`) |
+| GET | `/lessons` | Public list of every A1 lesson, grouped by goal |
+| GET | `/faq` | Public FAQ with `FAQPage` JSON-LD |
 | GET | `/signup`, `/signin` | Account forms (gate, `noindex`) |
 | GET | `/lessons/<id>` | Lesson page, public (logged out: no progress, sign-up prompt after the Test) |
 | GET | `/robots.txt`, `/sitemap.xml` | Crawl files, see Public pages and SEO |

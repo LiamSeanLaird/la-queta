@@ -7,11 +7,11 @@ from flask import (
     request,
     url_for,
 )
-from sqlalchemy import func, select
+from sqlalchemy import select
 
 from app.extensions import db
 from app.models import Deck, Level
-from app.seo import course_json_ld, faq_json_ld, landing_faq, lesson_json_ld
+from app.seo import course_json_ld, faq_json_ld, site_faq, lesson_json_ld
 from app.services.auth import current_user
 from app.services.errors import ServiceError
 from app.services.daily import daily_status
@@ -53,39 +53,78 @@ def _continue_href(target: dict) -> str:
 COURSE_LEVEL_ID = "a1"
 
 
-@bp.get("/")
-def index():
-    """Public landing page: the A1 course pitch, every lesson, goals and FAQ."""
-    if current_user() is not None:
-        return redirect(url_for("pages.levels"))
+def _course_overview(user=None) -> dict:
+    """The A1 course at a glance, shared by /, /lessons and /faq."""
     try:
-        lessons = list_lessons_for_level(None, COURSE_LEVEL_ID)
-        learn_groups = learn_groups_for_level(None, COURSE_LEVEL_ID)
+        lessons = list_lessons_for_level(user, COURSE_LEVEL_ID)
+        learn_groups = learn_groups_for_level(user, COURSE_LEVEL_ID)
     except ServiceError:  # content not seeded yet
         lessons, learn_groups = [], []
-    deck_count = db.session.scalar(
-        select(func.count(Deck.id)).where(Deck.level_id == COURSE_LEVEL_ID)
-    )
     level = db.session.get(Level, COURSE_LEVEL_ID)
-    level_code = level.code if level else COURSE_LEVEL_ID.upper()
+    return {
+        "lessons": lessons,
+        "learn_groups": learn_groups,
+        "level_code": level.code if level else COURSE_LEVEL_ID.upper(),
+    }
+
+
+@bp.get("/")
+def index():
+    """Public landing page: a short pitch that leads to sign-up."""
+    if current_user() is not None:
+        return redirect(url_for("pages.levels"))
+    course = _course_overview()
+    lessons = course["lessons"]
     description = (
         "A short, free Catalan course that takes complete beginners from zero to "
-        f"{level_code}: {len(lessons)} lessons with tests, plus vocab flashcards."
+        f"{course['level_code']}: {len(lessons)} lessons with tests, plus vocab flashcards."
     )
-    faq = landing_faq(len(lessons))
     base_url = current_app.config.get("PUBLIC_BASE_URL", "")
     return render_template(
         "index.html",
         first_lesson=lessons[0] if lessons else None,
-        lesson_count=len(lessons),
-        deck_count=deck_count or 0,
-        learn_groups=learn_groups,
         page_description=description,
-        faq=faq,
-        json_ld=[
-            course_json_ld(base_url, description, level_code),
-            faq_json_ld(faq),
-        ],
+        json_ld=[course_json_ld(base_url, description, course["level_code"])],
+    )
+
+
+@bp.get("/lessons")
+def lessons_index():
+    """Public list of every A1 lesson, grouped by goal. Logged in it still shows."""
+    user = current_user()
+    course = _course_overview(user)
+    lesson_count = len(course["lessons"])
+    return render_template(
+        "lessons.html",
+        user=user,
+        lesson_count=lesson_count,
+        learn_groups=course["learn_groups"],
+        level_code=course["level_code"],
+        page_description=(
+            f"All {lesson_count} lessons of a free {course['level_code']} Catalan "
+            "course for complete beginners, grouped by goal. Each has a short test."
+        ),
+        brand_href=url_for("pages.levels") if user else url_for("pages.index"),
+    )
+
+
+@bp.get("/faq")
+def faq():
+    """Public FAQ; its FAQPage JSON-LD is built from the same entries."""
+    user = current_user()
+    course = _course_overview(user)
+    entries = site_faq(len(course["lessons"]))
+    return render_template(
+        "faq.html",
+        user=user,
+        faq=entries,
+        first_lesson=course["lessons"][0] if course["lessons"] else None,
+        page_description=(
+            "Questions about La Queta, the free Catalan course for complete "
+            "beginners: cost, accounts, which Catalan it teaches and what comes next."
+        ),
+        json_ld=[faq_json_ld(entries)],
+        brand_href=url_for("pages.levels") if user else url_for("pages.index"),
     )
 
 
@@ -275,11 +314,11 @@ def lesson(lesson_id: str):
         level_code=level_code,
         previous_in_course=neighbours["previous"],
         next_in_course=neighbours["next"],
-        # Logged out, the public course page is the lesson list on /.
+        # Logged out, the public course page is the lesson list on /lessons.
         course_href=(
             url_for("pages.level_home", level_id=lesson_data["level_id"])
             if user
-            else url_for("pages.index", _anchor="lessons-title")
+            else url_for("pages.lessons_index")
         ),
         brand_href=url_for("pages.levels") if user else url_for("pages.index"),
         back_href=(

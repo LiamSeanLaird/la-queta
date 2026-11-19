@@ -1,11 +1,16 @@
 """Multi-page HTML routes and auth redirects."""
 
+import re
+from html import unescape
+
 from markupsafe import escape
 from sqlalchemy import select
 
 from app.extensions import db
-from app.models import Level, User
+from app.models import Lesson, Level, User
 from app.services.seed import seed_all
+
+SIGN_UP_LINK = """href="/signup">Start learning - it's free</a>"""
 
 
 def _register(client, handle: str = "pageuser"):
@@ -22,7 +27,9 @@ def _register(client, handle: str = "pageuser"):
     return response.get_json()
 
 
-def test_index_is_landing_page(migrated_app, migrated_client):
+def test_index_is_a_short_landing_page_that_leads_to_sign_up(
+    migrated_app, migrated_client
+):
     with migrated_app.app_context():
         seed_all()
     response = migrated_client.get("/")
@@ -31,40 +38,93 @@ def test_index_is_landing_page(migrated_app, migrated_client):
     assert "<title>La Queta - Free Catalan for complete beginners</title>" in html
     assert html.count("<h1") == 1
     assert '<h1 class="heading-1">Free Catalan for complete beginners</h1>' in html
-    assert 'href="/lessons/noun-gender">Start lesson 1</a>' in html
-    assert 'href="/signin"' in html
-    assert (
-        "What you&#39;ll be able to do" in html or "What you'll be able to do" in html
-    )
-    assert "Is it free?" in html
-    assert "Do I need an account?" in html
-    assert "What comes after A1?" in html
+    body = html.split("<body>", 1)[1]
+    # The main call to action is sign-up, twice; lesson 1 is the quiet option.
+    assert body.count(SIGN_UP_LINK) == 2
+    assert 'href="/lessons/noun-gender">or try a lesson first</a>' in body
+    assert body.index("Start learning") < body.index("or try a lesson first")
+    assert "How it works" in body
+    for step in ("Learn a short lesson", "Pass its test", "Review the words each day"):
+        assert step in body
+    assert 'href="/signin"' in body
+    footer = body.split('<footer class="landing-footer">', 1)[1].split("</footer>")[0]
+    assert 'href="/lessons">All lessons</a>' in footer
+    assert 'href="/faq">FAQ</a>' in footer
+    # No lesson list and no FAQ on the landing page.
+    assert "/lessons/ser-vs-estar" not in body
+    assert "Is it free?" not in body
     assert 'property="og:image"' in html
     assert "og-image.png" in html
-    # The forms live on /signup and /signin now.
+    # The forms live on /signup and /signin.
     assert "register-form" not in html
     assert "js/gate.js" not in html
 
 
-def test_index_lists_every_lesson_with_summary(migrated_app, migrated_client):
-    from sqlalchemy import select
+def test_landing_copy_is_short(migrated_app, migrated_client):
+    with migrated_app.app_context():
+        seed_all()
+    html = migrated_client.get("/").get_data(as_text=True)
+    main = html.split("<main", 1)[1].split('<footer class="landing-footer">', 1)[0]
+    main = re.sub(r"<script.*?</script>", "", main, flags=re.S)
+    words = unescape(re.sub(r"<[^>]+>", " ", main)).split()
+    assert len(words) < 150, len(words)
 
-    from app.extensions import db
-    from app.models import Lesson
 
+def test_lessons_page_lists_every_lesson_by_goal(migrated_app, migrated_client):
     with migrated_app.app_context():
         seed_all()
         lessons = db.session.scalars(
             select(Lesson).where(Lesson.level_id == "a1")
         ).all()
         rows = [(lesson.id, lesson.title, lesson.summary) for lesson in lessons]
-    html = migrated_client.get("/").get_data(as_text=True)
+    response = migrated_client.get("/lessons")
+    assert response.status_code == 200
+    html = response.get_data(as_text=True)
     assert len(rows) == 20
-    assert f"The {len(rows)} lessons" in html
+    assert html.count("<h1") == 1
+    assert "<h1 class=\"heading-1\">All A1 lessons</h1>" in html
     for lesson_id, title, summary in rows:
         assert f'href="/lessons/{lesson_id}"' in html
         assert escape(title) in html
         assert escape(summary) in html
+    # Grouped by goal: every goal label is a heading.
+    assert html.count('class="heading-3 goal-section__title"') >= 5
+    assert SIGN_UP_LINK in html
+    assert "badge--done" not in html
+
+
+def test_lessons_page_logged_in_marks_done_and_hides_sign_up(
+    migrated_app, migrated_client
+):
+    with migrated_app.app_context():
+        seed_all()
+    _register(migrated_client)
+    response = migrated_client.post(
+        "/api/lessons/noun-gender/complete",
+        json={"exercises_correct": 14, "exercises_total": 14},
+    )
+    assert response.status_code == 200
+    html = migrated_client.get("/lessons").get_data(as_text=True)
+    assert html.count("badge--done") == 1
+    assert 'href="/signup"' not in html
+
+
+def test_faq_page_shows_every_question(migrated_app, migrated_client):
+    with migrated_app.app_context():
+        seed_all()
+    response = migrated_client.get("/faq")
+    assert response.status_code == 200
+    html = response.get_data(as_text=True)
+    assert html.count("<h1") == 1
+    for question in ("Is it free?", "Do I need an account?", "What comes after A1?"):
+        assert question in html
+    assert "The course is 20 lessons" in html
+    assert SIGN_UP_LINK in html
+
+
+def test_public_pages_render_before_content_is_seeded(migrated_client):
+    for path in ("/lessons", "/faq"):
+        assert migrated_client.get(path).status_code == 200, path
 
 
 def test_index_renders_before_content_is_seeded(migrated_client):

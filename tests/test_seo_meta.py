@@ -107,6 +107,22 @@ def test_home_canonical(migrated_app, migrated_client):
     assert "noindex" not in _head(html)
 
 
+def test_lessons_and_faq_have_unique_meta_and_canonicals(
+    migrated_app, migrated_client
+):
+    migrated_app.config["PUBLIC_BASE_URL"] = BASE
+    _seed_lessons(migrated_app)
+    titles, descriptions = set(), set()
+    for path in ("/", "/lessons", "/faq"):
+        html = migrated_client.get(path + "?ref=x").get_data(as_text=True)
+        assert _canonicals(html) == [BASE + path], path
+        assert "noindex" not in _head(html), path
+        titles.add(_title(html))
+        descriptions.add(_description(html))
+    assert len(titles) == 3
+    assert len(descriptions) == 3
+
+
 def test_no_canonical_without_public_base_url(migrated_app, migrated_client):
     lesson_id = _seed_lessons(migrated_app)[0][0]
     assert migrated_app.config["PUBLIC_BASE_URL"] == ""
@@ -155,7 +171,15 @@ def test_logged_in_lesson_keeps_canonical(migrated_app, migrated_client):
 
 def test_every_page_has_one_h1(migrated_app, migrated_client):
     lesson_id = _seed_lessons(migrated_app)[0][0]
-    public = ("/", "/signup", "/signin", f"/lessons/{lesson_id}", "/style-guide")
+    public = (
+        "/",
+        "/lessons",
+        "/faq",
+        "/signup",
+        "/signin",
+        f"/lessons/{lesson_id}",
+        "/style-guide",
+    )
     for path in public:
         html = migrated_client.get(path).get_data(as_text=True)
         assert html.count("<h1") == 1, path
@@ -167,6 +191,8 @@ def test_every_page_has_one_h1(migrated_app, migrated_client):
         ).one()
     expected = {
         "/levels": "Your A1 course",
+        "/lessons": "All A1 lessons",
+        "/faq": "Questions",
         "/levels/a1": "A1 course",
         "/levels/a1/daily": "Daily vocab · A1",
         f"/lessons/{lesson_id}": None,

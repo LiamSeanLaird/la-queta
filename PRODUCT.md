@@ -30,7 +30,7 @@ The positioning line is "Free Catalan for complete beginners", with "aprèn cata
 
 ### In scope
 - Public web app (no install).
-- Public landing page on `/` and public lesson pages (Learn and Test) for logged-out visitors.
+- Public landing page on `/`, a public lesson list on `/lessons`, a public FAQ on `/faq`, and public lesson pages (Learn and Test) for logged-out visitors.
 - Email + password accounts with a cookie session (simple auth, not security-hardened).
 - One course: A1.
   A2 and B1 rows exist in the database but are hidden from the hub until content ships; the hub reads "Your A1 course".
@@ -68,7 +68,8 @@ The positioning line is "Free Catalan for complete beginners", with "aprèn cata
 
 ### Logged-out visitor
 ```
-Home (/): pitch, "Start lesson 1", all 20 lessons grouped by goal, goals, FAQ
+Home (/): short pitch, "Start learning - it's free" (→ /signup) or "or try a lesson first" (→ lesson 1),
+  "How it works" in three steps, footer links to /lessons and /faq
   → Lesson (Learn | Test), with previous / next lesson links and "All lessons"
     → Test all correct → "Create a free account to save this lesson and keep going"
       → /signup or /signin → the lesson is saved as complete → back on the lesson, "Saved to your account."
@@ -157,9 +158,10 @@ Do not invent a third progress system.
 - [x] Public lesson pages (Learn and Practice) for logged-out visitors, with previous / next links
 - [x] Sign up after Practice saves the lesson as complete
 - [x] Public landing page on `/`; account forms on `/signup` and `/signin`
+- [x] Short landing page that leads to sign-up; lesson list on `/lessons`, FAQ on `/faq`
 - [x] A1-only hub ("Your A1 course") and "You've finished A1" moment
 - [x] Unique titles and descriptions, canonical URLs, noindex on account-only pages, one `<h1>` per page, `lang="ca"` on Catalan text
-- [x] JSON-LD: `Course` and `FAQPage` on `/`, `LearningResource` on lessons
+- [x] JSON-LD: `Course` on `/`, `FAQPage` on `/faq`, `LearningResource` on lessons
 - [x] `robots.txt`, `sitemap.xml`, `www` to apex redirect
 - [ ] Register the site in Google Search Console and submit the sitemap (human step; see `DEPLOY.md`)
 

@@ -247,7 +247,8 @@ Intentional **La Queta** look - Catalan learning tool with Senyera **red + gold*
 - Prefer `transform` / `opacity`; keep durations ≤ 250ms for UI chrome.
 
 ### Screens (IA)
-1. `/` - public landing page: positioning `<h1>`, "Start lesson 1", the full lesson list, can-dos and FAQ (authed → `/levels`)
+1. `/` - public landing page: positioning `<h1>`, one sentence, "Start learning - it's free" (→ `/signup`) with a quiet "or try a lesson first" link, "How it works" in three numbered steps, a closing sign-up button and a footer with "All lessons" and "FAQ" (authed → `/levels`)
+   `/lessons` - every A1 lesson grouped by goal, then a sign-up call to action; `/faq` - the FAQ
 2. `/signup`, `/signin` - account forms (`gate.js`); `/#signin` forwards to `/signin`
 3. `/levels` - "Your A1 course" hub; only open levels (`OPEN_LEVEL_IDS`) show, so A2 and B1 tiles are hidden. Each open level card is a link to the level (counts and bar), then the next goal with its lesson count and a link to all goals, then a primary "Continue: <Lesson>" or "Study vocab: <Deck>" button (`/continue?level=<id>`, from `continue_target`) or "All A1 lessons and vocab done", then a secondary Daily vocab button and the streak. The card link and the buttons are siblings, never nested.
 4. `/levels/<id>` - level home (Learn | Vocab tab)
