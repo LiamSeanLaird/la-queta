@@ -125,7 +125,8 @@ user_lesson_progress
   completed BOOL
   exercises_correct INT
   exercises_total INT
-  completed_at NULL
+  completed_at NULL             -- first completion; a retake keeps it
+  best_first_try INT NULL       -- best test score (questions right first try); NULL = completed before scoring, 1 star
   UNIQUE(user_id, lesson_id)
 
 user_card_progress
@@ -259,9 +260,9 @@ Conventions: `STYLE_GUIDE.md` §3 (layers, statuses, error shape, POST-for-actio
 | PATCH | `/api/me` | Update name and email |
 | GET | `/api/levels` | Every level + completeness % and `available` |
 | POST | `/api/levels/<id>/select` | Set current level |
-| GET | `/api/levels/<id>/lessons` | Lessons + completion |
+| GET | `/api/levels/<id>/lessons` | Lessons + completion + `stars` (0 to 3) |
 | GET | `/api/lessons/<id>` | Full lesson (sections + practice) |
-| POST | `/api/lessons/<id>/complete` | Perfect practice score required; mark complete |
+| POST | `/api/lessons/<id>/complete` | Every question answered right (`exercises_correct == exercises_total`) marks complete; optional `first_try_correct` (integer, 0 to total) keeps the best score; returns `best_first_try` and `stars` |
 | GET | `/api/levels/<id>/decks` | Decks + stats |
 | GET | `/api/levels/<id>/daily` | Up to 20 cards: due reviews first, then new cards from decks the learner has started or whose lesson they completed (the first deck for a new learner), then new cards from the next decks in order, then reviews not due yet, then retired ones |
 | GET | `/api/decks/<slug>/cards` | All cards + seen |

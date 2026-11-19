@@ -139,6 +139,9 @@ class UserLessonProgress(db.Model):
     completed_at: Mapped[datetime | None] = mapped_column(
         DateTime(timezone=True), nullable=True
     )
+    # Best test score: questions answered right on the first try. None for
+    # lessons completed before scoring existed (shown as 1 star).
+    best_first_try: Mapped[int | None] = mapped_column(Integer, nullable=True)
 
     user: Mapped[User] = relationship(back_populates="lesson_progress")
     lesson: Mapped[Lesson] = relationship(back_populates="progress")
