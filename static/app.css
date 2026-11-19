@@ -1242,6 +1242,18 @@ a.btn.btn--primary {
   font-size: 0.85rem;
 }
 
+/* "Words in this lesson": heading, one-line intro, then an examples table. */
+.lesson-words {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.lesson-words .heading-3,
+.lesson-words .text-muted {
+  margin: 0;
+}
+
 /* ── Seen dots ───────────────────────────────────────── */
 
 .seen-dots {

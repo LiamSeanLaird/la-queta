@@ -45,6 +45,10 @@
     {% include "_finished_level.html" %}
   </div>
   {% endif %}
+  {% if lesson.words %}
+  {% set words_heading_id = "lesson-words-title" %}
+  {% include "_lesson_words.html" %}
+  {% endif %}
   <div class="stack-lg" id="lesson-sections">
     {% for section in lesson.sections %}
       {% if section.type == 'text' %}

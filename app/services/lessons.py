@@ -73,6 +73,7 @@ def get_lesson(user: User | None, lesson_id: str) -> dict:
         "sort_order": lesson.sort_order,
         "sections": lesson.sections_json or [],
         "practice": lesson.practice_json or [],
+        "words": lesson.words_json or [],
         "completed": bool(progress and progress.completed),
         "exercises_correct": progress.exercises_correct if progress else 0,
         "exercises_total": progress.exercises_total if progress else 0,

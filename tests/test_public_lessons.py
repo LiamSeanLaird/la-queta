@@ -259,3 +259,30 @@ def test_course_nav_only_on_learn_tab(migrated_app, migrated_client):
     lesson = _lessons(migrated_app)[0]
     html = migrated_client.get(f"/lessons/{lesson['id']}?tab=practice").data.decode()
     assert 'class="lesson-nav"' not in html
+
+
+def test_learn_tab_opens_with_the_lessons_words(migrated_app, migrated_client):
+    _lessons(migrated_app)
+    with migrated_app.app_context():
+        words = get_lesson(None, "noun-gender")["words"]
+    assert {"catalan": "la taula", "english": "the table"} in words
+    html = migrated_client.get("/lessons/noun-gender").data.decode()
+    block = re.search(r'<section class="lesson-words".*?</section>', html, re.S).group(0)
+    # The list comes before the lesson's own sections.
+    assert html.index(block) < html.index('id="lesson-sections"')
+    text = _text(block.encode())
+    assert "Words in this lesson" in text
+    assert "The test uses these words. Learn them first." in text
+    cells = re.findall(r'<td class="examples__ca" lang="ca">([^<]+)</td>', block)
+    assert cells == [word["catalan"] for word in words]
+    assert "petit / petita" in cells
+
+
+def test_lesson_without_words_has_no_words_block(migrated_app, migrated_client):
+    lessons = _lessons(migrated_app)
+    with migrated_app.app_context():
+        lesson = db.session.get(Lesson, lessons[1]["id"])
+        lesson.words_json = []
+        db.session.commit()
+    html = migrated_client.get(f"/lessons/{lessons[1]['id']}").data.decode()
+    assert 'class="lesson-words"' not in html

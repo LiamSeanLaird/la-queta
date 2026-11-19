@@ -4,6 +4,52 @@
   "order": 1,
   "summary": "Every noun is either masculine or feminine - and adjectives must match.",
   "deck": "everyday",
+  "words": [
+    {
+      "catalan": "el / la",
+      "english": "the (masculine / feminine)"
+    },
+    {
+      "catalan": "un / una",
+      "english": "a, an (masculine / feminine)"
+    },
+    {
+      "catalan": "el gat",
+      "english": "the cat"
+    },
+    {
+      "catalan": "la porta",
+      "english": "the door"
+    },
+    {
+      "catalan": "el cotxe",
+      "english": "the car"
+    },
+    {
+      "catalan": "la taula",
+      "english": "the table"
+    },
+    {
+      "catalan": "el pa",
+      "english": "the bread"
+    },
+    {
+      "catalan": "la mà",
+      "english": "the hand"
+    },
+    {
+      "catalan": "negre / negra",
+      "english": "black"
+    },
+    {
+      "catalan": "vell / vella",
+      "english": "old"
+    },
+    {
+      "catalan": "petit / petita",
+      "english": "small"
+    }
+  ],
   "sections": [
     {
       "type": "text",
@@ -97,6 +143,11 @@
         {
           "catalan": "un cotxe vell / una taula vella",
           "english": "an old car / an old table",
+          "note": ""
+        },
+        {
+          "catalan": "un gat petit / una taula petita",
+          "english": "a small cat / a small table",
           "note": ""
         }
       ]

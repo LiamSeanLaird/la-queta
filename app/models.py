@@ -68,6 +68,8 @@ class Lesson(db.Model):
     sort_order: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     sections_json: Mapped[list] = mapped_column(JSON, nullable=False, default=list)
     practice_json: Mapped[list] = mapped_column(JSON, nullable=False, default=list)
+    # "Words in this lesson": [{"catalan", "english"}], every word the test uses.
+    words_json: Mapped[list] = mapped_column(JSON, nullable=False, default=list)
     # Slug of the vocab deck that matches this lesson's topic, offered after practice.
     deck_slug: Mapped[str | None] = mapped_column(String(64), nullable=True)
 

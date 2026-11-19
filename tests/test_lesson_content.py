@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
 LESSONS = Path(__file__).resolve().parent.parent / "content" / "lessons"
@@ -105,3 +106,46 @@ def test_question_words_teaches_agreement_and_yes_no_questions():
     assert "usar" not in text and "Pots explicar?" not in text
     answers = {item.get("answer") for item in lesson["practice"]}
     assert {"Quants", "Quina", "Parles anglès?", "Puc fer servir el bany?"} <= answers
+
+
+def _word_forms(lesson: dict) -> set[str]:
+    """Every single Catalan word in a lesson's `words` list, lowercased."""
+    forms = set()
+    for word in lesson["words"]:
+        for part in word["catalan"].replace("/", " ").split():
+            forms.add(part.lower())
+    return forms
+
+
+def test_noun_gender_words_cover_everything_the_test_asks_for():
+    lesson = _lesson("01-noun-gender.json")
+    forms = _word_forms(lesson)
+    nouns = [w["catalan"] for w in lesson["words"] if w["catalan"].startswith(("el ", "la "))]
+    # Nouns are listed with their article, so the gender is learned with the word.
+    assert {"el gat", "la porta", "el cotxe", "la taula", "el pa", "la mà"} <= set(nouns)
+    asked = []
+    for item in lesson["practice"]:
+        asked += item.get("answers", [])
+        if item["kind"] == "cloze":
+            asked.append(item["answer"])
+        if item.get("speak"):
+            asked.append(item["speak"])
+        if item["kind"] == "multiple_choice" and item["answer"] not in {
+            "Masculine",
+            "Feminine",
+        }:
+            asked += item["options"]
+        # Words the question names, like 'porta' (door).
+        asked += re.findall(r"'([^']+)' \(", item.get("question", ""))
+    missing = {
+        token
+        for phrase in asked
+        for token in phrase.lower().split()
+        if token not in forms
+    }
+    assert not missing
+    # Every word in the list is also shown in a Learn example.
+    examples = _text(lesson).lower()
+    for word in lesson["words"]:
+        for part in word["catalan"].split(" / "):
+            assert part.lower() in examples, part
