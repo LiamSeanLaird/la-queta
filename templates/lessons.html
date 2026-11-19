@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% from "_stars.html" import stars %}
 {% set canonical_path = url_for('pages.lessons_index') %}
 {% block title %}All {{ level_code }} Catalan lessons - free course | La Queta{% endblock %}
 {% block og_description %}{{ page_description }}{% endblock %}
@@ -30,7 +31,7 @@
             <p class="list-row__sub">{{ lesson.summary }}</p>
           </div>
           {% if current_user and lesson.completed %}
-          <span class="badge badge--done">Done</span>
+          {{ stars(lesson.stars) }}
           {% endif %}
         </a>
       </li>

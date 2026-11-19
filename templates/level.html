@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% from "_stars.html" import lesson_status %}
 {% block title %}La Queta - {{ level.code }} course{% endblock %}
 {% set brand_href = url_for('pages.levels') %}
 {% block top_back %}
@@ -60,9 +61,7 @@
               <p class="list-row__title">{{ lesson.title }}</p>
               <p class="list-row__sub">{{ lesson.summary }}</p>
             </div>
-            <span class="badge {% if lesson.completed %}badge--done{% else %}badge--todo{% endif %}">
-              {% if lesson.completed %}Done{% else %}Todo{% endif %}
-            </span>
+            {{ lesson_status(lesson) }}
           </a>
           {% endfor %}
         </div>
@@ -76,9 +75,7 @@
           <p class="list-row__title">{{ lesson.title }}</p>
           <p class="list-row__sub">{{ lesson.summary }}</p>
         </div>
-        <span class="badge {% if lesson.completed %}badge--done{% else %}badge--todo{% endif %}">
-          {% if lesson.completed %}Done{% else %}Todo{% endif %}
-        </span>
+        {{ lesson_status(lesson) }}
       </a>
       {% else %}
       <p class="text-muted">No lessons yet for this level.</p>

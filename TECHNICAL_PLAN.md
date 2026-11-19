@@ -201,7 +201,7 @@ Only `/` and `/lessons/<id>` are indexable.
 - Public pages: `/` is the landing page for logged-out visitors (logged in → `/levels`): the `<h1>`, one sentence, a primary "Start learning - it's free" button to `/signup` with a quiet "or try a lesson first" link to lesson 1, "How it works" in three steps, a screenshot of lesson 1's first test question, a closing sign-up button and a footer linking to `/lessons` and `/faq`.
   The screenshot is a `<picture>` with a dark-mode source; `scripts/landing_screenshot.py` takes both images from the running app at 390px, so rerun it after changing the lesson or test UI.
   It has no lesson list and no FAQ, and its visible copy stays under 150 words (a test checks this).
-  `/lessons` lists every A1 lesson grouped by goal (`learn_groups_for_level(user, "a1")`), with a sign-up call to action logged out and "Done" badges logged in.
+  `/lessons` lists every A1 lesson grouped by goal (`learn_groups_for_level(user, "a1")`), with a sign-up call to action logged out and each completed lesson's best stars logged in.
   `/faq` renders `site_faq()`.
   Both stay public when logged in.
   It still renders before content is seeded (no lesson list).

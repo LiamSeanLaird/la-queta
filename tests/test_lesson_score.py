@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from datetime import datetime
 
 import pytest
@@ -189,3 +190,56 @@ def test_migration_keeps_production_rows_and_leaves_score_empty(migrated_app):
         lesson = db.session.get(Lesson, "noun-gender")
         assert lesson_stars(done.completed, done.best_first_try, 14) == 1
         assert len(lesson.practice_json) == 14
+
+
+def _row_status(html: str, lesson_id: str) -> str:
+    """The status a lesson list row shows: its stars label, or 'Todo'."""
+    row = re.search(
+        rf'<a class="list-row" href="/lessons/{lesson_id}">(.*?)</a>', html, re.S
+    )
+    assert row, f"no row for {lesson_id}"
+    label = re.search(r'aria-label="(Done, \d of 3 stars)"', row.group(1))
+    if label:
+        return label.group(1)
+    return "Todo" if "badge--todo" in row.group(1) else ""
+
+
+def test_best_stars_show_on_level_lessons_and_lesson_pages(seeded, migrated_client):
+    total = seeded
+    _register(migrated_client)
+    assert _complete(migrated_client, total, first_try_correct=total - 1).status_code == 200
+    # A worse retake keeps the best score everywhere it is shown.
+    assert _complete(migrated_client, total, first_try_correct=0).status_code == 200
+
+    level = migrated_client.get("/levels/a1").get_data(as_text=True)
+    assert _row_status(level, LESSON_ID) == "Done, 2 of 3 stars"
+    assert _row_status(level, "definite-articles") == "Todo"
+
+    lessons = migrated_client.get("/lessons").get_data(as_text=True)
+    assert _row_status(lessons, LESSON_ID) == "Done, 2 of 3 stars"
+    assert _row_status(lessons, "definite-articles") == ""
+
+    page = migrated_client.get(f"/lessons/{LESSON_ID}").get_data(as_text=True)
+    assert 'id="lesson-best"' in page
+    assert 'aria-label="Done, 2 of 3 stars"' in page
+    assert f"{total - 1} of {total} right first time" in page
+
+    other = migrated_client.get("/lessons/definite-articles").get_data(as_text=True)
+    assert 'id="lesson-best"' not in other
+
+
+def test_lesson_header_without_a_score_shows_one_star_only(seeded, migrated_client):
+    # A completion from an older client (or production before scores) has no
+    # first-try count: the header shows 1 star and no "right first time" line.
+    total = seeded
+    _register(migrated_client)
+    assert _complete(migrated_client, total).status_code == 200
+    page = migrated_client.get(f"/lessons/{LESSON_ID}").get_data(as_text=True)
+    assert 'aria-label="Done, 1 of 3 stars"' in page
+    assert "right first time</span>" not in page
+
+
+def test_logged_out_lesson_page_has_no_best_score(seeded, migrated_client):
+    page = migrated_client.get(f"/lessons/{LESSON_ID}").get_data(as_text=True)
+    assert 'id="lesson-best"' not in page
+    assert "of 3 stars" not in page

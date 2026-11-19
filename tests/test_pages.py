@@ -118,7 +118,7 @@ def test_lessons_page_lists_every_lesson_by_goal(migrated_app, migrated_client):
     # Grouped by goal: every goal label is a heading.
     assert html.count('class="heading-3 goal-section__title"') >= 5
     assert SIGN_UP_LINK in html
-    assert "badge--done" not in html
+    assert "of 3 stars" not in html
 
 
 def test_lessons_page_logged_in_marks_done_and_hides_sign_up(
@@ -133,7 +133,8 @@ def test_lessons_page_logged_in_marks_done_and_hides_sign_up(
     )
     assert response.status_code == 200
     html = migrated_client.get("/lessons").get_data(as_text=True)
-    assert html.count("badge--done") == 1
+    # No first-try score was sent, so the lesson shows as done with 1 star.
+    assert html.count('aria-label="Done, 1 of 3 stars"') == 1
     assert 'href="/signup"' not in html
 
 

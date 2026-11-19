@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% from "_stars.html" import stars %}
 {% set canonical_path = url_for('pages.lesson', lesson_id=lesson.id) %}
 {% block title %}{{ page_title }}{% endblock %}
 {% block og_description %}{{ page_description }}{% endblock %}
@@ -20,6 +21,15 @@
   <div>
     <h1 class="heading-1">{{ lesson.title }}</h1>
     <p class="text-muted">{{ lesson.summary }}</p>
+    {% if lesson.completed %}
+    <p class="lesson-best" id="lesson-best">
+      <span class="lesson-best__label">Your best</span>
+      {{ stars(lesson.stars) }}
+      {% if lesson.best_first_try is not none %}
+      <span class="text-muted">{{ lesson.best_first_try }} of {{ lesson.practice | length }} right first time</span>
+      {% endif %}
+    </p>
+    {% endif %}
     {% if just_saved %}
     <p class="lesson-saved" id="lesson-saved"><span class="badge badge--done">Completed</span> Saved to your account.</p>
     {% endif %}

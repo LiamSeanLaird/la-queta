@@ -1472,6 +1472,37 @@ a.btn.btn--primary {
   color: var(--link);
 }
 
+/* Best stars on a completed lesson: list rows and the lesson header. */
+.stars {
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: 0.05em;
+  font-size: 1.05rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.stars__star {
+  color: var(--track);
+}
+
+.stars__star.is-earned {
+  color: var(--gold-deep);
+}
+
+.lesson-best {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.5rem;
+  margin: 0.5rem 0 0;
+  font-size: 0.9rem;
+}
+
+.lesson-best__label {
+  font-weight: 600;
+}
+
 /* ── Test intro (before the first question) ─────────── */
 
 .test-intro__head .heading-2 {

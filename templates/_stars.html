@@ -1,0 +1,15 @@
+{# A completed lesson's best stars, 1 to 3 (app/services/lessons.py lesson_stars).
+   Earned stars are gold, the rest use the track colour. The label carries the
+   state for screen readers, so the star glyphs themselves are hidden. #}
+{% macro stars(count, extra_class='') -%}
+<span class="stars{% if extra_class %} {{ extra_class }}{% endif %}" role="img" aria-label="Done, {{ count }} of 3 stars">
+  {%- for i in range(1, 4) -%}
+  <span class="stars__star{% if i <= count %} is-earned{% endif %}" aria-hidden="true">&#9733;</span>
+  {%- endfor -%}
+</span>
+{%- endmacro %}
+
+{# Right-hand status of a lesson list row: best stars once done, else a Todo badge. #}
+{% macro lesson_status(lesson) -%}
+{% if lesson.completed %}{{ stars(lesson.stars) }}{% else %}<span class="badge badge--todo">Todo</span>{% endif %}
+{%- endmacro %}

@@ -17,12 +17,14 @@ def _lesson_rows(client, slug: str) -> list[tuple[str, str, str]]:
     )
     assert section, f"no lessons section on /decks/{slug}"
     rows = re.findall(
-        r'href="/lessons/([\w-]+)">.*?list-row__title">([^<]+)</p>.*?badge--(\w+)',
+        r'href="/lessons/([\w-]+)">.*?list-row__title">([^<]+)</p>'
+        r'.*?(badge--todo|aria-label="Done, \d of 3 stars")',
         section.group(1),
         re.S,
     )
     return [
-        (lesson_id, html.unescape(title), state) for lesson_id, title, state in rows
+        (lesson_id, html.unescape(title), "todo" if "todo" in status else "done")
+        for lesson_id, title, status in rows
     ]
 
 
