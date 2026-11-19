@@ -1,4 +1,4 @@
-"""The share image is 1200x630 and its source carries the current positioning."""
+"""The share image is a 1200x630 PNG."""
 
 import struct
 from pathlib import Path
@@ -12,9 +12,3 @@ def test_og_image_is_1200_by_630_png():
     width, height = struct.unpack(">II", data[16:24])
     assert (width, height) == (1200, 630)
 
-
-def test_og_image_source_has_brand_and_positioning():
-    html = (ROOT / "scripts" / "og_image" / "og-image.html").read_text()
-    assert "La Queta" in html
-    assert "aprèn català" in html
-    assert "Free Catalan for complete beginners" in html

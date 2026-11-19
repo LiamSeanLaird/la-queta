@@ -130,7 +130,7 @@
     </div>
     {% else %}
     <div class="stack" id="practice-done" hidden>
-      {% if finishes_level %}
+      {% if finishes_level and not lesson.completed %}
       {% include "_finished_level.html" %}
       {% else %}
       <h2 class="heading-3">Lesson complete - well done.</h2>

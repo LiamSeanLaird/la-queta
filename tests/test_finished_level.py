@@ -111,3 +111,17 @@ def test_carried_over_last_lesson_shows_finished_moment(migrated_app, migrated_c
     # Without ?saved=1 a completed lesson's Learn tab stays as it was.
     page = migrated_client.get(f"/lessons/{ids[-1]}").get_data(as_text=True)
     assert 'id="finished-level"' not in page
+
+
+def test_redoing_a_lesson_after_finishing_keeps_normal_step(
+    migrated_app, migrated_client
+):
+    ids = _setup(migrated_app, migrated_client)
+    for lesson_id in ids:
+        _complete(migrated_client, lesson_id)
+
+    page = migrated_client.get(f"/lessons/{ids[3]}?tab=practice").get_data(
+        as_text=True
+    )
+    assert "Lesson complete - well done." in page
+    assert "finished A1" not in page

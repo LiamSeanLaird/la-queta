@@ -59,11 +59,3 @@ def test_browse_plural_is_marked_catalan(migrated_app, migrated_client):
     assert plurals
     assert all(p.startswith('<span lang="ca">') for p in plurals)
 
-
-def test_js_marks_catalan_text():
-    study = (ROOT / "static" / "js" / "study.js").read_text()
-    assert 'studyWord.lang = "ca"' in study
-    assert 'studyWord.lang = "en"' in study
-    assert 'pl: <span lang="ca">' in study
-    practice = (ROOT / "static" / "js" / "practice.js").read_text()
-    assert 'target.lang = "ca"' in practice

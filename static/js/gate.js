@@ -56,14 +56,18 @@
       return "/levels";
     }
     const lessonId = encodeURIComponent(pending.lesson_id);
-    const { response } = await window.LaQueta.api(`/api/lessons/${lessonId}/complete`, {
-      method: "POST",
-      body: JSON.stringify({
-        exercises_correct: pending.exercises_correct,
-        exercises_total: pending.exercises_total,
-      }),
-    });
-    return response.ok ? `/lessons/${lessonId}?saved=1` : "/levels";
+    try {
+      const { response } = await window.LaQueta.api(`/api/lessons/${lessonId}/complete`, {
+        method: "POST",
+        body: JSON.stringify({
+          exercises_correct: pending.exercises_correct,
+          exercises_total: pending.exercises_total,
+        }),
+      });
+      return response.ok ? `/lessons/${lessonId}?saved=1` : "/levels";
+    } catch (_err) {
+      return "/levels";
+    }
   }
 
   tabRegister.addEventListener("click", showRegister);
