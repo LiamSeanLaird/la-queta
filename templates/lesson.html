@@ -113,7 +113,7 @@
     <div class="stack-lg test-intro" id="test-intro">
       <div class="test-intro__head">
         <h2 class="heading-2" id="test-intro-title">{{ lesson.practice|length }} question{{ "s" if lesson.practice|length != 1 }}</h2>
-        <p class="text-body">Get every question right to complete the lesson.</p>
+        <p class="text-body">Get every question right to complete the lesson. Questions you miss come back at the end.</p>
       </div>
       {% if lesson.words %}
       {% set words_heading_id = "test-words-title" %}
@@ -138,8 +138,9 @@
     {% if not current_user %}
     {# Logged out: nothing is saved, so ask for an account in place of the completion step. #}
     <div class="stack" id="practice-done" hidden>
-      <h2 class="heading-3">Every answer right - well done.</h2>
-      <p class="text-body">Create a free account to save this lesson and keep going.</p>
+      {% include "_test_score.html" %}
+      <h2 class="heading-3">Test complete - well done.</h2>
+      <p class="text-body">Create a free account to save this lesson and your score, and keep going.</p>
       <a class="btn btn--primary btn--block" href="{{ url_for('pages.signup') }}">Create a free account</a>
       <a class="btn btn--secondary btn--block" href="{{ url_for('pages.signin') }}">Sign in</a>
       {% if next_lesson %}
@@ -148,6 +149,7 @@
     </div>
     {% else %}
     <div class="stack" id="practice-done" hidden>
+      {% include "_test_score.html" %}
       {% if finishes_level and not lesson.completed %}
       {% include "_finished_level.html" %}
       {% else %}

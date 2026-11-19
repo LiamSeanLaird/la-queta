@@ -1194,6 +1194,12 @@ a.btn.btn--primary {
   border-color: var(--accent);
 }
 
+/* Answered: options lock, but keep their normal text colour. */
+.option:disabled {
+  color: var(--ink);
+  cursor: default;
+}
+
 .option.is-selected {
   border-color: var(--senyera-red);
   background: var(--tint-selected);
@@ -1433,6 +1439,37 @@ a.btn.btn--primary {
 
 .landing-faq .text-body + .text-body {
   margin-top: 0.5rem;
+}
+
+/* ── Test score (end of the test) ─────────────────── */
+
+.test-score {
+  text-align: center;
+}
+
+.test-score__stars {
+  margin: 0;
+  font-size: 2.25rem;
+  line-height: 1;
+  letter-spacing: 0.15em;
+}
+
+.test-score__star {
+  color: var(--track);
+}
+
+.test-score__star.is-earned {
+  color: var(--gold-deep);
+}
+
+.test-score__text {
+  margin: 0.5rem 0 0;
+}
+
+.test-score__retry {
+  display: inline-block;
+  margin-top: 0.35rem;
+  color: var(--link);
 }
 
 /* ── Test intro (before the first question) ─────────── */

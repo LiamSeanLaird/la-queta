@@ -1,0 +1,7 @@
+{# The learner's score for the test they just finished. practice.js fills it in:
+   the stars, "X of N right first time", and a retry link when under 3 stars. #}
+<div class="test-score" id="test-score">
+  <p class="test-score__stars" id="test-score-stars" role="img" aria-label=""></p>
+  <p class="heading-3 test-score__text" id="test-score-text"></p>
+  <a class="test-score__retry" id="test-retry" href="{{ url_for('pages.lesson', lesson_id=lesson.id, tab='test') }}" hidden>Try again for 3 stars</a>
+</div>

@@ -65,6 +65,9 @@
         body: JSON.stringify({
           exercises_correct: pending.exercises_correct,
           exercises_total: pending.exercises_total,
+          // Absent in payloads stored before scoring; the server then saves
+          // the completion with no score (1 star).
+          first_try_correct: pending.first_try_correct,
         }),
       });
       if (!response.ok) {

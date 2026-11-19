@@ -207,9 +207,13 @@ Only `/` and `/lessons/<id>` are indexable.
   It still renders before content is seeded (no lesson list).
 - `/lessons/<id>` (Learn and Test tabs, `?tab=test`; the old `?tab=practice` 301-redirects there keeping other args) renders for logged-out visitors.
   Internally the Test is still called practice: `practice_json`, the API's `practice` key, `practice.js` and the `practice-*` element ids.
+  `practice.js` runs the Test as a queue of item indexes: a question answered right leaves it, a question answered wrong goes to the back, and the Test ends when the queue is empty.
+  `first_try_correct` is the number of questions never missed; the done panel shows it with stars computed by the same thresholds as `lesson_stars`.
+  Logged in, every finish posts, retakes included, because the server keeps the best score and the first `completed_at`; the goal-unlock dialog only shows on a first completion.
+  `tests/test_test_flow_browser.py` drives this in headless Chromium (skipped when no Chromium can launch).
   Services take `user=None` for this path (`get_lesson`, `list_lessons_for_level`, `lesson_next_steps`): no progress, nothing completed, no vocab deck, no wrap-round to earlier lessons.
   Logged out, the Test never posts the completion; its last step asks the visitor to create an account or sign in instead.
-  Carry-over: when a logged-out visitor finishes the Test, `practice.js` stores `{lesson_id, exercises_correct, exercises_total}` in `sessionStorage` (`laqueta.pendingCompletion`, this tab only).
+  Carry-over: when a logged-out visitor finishes the Test, `practice.js` stores `{lesson_id, exercises_correct, exercises_total, first_try_correct}` in `sessionStorage` (`laqueta.pendingCompletion`, this tab only).
   After register or login succeeds, `gate.js` removes the entry, reads the lesson's `completed` state, re-posts it to `POST /api/lessons/<id>/complete` (the same validation as the logged-in path), and lands on `/lessons/<id>?saved=1`, which shows "Saved to your account." when the lesson is complete.
   It adds `&finished=1` only when the lesson was not already complete before the POST.
   No redirect target comes from the URL; without a pending entry, or if either request fails (including a network error), the gate goes to `/levels`.

@@ -100,15 +100,6 @@ def test_lesson_page_has_learn_test_tabs(migrated_app, migrated_client):
     assert b"js/practice.js" in practice_tab.data
     assert b'data-tab="test"' in practice_tab.data
     assert b"is-active" in practice_tab.data
-    from pathlib import Path
-
-    src = (
-        Path(migrated_app.root_path)
-        .parent.joinpath("static/js/practice.js")
-        .read_text()
-    )
-    assert "Fill the blank only" in src
-    assert "Show answer" in src
 
 
 def test_answers_for_item_helpers():

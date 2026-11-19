@@ -71,7 +71,7 @@ The positioning line is "Free Catalan for complete beginners", with "aprèn cata
 Home (/): short pitch, "Start learning - it's free" (→ /signup) or "or try a lesson first" (→ lesson 1),
   "How it works" in three steps, a screenshot of a test question, footer links to /lessons and /faq
   → Lesson (Learn | Test), with previous / next lesson links and "All lessons"
-    → Test all correct → "Create a free account to save this lesson and keep going"
+    → Test finished (score and stars) → "Create a free account to save this lesson and your score, and keep going"
       → /signup or /signin → the lesson is saved as complete → back on the lesson, "Saved to your account."
 ```
 
@@ -149,7 +149,8 @@ Do not invent a third progress system.
 - [ ] Later (optional): browse filter active vs retired
 
 ### Phase F - A1 Practice
-- [x] Learn | Practice tabs; multiple choice, cloze and type-in; complete only after a perfect Practice.
+- [x] Learn | Test tabs; multiple choice, cloze and type-in; a missed question comes back at the end, and the lesson completes once every question is answered right.
+- [x] Test score: "X of N right first time" and 1 to 3 stars (3 for every question right first time, 2 for at least 75%, 1 for finishing); the best score is saved per lesson, and a worse retake never lowers it.
 
 ### Phase G - A1 path
 - [x] Programme theme coverage filled (**20** A1 lessons; see `content/a1_coverage.md`)

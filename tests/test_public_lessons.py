@@ -72,7 +72,7 @@ def test_test_tab_renders_logged_out(migrated_app, migrated_client):
     )
     assert json.loads(data.group(1)) == lesson["practice"]
     # The completion step asks for an account instead of claiming it was saved.
-    assert "Create a free account to save this lesson and keep going." in html
+    assert "Create a free account to save this lesson and your score, and keep going." in html
     assert "Lesson complete - well done." not in html
     assert 'href="/signup">Create a free account</a>' in html
     assert 'href="/signin">Sign in</a>' in html
@@ -308,6 +308,7 @@ def test_test_tab_opens_with_an_intro_card(migrated_app, migrated_client):
     text = _text(intro.group(0).encode())
     assert f"{len(lesson['practice'])} questions" in text
     assert "Get every question right to complete the lesson." in text
+    assert "Questions you miss come back at the end." in text
     assert "Start the test" in text
     # The same words list as the Learn tab, so the learner can review it.
     assert "Words in this lesson" in text
@@ -330,3 +331,19 @@ def test_test_intro_without_words_still_starts(migrated_app, migrated_client):
     assert 'id="test-intro"' in html
     assert 'class="lesson-words"' not in html
     assert 'id="test-start"' in html
+
+
+def test_done_panel_has_a_score_block_logged_out(migrated_app, migrated_client):
+    lesson = _lessons(migrated_app)[0]
+    html = migrated_client.get(f"/lessons/{lesson['id']}?tab=test").data.decode()
+    done = re.search(r'<div class="stack" id="practice-done" hidden>(.*?)</div>\s*<p class="field__error"', html, re.S)
+    assert done, "done panel missing"
+    panel = done.group(1)
+    # practice.js fills in the stars and the score; the retry link starts hidden
+    # and points back at a fresh test.
+    assert 'id="test-score-stars"' in panel
+    assert 'id="test-score-text"' in panel
+    retry = re.search(r'<a class="test-score__retry" id="test-retry" href="([^"]+)" hidden>([^<]+)</a>', panel)
+    assert retry, "retry link missing"
+    assert retry.group(1) == f"/lessons/{lesson['id']}?tab=test"
+    assert retry.group(2) == "Try again for 3 stars"
