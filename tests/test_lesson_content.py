@@ -154,9 +154,6 @@ def test_noun_gender_words_cover_everything_the_test_asks_for():
 # Lessons whose `words` list has not been written yet. Each one is audited
 # against its test and removed from this set, until the set is empty.
 LESSONS_WITHOUT_WORDS = {
-    "03-ser-vs-estar.json",
-    "04-present-tense.json",
-    "05-question-words.json",
     "06-introductions.json",
     "07-numbers.json",
     "08-time-calendar.json",
@@ -177,6 +174,10 @@ LESSONS_WITHOUT_WORDS = {
 # Grammar words taught in lessons 1 and 2, allowed in any test without being
 # listed again in each lesson's words.
 GRAMMAR_WORDS = {"el", "la", "els", "les", "l'", "un", "una", "uns", "unes", "i", "de", "d'"}
+
+# Names of people and places spelled the same in English, which a test may use
+# without teaching them. Names spelled differently, like Londres, are words.
+PROPER_NAMES = {"girona"}
 
 # Multiple-choice answers that are English, so they ask for no Catalan word.
 ENGLISH_ANSWERS = {
@@ -221,7 +222,7 @@ def _asked_phrases(lesson: dict) -> list[str]:
 
 
 def _is_taught(token: str, forms: set[str]) -> bool:
-    if token in forms or token in GRAMMAR_WORDS:
+    if token in forms or token in GRAMMAR_WORDS or token in PROPER_NAMES:
         return True
     # l'estació is taught if its parts are: the article and estació.
     parts = [p for p in re.split(r"(?<=')|-", token) if p]
