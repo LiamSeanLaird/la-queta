@@ -4,14 +4,36 @@
   "order": 18,
   "summary": "Talk about classes, enrol on a course, and name common learning places.",
   "deck": "education",
+  "words": [
+    { "catalan": "el curs", "english": "the course" },
+    { "catalan": "la classe", "english": "the class" },
+    { "catalan": "la inscripció", "english": "the enrolment" },
+    { "catalan": "l'escola d'adults", "english": "the adult school" },
+    { "catalan": "Faig un curs de català.", "english": "I'm doing a Catalan course." },
+    { "catalan": "Vull fer la inscripció.", "english": "I want to enrol." },
+    { "catalan": "Tinc classe demà al matí.", "english": "I have class tomorrow morning." },
+    { "catalan": "On és el CPNL?", "english": "Where is the CPNL?" }
+  ],
   "sections": [
     {
       "type": "text",
-      "content": "Entorn educatiu i formatiu: escola, institut, universitat, EOI, CPNL, escola d’adults - and short phrases to enrol or ask about a curs."
+      "content": "Education at A1: places to study, such as the adult school or the CPNL (the public Catalan language centres), and short phrases to enrol or ask about a course."
     },
     {
       "type": "rule",
       "content": "Faig un curs de… / Estic apuntat/apuntada a… On és l'escola d'adults / el CPNL? Vull fer la inscripció."
+    },
+    {
+      "type": "examples",
+      "items": [
+        { "catalan": "el curs", "english": "the course", "note": "" },
+        { "catalan": "la classe", "english": "the class", "note": "" },
+        { "catalan": "la inscripció", "english": "the enrolment", "note": "" },
+        { "catalan": "l'escola", "english": "the school", "note": "" },
+        { "catalan": "l'institut", "english": "the secondary school", "note": "" },
+        { "catalan": "la universitat", "english": "the university", "note": "" },
+        { "catalan": "l'escola d'adults", "english": "the adult school", "note": "" }
+      ]
     },
     {
       "type": "examples",
@@ -49,7 +71,7 @@
       "id": "ed-p01",
       "kind": "multiple_choice",
       "question": "‘Course’ is…",
-      "options": ["el curs", "la cita", "la feina"],
+      "options": ["el curs", "la classe", "la inscripció"],
       "answer": "el curs",
       "explanation": "el curs."
     },
@@ -57,7 +79,7 @@
       "id": "ed-p02",
       "kind": "multiple_choice",
       "question": "‘I want to enrol’ is often…",
-      "options": ["Vull fer la inscripció.", "Soc professor.", "Anem al cinema."],
+      "options": ["Vull fer la inscripció.", "On és el CPNL?", "Tinc classe demà al matí."],
       "answer": "Vull fer la inscripció.",
       "explanation": "inscripció = enrolment."
     },
@@ -65,7 +87,7 @@
       "id": "ed-p03",
       "kind": "multiple_choice",
       "question": "Adult school is…",
-      "options": ["l'escola d'adults", "l'Ajuntament", "la farmàcia"],
+      "options": ["l'escola d'adults", "l'institut", "la universitat"],
       "answer": "l'escola d'adults",
       "explanation": "escola d'adults."
     },
@@ -73,7 +95,7 @@
       "id": "ed-p04",
       "kind": "multiple_choice",
       "question": "‘I'm doing a Catalan course’ is…",
-      "options": ["Faig un curs de català.", "Vaig al cinema.", "Tinc cita."],
+      "options": ["Faig un curs de català.", "Tinc classe demà al matí.", "Estic a l'escola d'adults."],
       "answer": "Faig un curs de català.",
       "explanation": "Faig un curs de…"
     },

@@ -4,14 +4,33 @@
   "order": 20,
   "summary": "Ask for help at the town hall, book an appointment, and give ID details.",
   "deck": "admin",
+  "words": [
+    { "catalan": "l'Ajuntament", "english": "the town hall" },
+    { "catalan": "l'Oficina del Padró", "english": "the residents' register office" },
+    { "catalan": "la cita", "english": "the appointment" },
+    { "catalan": "el meu cognom", "english": "my surname" },
+    { "catalan": "On és l'Ajuntament?", "english": "Where is the town hall?" },
+    { "catalan": "Vull demanar una cita.", "english": "I want to book an appointment." },
+    { "catalan": "Necessito ajuda.", "english": "I need help." }
+  ],
   "sections": [
     {
       "type": "text",
-      "content": "Administració pública in the A1 programme: Ajuntament, Oficina del Padró, OAC, and short exchanges to get information or a cita."
+      "content": "Public services at A1: the town hall, the office where you register your address, and short exchanges to get information or an appointment."
     },
     {
       "type": "rule",
       "content": "Vull informació / Necessito ajuda. Tinc cita a les… Em dic… / El meu NIE és… On és l'Ajuntament / l'Oficina del Padró?"
+    },
+    {
+      "type": "examples",
+      "items": [
+        { "catalan": "l'Ajuntament", "english": "the town hall", "note": "" },
+        { "catalan": "l'Oficina del Padró", "english": "the residents' register office", "note": "where you register your address" },
+        { "catalan": "la cita", "english": "the appointment", "note": "" },
+        { "catalan": "el formulari", "english": "the form", "note": "" },
+        { "catalan": "el cognom", "english": "the surname", "note": "" }
+      ]
     },
     {
       "type": "examples",

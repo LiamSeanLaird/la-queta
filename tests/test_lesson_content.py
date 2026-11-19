@@ -151,14 +151,6 @@ def test_noun_gender_words_cover_everything_the_test_asks_for():
             assert part.lower() in examples, part
 
 
-# Lessons whose `words` list has not been written yet. Each one is audited
-# against its test and removed from this set, until the set is empty.
-LESSONS_WITHOUT_WORDS = {
-    "18-education.json",
-    "19-leisure.json",
-    "20-public-admin.json",
-}
-
 # Grammar words taught in lessons 1 and 2, allowed in any test without being
 # listed again in each lesson's words.
 GRAMMAR_WORDS = {"el", "la", "els", "les", "l'", "un", "una", "uns", "unes", "i", "de", "d'"}
@@ -221,18 +213,14 @@ def _lesson_files() -> list[Path]:
     return sorted(LESSONS.glob("*.json"))
 
 
-def test_lessons_without_words_are_listed_explicitly():
-    names = {path.name for path in _lesson_files()}
-    assert LESSONS_WITHOUT_WORDS <= names
+def test_every_lesson_has_a_words_list():
     for path in _lesson_files():
-        has_words = bool(json.loads(path.read_text(encoding="utf-8")).get("words"))
-        assert has_words == (path.name not in LESSONS_WITHOUT_WORDS), path.name
+        words = json.loads(path.read_text(encoding="utf-8")).get("words")
+        assert words, path.name
 
 
 def test_every_test_only_uses_words_its_lesson_teaches():
     for path in _lesson_files():
-        if path.name in LESSONS_WITHOUT_WORDS:
-            continue
         lesson = json.loads(path.read_text(encoding="utf-8"))
         forms = set()
         for word in lesson["words"]:
@@ -256,7 +244,7 @@ def test_every_listed_word_is_shown_on_the_learn_tab():
     for path in _lesson_files():
         lesson = json.loads(path.read_text(encoding="utf-8"))
         learn = _text(lesson).lower().replace("’", "'")
-        for word in lesson.get("words", []):
+        for word in lesson["words"]:
             assert word["english"].strip(), f"{path.name}: {word}"
             for part in word["catalan"].split(" / "):
                 assert part.lower().replace("’", "'") in learn, f"{path.name}: {part}"

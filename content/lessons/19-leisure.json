@@ -4,10 +4,17 @@
   "order": 19,
   "summary": "Talk about free time, hobbies, and simple plans with friends.",
   "deck": "leisure",
+  "words": [
+    { "catalan": "M'agrada llegir.", "english": "I like reading." },
+    { "catalan": "Què fas al cap de setmana?", "english": "What do you do at the weekend?" },
+    { "catalan": "el cinema", "english": "the cinema" },
+    { "catalan": "Vols venir al cinema?", "english": "Do you want to come to the cinema?" },
+    { "catalan": "Anem a passejar.", "english": "Let's go for a walk." }
+  ],
   "sections": [
     {
       "type": "text",
-      "content": "Entorn lúdic: free-time activities, inviting someone out, and saying what you like doing."
+      "content": "Leisure at A1: free-time activities, inviting someone out, and saying what you like doing."
     },
     {
       "type": "rule",
@@ -25,6 +32,11 @@
           "catalan": "Què fas al cap de setmana?",
           "english": "What do you do at the weekend?",
           "note": ""
+        },
+        {
+          "catalan": "el cinema",
+          "english": "the cinema",
+          "note": "al cinema = to the cinema (a + el)"
         },
         {
           "catalan": "Vols venir al cinema?",
