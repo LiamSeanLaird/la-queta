@@ -154,9 +154,6 @@ def test_noun_gender_words_cover_everything_the_test_asks_for():
 # Lessons whose `words` list has not been written yet. Each one is audited
 # against its test and removed from this set, until the set is empty.
 LESSONS_WITHOUT_WORDS = {
-    "06-introductions.json",
-    "07-numbers.json",
-    "08-time-calendar.json",
     "09-directions.json",
     "10-travel-transport.json",
     "11-food-cafe.json",
@@ -177,7 +174,7 @@ GRAMMAR_WORDS = {"el", "la", "els", "les", "l'", "un", "una", "uns", "unes", "i"
 
 # Names of people and places spelled the same in English, which a test may use
 # without teaching them. Names spelled differently, like Londres, are words.
-PROPER_NAMES = {"girona"}
+PROPER_NAMES = {"barcelona", "girona", "marta"}
 
 # Multiple-choice answers that are English, so they ask for no Catalan word.
 ENGLISH_ANSWERS = {
@@ -246,7 +243,12 @@ def test_every_test_only_uses_words_its_lesson_teaches():
         if path.name in LESSONS_WITHOUT_WORDS:
             continue
         lesson = json.loads(path.read_text(encoding="utf-8"))
-        forms = {t for word in lesson["words"] for t in _tokens(word["catalan"])}
+        forms = set()
+        for word in lesson["words"]:
+            for token in _tokens(word["catalan"]):
+                # dues-centes teaches the whole number and each of its parts.
+                forms.add(token)
+                forms.update(part for part in token.split("-") if part)
         missing = sorted(
             {
                 token

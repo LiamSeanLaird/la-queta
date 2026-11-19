@@ -4,6 +4,32 @@
   "order": 6,
   "summary": "Say who you are, where you’re from, and exchange basic personal details.",
   "deck": "starter",
+  "words": [
+    {
+      "catalan": "Hola",
+      "english": "Hi"
+    },
+    {
+      "catalan": "Em dic…",
+      "english": "My name is…"
+    },
+    {
+      "catalan": "Com et dius?",
+      "english": "What’s your name? (informal)"
+    },
+    {
+      "catalan": "Soc de…",
+      "english": "I’m from…"
+    },
+    {
+      "catalan": "Visc a Barcelona.",
+      "english": "I live in Barcelona."
+    },
+    {
+      "catalan": "Encantat / Encantada",
+      "english": "Nice to meet you (m / f)"
+    }
+  ],
   "sections": [
     {
       "type": "text",

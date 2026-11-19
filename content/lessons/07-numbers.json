@@ -3,6 +3,60 @@
   "title": "Numbers",
   "order": 7,
   "deck": "numbers",
+  "words": [
+    {
+      "catalan": "un / una",
+      "english": "1 (m / f)"
+    },
+    {
+      "catalan": "dos / dues",
+      "english": "2 (m / f)"
+    },
+    {
+      "catalan": "cinc",
+      "english": "5"
+    },
+    {
+      "catalan": "quinze",
+      "english": "15"
+    },
+    {
+      "catalan": "disset",
+      "english": "17"
+    },
+    {
+      "catalan": "divuit",
+      "english": "18"
+    },
+    {
+      "catalan": "vint-i-un",
+      "english": "21"
+    },
+    {
+      "catalan": "vint-i-cinc",
+      "english": "25"
+    },
+    {
+      "catalan": "trenta-dos",
+      "english": "32"
+    },
+    {
+      "catalan": "dos-cents / dues-centes",
+      "english": "200 (m / f)"
+    },
+    {
+      "catalan": "el bitllet / els bitllets",
+      "english": "the ticket / the tickets"
+    },
+    {
+      "catalan": "primer / primera",
+      "english": "first (m / f)"
+    },
+    {
+      "catalan": "cinquè / cinquena",
+      "english": "fifth (m / f)"
+    }
+  ],
   "summary": "Catalan numbers follow clear patterns, so learn the system, not just the words.",
   "sections": [
     {
@@ -198,6 +252,21 @@
           "catalan": "dos-cents / dues-centes",
           "english": "200",
           "note": "masc / fem"
+        },
+        {
+          "catalan": "el bitllet / els bitllets",
+          "english": "the ticket / the tickets",
+          "note": "masculine"
+        },
+        {
+          "catalan": "dos-cents bitllets",
+          "english": "200 tickets",
+          "note": "masculine"
+        },
+        {
+          "catalan": "dues-centes persones",
+          "english": "200 people",
+          "note": "feminine"
         },
         {
           "catalan": "cinc-cents",
