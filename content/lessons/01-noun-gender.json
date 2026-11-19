@@ -208,7 +208,7 @@
       "prompt": "___ porta",
       "hint": "the door",
       "answer": "la",
-      "explanation": "Feminine singular article: la porta."
+      "explanation": "'Porta' is feminine, so 'the door' is la porta."
     },
     {
       "id": "ng-p06",
@@ -216,7 +216,7 @@
       "prompt": "un gat ___",
       "hint": "black (masculine)",
       "answer": "negre",
-      "explanation": "Masculine adjective: negre."
+      "explanation": "'Gat' is masculine, so the adjective is masculine too. The feminine form is negra."
     },
     {
       "id": "ng-p07",
@@ -224,7 +224,7 @@
       "prompt": "___ mà",
       "hint": "the hand",
       "answer": "la",
-      "explanation": "la mà - feminine, accented -à."
+      "explanation": "'Mà' ends in an accented -à and is feminine, so it takes 'la': la mà."
     },
     {
       "id": "ng-p11",
@@ -241,7 +241,7 @@
       "answers": [
         "la taula"
       ],
-      "explanation": "Feminine -a noun with article."
+      "explanation": "'Taula' ends in -a and is feminine, so it takes 'la'."
     },
     {
       "id": "ng-p09",
@@ -250,7 +250,7 @@
       "answers": [
         "el gat"
       ],
-      "explanation": "Masculine consonant-ending noun."
+      "explanation": "'Gat' ends in a consonant and is masculine, so it takes 'el'."
     },
     {
       "id": "ng-p10",
@@ -259,7 +259,7 @@
       "answers": [
         "una taula vella"
       ],
-      "explanation": "Article + noun + agreeing adjective."
+      "explanation": "'Taula' is feminine, so the article and the adjective are feminine too."
     },
     {
       "id": "ng-l01",
@@ -272,7 +272,7 @@
         "the cat"
       ],
       "answer": "the door",
-      "explanation": "la porta = the door."
+      "explanation": "You heard 'la porta'."
     },
     {
       "id": "ng-l02",
@@ -282,7 +282,7 @@
       "answers": [
         "el gat"
       ],
-      "explanation": "el gat."
+      "explanation": "'Gat' is masculine, so it takes 'el'. El gat means 'the cat'."
     },
     {
       "id": "ng-s01",
