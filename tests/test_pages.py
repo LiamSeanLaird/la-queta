@@ -1,6 +1,7 @@
 """Multi-page HTML routes and auth redirects."""
 
 import re
+import struct
 from html import unescape
 
 from markupsafe import escape
@@ -68,6 +69,33 @@ def test_landing_copy_is_short(migrated_app, migrated_client):
     main = re.sub(r"<script.*?</script>", "", main, flags=re.S)
     words = unescape(re.sub(r"<[^>]+>", " ", main)).split()
     assert len(words) < 150, len(words)
+
+
+def test_landing_shows_the_test_screenshot_in_light_and_dark(
+    migrated_app, migrated_client
+):
+    with migrated_app.app_context():
+        seed_all()
+    html = migrated_client.get("/").get_data(as_text=True)
+    figure = html.split('<figure class="landing-shot">', 1)[1].split("</figure>")[0]
+    dark = re.search(
+        r'<source srcset="([^"]+)" media="\(prefers-color-scheme: dark\)">', figure
+    )
+    img = re.search(
+        r'<img src="([^"]+)" width="(\d+)" height="(\d+)"[^>]*alt="([^"]+)"', figure
+    )
+    assert dark and img
+    assert "porta" in unescape(img.group(4))
+    sizes = set()
+    for url in (dark.group(1), img.group(1)):
+        response = migrated_client.get(url)
+        assert response.status_code == 200
+        data = response.data
+        response.close()
+        assert data[:8] == b"\x89PNG\r\n\x1a\n"
+        sizes.add(struct.unpack(">II", data[16:24]))
+    # Both images match, at twice the size the page reserves for them.
+    assert sizes == {(int(img.group(2)) * 2, int(img.group(3)) * 2)}
 
 
 def test_lessons_page_lists_every_lesson_by_goal(migrated_app, migrated_client):

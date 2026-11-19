@@ -42,6 +42,14 @@
     </ol>
   </section>
 
+  <figure class="landing-shot">
+    <picture>
+      <source srcset="{{ url_for('static', filename='landing-test-dark.png') }}" media="(prefers-color-scheme: dark)">
+      <img src="{{ url_for('static', filename='landing-test-light.png') }}" width="390" height="490" loading="lazy"
+           alt="A question from the lesson 1 test on a phone: What is the gender of 'porta' (door)? The answers are Masculine and Feminine.">
+    </picture>
+  </figure>
+
   <section class="landing-cta page-intro stack">
     <a class="btn btn--primary" href="{{ url_for('pages.signup') }}">Start learning - it's free</a>
   </section>

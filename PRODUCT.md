@@ -69,7 +69,7 @@ The positioning line is "Free Catalan for complete beginners", with "aprèn cata
 ### Logged-out visitor
 ```
 Home (/): short pitch, "Start learning - it's free" (→ /signup) or "or try a lesson first" (→ lesson 1),
-  "How it works" in three steps, footer links to /lessons and /faq
+  "How it works" in three steps, a screenshot of a test question, footer links to /lessons and /faq
   → Lesson (Learn | Test), with previous / next lesson links and "All lessons"
     → Test all correct → "Create a free account to save this lesson and keep going"
       → /signup or /signin → the lesson is saved as complete → back on the lesson, "Saved to your account."
