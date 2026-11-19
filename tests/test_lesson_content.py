@@ -154,9 +154,6 @@ def test_noun_gender_words_cover_everything_the_test_asks_for():
 # Lessons whose `words` list has not been written yet. Each one is audited
 # against its test and removed from this set, until the set is empty.
 LESSONS_WITHOUT_WORDS = {
-    "09-directions.json",
-    "10-travel-transport.json",
-    "11-food-cafe.json",
     "12-shopping.json",
     "13-health.json",
     "14-signs-messages.json",
@@ -246,9 +243,10 @@ def test_every_test_only_uses_words_its_lesson_teaches():
         forms = set()
         for word in lesson["words"]:
             for token in _tokens(word["catalan"]):
-                # dues-centes teaches the whole number and each of its parts.
+                # dues-centes and l'esquerra teach the whole word and each of
+                # its parts, so a cloze can blank just 'centes' or 'esquerra'.
                 forms.add(token)
-                forms.update(part for part in token.split("-") if part)
+                forms.update(part for part in re.split(r"(?<=')|-", token) if part)
         missing = sorted(
             {
                 token
@@ -267,4 +265,4 @@ def test_every_listed_word_is_shown_on_the_learn_tab():
         for word in lesson.get("words", []):
             assert word["english"].strip(), f"{path.name}: {word}"
             for part in word["catalan"].split(" / "):
-                assert part.lower() in learn, f"{path.name}: {part}"
+                assert part.lower().replace("’", "'") in learn, f"{path.name}: {part}"

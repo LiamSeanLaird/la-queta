@@ -4,10 +4,21 @@
   "order": 10,
   "summary": "Buy tickets, ask about trains and buses, and find the station.",
   "deck": "travel",
+  "words": [
+    { "catalan": "el bitllet", "english": "the ticket" },
+    { "catalan": "Un bitllet a…", "english": "A ticket to…" },
+    { "catalan": "l'estació", "english": "the station" },
+    { "catalan": "On és l'estació?", "english": "Where is the station?" },
+    { "catalan": "Quan surt el tren?", "english": "When does the train leave?" },
+    { "catalan": "Quan arriba…?", "english": "When does it arrive?" },
+    { "catalan": "el tren", "english": "the train" },
+    { "catalan": "el metro", "english": "the metro" },
+    { "catalan": "l'autobús", "english": "the bus" }
+  ],
   "sections": [
     {
       "type": "text",
-      "content": "Urbà / transports in the A1 programme: metro, bus, train, tickets, stations, and simple departure questions."
+      "content": "Getting around by public transport: metro, bus, train, tickets, stations, and simple questions about departures."
     },
     {
       "type": "rule",
@@ -16,6 +27,11 @@
     {
       "type": "examples",
       "items": [
+        {
+          "catalan": "el bitllet",
+          "english": "the ticket",
+          "note": "masculine"
+        },
         {
           "catalan": "Un bitllet a Girona, si us plau.",
           "english": "A ticket to Girona, please.",

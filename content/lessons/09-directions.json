@@ -4,6 +4,32 @@
   "order": 9,
   "summary": "Ask where something is and understand basic street directions.",
   "deck": "directions",
+  "words": [
+    {
+      "catalan": "On és…?",
+      "english": "Where is…?"
+    },
+    {
+      "catalan": "a la dreta",
+      "english": "on the right"
+    },
+    {
+      "catalan": "a l’esquerra",
+      "english": "on the left"
+    },
+    {
+      "catalan": "tot recte",
+      "english": "straight ahead"
+    },
+    {
+      "catalan": "l’estació",
+      "english": "the station"
+    },
+    {
+      "catalan": "el bany",
+      "english": "the bathroom"
+    }
+  ],
   "sections": [
     {
       "type": "text",
@@ -11,7 +37,7 @@
     },
     {
       "type": "rule",
-      "content": "On és…? = Where is…? A la dreta / a l’esquerra / tot recte. Està aprop / lluny."
+      "content": "On és…? = Where is…? A la dreta / a l’esquerra / tot recte. Està a prop / lluny."
     },
     {
       "type": "examples",
@@ -19,6 +45,11 @@
         {
           "catalan": "On és l’estació?",
           "english": "Where is the station?",
+          "note": ""
+        },
+        {
+          "catalan": "On és el bany?",
+          "english": "Where is the bathroom?",
           "note": ""
         },
         {
