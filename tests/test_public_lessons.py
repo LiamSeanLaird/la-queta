@@ -324,6 +324,14 @@ def test_old_practice_tab_url_redirects_to_test(migrated_app, migrated_client):
     response = migrated_client.get("/lessons/noun-gender?tab=Practice&saved=1")
     assert response.status_code == 301
     assert response.headers["Location"] == "/lessons/noun-gender?tab=test&saved=1"
+    # Repeated keys survive, and Flask build options stay plain query values.
+    response = migrated_client.get(
+        "/lessons/noun-gender?tab=practice&a=1&a=2&_scheme=https&_external=1&_method=X&_anchor=y"
+    )
+    assert response.status_code == 301
+    assert response.headers["Location"] == (
+        "/lessons/noun-gender?tab=test&a=1&a=2&_scheme=https&_external=1&_method=X&_anchor=y"
+    )
 
 
 def test_test_tab_opens_with_an_intro_card(migrated_app, migrated_client):

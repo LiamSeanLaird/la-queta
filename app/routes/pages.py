@@ -1,3 +1,5 @@
+from urllib.parse import urlencode
+
 from flask import (
     Blueprint,
     abort,
@@ -269,10 +271,10 @@ def lesson(lesson_id: str):
     if tab == "practice":
         # The Test tab used to be called Practice, and ?tab=practice URLs are
         # public and indexed: send them to the new name, keeping other args.
-        args = request.args.to_dict()
-        args.pop("lesson_id", None)
+        args = request.args.copy()
         args["tab"] = "test"
-        return redirect(url_for("pages.lesson", lesson_id=lesson_id, **args), 301)
+        query = urlencode(list(args.items(multi=True)))
+        return redirect(f"{url_for('pages.lesson', lesson_id=lesson_id)}?{query}", 301)
     if tab not in {"learn", "test"}:
         tab = "learn"
 
