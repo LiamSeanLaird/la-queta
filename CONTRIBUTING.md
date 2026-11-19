@@ -38,6 +38,8 @@ make test
    Each listed word must also appear on the Learn tab, in the text or an example.
    `tests/test_lesson_content.py` enforces both; if it flags a word, teach it in the lesson or change the test item, rather than adding to its allow-lists.
 9. Never change a lesson `id` or a card `id`, and never delete a card: learners' progress is keyed by them, and lesson ids are public URLs.
+10. Lesson content writes apostrophes straight (`l'estació`, `I'm`), like the decks; a curly ’ only closes a ‘quoted’ phrase.
+   `tests/test_lesson_content.py` checks this.
 
 ## Review
 

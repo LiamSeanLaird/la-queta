@@ -176,7 +176,7 @@ _EDGE_PUNCTUATION = ".,;:?!¿¡…«»\"()"
 
 def _tokens(phrase: str) -> list[str]:
     """Lowercased words of a Catalan phrase, with a (ser)-style note removed."""
-    phrase = re.sub(r"\([^)]*\)", " ", phrase.replace("’", "'"))
+    phrase = re.sub(r"\([^)]*\)", " ", phrase)
     tokens = []
     for raw in phrase.replace("/", " ").split():
         token = raw.strip(_EDGE_PUNCTUATION).lower()
@@ -243,8 +243,29 @@ def test_every_test_only_uses_words_its_lesson_teaches():
 def test_every_listed_word_is_shown_on_the_learn_tab():
     for path in _lesson_files():
         lesson = json.loads(path.read_text(encoding="utf-8"))
-        learn = _text(lesson).lower().replace("’", "'")
+        learn = _text(lesson).lower()
         for word in lesson["words"]:
             assert word["english"].strip(), f"{path.name}: {word}"
             for part in word["catalan"].split(" / "):
-                assert part.lower().replace("’", "'") in learn, f"{path.name}: {part}"
+                assert part.lower() in learn, f"{path.name}: {part}"
+
+
+def _strings(value):
+    if isinstance(value, str):
+        yield value
+    elif isinstance(value, dict):
+        for item in value.values():
+            yield from _strings(item)
+    elif isinstance(value, list):
+        for item in value:
+            yield from _strings(item)
+
+
+def test_lessons_write_apostrophes_straight():
+    # The course and the decks write l'estació and I'm with a straight
+    # apostrophe, so the same word looks the same everywhere. A curly ’ is
+    # only used to close a ‘quoted’ phrase.
+    for path in _lesson_files():
+        lesson = json.loads(path.read_text(encoding="utf-8"))
+        for text in _strings(lesson):
+            assert text.count("’") == text.count("‘"), f"{path.name}: {text}"

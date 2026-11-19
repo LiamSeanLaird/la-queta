@@ -14,7 +14,7 @@
       "english": "on the right"
     },
     {
-      "catalan": "a l’esquerra",
+      "catalan": "a l'esquerra",
       "english": "on the left"
     },
     {
@@ -22,7 +22,7 @@
       "english": "straight ahead"
     },
     {
-      "catalan": "l’estació",
+      "catalan": "l'estació",
       "english": "the station"
     },
     {
@@ -37,13 +37,13 @@
     },
     {
       "type": "rule",
-      "content": "On és…? = Where is…? A la dreta / a l’esquerra / tot recte. Està a prop / lluny."
+      "content": "On és…? = Where is…? A la dreta / a l'esquerra / tot recte. Està a prop / lluny."
     },
     {
       "type": "examples",
       "items": [
         {
-          "catalan": "On és l’estació?",
+          "catalan": "On és l'estació?",
           "english": "Where is the station?",
           "note": ""
         },
@@ -58,7 +58,7 @@
           "note": ""
         },
         {
-          "catalan": "A l’esquerra.",
+          "catalan": "A l'esquerra.",
           "english": "On the left.",
           "note": ""
         },
@@ -76,11 +76,11 @@
       "kind": "multiple_choice",
       "question": "‘Where is the station?’",
       "options": [
-        "On és l’estació?",
-        "Qui és l’estació?",
-        "Com és l’estació?"
+        "On és l'estació?",
+        "Qui és l'estació?",
+        "Com és l'estació?"
       ],
-      "answer": "On és l’estació?",
+      "answer": "On és l'estació?",
       "explanation": "On és…?"
     },
     {
@@ -89,7 +89,7 @@
       "question": "‘On the right’ is…",
       "options": [
         "A la dreta.",
-        "A l’esquerra.",
+        "A l'esquerra.",
         "Tot recte."
       ],
       "answer": "A la dreta.",
@@ -112,11 +112,11 @@
       "kind": "multiple_choice",
       "question": "‘On the left’ is…",
       "options": [
-        "A l’esquerra.",
+        "A l'esquerra.",
         "A la dreta.",
         "Al centre."
       ],
-      "answer": "A l’esquerra.",
+      "answer": "A l'esquerra.",
       "explanation": "esquerra = left."
     },
     {
@@ -138,10 +138,10 @@
     {
       "id": "di-p07",
       "kind": "cloze",
-      "prompt": "A l’___.",
+      "prompt": "A l'___.",
       "hint": "left",
       "answer": "esquerra",
-      "explanation": "a l’esquerra."
+      "explanation": "a l'esquerra."
     },
     {
       "id": "di-p08",

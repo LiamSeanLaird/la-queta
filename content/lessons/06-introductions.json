@@ -2,7 +2,7 @@
   "id": "introductions",
   "title": "Introductions",
   "order": 6,
-  "summary": "Say who you are, where you’re from, and exchange basic personal details.",
+  "summary": "Say who you are, where you're from, and exchange basic personal details.",
   "deck": "starter",
   "words": [
     {
@@ -15,11 +15,11 @@
     },
     {
       "catalan": "Com et dius?",
-      "english": "What’s your name? (informal)"
+      "english": "What's your name? (informal)"
     },
     {
       "catalan": "Soc de…",
-      "english": "I’m from…"
+      "english": "I'm from…"
     },
     {
       "catalan": "Visc a Barcelona.",
@@ -37,7 +37,7 @@
     },
     {
       "type": "rule",
-      "content": "Use Em dic… for ‘My name is…’ and Soc de… for origin. Com et dius? asks someone’s name (informal)."
+      "content": "Use Em dic… for ‘My name is…’ and Soc de… for origin. Com et dius? asks someone's name (informal)."
     },
     {
       "type": "examples",
@@ -48,9 +48,9 @@
           "note": ""
         },
         {
-          "catalan": "Soc d’Irlanda.",
-          "english": "I’m from Ireland.",
-          "note": "de + vowel → d’"
+          "catalan": "Soc d'Irlanda.",
+          "english": "I'm from Ireland.",
+          "note": "de + vowel → d'"
         },
         {
           "catalan": "Visc a Barcelona.",
@@ -85,7 +85,7 @@
     {
       "id": "in-p02",
       "kind": "multiple_choice",
-      "question": "How do you ask ‘What’s your name?’ (informal)?",
+      "question": "How do you ask ‘What's your name?’ (informal)?",
       "options": [
         "Com et dius?",
         "Com em dic?",
@@ -97,7 +97,7 @@
     {
       "id": "in-p03",
       "kind": "multiple_choice",
-      "question": "‘I’m from Girona’ is…",
+      "question": "‘I'm from Girona’ is…",
       "options": [
         "Soc de Girona.",
         "Estic de Girona.",
@@ -130,7 +130,7 @@
       "id": "in-p06",
       "kind": "cloze",
       "prompt": "Soc ___ València.",
-      "hint": "I’m from Valencia",
+      "hint": "I'm from Valencia",
       "answer": "de",
       "explanation": "Soc de…"
     },
@@ -145,7 +145,7 @@
     {
       "id": "in-p08",
       "kind": "type_in",
-      "prompt": "What’s your name? (informal)",
+      "prompt": "What's your name? (informal)",
       "answers": [
         "Com et dius?",
         "Com et dius"
