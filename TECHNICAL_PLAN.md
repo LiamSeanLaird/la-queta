@@ -38,7 +38,7 @@ la-queta/
 │   ├── seo.py                 # JSON-LD builders + site FAQ
 │   ├── www_redirect.py        # www -> apex before_request hook
 │   ├── routes/
-│   │   ├── pages.py           # HTML pages (public: /, /signup, /signin, /lessons/<id>)
+│   │   ├── pages.py           # HTML pages (public: /, /lessons, /faq, /signup, /signin, /lessons/<id>)
 │   │   ├── crawl.py           # /robots.txt, /sitemap.xml
 │   │   ├── health.py
 │   │   ├── api_auth.py
@@ -94,6 +94,7 @@ lessons
   summary
   sort_order     -- lesson JSON `order`; must follow the goal order in content/a1_can_dos.json (the Learn tab), and the file is named NN-<id>.json (tests/test_lesson_order.py)
   sections_json  -- teach sections: text | rule | examples
+  words_json     -- lesson JSON `words`: [{catalan, english}], every word the test uses (nouns with their article); shown on the Learn tab and the Test intro
   practice_json  -- practice bank: multiple_choice | cloze | type_in | listen_choice | listen_type | speak
   deck_slug      -- matching vocab deck (lesson JSON `deck`), offered when practice ends
 
@@ -196,7 +197,7 @@ Goals only tick when every lesson in them is done, so a plain "0/7 goals complet
 
 Logged-out visitors can read the landing page and every lesson; everything else (hub, level page, decks, study, daily, browse, every progress API) needs an account.
 Public routes: `/`, `/lessons`, `/faq`, `/signup`, `/signin`, `/lessons/<id>`, `/robots.txt`, `/sitemap.xml`, `/style-guide` and `/api/health`.
-Only `/` and `/lessons/<id>` are indexable.
+Only `/`, `/lessons`, `/faq` and `/lessons/<id>` are indexable.
 
 - Public pages: `/` is the landing page for logged-out visitors (logged in → `/levels`): the `<h1>`, one sentence, a primary "Start learning - it's free" button to `/signup` with a quiet "or try a lesson first" link to lesson 1, "How it works" in three steps, a screenshot of lesson 1's first test question, a closing sign-up button and a footer linking to `/lessons` and `/faq`.
   The screenshot is a `<picture>` with a dark-mode source; `scripts/landing_screenshot.py` takes both images from the running app at 390px, so rerun it after changing the lesson or test UI.
@@ -206,6 +207,7 @@ Only `/` and `/lessons/<id>` are indexable.
   Both stay public when logged in.
   It still renders before content is seeded (no lesson list).
 - `/lessons/<id>` (Learn and Test tabs, `?tab=test`; the old `?tab=practice` 301-redirects there keeping other args) renders for logged-out visitors.
+  The Learn tab opens with "Words in this lesson" (`templates/_lesson_words.html`, from `words_json`), and the Test intro card shows the same list.
   Internally the Test is still called practice: `practice_json`, the API's `practice` key, `practice.js` and the `practice-*` element ids.
   `practice.js` runs the Test as a queue of item indexes: a question answered right leaves it, a question answered wrong goes to the back, and the Test ends when the queue is empty.
   `first_try_correct` is the number of questions never missed; the done panel shows it with stars computed by the same thresholds as `lesson_stars`.
@@ -385,6 +387,12 @@ Practice kinds `listen_choice` / `listen_type` / `speak` via Web Speech API; LLM
 - [x] Lesson titles and descriptions, canonical, `noindex`, one h1 per page, JSON-LD, `lang="ca"`
 - [x] `robots.txt`, `sitemap.xml`, www to apex (Flask hook + `deploy/nginx-la-queta.conf`)
 - [ ] Apply the nginx config on the VM and set up Search Console (human, see `DEPLOY.md`)
+
+### Phase 13 - Passable lessons, scored tests, sign-up landing ✅
+- [x] `words` list on every lesson (`lessons.words_json`), shown on the Learn tab and the Test intro; `tests/test_lesson_content.py` checks every test answer uses only listed or grammar words, and every listed word is shown on the Learn tab
+- [x] Practice renamed Test (`?tab=practice` 301-redirects to `?tab=test`), with an intro card
+- [x] Missed questions come back at the end; "X of N right first time" and 1 to 3 stars; best score in `user_lesson_progress.best_first_try`, stars on lesson lists and the lesson header
+- [x] Short landing page that leads to `/signup`; lesson list moved to `/lessons`, FAQ to `/faq`; sign-up with no pending lesson goes to `/continue`
 
 ## Running (target)
 ```bash
