@@ -397,13 +397,9 @@
     const textEl = document.getElementById("test-score-text");
     const retry = document.getElementById("test-retry");
     if (starsEl) {
-      starsEl.textContent = "";
-      for (let i = 1; i <= 3; i += 1) {
-        const star = document.createElement("span");
-        star.className = i <= stars ? "test-score__star is-earned" : "test-score__star";
-        star.textContent = "\u2605";
-        starsEl.appendChild(star);
-      }
+      starsEl.querySelectorAll(".test-score__star").forEach((star, i) => {
+        star.classList.toggle("is-earned", i < stars);
+      });
       starsEl.setAttribute("aria-label", `${stars} of 3 stars`);
     }
     if (textEl) textEl.textContent = `${firstTry} of ${total} right first time`;

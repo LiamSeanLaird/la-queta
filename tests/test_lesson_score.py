@@ -243,3 +243,29 @@ def test_logged_out_lesson_page_has_no_best_score(seeded, migrated_client):
     page = migrated_client.get(f"/lessons/{LESSON_ID}").get_data(as_text=True)
     assert 'id="lesson-best"' not in page
     assert "of 3 stars" not in page
+
+
+def _star_icons(html: str, label: str) -> list[bool]:
+    """Earned flags of the three star icons inside the element with this label."""
+    block = re.search(rf'aria-label="{label}">(.*?)</(?:span|p)>', html, re.S)
+    assert block, f"no stars labelled {label!r}"
+    icons = re.findall(r'<svg class="([^"]*)"', block.group(1))
+    return ["is-earned" in classes for classes in icons]
+
+
+def test_stars_render_as_three_icons_earned_ones_first(seeded, migrated_client):
+    # Earned and empty stars are the same icon, told apart by is-earned (filled
+    # gold) or its absence (a hollow outline), so a row always shows three.
+    total = seeded
+    _register(migrated_client)
+    assert _complete(migrated_client, total, first_try_correct=total - 1).status_code == 200
+    page = migrated_client.get(f"/lessons/{LESSON_ID}").get_data(as_text=True)
+    assert _star_icons(page, "Done, 2 of 3 stars") == [True, True, False]
+
+
+def test_done_panel_has_three_empty_stars_for_the_script_to_fill(seeded, migrated_client):
+    page = migrated_client.get(f"/lessons/{LESSON_ID}?tab=test").get_data(as_text=True)
+    block = re.search(r'id="test-score-stars"[^>]*>(.*?)</p>', page, re.S)
+    assert block
+    icons = re.findall(r'<svg class="([^"]*)"', block.group(1))
+    assert icons == ["test-score__star"] * 3

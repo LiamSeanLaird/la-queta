@@ -22,6 +22,8 @@
   --link: #c1001f;
   --on-accent: #ffffff;
   --gold-deep: #e8b400;
+  /* Star edge: keeps an earned gold star at 3:1 or more against light surfaces. */
+  --star-edge: #a67c00;
   --tint-base: #ffffff;
   --glow: rgba(252, 204, 18, 0.35);
   --masc: #3a5bbf;
@@ -59,6 +61,7 @@
     --link: #ff7a88;
     --on-accent: #ffffff;
     --gold-deep: #e8b400;
+    --star-edge: #e8b400;
     --tint-base: #221a16;
     --glow: rgba(252, 204, 18, 0.1);
     --masc: #8fa8ff;
@@ -1448,18 +1451,12 @@ a.btn.btn--primary {
 }
 
 .test-score__stars {
+  display: flex;
+  justify-content: center;
+  gap: 0.3rem;
   margin: 0;
   font-size: 2.25rem;
   line-height: 1;
-  letter-spacing: 0.15em;
-}
-
-.test-score__star {
-  color: var(--track);
-}
-
-.test-score__star.is-earned {
-  color: var(--gold-deep);
 }
 
 .test-score__text {
@@ -1476,19 +1473,34 @@ a.btn.btn--primary {
 .stars {
   display: inline-flex;
   flex-shrink: 0;
-  gap: 0.05em;
-  font-size: 1.05rem;
+  gap: 0.1em;
+  font-size: 1.15rem;
   line-height: 1;
   white-space: nowrap;
 }
 
-.stars__star {
-  color: var(--track);
+/* Star icons (templates/_stars.html star_icon), sized by the parent's font.
+   Empty stars are hollow outlines in the muted colour, so they differ from
+   earned stars by shape as well as colour, and both keep 3:1 or more against
+   the page (WCAG 1.4.11). Earned stars are gold with a darker gold edge. */
+.stars__star,
+.test-score__star {
+  display: block;
+  width: 1em;
+  height: 1em;
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 1.6;
+  stroke-linejoin: round;
 }
 
-.stars__star.is-earned {
-  color: var(--gold-deep);
+.stars__star.is-earned,
+.test-score__star.is-earned {
+  fill: var(--gold-deep);
+  stroke: var(--star-edge);
 }
+
+
 
 .lesson-best {
   display: flex;
