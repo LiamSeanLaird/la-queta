@@ -4,6 +4,16 @@
   "order": 15,
   "summary": "Name close family and say who people are with meu / meva.",
   "deck": "family",
+  "words": [
+    { "catalan": "la mare", "english": "the mother" },
+    { "catalan": "el pare", "english": "the father" },
+    { "catalan": "els pares", "english": "the parents" },
+    { "catalan": "el germà / la germana", "english": "the brother / the sister" },
+    { "catalan": "el fill / la filla", "english": "the son / the daughter" },
+    { "catalan": "el meu / la meva", "english": "my (masculine / feminine)" },
+    { "catalan": "els meus / les meves", "english": "my (plural)" },
+    { "catalan": "Aquesta és la meva mare.", "english": "This is my mother." }
+  ],
   "sections": [
     {
       "type": "text",
@@ -12,6 +22,16 @@
     {
       "type": "rule",
       "content": "el meu / la meva + family noun. els meus / les meves for plurals. El meu germà; la meva germana; els meus pares."
+    },
+    {
+      "type": "examples",
+      "items": [
+        { "catalan": "la mare", "english": "the mother", "note": "" },
+        { "catalan": "el pare", "english": "the father", "note": "" },
+        { "catalan": "els pares", "english": "the parents", "note": "mother and father together" },
+        { "catalan": "el germà / la germana", "english": "the brother / the sister", "note": "" },
+        { "catalan": "el fill / la filla", "english": "the son / the daughter", "note": "els fills = the children" }
+      ]
     },
     {
       "type": "examples",

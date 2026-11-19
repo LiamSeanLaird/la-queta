@@ -4,14 +4,34 @@
   "order": 16,
   "summary": "Name rooms at home and say simple daily actions.",
   "deck": "home_daily",
+  "words": [
+    { "catalan": "la cuina", "english": "the kitchen" },
+    { "catalan": "el bany", "english": "the bathroom" },
+    { "catalan": "el menjador", "english": "the dining room" },
+    { "catalan": "l'habitació", "english": "the bedroom" },
+    { "catalan": "hi ha", "english": "there is / there are" },
+    { "catalan": "A casa hi ha tres habitacions.", "english": "At home there are three bedrooms." },
+    { "catalan": "Em llevo", "english": "I get up" },
+    { "catalan": "Esmorzo", "english": "I have breakfast" },
+    { "catalan": "Vaig a dormir", "english": "I go to sleep" }
+  ],
   "sections": [
     {
       "type": "text",
-      "content": "Entorn domèstic in the A1 programme: rooms and furniture, plus short daily routines (wake up, eat, sleep, go to work)."
+      "content": "Home life at A1: rooms and furniture, plus short daily routines (wake up, eat, sleep, go to work)."
     },
     {
       "type": "rule",
       "content": "A casa hi ha… to list rooms. Em llevo / Esmorzo / Vaig a treballar / Vaig a dormir for basic routine. Location: a la cuina, al menjador."
+    },
+    {
+      "type": "examples",
+      "items": [
+        { "catalan": "la cuina", "english": "the kitchen", "note": "" },
+        { "catalan": "el bany", "english": "the bathroom", "note": "" },
+        { "catalan": "el menjador", "english": "the dining room", "note": "" },
+        { "catalan": "l'habitació", "english": "the bedroom", "note": "plural: les habitacions" }
+      ]
     },
     {
       "type": "examples",

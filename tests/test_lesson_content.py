@@ -154,9 +154,6 @@ def test_noun_gender_words_cover_everything_the_test_asks_for():
 # Lessons whose `words` list has not been written yet. Each one is audited
 # against its test and removed from this set, until the set is empty.
 LESSONS_WITHOUT_WORDS = {
-    "15-family.json",
-    "16-home-routine.json",
-    "17-work.json",
     "18-education.json",
     "19-leisure.json",
     "20-public-admin.json",
