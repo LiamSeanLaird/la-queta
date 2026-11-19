@@ -66,14 +66,17 @@
       {% elif section.type == 'rule' %}
         <p class="rule-callout">{{ section.content | keep_affixes }}</p>
       {% elif section.type == 'examples' %}
+        {% set items = section.get('items', []) %}
+        {# Only show the Note column when at least one row has a note. #}
+        {% set has_notes = items | selectattr('note') | list | length > 0 %}
         <table class="examples">
-          <thead><tr><th lang="ca">Català</th><th>English</th><th>Note</th></tr></thead>
+          <thead><tr><th lang="ca">Català</th><th>English</th>{% if has_notes %}<th>Note</th>{% endif %}</tr></thead>
           <tbody>
-            {% for item in section.get('items', []) %}
+            {% for item in items %}
             <tr>
               <td class="examples__ca" lang="ca">{{ item.catalan }}</td>
               <td>{{ item.english }}</td>
-              <td class="examples__note">{{ item.note | keep_affixes }}</td>
+              {% if has_notes %}<td class="examples__note">{{ item.note | keep_affixes }}</td>{% endif %}
             </tr>
             {% endfor %}
           </tbody>

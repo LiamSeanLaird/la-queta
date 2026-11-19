@@ -288,6 +288,33 @@ def test_lesson_without_words_has_no_words_block(migrated_app, migrated_client):
     assert 'class="lesson-words"' not in html
 
 
+def _example_tables(html):
+    sections = re.search(r'<div class="stack-lg" id="lesson-sections">.*', html, re.S).group(0)
+    return re.findall(r'<table class="examples">.*?</table>', sections, re.S)
+
+
+def test_examples_table_shows_note_column_only_with_notes(migrated_app, migrated_client):
+    lessons = _lessons(migrated_app)
+    with migrated_app.app_context():
+        lesson = db.session.get(Lesson, lessons[0]["id"])
+        sections = [dict(s) for s in lesson.sections_json]
+        with_notes = {"catalan": "la taula", "english": "the table", "note": "feminine"}
+        without = {"catalan": "el llibre", "english": "the book", "note": ""}
+        sections.append({"type": "examples", "items": [with_notes, without]})
+        sections.append({"type": "examples", "items": [without, {"catalan": "la casa", "english": "the house"}]})
+        lesson.sections_json = sections
+        db.session.commit()
+    tables = _example_tables(migrated_client.get(f"/lessons/{lessons[0]['id']}").data.decode())
+    noted, plain = tables[-2], tables[-1]
+    # A table with any note keeps the column, with a cell on every row.
+    assert "<th>Note</th>" in noted
+    assert noted.count('class="examples__note"') == 2
+    # A table with no notes drops the header and the empty cells.
+    assert "Note</th>" not in plain
+    assert 'class="examples__note"' not in plain
+    assert plain.count("<td") == 4
+
+
 def test_old_practice_tab_url_redirects_to_test(migrated_app, migrated_client):
     _lessons(migrated_app)
     response = migrated_client.get("/lessons/noun-gender?tab=practice")
