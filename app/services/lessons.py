@@ -183,7 +183,8 @@ def complete_lesson(
         progress = UserLessonProgress(user_id=user.id, lesson_id=lesson.id)
         db.session.add(progress)
 
-    if not progress.completed:
+    first_completion = not progress.completed
+    if first_completion:
         # A retake keeps the date the lesson was first completed.
         progress.completed_at = datetime.now(timezone.utc)
     progress.completed = True
@@ -198,7 +199,11 @@ def complete_lesson(
     from app.services.can_dos import goals_unlocked_by_lesson
 
     lesson_data = get_lesson(user, lesson.id)
-    lesson_data["goals_unlocked"] = goals_unlocked_by_lesson(
-        user, lesson.level_id, lesson.id
+    # A retake cannot unlock anything: the goal was already done after the
+    # first completion.
+    lesson_data["goals_unlocked"] = (
+        goals_unlocked_by_lesson(user, lesson.level_id, lesson.id)
+        if first_completion
+        else []
     )
     return lesson_data

@@ -211,7 +211,7 @@ Only `/`, `/lessons`, `/faq` and `/lessons/<id>` are indexable.
   Internally the Test is still called practice: `practice_json`, the API's `practice` key, `practice.js` and the `practice-*` element ids.
   `practice.js` runs the Test as a queue of item indexes: a question answered right leaves it, a question answered wrong goes to the back, and the Test ends when the queue is empty.
   `first_try_correct` is the number of questions never missed; the done panel shows it with stars computed by the same thresholds as `lesson_stars`.
-  Logged in, every finish posts, retakes included, because the server keeps the best score and the first `completed_at`; the goal-unlock dialog only shows on a first completion.
+  Logged in, every finish posts, retakes included, because the server keeps the best score and the first `completed_at`; `goals_unlocked` is only non-empty on a first completion, so the goal-unlock dialog never repeats on a retake.
   `tests/test_test_flow_browser.py` drives this in headless Chromium (skipped when no Chromium can launch).
   Services take `user=None` for this path (`get_lesson`, `list_lessons_for_level`, `lesson_next_steps`): no progress, nothing completed, no vocab deck, no wrap-round to earlier lessons.
   Logged out, the Test never posts the completion; its last step asks the visitor to create an account or sign in instead.

@@ -12,7 +12,6 @@
   const practiceProgress = document.getElementById("practice-progress");
   const testIntro = document.getElementById("test-intro");
   const testStart = document.getElementById("test-start");
-  const alreadyCompleted = page.dataset.completed === "true";
   const loggedIn = page.dataset.loggedIn === "true";
   const Speech = window.LaQueta && window.LaQueta.Speech;
 
@@ -492,7 +491,7 @@
     const unlocked = Array.isArray(body.goals_unlocked) ? body.goals_unlocked : [];
     const dialog = document.getElementById("goal-unlock-dialog");
     const labelEl = document.getElementById("goal-unlock-label");
-    if (!alreadyCompleted && unlocked.length && dialog && labelEl) {
+    if (unlocked.length && dialog && labelEl) {
       labelEl.textContent = unlocked.map((g) => g.label).join(" · ");
       dialog.showModal();
     }
