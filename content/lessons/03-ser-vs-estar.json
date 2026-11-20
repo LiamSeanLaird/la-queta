@@ -4,6 +4,68 @@
   "order": 3,
   "summary": "Catalan has two verbs meaning 'to be'. Which you use depends on what you're describing.",
   "deck": "core_verbs",
+  "words": [
+    {
+      "catalan": "ser / estar",
+      "english": "to be (what something is / how it is now)"
+    },
+    {
+      "catalan": "jo soc / jo estic",
+      "english": "I am"
+    },
+    {
+      "catalan": "tu ets / tu estàs",
+      "english": "you are (informal)"
+    },
+    {
+      "catalan": "ell/ella és / ell/ella està",
+      "english": "he/she is"
+    },
+    {
+      "catalan": "Com estàs?",
+      "english": "How are you?"
+    },
+    {
+      "catalan": "Estic bé, gràcies",
+      "english": "I'm fine, thanks"
+    },
+    {
+      "catalan": "cansat",
+      "english": "tired (masculine)"
+    },
+    {
+      "catalan": "anglès",
+      "english": "English (masculine)"
+    },
+    {
+      "catalan": "Londres",
+      "english": "London"
+    },
+    {
+      "catalan": "És professora",
+      "english": "She is a teacher"
+    },
+    {
+      "catalan": "On és l'estació?",
+      "english": "Where is the station?"
+    },
+    {
+      "catalan": "el bany",
+      "english": "the toilet"
+    },
+    {
+      "catalan": "el restaurant",
+      "english": "the restaurant"
+    },
+    {
+      "catalan": "tancat",
+      "english": "closed"
+    },
+    {
+      "catalan": "a",
+      "english": "in, at (a place)"
+    }
+  ],
   "sections": [
     {
       "type": "text",
@@ -22,8 +84,18 @@
           "note": "origin/identity - ser"
         },
         {
+          "catalan": "Soc de Londres",
+          "english": "I am from London",
+          "note": "origin - ser"
+        },
+        {
           "catalan": "És metge",
           "english": "He/she is a doctor",
+          "note": "profession - ser"
+        },
+        {
+          "catalan": "És professora",
+          "english": "She is a teacher",
           "note": "profession - ser"
         },
         {

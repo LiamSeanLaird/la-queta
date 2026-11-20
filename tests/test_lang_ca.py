@@ -25,7 +25,8 @@ def test_every_lesson_example_is_marked_catalan(migrated_app, migrated_client):
         seed_all()
     for path in sorted((ROOT / "content" / "lessons").glob("*.json")):
         lesson = json.loads(path.read_text())
-        examples = [
+        # The "Words in this lesson" list comes first, then the examples.
+        examples = [word["catalan"] for word in lesson.get("words", [])] + [
             item["catalan"]
             for section in lesson["sections"]
             if section["type"] == "examples"

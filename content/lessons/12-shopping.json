@@ -4,14 +4,36 @@
   "order": 12,
   "summary": "Ask for prices, sizes, and take or refuse items in a shop.",
   "deck": "shopping",
+  "words": [
+    {
+      "catalan": "Quant costa?",
+      "english": "How much does it cost?"
+    },
+    {
+      "catalan": "Quant val?",
+      "english": "How much is it?"
+    },
+    {
+      "catalan": "Ho porto.",
+      "english": "I'll take it."
+    },
+    {
+      "catalan": "És massa car.",
+      "english": "It's too expensive."
+    },
+    {
+      "catalan": "la botiga",
+      "english": "the shop"
+    }
+  ],
   "sections": [
     {
       "type": "text",
-      "content": "Generalitat A1 covers entorn comercial: buying products, asking price/size/colour, and polite shop talk. Keep exchanges short and clear."
+      "content": "Shopping at A1 means buying things, asking about price, size and colour, and polite shop talk. Keep exchanges short and clear."
     },
     {
       "type": "rule",
-      "content": "Quant costa? / Quant val? for price. Ho porto = I’ll take it. Em pot ensenyar…? to ask to see something. Use si us plau and gràcies."
+      "content": "Quant costa? / Quant val? for price. Ho porto = I'll take it. Em pot ensenyar…? to ask to see something. Use si us plau and gràcies."
     },
     {
       "type": "examples",
@@ -40,6 +62,11 @@
           "catalan": "El tiquet, si us plau.",
           "english": "The receipt, please.",
           "note": ""
+        },
+        {
+          "catalan": "la botiga",
+          "english": "the shop",
+          "note": "feminine"
         }
       ]
     }

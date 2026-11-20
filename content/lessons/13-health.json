@@ -4,10 +4,36 @@
   "order": 13,
   "summary": "Say you feel ill, ask for a pharmacy, and book a simple appointment.",
   "deck": "health",
+  "words": [
+    {
+      "catalan": "Em trobo malament.",
+      "english": "I feel unwell."
+    },
+    {
+      "catalan": "Em fa mal el cap.",
+      "english": "I have a headache."
+    },
+    {
+      "catalan": "la farmàcia",
+      "english": "the pharmacy"
+    },
+    {
+      "catalan": "On és la farmàcia?",
+      "english": "Where is the pharmacy?"
+    },
+    {
+      "catalan": "Necessito un metge.",
+      "english": "I need a doctor."
+    },
+    {
+      "catalan": "el CAP",
+      "english": "the local health centre"
+    }
+  ],
   "sections": [
     {
       "type": "text",
-      "content": "Entorn sanitari i assistencial: CAP, farmàcia, hospital, and short phrases for feeling unwell - survival Catalan for immediate needs."
+      "content": "Health care at A1: the CAP (local health centre), the pharmacy and the hospital, and short phrases for feeling unwell - survival Catalan for immediate needs."
     },
     {
       "type": "rule",

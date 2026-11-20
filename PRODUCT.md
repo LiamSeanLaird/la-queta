@@ -2,8 +2,8 @@
 
 ## Goal
 **La Queta** is free Catalan for complete beginners.
-It is a short, complete web course that takes someone from zero to A1: 20 grammar and topic lessons with practice, plus vocab flashcard decks.
-Anyone can read and practise every lesson without an account.
+It is a short, complete web course that takes someone from zero to A1: 20 grammar and topic lessons, each with a short test, plus vocab flashcard decks.
+Anyone can read every lesson and take its test without an account.
 A free account saves progress, so learners can pick up on any device.
 
 The positioning line is "Free Catalan for complete beginners", with "aprèn català" as the small Catalan accent line under the brand.
@@ -30,11 +30,12 @@ The positioning line is "Free Catalan for complete beginners", with "aprèn cata
 
 ### In scope
 - Public web app (no install).
-- Public landing page on `/` and public lesson pages (Learn and Practice) for logged-out visitors.
+- Public landing page on `/`, a public lesson list on `/lessons`, a public FAQ on `/faq`, and public lesson pages (Learn and Test) for logged-out visitors.
 - Email + password accounts with a cookie session (simple auth, not security-hardened).
 - One course: A1.
   A2 and B1 rows exist in the database but are hidden from the hub until content ships; the hub reads "Your A1 course".
-- Lessons with text, rules, examples and a Practice bank (multiple choice, cloze, type-in, listening, speak self-check).
+- Lessons with text, rules, examples and a Test (multiple choice, cloze, type-in, listening, speak self-check).
+  Each lesson opens with "Words in this lesson": every word its Test uses, so a learner is never tested on a word the lesson did not give them.
 - Vocab decks with self-graded flashcards on a spaced repetition schedule, plus browse and a daily vocab session with a streak.
 - A "You've finished A1" moment when every A1 lesson is done.
 - On-page SEO and crawl basics: unique titles and descriptions, canonical URLs, JSON-LD, `robots.txt`, `sitemap.xml`, and a `www` to apex redirect.
@@ -68,26 +69,30 @@ The positioning line is "Free Catalan for complete beginners", with "aprèn cata
 
 ### Logged-out visitor
 ```
-Home (/): pitch, "Start lesson 1", all 20 lessons grouped by goal, goals, FAQ
-  → Lesson (Learn | Practice), with previous / next lesson links and "All lessons"
-    → Practice all correct → "Create a free account to save this lesson and keep going"
+Home (/): short pitch, "Start learning - it's free" (→ /signup) or "or try a lesson first" (→ lesson 1),
+  "How it works" in three steps, a screenshot of a test question, footer links to /lessons and /faq
+  → Lesson (Learn | Test), with previous / next lesson links and "All lessons"
+    → Test finished (score and stars) → "Create a free account to save this lesson and your score, and keep going"
       → /signup or /signin → the lesson is saved as complete → back on the lesson, "Saved to your account."
 ```
 
 - The lesson completion is carried over by re-posting it after sign-up or sign-in through the same validated completion API the logged-in path uses; the server never trusts the client's word that a lesson is done.
 - `/signup` and `/signin` hold the account forms; old `/#signin` links still work.
+- After sign-up with no lesson to save, the new learner goes to `/continue`, which opens lesson 1; after sign-in they go to the `/levels` hub.
+- `/signup` says in one line what the account gives: progress saved on any device, vocab flashcards and a daily review.
 
 ### Logged-in learner
 ```
 / → /levels (hub: "Your A1 course", lessons done, words learned, progress bar, daily vocab)
   → /levels/a1 (lessons grouped by goal, vocab decks)
-       → Lessons (ordered list, completion state)
+       → Lessons (ordered list, best stars once done)
        → Vocab decks: study, browse
   → /levels/a1/daily (daily vocab session)
 ```
 
 - Default path: `/continue` goes to the next incomplete lesson, or to a deck with cards left once every lesson is done.
-- A lesson is complete when Practice finishes with every item correct.
+- A lesson is complete when its Test finishes with every question answered right; a missed question comes back at the end, so any score completes it.
+- The score is the number of questions right first time, with 1 to 3 stars; the best score per lesson is kept, and lessons completed before scores existed show 1 star.
 - Finishing a lesson that completes a goal shows a "Goal complete" dialog.
 - Finishing the last A1 lesson shows "You've finished A1" on the lesson and on the hub: keep reviewing vocab daily, and A2 is not here yet.
 
@@ -145,21 +150,24 @@ Do not invent a third progress system.
 - [x] **Daily vocab** with a streak
 - [ ] Later (optional): browse filter active vs retired
 
-### Phase F - A1 Practice
-- [x] Learn | Practice tabs; multiple choice, cloze and type-in; complete only after a perfect Practice.
+### Phase F - A1 Test
+- [x] "Words in this lesson" on the Learn tab and the Test intro, covering every word the Test uses
+- [x] Learn | Test tabs; multiple choice, cloze and type-in; a missed question comes back at the end, and the lesson completes once every question is answered right.
+- [x] Test score: "X of N right first time" and 1 to 3 stars (3 for every question right first time, 2 for at least 75%, 1 for finishing); the best score is saved per lesson, and a worse retake never lowers it.
 
 ### Phase G - A1 path
 - [x] Programme theme coverage filled (**20** A1 lessons; see `content/a1_coverage.md`)
 - [x] **7 clustered goals** (`content/a1_can_dos.json`) and a "Goal complete" dialog
-- [x] Browser text-to-speech listening + speak self-check in Practice
+- [x] Browser text-to-speech listening + speak self-check in the Test
 
 ### Phase H - Public A1 course and SEO
-- [x] Public lesson pages (Learn and Practice) for logged-out visitors, with previous / next links
-- [x] Sign up after Practice saves the lesson as complete
+- [x] Public lesson pages (Learn and Test) for logged-out visitors, with previous / next links
+- [x] Sign up after the Test saves the lesson as complete, with its score
 - [x] Public landing page on `/`; account forms on `/signup` and `/signin`
+- [x] Short landing page that leads to sign-up; lesson list on `/lessons`, FAQ on `/faq`
 - [x] A1-only hub ("Your A1 course") and "You've finished A1" moment
 - [x] Unique titles and descriptions, canonical URLs, noindex on account-only pages, one `<h1>` per page, `lang="ca"` on Catalan text
-- [x] JSON-LD: `Course` and `FAQPage` on `/`, `LearningResource` on lessons
+- [x] JSON-LD: `Course` on `/`, `FAQPage` on `/faq`, `LearningResource` on lessons
 - [x] `robots.txt`, `sitemap.xml`, `www` to apex redirect
 - [ ] Register the site in Google Search Console and submit the sitemap (human step; see `DEPLOY.md`)
 
@@ -183,7 +191,7 @@ New lessons and decks are authored as seed data, not by changing the prototype a
 Learner progress is keyed by these ids, and lesson ids are public URLs.
 
 ## Success criteria
-- A stranger can find a lesson on Google, read it and finish Practice without an account.
+- A stranger can find a lesson on Google, read it and finish its Test without an account.
 - They can create an account from that lesson, have it saved as complete, study vocab, sign in later on another device and see their progress.
 - A learner can work through all 20 lessons and reach the "You've finished A1" moment.
 - Operator cost: **$0**/month within Oracle Always Free limits.

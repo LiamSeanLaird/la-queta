@@ -14,66 +14,49 @@
   <section class="landing-hero page-intro stack">
     <h1 class="heading-1">Free Catalan for complete beginners</h1>
     <p class="text-body">
-      La Queta is a short, free course that takes you from zero to A1, the first level of Catalan.
-      It has {{ lesson_count }} lessons on grammar and everyday topics, each with practice{% if deck_count %}, plus {{ deck_count }} vocab flashcard decks{% endif %}.
-      It runs in your browser, so there is no app to install, and a free account saves your progress across devices.
+      La Queta is a short, free course in your browser that takes you from zero to A1, the first level of Catalan.
     </p>
-    {% if first_lesson %}
-    <div class="landing-hero__actions">
-      <a class="btn btn--primary" href="{{ url_for('pages.lesson', lesson_id=first_lesson.id) }}">Start lesson 1</a>
-      <p class="text-muted">Already have an account? <a href="{{ url_for('pages.signin') }}">Sign in</a></p>
+    <div class="landing-cta stack">
+      <a class="btn btn--primary" href="{{ url_for('pages.signup') }}">Start learning - it's free</a>
+      {% if first_lesson %}
+      <a class="landing-cta__quiet" href="{{ url_for('pages.lesson', lesson_id=first_lesson.id) }}">or try a lesson first</a>
+      {% endif %}
     </div>
-    {% endif %}
   </section>
 
-  {% if learn_groups %}
-  <section class="stack" aria-labelledby="goals-title">
-    <h2 class="heading-2" id="goals-title">What you'll be able to do</h2>
-    <p class="text-body">The course is built around {{ learn_groups|length }} goals, each a small set of lessons:</p>
-    <ul class="landing-goals">
-      {% for group in learn_groups %}
-      <li>{{ group.label }}</li>
-      {% endfor %}
-    </ul>
+  <section class="stack" aria-labelledby="how-title">
+    <h2 class="heading-2" id="how-title">How it works</h2>
+    <ol class="landing-steps">
+      <li>
+        <h3 class="heading-3">Learn a short lesson</h3>
+        <p class="text-body">Each lesson covers one topic and lists the words you need.</p>
+      </li>
+      <li>
+        <h3 class="heading-3">Pass its test</h3>
+        <p class="text-body">Answer every question right to complete the lesson.</p>
+      </li>
+      <li>
+        <h3 class="heading-3">Review the words each day</h3>
+        <p class="text-body">A daily flashcard review keeps the words fresh.</p>
+      </li>
+    </ol>
   </section>
 
-  <section class="stack" aria-labelledby="lessons-title">
-    <h2 class="heading-2" id="lessons-title">The {{ lesson_count }} lessons</h2>
-    <p class="text-body">Every lesson is open: read it, then practise. No account needed to start.</p>
-    {% for group in learn_groups %}
-    <div class="goal-section">
-      <h3 class="heading-3 goal-section__title">{{ group.label }}</h3>
-      <ol class="list landing-lessons">
-        {% for lesson in group.lessons %}
-        <li>
-          <a class="list-row" href="{{ url_for('pages.lesson', lesson_id=lesson.id) }}">
-            <div>
-              <p class="list-row__title">{{ lesson.sort_order }}. {{ lesson.title }}</p>
-              <p class="list-row__sub">{{ lesson.summary }}</p>
-            </div>
-          </a>
-        </li>
-        {% endfor %}
-      </ol>
-    </div>
-    {% endfor %}
-  </section>
-  {% endif %}
+  <figure class="landing-shot">
+    <picture>
+      <source srcset="{{ url_for('static', filename='landing-test-dark.png') }}" media="(prefers-color-scheme: dark)">
+      <img src="{{ url_for('static', filename='landing-test-light.png') }}" width="390" height="490" loading="lazy"
+           alt="A question from the lesson 1 test on a phone: What is the gender of 'porta' (door)? The answers are Masculine and Feminine.">
+    </picture>
+  </figure>
 
-  <section class="stack" aria-labelledby="faq-title">
-    <h2 class="heading-2" id="faq-title">Questions</h2>
-    {% for item in faq %}
-    <div class="landing-faq">
-      <h3 class="heading-3">{{ item.question }}</h3>
-      <p class="text-body">{{ item.answer }}</p>
-    </div>
-    {% endfor %}
+  <section class="landing-cta page-intro stack">
+    <a class="btn btn--primary" href="{{ url_for('pages.signup') }}">Start learning - it's free</a>
   </section>
 
-  {% if first_lesson %}
-  <section class="landing-hero page-intro stack">
-    <a class="btn btn--primary" href="{{ url_for('pages.lesson', lesson_id=first_lesson.id) }}">Start lesson 1</a>
-  </section>
-  {% endif %}
+  <footer class="landing-footer">
+    <a href="{{ url_for('pages.lessons_index') }}">All lessons</a>
+    <a href="{{ url_for('pages.faq') }}">FAQ</a>
+  </footer>
 </div>
 {% endblock %}

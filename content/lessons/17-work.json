@@ -4,10 +4,18 @@
   "order": 17,
   "summary": "Say your job, where you work, and talk about a simple workday.",
   "deck": "work",
+  "words": [
+    { "catalan": "la feina", "english": "the job / work" },
+    { "catalan": "Soc professor.", "english": "I'm a teacher." },
+    { "catalan": "Soc cambrer.", "english": "I'm a waiter." },
+    { "catalan": "Treballo en una oficina.", "english": "I work in an office." },
+    { "catalan": "Quina feina fas?", "english": "What job do you do?" },
+    { "catalan": "una entrevista", "english": "an interview" }
+  ],
   "sections": [
     {
       "type": "text",
-      "content": "Entorn laboral: professions, workplace, and short lines about hours, interviews, and holidays."
+      "content": "Work at A1: professions, the workplace, and short lines about hours, interviews and holidays."
     },
     {
       "type": "rule",
@@ -17,9 +25,19 @@
       "type": "examples",
       "items": [
         {
+          "catalan": "la feina",
+          "english": "the job / work",
+          "note": ""
+        },
+        {
           "catalan": "Soc professor.",
           "english": "I'm a teacher.",
-          "note": ""
+          "note": "a woman says: Soc professora."
+        },
+        {
+          "catalan": "Soc cambrer.",
+          "english": "I'm a waiter.",
+          "note": "a woman says: Soc cambrera."
         },
         {
           "catalan": "Treballo en una oficina.",
@@ -49,7 +67,7 @@
       "id": "wk-p01",
       "kind": "multiple_choice",
       "question": "‘Job / work’ is often…",
-      "options": ["la feina", "la cita", "la farmàcia"],
+      "options": ["la feina", "l'oficina", "l'entrevista"],
       "answer": "la feina",
       "explanation": "la feina."
     },

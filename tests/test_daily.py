@@ -112,6 +112,33 @@ def test_completing_last_lesson_in_goal_unlocks_it(migrated_app, migrated_client
     assert any("public services" in item["label"].lower() for item in unlocked)
 
 
+def test_retaking_last_lesson_in_goal_does_not_unlock_it_again(
+    migrated_app, migrated_client
+):
+    with migrated_app.app_context():
+        seed_all()
+    _register(migrated_client)
+
+    total = len(migrated_client.get("/api/lessons/public-admin").get_json()["practice"])
+    payload = {
+        "exercises_correct": total,
+        "exercises_total": total,
+        "first_try_correct": total - 1,
+    }
+    first = migrated_client.post("/api/lessons/public-admin/complete", json=payload)
+    assert any(
+        item["id"] == "public-services"
+        for item in first.get_json()["goals_unlocked"]
+    )
+
+    payload["first_try_correct"] = total
+    retake = migrated_client.post("/api/lessons/public-admin/complete", json=payload)
+    assert retake.status_code == 200
+    body = retake.get_json()
+    assert body["goals_unlocked"] == []
+    assert body["best_first_try"] == total
+
+
 def _deck_of_each_daily_card(client) -> set[str]:
     cards = client.get("/api/levels/a1/daily").get_json()["cards"]
     return {card["deck_slug"] for card in cards}
@@ -178,11 +205,11 @@ def test_goal_dialogs_never_say_unlock(migrated_app, migrated_client):
     with migrated_app.app_context():
         seed_all()
     _register(migrated_client)
-    for path in ("/levels", "/levels/a1", "/lessons/public-admin?tab=practice"):
+    for path in ("/levels", "/levels/a1", "/lessons/public-admin?tab=test"):
         text = migrated_client.get(path).get_data(as_text=True)
         visible = text.replace("goal-unlock", "")
         assert "nlock" not in visible, path
-    practice = migrated_client.get("/lessons/public-admin?tab=practice").get_data(
+    practice = migrated_client.get("/lessons/public-admin?tab=test").get_data(
         as_text=True
     )
     assert 'id="goal-unlock-title">Goal complete</h3>' in practice

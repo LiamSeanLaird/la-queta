@@ -1,4 +1,4 @@
-"""Search-engine helpers: the landing FAQ and JSON-LD structured data.
+"""Search-engine helpers: the site FAQ and JSON-LD structured data.
 
 JSON-LD is built here as plain dicts and rendered by base.html with `tojson`, so
 the markup Google reads always matches what the page shows. Absolute URLs come
@@ -10,20 +10,20 @@ COURSE_NAME = "La Queta - Free Catalan for complete beginners"
 SITE_NAME = "La Queta"
 
 
-def landing_faq(lesson_count: int) -> list[dict]:
-    """The FAQ on /; also the source for its FAQPage JSON-LD.
+def site_faq(lesson_count: int) -> list[dict]:
+    """The FAQ on /faq; also the source for its FAQPage JSON-LD.
 
     Only state things that are true of this app: no invented hours or counts.
     """
     return [
         {
             "question": "Is it free?",
-            "answer": "Yes. Every lesson, every practice and every vocab deck is free.",
+            "answer": "Yes. Every lesson, every test and every vocab deck is free.",
         },
         {
             "question": "Do I need an account?",
             "answer": (
-                "Not to start. You can read and practise any lesson without one. "
+                "Not to start. You can read any lesson and take its test without one. "
                 "A free account saves the lessons you finish and gives you the vocab "
                 "flashcards and a daily vocab review."
             ),

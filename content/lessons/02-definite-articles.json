@@ -4,6 +4,56 @@
   "order": 2,
   "summary": "Catalan has four words for 'the', plus a contraction before vowels.",
   "deck": "food_drink",
+  "words": [
+    {
+      "catalan": "el / la",
+      "english": "the (masculine / feminine singular)"
+    },
+    {
+      "catalan": "els / les",
+      "english": "the (masculine / feminine plural)"
+    },
+    {
+      "catalan": "l'",
+      "english": "the, before a vowel or silent h"
+    },
+    {
+      "catalan": "els gats",
+      "english": "the cats"
+    },
+    {
+      "catalan": "les portes",
+      "english": "the doors"
+    },
+    {
+      "catalan": "les taules",
+      "english": "the tables"
+    },
+    {
+      "catalan": "els trens",
+      "english": "the trains"
+    },
+    {
+      "catalan": "l'home / els homes",
+      "english": "the man / the men"
+    },
+    {
+      "catalan": "l'aigua",
+      "english": "the water"
+    },
+    {
+      "catalan": "l'estació",
+      "english": "the station"
+    },
+    {
+      "catalan": "l'aeroport",
+      "english": "the airport"
+    },
+    {
+      "catalan": "la universitat",
+      "english": "the university"
+    }
+  ],
   "sections": [
     {
       "type": "text",
@@ -55,6 +105,11 @@
           "catalan": "l'estació",
           "english": "the station",
           "note": "la + estació → l'estació"
+        },
+        {
+          "catalan": "l'aeroport",
+          "english": "the airport",
+          "note": "el + aeroport → l'aeroport"
         },
         {
           "catalan": "els homes",
@@ -109,7 +164,7 @@
         "l'trens"
       ],
       "answer": "els trens",
-      "explanation": "Masculine plural → els."
+      "explanation": "'Tren' is masculine, and the masculine plural article is 'els'."
     },
     {
       "id": "da-p02",
@@ -122,7 +177,7 @@
         "els aeroport"
       ],
       "answer": "l'aeroport",
-      "explanation": "el + vowel → l'."
+      "explanation": "'Aeroport' is masculine and starts with a vowel, so 'el' contracts to l'."
     },
     {
       "id": "da-p03",
@@ -135,7 +190,7 @@
         "l'portes"
       ],
       "answer": "les portes",
-      "explanation": "Feminine plural → les portes."
+      "explanation": "'Porta' is feminine, so the plural article is 'les', and the -a ending becomes -es."
     },
     {
       "id": "da-p04",
@@ -148,7 +203,7 @@
         "It is dropped"
       ],
       "answer": "It contracts to l'",
-      "explanation": "la + vowel → l'estació."
+      "explanation": "'Estació' is feminine and starts with a vowel, so 'la' contracts: l'estació."
     },
     {
       "id": "da-p05",
@@ -156,7 +211,7 @@
       "prompt": "___ home",
       "hint": "the man",
       "answer": "l'",
-      "explanation": "el + home → l'home."
+      "explanation": "'Home' starts with a silent h, which counts as a vowel, so 'el' contracts: l'home."
     },
     {
       "id": "da-p06",
@@ -164,7 +219,7 @@
       "prompt": "___ aigua",
       "hint": "the water",
       "answer": "l'",
-      "explanation": "la + aigua → l'aigua."
+      "explanation": "'Aigua' is feminine and starts with a vowel, so 'la' contracts: l'aigua."
     },
     {
       "id": "da-p07",
@@ -172,7 +227,7 @@
       "prompt": "___ gats",
       "hint": "the cats",
       "answer": "els",
-      "explanation": "Masculine plural."
+      "explanation": "'Gat' is masculine, so 'the cats' takes the masculine plural article: els gats."
     },
     {
       "id": "da-p11",
@@ -189,7 +244,7 @@
       "answers": [
         "l'estació"
       ],
-      "explanation": "Contraction + accent: l'estació."
+      "explanation": "'Estació' starts with a vowel, so 'la' contracts to l'. Keep the accent on the final ó."
     },
     {
       "id": "da-p09",
@@ -198,7 +253,7 @@
       "answers": [
         "els homes"
       ],
-      "explanation": "Plural - no contraction."
+      "explanation": "Plural articles never contract, so 'home' takes 'els' even though it starts with h."
     },
     {
       "id": "da-p10",
@@ -207,7 +262,7 @@
       "answers": [
         "les portes"
       ],
-      "explanation": "Feminine plural."
+      "explanation": "'Porta' is feminine, so the plural article is 'les', and the -a ending becomes -es."
     },
     {
       "id": "da-p12",
@@ -229,7 +284,7 @@
         "the airport"
       ],
       "answer": "the station",
-      "explanation": "l'estació."
+      "explanation": "You heard 'l'estació', which is la + estació contracted."
     },
     {
       "id": "da-l02",
@@ -239,7 +294,7 @@
       "answers": [
         "els homes"
       ],
-      "explanation": "masculine plural."
+      "explanation": "Plural articles never contract, so you hear 'els' in full before 'homes'."
     },
     {
       "id": "da-s01",
@@ -247,7 +302,7 @@
       "speak": "l'aigua",
       "prompt": "Say this aloud",
       "hint": "the water",
-      "explanation": "Contraction l' + aigua."
+      "explanation": "'La' contracts before the vowel, so say l'aigua as one word."
     }
   ]
 }

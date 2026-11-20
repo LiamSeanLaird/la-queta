@@ -4,6 +4,20 @@
   "order": 8,
   "summary": "Say the day, ask the time, and place events on the calendar.",
   "deck": "days_months",
+  "words": [
+    { "catalan": "dilluns", "english": "Monday" },
+    { "catalan": "dimarts", "english": "Tuesday" },
+    { "catalan": "dimecres", "english": "Wednesday" },
+    { "catalan": "dijous", "english": "Thursday" },
+    { "catalan": "divendres", "english": "Friday" },
+    { "catalan": "dissabte", "english": "Saturday" },
+    { "catalan": "diumenge", "english": "Sunday" },
+    { "catalan": "avui / demà / ahir", "english": "today / tomorrow / yesterday" },
+    { "catalan": "Avui és dilluns.", "english": "Today is Monday." },
+    { "catalan": "Quina hora és?", "english": "What time is it?" },
+    { "catalan": "Són les tres.", "english": "It's three o'clock." },
+    { "catalan": "Ens veiem demà.", "english": "See you tomorrow." }
+  ],
   "sections": [
     {
       "type": "text",
@@ -12,6 +26,18 @@
     {
       "type": "rule",
       "content": "Days: dilluns… diumenge (no capital needed in Catalan). Quina hora és? → Són les tres / És la una. Avui, demà, ahir. El cap de setmana."
+    },
+    {
+      "type": "examples",
+      "items": [
+        { "catalan": "dilluns", "english": "Monday", "note": "" },
+        { "catalan": "dimarts", "english": "Tuesday", "note": "" },
+        { "catalan": "dimecres", "english": "Wednesday", "note": "" },
+        { "catalan": "dijous", "english": "Thursday", "note": "" },
+        { "catalan": "divendres", "english": "Friday", "note": "" },
+        { "catalan": "dissabte", "english": "Saturday", "note": "" },
+        { "catalan": "diumenge", "english": "Sunday", "note": "" }
+      ]
     },
     {
       "type": "examples",

@@ -1,0 +1,10 @@
+{# The learner's score for the test they just finished. practice.js fills it in:
+   marks the earned stars, "X of N right first time", and a retry link when under 3 stars. #}
+{% from "_stars.html" import star_icon %}
+<div class="test-score" id="test-score">
+  <p class="test-score__stars" id="test-score-stars" role="img" aria-label="">
+    {%- for _ in range(3) %}{{ star_icon('test-score__star', false) }}{% endfor -%}
+  </p>
+  <p class="heading-3 test-score__text" id="test-score-text"></p>
+  <a class="test-score__retry" id="test-retry" href="{{ url_for('pages.lesson', lesson_id=lesson.id, tab='test') }}" hidden>Try again for 3 stars</a>
+</div>

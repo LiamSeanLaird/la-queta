@@ -1,4 +1,4 @@
-"""JSON-LD structured data: Course and FAQPage on /, LearningResource on lessons."""
+"""JSON-LD structured data: Course on /, FAQPage on /faq, LearningResource on lessons."""
 
 import json
 import re
@@ -35,14 +35,13 @@ def _seed(app) -> list[tuple]:
         return [(row.id, row.title, row.summary, row.sort_order) for row in rows]
 
 
-def test_home_has_course_and_faq_json_ld(migrated_app, migrated_client):
+def test_home_has_course_json_ld(migrated_app, migrated_client):
     migrated_app.config["PUBLIC_BASE_URL"] = BASE
     lessons = _seed(migrated_app)
     html = migrated_client.get("/").get_data(as_text=True)
     items = _json_ld(html)
-    assert len(items) == 2
-    for item in items:
-        assert item["@context"] == "https://schema.org"
+    assert len(items) == 1
+    assert items[0]["@context"] == "https://schema.org"
 
     course = _by_type(items, "Course")
     assert course["name"]
@@ -60,6 +59,14 @@ def test_home_has_course_and_faq_json_ld(migrated_app, migrated_client):
     assert course["offers"]["price"] == 0
     assert course["hasCourseInstance"]["courseMode"] == "Online"
 
+
+def test_faq_page_has_faq_json_ld(migrated_app, migrated_client):
+    migrated_app.config["PUBLIC_BASE_URL"] = BASE
+    _seed(migrated_app)
+    html = migrated_client.get("/faq").get_data(as_text=True)
+    items = _json_ld(html)
+    assert len(items) == 1
+    assert items[0]["@context"] == "https://schema.org"
     faq = _by_type(items, "FAQPage")
     questions = faq["mainEntity"]
     assert len(questions) == 5
@@ -80,7 +87,7 @@ def test_lesson_pages_have_learning_resource_json_ld(migrated_app, migrated_clie
     lessons = _seed(migrated_app)
     assert lessons
     for lesson_id, title, summary, sort_order in lessons:
-        html = migrated_client.get(f"/lessons/{lesson_id}?tab=practice").get_data(
+        html = migrated_client.get(f"/lessons/{lesson_id}?tab=test").get_data(
             as_text=True
         )
         items = _json_ld(html)
@@ -102,7 +109,7 @@ def test_lesson_pages_have_learning_resource_json_ld(migrated_app, migrated_clie
 
 def test_json_ld_has_no_urls_without_public_base_url(migrated_client, migrated_app):
     lessons = _seed(migrated_app)
-    for path in ("/", f"/lessons/{lessons[0][0]}"):
+    for path in ("/", "/faq", f"/lessons/{lessons[0][0]}"):
         html = migrated_client.get(path, headers={"Host": "www.example.com"})
         text = html.get_data(as_text=True)
         assert "example.com" not in "".join(json.dumps(item) for item in _json_ld(text))

@@ -1,0 +1,17 @@
+{# "Words in this lesson": every word the test asks for. Shown on the Learn tab
+   and again before the test. Expects `lesson.words` and `words_heading_id`. #}
+<section class="lesson-words" aria-labelledby="{{ words_heading_id }}">
+  <h2 class="heading-3" id="{{ words_heading_id }}">Words in this lesson</h2>
+  <p class="text-muted">The test uses these words. Learn them first.</p>
+  <table class="examples lesson-words__table">
+    <thead><tr><th lang="ca">Català</th><th>English</th></tr></thead>
+    <tbody>
+      {% for word in lesson.words %}
+      <tr>
+        <td class="examples__ca" lang="ca">{{ word.catalan }}</td>
+        <td>{{ word.english }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>

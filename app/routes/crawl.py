@@ -5,8 +5,9 @@ the canonical rule in base.html. With it unset, robots.txt has no Sitemap line
 and /sitemap.xml is a 404, because a sitemap must list absolute URLs.
 
 The sitemap lists only indexable pages (the ones that set canonical_path): the
-home page and every lesson in an open level. It has no <lastmod>, because the
-server has no honest source for when a lesson last changed.
+home page, the public lesson list and FAQ, and every lesson in an open level.
+It has no <lastmod>, because the server has no honest source for when a lesson
+last changed.
 """
 
 from xml.sax.saxutils import escape
@@ -31,14 +32,19 @@ def _base_url() -> str:
 
 
 def sitemap_paths() -> list[str]:
-    """Paths of every indexable page, home first, then lessons in course order."""
+    """Paths of every indexable page: home, /lessons, /faq, then lessons in course order."""
     lesson_ids = db.session.scalars(
         select(Lesson.id)
         .join(Level, Level.id == Lesson.level_id)
         .where(Lesson.level_id.in_(OPEN_LEVEL_IDS))
         .order_by(Level.sort_order, Lesson.sort_order, Lesson.id)
     ).all()
-    return [url_for("pages.index")] + [
+    pages = [
+        url_for("pages.index"),
+        url_for("pages.lessons_index"),
+        url_for("pages.faq"),
+    ]
+    return pages + [
         url_for("pages.lesson", lesson_id=lesson_id) for lesson_id in lesson_ids
     ]
 

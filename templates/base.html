@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#f7f1df" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#17110e" media="(prefers-color-scheme: dark)">
   <title>{% block title %}La Queta{% endblock %}</title>
-  {% set _og_desc %}{% block og_description %}Free Catalan for complete beginners: a short A1 course with lessons, practice and vocab flashcards.{% endblock %}{% endset %}
+  {% set _og_desc %}{% block og_description %}Free Catalan for complete beginners: a short A1 course with lessons, tests and vocab flashcards.{% endblock %}{% endset %}
   {% if config.PUBLIC_BASE_URL %}
     {% set _og_image = config.PUBLIC_BASE_URL.rstrip('/') ~ url_for('static', filename='og-image.png') %}
     {% set _og_url = config.PUBLIC_BASE_URL.rstrip('/') ~ (canonical_path if canonical_path is defined else request.path) %}

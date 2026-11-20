@@ -22,6 +22,8 @@
   --link: #c1001f;
   --on-accent: #ffffff;
   --gold-deep: #e8b400;
+  /* Star edge: keeps an earned gold star at 3:1 or more against light surfaces. */
+  --star-edge: #a67c00;
   --tint-base: #ffffff;
   --glow: rgba(252, 204, 18, 0.35);
   --masc: #3a5bbf;
@@ -59,6 +61,7 @@
     --link: #ff7a88;
     --on-accent: #ffffff;
     --gold-deep: #e8b400;
+    --star-edge: #e8b400;
     --tint-base: #221a16;
     --glow: rgba(252, 204, 18, 0.1);
     --masc: #8fa8ff;
@@ -377,9 +380,11 @@ a.tab-btn {
   margin: 0 0 0.35rem;
 }
 
-/* Page titles / meta under the topbar — centered; list/card body stays LTR left. */
+/* Page titles / meta under the topbar - centered; list/card body stays LTR left. */
 .page-intro {
   text-align: center;
+  /* Centred lines read better evened out than with one word left on the last. */
+  text-wrap: balance;
 }
 
 .page-intro .text-muted + .text-muted {
@@ -1192,6 +1197,12 @@ a.btn.btn--primary {
   border-color: var(--accent);
 }
 
+/* Answered: options lock, but keep their normal text colour. */
+.option:disabled {
+  color: var(--ink);
+  cursor: default;
+}
+
 .option.is-selected {
   border-color: var(--senyera-red);
   background: var(--tint-selected);
@@ -1240,6 +1251,18 @@ a.btn.btn--primary {
 .examples__note {
   color: var(--muted);
   font-size: 0.85rem;
+}
+
+/* "Words in this lesson": heading, one-line intro, then an examples table. */
+.lesson-words {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.lesson-words .heading-3,
+.lesson-words .text-muted {
+  margin: 0;
 }
 
 /* ── Seen dots ───────────────────────────────────────── */
@@ -1345,12 +1368,70 @@ a.btn.btn--primary {
   gap: 0.75rem;
 }
 
-.landing-goals {
+/* Sign-up call to action: primary button, then a quiet text link under it. */
+.landing-cta {
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.landing-cta__quiet {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.landing-steps {
   margin: 0;
-  padding-left: 1.25rem;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 1rem;
+}
+
+.landing-steps li {
+  counter-increment: step;
+  position: relative;
+  padding-left: 2.5rem;
+}
+
+.landing-steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  display: grid;
+  place-items: center;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* Screenshot of a test question, made by scripts/landing_screenshot.py. */
+.landing-shot {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 20rem;
+}
+
+.landing-shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) * 2);
+  box-shadow: var(--shadow-soft);
+}
+
+.landing-footer {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
 }
 
 .landing-lessons {
@@ -1361,4 +1442,85 @@ a.btn.btn--primary {
 
 .landing-faq .text-body + .text-body {
   margin-top: 0.5rem;
+}
+
+/* ── Test score (end of the test) ─────────────────── */
+
+.test-score {
+  text-align: center;
+}
+
+.test-score__stars {
+  display: flex;
+  justify-content: center;
+  gap: 0.3rem;
+  margin: 0;
+  font-size: 2.25rem;
+  line-height: 1;
+}
+
+.test-score__text {
+  margin: 0.5rem 0 0;
+}
+
+.test-score__retry {
+  display: inline-block;
+  margin-top: 0.35rem;
+  color: var(--link);
+}
+
+/* Best stars on a completed lesson: list rows and the lesson header. */
+.stars {
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: 0.1em;
+  font-size: 1.15rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Star icons (templates/_stars.html star_icon), sized by the parent's font.
+   Empty stars are hollow outlines in the muted colour, so they differ from
+   earned stars by shape as well as colour, and both keep 3:1 or more against
+   the page (WCAG 1.4.11). Earned stars are gold with a darker gold edge. */
+.stars__star,
+.test-score__star {
+  display: block;
+  width: 1em;
+  height: 1em;
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+}
+
+.stars__star.is-earned,
+.test-score__star.is-earned {
+  fill: var(--gold-deep);
+  stroke: var(--star-edge);
+}
+
+
+
+.lesson-best {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.5rem;
+  margin: 0.5rem 0 0;
+  font-size: 0.9rem;
+}
+
+.lesson-best__label {
+  font-weight: 600;
+}
+
+/* ── Test intro (before the first question) ─────────── */
+
+.test-intro__head .heading-2 {
+  margin: 0 0 0.35rem;
+}
+
+.test-intro__head .text-body {
+  margin: 0;
 }

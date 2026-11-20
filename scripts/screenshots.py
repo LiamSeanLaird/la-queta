@@ -30,7 +30,7 @@ DEFAULT_PATHS = [
     "/levels/a1",
     "/levels/a1?tab=vocab",
     "/lessons/present-tense",
-    "/lessons/present-tense?tab=practice",
+    "/lessons/present-tense?tab=test",
     "/decks/starter",
     "/decks/starter/study",
     "/decks/starter/browse",

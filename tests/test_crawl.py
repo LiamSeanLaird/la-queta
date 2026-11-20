@@ -1,4 +1,4 @@
-"""robots.txt and sitemap.xml: absolute URLs from PUBLIC_BASE_URL, lessons only."""
+"""robots.txt and sitemap.xml: absolute URLs from PUBLIC_BASE_URL, public pages only."""
 
 import xml.etree.ElementTree as ET
 
@@ -42,7 +42,7 @@ def test_robots_points_to_sitemap_and_blocks_private_routes(
     disallowed = [
         line.split(": ", 1)[1] for line in lines if line.startswith("Disallow")
     ]
-    for path in ("/", "/lessons/ser-vs-estar", "/signin", "/signup"):
+    for path in ("/", "/lessons", "/faq", "/lessons/ser-vs-estar", "/signin", "/signup"):
         assert not any(path.startswith(prefix) for prefix in disallowed), path
 
 
@@ -52,7 +52,7 @@ def test_robots_has_no_sitemap_without_public_base_url(migrated_client):
     assert "Disallow: /api/" in body
 
 
-def test_sitemap_lists_home_and_every_lesson(migrated_app, migrated_client):
+def test_sitemap_lists_public_pages_and_every_lesson(migrated_app, migrated_client):
     lesson_ids = _seed(migrated_app)
     assert len(lesson_ids) >= 20
     migrated_app.config["PUBLIC_BASE_URL"] = BASE
@@ -60,8 +60,8 @@ def test_sitemap_lists_home_and_every_lesson(migrated_app, migrated_client):
     assert response.status_code == 200
     assert response.mimetype == "application/xml"
     locs = _locs(response)
-    assert locs[0] == f"{BASE}/"
-    assert sorted(locs[1:]) == sorted(f"{BASE}/lessons/{i}" for i in lesson_ids)
+    assert locs[:3] == [f"{BASE}/", f"{BASE}/lessons", f"{BASE}/faq"]
+    assert sorted(locs[3:]) == sorted(f"{BASE}/lessons/{i}" for i in lesson_ids)
     assert len(set(locs)) == len(locs)
     # No <lastmod>: the server has no honest source for it.
     assert b"lastmod" not in response.data
@@ -86,6 +86,12 @@ def test_sitemap_is_404_without_public_base_url(migrated_app, migrated_client):
     assert migrated_client.get("/sitemap.xml").status_code == 404
 
 
-def test_sitemap_with_no_content_lists_only_home(migrated_app, migrated_client):
+def test_sitemap_with_no_content_lists_only_static_pages(
+    migrated_app, migrated_client
+):
     migrated_app.config["PUBLIC_BASE_URL"] = BASE
-    assert _locs(migrated_client.get("/sitemap.xml")) == [f"{BASE}/"]
+    assert _locs(migrated_client.get("/sitemap.xml")) == [
+        f"{BASE}/",
+        f"{BASE}/lessons",
+        f"{BASE}/faq",
+    ]

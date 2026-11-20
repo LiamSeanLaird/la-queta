@@ -1,6 +1,6 @@
 (() => {
   const page = document.getElementById("lesson-page");
-  if (!page || page.dataset.tab !== "practice") return;
+  if (!page || page.dataset.tab !== "test") return;
 
   const dataEl = document.getElementById("practice-data");
   const practiceItem = document.getElementById("practice-item");
@@ -9,7 +9,9 @@
   const practiceEmpty = document.getElementById("practice-empty");
   const practiceDone = document.getElementById("practice-done");
   const practiceError = document.getElementById("practice-error");
-  const alreadyCompleted = page.dataset.completed === "true";
+  const practiceProgress = document.getElementById("practice-progress");
+  const testIntro = document.getElementById("test-intro");
+  const testStart = document.getElementById("test-start");
   const loggedIn = page.dataset.loggedIn === "true";
   const Speech = window.LaQueta && window.LaQueta.Speech;
 
@@ -20,7 +22,16 @@
     items = [];
   }
 
-  let index = 0;
+  // The test is a queue of item indexes. A question answered right leaves the
+  // queue; one answered wrong goes to the back and comes back once the others
+  // are done, until it is answered right. The score is how many were right on
+  // the first try.
+  let queue = [];
+  let seen = new Set();
+  let missed = new Set();
+  let current = -1;
+  // True once the current question is answered, so later clicks are ignored.
+  let answered = false;
   let finishing = false;
 
   function normalizeAnswer(value) {
@@ -48,11 +59,63 @@
 
   function setProgress() {
     const total = items.length;
-    const done = Math.min(index, total);
-    practiceProgressText.textContent = total
-      ? `Item ${Math.min(index + 1, total)} of ${total}`
-      : "No items";
+    const done = total - queue.length;
+    if (!seen.has(current)) {
+      practiceProgressText.textContent = `Question ${seen.size + 1} of ${total}`;
+    } else {
+      const left = queue.length;
+      practiceProgressText.textContent = `Missed question - ${left} left`;
+    }
     practiceProgressBar.style.width = total ? `${(done / total) * 100}%` : "0%";
+  }
+
+  // Stars from the first-try score; app/services/lessons.py lesson_stars uses
+  // the same thresholds for the best score it stores.
+  function starsFor(firstTry, total) {
+    if (firstTry >= total) return 3;
+    if (firstTry * 4 >= total * 3) return 2;
+    return 1;
+  }
+
+  // Answered right: the question leaves the queue and the test moves on.
+  function answerRight(delay) {
+    if (answered) return false;
+    answered = true;
+    queue.shift();
+    window.setTimeout(() => advance(), delay);
+    return true;
+  }
+
+  // Answered wrong: show the answer, send the question to the back of the
+  // queue, and wait for the learner to read it before moving on.
+  function answerWrong(root, message) {
+    if (answered) return false;
+    answered = true;
+    missed.add(current);
+    queue.push(queue.shift());
+    showExplain(root, message, false);
+    const note = document.createElement("p");
+    note.className = "text-small text-muted";
+    note.textContent = "This question comes back at the end.";
+    root.appendChild(note);
+    const row = document.createElement("div");
+    row.className = "study-actions__end";
+    const next = document.createElement("button");
+    next.type = "button";
+    next.className = "btn btn--primary";
+    next.textContent = "Continue";
+    next.addEventListener("click", () => advance());
+    row.appendChild(next);
+    root.appendChild(row);
+    window.setTimeout(() => next.focus(), 0);
+    return true;
+  }
+
+  function answerMessage(answer, explanation) {
+    const parts = [];
+    if (answer) parts.push(`Answer: ${answer}`);
+    if (explanation) parts.push(explanation);
+    return parts.join(" - ") || "Not quite.";
   }
 
   function showExplain(container, text, ok) {
@@ -63,7 +126,7 @@
       container.appendChild(el);
     }
     el.hidden = false;
-    el.textContent = text || (ok ? "Correct." : "Try again.");
+    el.textContent = text || (ok ? "Correct." : "Not quite.");
   }
 
   function playButton(speakText) {
@@ -108,21 +171,27 @@
       btn.dataset.option = option;
       btn.textContent = option;
       btn.addEventListener("click", () => {
-        if (finishing) return;
-        const ok = answersMatch(option, acceptedAnswers(item));
+        if (finishing || answered) return;
+        const accepted = acceptedAnswers(item);
+        const ok = answersMatch(option, accepted);
+        let rightLabel = "";
         list.querySelectorAll(".option").forEach((child) => {
           child.classList.remove("is-selected", "is-correct", "is-wrong");
+          child.disabled = true;
           const label = child.dataset.option;
           if (label === option) {
             child.classList.add("is-selected");
             child.classList.add(ok ? "is-correct" : "is-wrong");
-          } else if (answersMatch(label, acceptedAnswers(item))) {
+          } else if (answersMatch(label, accepted)) {
             child.classList.add("is-correct");
           }
+          if (answersMatch(label, accepted)) rightLabel = label;
         });
-        showExplain(root, item.explanation || "", ok);
         if (ok) {
-          window.setTimeout(() => advance(), 350);
+          showExplain(root, item.explanation || "", true);
+          answerRight(350);
+        } else {
+          answerWrong(root, answerMessage(rightLabel, item.explanation));
         }
       });
       list.appendChild(btn);
@@ -183,51 +252,19 @@
     submit.className = "btn btn--primary";
     submit.textContent = "Check";
 
-    let revealBtn = null;
-
-    function canonicalAnswer() {
+    function check() {
+      if (finishing || answered) return;
       const accepted = acceptedAnswers(item);
-      return accepted[0] || "";
-    }
-
-    function lockAndAdvance(message) {
+      const ok = answersMatch(input.value, accepted);
+      input.classList.toggle("input--error", !ok);
       input.disabled = true;
       submit.disabled = true;
-      if (revealBtn) revealBtn.disabled = true;
-      showExplain(root, message, true);
-      window.setTimeout(() => advance(), 450);
-    }
-
-    function ensureReveal() {
-      if (revealBtn) return;
-      revealBtn = document.createElement("button");
-      revealBtn.type = "button";
-      revealBtn.className = "btn btn--ghost";
-      revealBtn.textContent = "Show answer";
-      revealBtn.addEventListener("click", () => {
-        if (finishing) return;
-        const shown = canonicalAnswer();
-        input.value = shown;
-        input.classList.remove("input--error");
-        const parts = [];
-        if (shown) parts.push(`Answer: ${shown}`);
-        if (item.explanation) parts.push(item.explanation);
-        lockAndAdvance(parts.join(" - ") || "Answer shown.");
-      });
-      actions.insertBefore(revealBtn, submit);
-    }
-
-    function check() {
-      if (finishing) return;
-      const ok = answersMatch(input.value, acceptedAnswers(item));
-      input.classList.toggle("input--error", !ok);
-      showExplain(root, item.explanation || "", ok);
+      actions.hidden = true;
       if (ok) {
-        lockAndAdvance(item.explanation || "Correct.");
+        showExplain(root, item.explanation || "Correct.", true);
+        answerRight(450);
       } else {
-        ensureReveal();
-        input.focus();
-        input.select();
+        answerWrong(root, answerMessage(accepted[0] || "", item.explanation));
       }
     }
 
@@ -294,9 +331,10 @@
     said.className = "btn btn--primary";
     said.textContent = "I said it";
     said.addEventListener("click", () => {
-      if (finishing) return;
+      if (finishing || answered) return;
+      said.disabled = true;
       showExplain(root, item.explanation || "Nice - keep practising aloud.", true);
-      window.setTimeout(() => advance(), 350);
+      answerRight(350);
     });
     row.appendChild(said);
     root.appendChild(row);
@@ -329,12 +367,15 @@
   }
 
   function renderItem() {
-    const item = items[index];
+    current = queue[0];
+    answered = false;
+    const item = items[current];
     practiceItem.innerHTML = "";
     practiceItem.hidden = !item;
     practiceDone.hidden = true;
     window.LaQueta.showError(practiceError, "");
     setProgress();
+    seen.add(current);
     if (!item) return;
 
     if (item.kind === "multiple_choice") {
@@ -350,23 +391,51 @@
     }
   }
 
+  function showScore(firstTry, total) {
+    const stars = starsFor(firstTry, total);
+    const starsEl = document.getElementById("test-score-stars");
+    const textEl = document.getElementById("test-score-text");
+    const retry = document.getElementById("test-retry");
+    if (starsEl) {
+      starsEl.querySelectorAll(".test-score__star").forEach((star, i) => {
+        star.classList.toggle("is-earned", i < stars);
+      });
+      starsEl.setAttribute("aria-label", `${stars} of 3 stars`);
+    }
+    if (textEl) textEl.textContent = `${firstTry} of ${total} right first time`;
+    if (retry) retry.hidden = stars >= 3;
+  }
+
   function showDonePanel() {
     practiceDone.hidden = false;
-    practiceDone.querySelector("a")?.focus();
+    practiceDone.querySelector("a:not([hidden])")?.focus();
   }
 
   // A logged-out visitor who signs up or signs in from the done panel gets this
   // lesson saved: gate.js re-posts it to the normal, validated completion API.
   // sessionStorage keeps it to this tab, so a shared computer does not carry it
   // over to someone else's account later.
-  function rememberPendingCompletion(total) {
+  // A retake in the same tab keeps the better score, as the server would.
+  function rememberPendingCompletion(total, firstTry) {
+    const key = "laqueta.pendingCompletion";
     try {
+      let best = firstTry;
+      const previous = JSON.parse(window.sessionStorage.getItem(key) || "null");
+      if (
+        previous &&
+        previous.lesson_id === page.dataset.lessonId &&
+        previous.exercises_total === total &&
+        Number.isInteger(previous.first_try_correct)
+      ) {
+        best = Math.max(best, previous.first_try_correct);
+      }
       window.sessionStorage.setItem(
-        "laqueta.pendingCompletion",
+        key,
         JSON.stringify({
           lesson_id: page.dataset.lessonId,
           exercises_correct: total,
           exercises_total: total,
+          first_try_correct: best,
         })
       );
     } catch (_err) {
@@ -381,18 +450,22 @@
     practiceItem.hidden = true;
     practiceProgressText.textContent = "Done";
     practiceProgressBar.style.width = "100%";
+    const total = items.length;
+    const firstTry = total - missed.size;
+    showScore(firstTry, total);
 
     // The done panel (rendered by the server) offers the matching vocab deck
     // and the next lesson, so the learner stays here instead of being redirected.
     // A logged-out visitor has nothing to save: the panel asks them to sign up.
-    if (alreadyCompleted || !loggedIn) {
-      if (!loggedIn) rememberPendingCompletion(items.length);
+    if (!loggedIn) {
+      rememberPendingCompletion(total, firstTry);
       showDonePanel();
       return;
     }
 
+    // A retake posts too: the server keeps the best score and the first
+    // completion date.
     window.LaQueta.showError(practiceError, "");
-    const total = items.length;
     const { response, body } = await window.LaQueta.api(
       `/api/lessons/${page.dataset.lessonId}/complete`,
       {
@@ -400,6 +473,7 @@
         body: JSON.stringify({
           exercises_correct: total,
           exercises_total: total,
+          first_try_correct: firstTry,
         }),
       }
     );
@@ -420,8 +494,7 @@
   }
 
   function advance() {
-    index += 1;
-    if (index >= items.length) {
+    if (!queue.length) {
       finish();
       return;
     }
@@ -430,9 +503,29 @@
 
   if (!items.length) {
     practiceEmpty.hidden = false;
-    practiceProgressText.textContent = "No items";
     return;
   }
 
-  renderItem();
+  // The intro card (question count, words, rule) stays up until the learner
+  // chooses to start, so they can review the words right before the test.
+  function start() {
+    queue = items.map((_item, i) => i);
+    seen = new Set();
+    missed = new Set();
+    if (testIntro) testIntro.hidden = true;
+    practiceProgress.hidden = false;
+    renderItem();
+    // The Start button is gone: keep keyboard focus in the first question.
+    window.setTimeout(() => {
+      if (!practiceItem.contains(document.activeElement)) {
+        practiceItem.querySelector("input, button")?.focus();
+      }
+    }, 0);
+  }
+
+  if (testStart) {
+    testStart.addEventListener("click", start);
+  } else {
+    start();
+  }
 })();

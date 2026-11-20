@@ -4,10 +4,48 @@
   "order": 11,
   "summary": "Order a drink or snack and understand simple café language.",
   "deck": "food_drink",
+  "words": [
+    {
+      "catalan": "si us plau",
+      "english": "please"
+    },
+    {
+      "catalan": "gràcies",
+      "english": "thank you"
+    },
+    {
+      "catalan": "Vull…",
+      "english": "I want…"
+    },
+    {
+      "catalan": "un cafè amb llet",
+      "english": "a coffee with milk"
+    },
+    {
+      "catalan": "amb",
+      "english": "with"
+    },
+    {
+      "catalan": "una aigua",
+      "english": "a (glass or bottle of) water"
+    },
+    {
+      "catalan": "el compte",
+      "english": "the bill"
+    },
+    {
+      "catalan": "El compte, si us plau.",
+      "english": "The bill, please."
+    },
+    {
+      "catalan": "Quant val?",
+      "english": "How much is it?"
+    }
+  ],
   "sections": [
     {
       "type": "text",
-      "content": "Café and bar Spanish/Catalan life is core A1: asking for things politely, naming drinks and food, and understanding prices or ‘here you are’."
+      "content": "Café and bar life is core A1: asking for things politely, naming drinks and food, and understanding prices or ‘here you are’."
     },
     {
       "type": "rule",
@@ -20,6 +58,11 @@
           "catalan": "Un cafè amb llet, si us plau.",
           "english": "A coffee with milk, please.",
           "note": ""
+        },
+        {
+          "catalan": "Una aigua, si us plau.",
+          "english": "A water, please.",
+          "note": "a glass or bottle"
         },
         {
           "catalan": "Què vol beure?",

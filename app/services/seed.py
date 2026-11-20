@@ -106,6 +106,7 @@ def seed_lessons(level_id: str = DEFAULT_LESSON_LEVEL_ID) -> int:
             ]
         lesson.sections_json = sections
         lesson.practice_json = practice
+        lesson.words_json = list(raw.get("words") or [])
     db.session.commit()
     return len(paths)
 

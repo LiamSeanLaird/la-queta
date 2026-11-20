@@ -4,6 +4,60 @@
   "order": 4,
   "summary": "Most Catalan verbs follow predictable conjugation patterns in the present tense.",
   "deck": "core_verbs",
+  "words": [
+    {
+      "catalan": "jo",
+      "english": "I"
+    },
+    {
+      "catalan": "tu",
+      "english": "you (informal)"
+    },
+    {
+      "catalan": "ell / ella",
+      "english": "he / she"
+    },
+    {
+      "catalan": "nosaltres",
+      "english": "we"
+    },
+    {
+      "catalan": "vosaltres",
+      "english": "you all (informal)"
+    },
+    {
+      "catalan": "ells / elles",
+      "english": "they (masculine / feminine)"
+    },
+    {
+      "catalan": "parlo / parla",
+      "english": "I speak / he, she speaks (parlar)"
+    },
+    {
+      "catalan": "parlem / parleu",
+      "english": "we speak / you all speak (parlar)"
+    },
+    {
+      "catalan": "perd",
+      "english": "he, she loses (perdre)"
+    },
+    {
+      "catalan": "dormim / dormen",
+      "english": "we sleep / they sleep (dormir)"
+    },
+    {
+      "catalan": "llegeixo / llegim",
+      "english": "I read / we read (llegir)"
+    },
+    {
+      "catalan": "tinc / té",
+      "english": "I have / he, she has (tenir)"
+    },
+    {
+      "catalan": "vaig",
+      "english": "I go (anar)"
+    }
+  ],
   "sections": [
     {
       "type": "text",
@@ -12,6 +66,38 @@
     {
       "type": "text",
       "content": "Unlike English, Catalan verb endings carry the subject - so the pronoun is often dropped. 'Parlo' means 'I speak' by itself; you don't need 'jo' unless you're emphasising."
+    },
+    {
+      "type": "examples",
+      "items": [
+        {
+          "catalan": "jo",
+          "english": "I"
+        },
+        {
+          "catalan": "tu",
+          "english": "you",
+          "note": "informal"
+        },
+        {
+          "catalan": "ell / ella",
+          "english": "he / she"
+        },
+        {
+          "catalan": "nosaltres",
+          "english": "we"
+        },
+        {
+          "catalan": "vosaltres",
+          "english": "you all",
+          "note": "informal plural"
+        },
+        {
+          "catalan": "ells / elles",
+          "english": "they",
+          "note": "masculine / feminine"
+        }
+      ]
     },
     {
       "type": "rule",

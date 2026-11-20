@@ -1,4 +1,4 @@
-"""Lesson pages are public: logged-out visitors can read and practise every lesson."""
+"""Lesson pages are public: logged-out visitors can read every lesson and take its test."""
 
 import json
 import re
@@ -60,9 +60,9 @@ def test_every_lesson_renders_logged_out(migrated_app, migrated_client):
         assert lesson["first_text"][:40] in text, lesson["id"]
 
 
-def test_practice_tab_renders_logged_out(migrated_app, migrated_client):
+def test_test_tab_renders_logged_out(migrated_app, migrated_client):
     lesson = _lessons(migrated_app)[0]
-    response = migrated_client.get(f"/lessons/{lesson['id']}?tab=practice")
+    response = migrated_client.get(f"/lessons/{lesson['id']}?tab=test")
     assert response.status_code == 200
     html = response.data.decode()
     assert "js/practice.js" in html
@@ -72,7 +72,7 @@ def test_practice_tab_renders_logged_out(migrated_app, migrated_client):
     )
     assert json.loads(data.group(1)) == lesson["practice"]
     # The completion step asks for an account instead of claiming it was saved.
-    assert "Create a free account to save this lesson and keep going." in html
+    assert "Create a free account to save this lesson and your score, and keep going." in html
     assert "Lesson complete - well done." not in html
     assert 'href="/signup">Create a free account</a>' in html
     assert 'href="/signin">Sign in</a>' in html
@@ -138,7 +138,7 @@ def test_unknown_api_route_is_json_404(migrated_app, migrated_client):
 def test_logged_in_lesson_page_unchanged(migrated_app, migrated_client):
     lesson = _lessons(migrated_app)[0]
     _register(migrated_client)
-    html = migrated_client.get(f"/lessons/{lesson['id']}?tab=practice").data.decode()
+    html = migrated_client.get(f"/lessons/{lesson['id']}?tab=test").data.decode()
     assert 'data-logged-in="true"' in html
     assert "Lesson complete - well done." in html
     assert "topbar__signin" not in html
@@ -231,8 +231,8 @@ def test_lessons_link_to_neighbours_in_course_order(migrated_app, migrated_clien
         )
         assert nav["prev"] == expected_prev, lesson["id"]
         assert nav["next"] == expected_next, lesson["id"]
-        # Logged out, "All lessons" goes to the public lesson list on /.
-        assert nav["all"] == "/#lessons-title"
+        # Logged out, "All lessons" goes to the public lesson list.
+        assert nav["all"] == "/lessons"
 
 
 def test_course_nav_ignores_progress_and_links_logged_in_to_level(
@@ -257,5 +257,128 @@ def test_course_nav_ignores_progress_and_links_logged_in_to_level(
 
 def test_course_nav_only_on_learn_tab(migrated_app, migrated_client):
     lesson = _lessons(migrated_app)[0]
-    html = migrated_client.get(f"/lessons/{lesson['id']}?tab=practice").data.decode()
+    html = migrated_client.get(f"/lessons/{lesson['id']}?tab=test").data.decode()
     assert 'class="lesson-nav"' not in html
+
+
+def test_learn_tab_opens_with_the_lessons_words(migrated_app, migrated_client):
+    _lessons(migrated_app)
+    with migrated_app.app_context():
+        words = get_lesson(None, "noun-gender")["words"]
+    assert {"catalan": "la taula", "english": "the table"} in words
+    html = migrated_client.get("/lessons/noun-gender").data.decode()
+    block = re.search(r'<section class="lesson-words".*?</section>', html, re.S).group(0)
+    # The list comes before the lesson's own sections.
+    assert html.index(block) < html.index('id="lesson-sections"')
+    text = _text(block.encode())
+    assert "Words in this lesson" in text
+    assert "The test uses these words. Learn them first." in text
+    cells = re.findall(r'<td class="examples__ca" lang="ca">([^<]+)</td>', block)
+    assert cells == [word["catalan"] for word in words]
+    assert "petit / petita" in cells
+
+
+def test_lesson_without_words_has_no_words_block(migrated_app, migrated_client):
+    lessons = _lessons(migrated_app)
+    with migrated_app.app_context():
+        lesson = db.session.get(Lesson, lessons[1]["id"])
+        lesson.words_json = []
+        db.session.commit()
+    html = migrated_client.get(f"/lessons/{lessons[1]['id']}").data.decode()
+    assert 'class="lesson-words"' not in html
+
+
+def _example_tables(html):
+    sections = re.search(r'<div class="stack-lg" id="lesson-sections">.*', html, re.S).group(0)
+    return re.findall(r'<table class="examples">.*?</table>', sections, re.S)
+
+
+def test_examples_table_shows_note_column_only_with_notes(migrated_app, migrated_client):
+    lessons = _lessons(migrated_app)
+    with migrated_app.app_context():
+        lesson = db.session.get(Lesson, lessons[0]["id"])
+        sections = [dict(s) for s in lesson.sections_json]
+        with_notes = {"catalan": "la taula", "english": "the table", "note": "feminine"}
+        without = {"catalan": "el llibre", "english": "the book", "note": ""}
+        sections.append({"type": "examples", "items": [with_notes, without]})
+        sections.append({"type": "examples", "items": [without, {"catalan": "la casa", "english": "the house"}]})
+        lesson.sections_json = sections
+        db.session.commit()
+    tables = _example_tables(migrated_client.get(f"/lessons/{lessons[0]['id']}").data.decode())
+    noted, plain = tables[-2], tables[-1]
+    # A table with any note keeps the column, with a cell on every row.
+    assert "<th>Note</th>" in noted
+    assert noted.count('class="examples__note"') == 2
+    # A table with no notes drops the header and the empty cells.
+    assert "Note</th>" not in plain
+    assert 'class="examples__note"' not in plain
+    assert plain.count("<td") == 4
+
+
+def test_old_practice_tab_url_redirects_to_test(migrated_app, migrated_client):
+    _lessons(migrated_app)
+    response = migrated_client.get("/lessons/noun-gender?tab=practice")
+    assert response.status_code == 301
+    assert response.headers["Location"] == "/lessons/noun-gender?tab=test"
+    # Other query args survive the redirect.
+    response = migrated_client.get("/lessons/noun-gender?tab=Practice&saved=1")
+    assert response.status_code == 301
+    assert response.headers["Location"] == "/lessons/noun-gender?tab=test&saved=1"
+    # Repeated keys survive, and Flask build options stay plain query values.
+    response = migrated_client.get(
+        "/lessons/noun-gender?tab=practice&a=1&a=2&_scheme=https&_external=1&_method=X&_anchor=y"
+    )
+    assert response.status_code == 301
+    assert response.headers["Location"] == (
+        "/lessons/noun-gender?tab=test&a=1&a=2&_scheme=https&_external=1&_method=X&_anchor=y"
+    )
+
+
+def test_test_tab_opens_with_an_intro_card(migrated_app, migrated_client):
+    lessons = _lessons(migrated_app)
+    lesson = lessons[0]
+    html = migrated_client.get(f"/lessons/{lesson['id']}?tab=test").data.decode()
+    intro = re.search(r'<div class="stack-lg test-intro" id="test-intro">.*?</button>', html, re.S)
+    assert intro, "intro card missing"
+    text = _text(intro.group(0).encode())
+    assert f"{len(lesson['practice'])} questions" in text
+    assert "Get every question right to complete the lesson." in text
+    assert "Questions you miss come back at the end." in text
+    assert "Start the test" in text
+    # The same words list as the Learn tab, so the learner can review it.
+    assert "Words in this lesson" in text
+    cells = re.findall(r'<td class="examples__ca" lang="ca">([^<]+)</td>', intro.group(0))
+    with migrated_app.app_context():
+        words = get_lesson(None, lesson["id"])["words"]
+    assert cells == [word["catalan"] for word in words]
+    # The intro comes before the (hidden until started) progress and questions.
+    assert html.index('id="test-intro"') < html.index('id="practice-progress"')
+    assert re.search(r'<div class="progress-group" id="practice-progress" hidden>', html)
+
+
+def test_test_intro_without_words_still_starts(migrated_app, migrated_client):
+    lessons = _lessons(migrated_app)
+    with migrated_app.app_context():
+        lesson = db.session.get(Lesson, lessons[1]["id"])
+        lesson.words_json = []
+        db.session.commit()
+    html = migrated_client.get(f"/lessons/{lessons[1]['id']}?tab=test").data.decode()
+    assert 'id="test-intro"' in html
+    assert 'class="lesson-words"' not in html
+    assert 'id="test-start"' in html
+
+
+def test_done_panel_has_a_score_block_logged_out(migrated_app, migrated_client):
+    lesson = _lessons(migrated_app)[0]
+    html = migrated_client.get(f"/lessons/{lesson['id']}?tab=test").data.decode()
+    done = re.search(r'<div class="stack" id="practice-done" hidden>(.*?)</div>\s*<p class="field__error"', html, re.S)
+    assert done, "done panel missing"
+    panel = done.group(1)
+    # practice.js fills in the stars and the score; the retry link starts hidden
+    # and points back at a fresh test.
+    assert 'id="test-score-stars"' in panel
+    assert 'id="test-score-text"' in panel
+    retry = re.search(r'<a class="test-score__retry" id="test-retry" href="([^"]+)" hidden>([^<]+)</a>', panel)
+    assert retry, "retry link missing"
+    assert retry.group(1) == f"/lessons/{lesson['id']}?tab=test"
+    assert retry.group(2) == "Try again for 3 stars"

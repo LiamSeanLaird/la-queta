@@ -4,10 +4,40 @@
   "order": 14,
   "summary": "Read short notices and reply to simple everyday messages - exam-style survival.",
   "deck": "signs",
+  "words": [
+    {
+      "catalan": "obert / tancat",
+      "english": "open / closed"
+    },
+    {
+      "catalan": "Obert de nou a dues",
+      "english": "Open from nine to two"
+    },
+    {
+      "catalan": "Entrada gratuïta",
+      "english": "Free entry"
+    },
+    {
+      "catalan": "Prohibit fumar",
+      "english": "No smoking"
+    },
+    {
+      "catalan": "D'acord.",
+      "english": "OK."
+    },
+    {
+      "catalan": "Fins demà!",
+      "english": "See you tomorrow!"
+    },
+    {
+      "catalan": "No puc avui.",
+      "english": "I can't today."
+    }
+  ],
   "sections": [
     {
       "type": "text",
-      "content": "Official A1 reading leans on cartells, anuncis, and short web/info texts. Writing is brief replies (often chat-like). This lesson drills those shapes with the practice tools we have."
+      "content": "Official A1 reading leans on signs, notices and short web or info texts. Writing is brief replies (often chat-like). This lesson drills both."
     },
     {
       "type": "rule",
@@ -20,6 +50,11 @@
           "catalan": "Obert de 9 a 14 h",
           "english": "Open from 9 to 2",
           "note": "notice / sign"
+        },
+        {
+          "catalan": "Obert de nou a dues",
+          "english": "Open from nine to two",
+          "note": "the sign above, read aloud"
         },
         {
           "catalan": "Entrada gratuïta",

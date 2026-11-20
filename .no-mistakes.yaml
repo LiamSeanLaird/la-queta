@@ -1,6 +1,8 @@
 # Per-repo no-mistakes overrides.
 
-# The full suite runs in about 15 seconds, so run all of it.
-# .github/workflows/ci.yml runs the same command on every PR.
+# Run the full suite with the project's `la-queta` conda env (the Makefile
+# assumes it too). Plain `poetry run` picks the base miniforge Python, because
+# poetry.toml sets virtualenvs.create=false, and that Python has no pytest.
+# .github/workflows/ci.yml installs its own env and runs pytest on every PR.
 commands:
-  test: 'poetry run python -m pytest -q'
+  test: '"$HOME/miniforge3/envs/la-queta/bin/python" -m pytest -q'

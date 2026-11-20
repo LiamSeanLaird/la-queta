@@ -37,6 +37,7 @@ def lesson_complete(lesson_id: str):
             lesson_id,
             payload.get("exercises_correct"),
             payload.get("exercises_total"),
+            payload.get("first_try_correct"),
         )
     except ServiceError as exc:
         return jsonify({"error": exc.message}), exc.status_code

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% from "_stars.html" import stars %}
 {% set canonical_path = url_for('pages.lesson', lesson_id=lesson.id) %}
 {% block title %}{{ page_title }}{% endblock %}
 {% block og_description %}{{ page_description }}{% endblock %}
@@ -13,13 +14,21 @@
   class="stack-lg"
   id="lesson-page"
   data-lesson-id="{{ lesson.id }}"
-  data-completed="{{ 'true' if lesson.completed else 'false' }}"
   data-logged-in="{{ 'true' if current_user else 'false' }}"
   data-tab="{{ tab }}"
 >
   <div>
     <h1 class="heading-1">{{ lesson.title }}</h1>
     <p class="text-muted">{{ lesson.summary }}</p>
+    {% if lesson.completed %}
+    <p class="lesson-best" id="lesson-best">
+      <span class="lesson-best__label">Your best</span>
+      {{ stars(lesson.stars) }}
+      {% if lesson.best_first_try is not none %}
+      <span class="text-muted">{{ lesson.best_first_try }} of {{ lesson.practice | length }} right first time</span>
+      {% endif %}
+    </p>
+    {% endif %}
     {% if just_saved %}
     <p class="lesson-saved" id="lesson-saved"><span class="badge badge--done">Completed</span> Saved to your account.</p>
     {% endif %}
@@ -32,9 +41,9 @@
       >Learn</a
     >
     <a
-      class="tab-btn{% if tab == 'practice' %} is-active{% endif %}"
-      href="{{ url_for('pages.lesson', lesson_id=lesson.id, tab='practice') }}"
-      >Practice</a
+      class="tab-btn{% if tab == 'test' %} is-active{% endif %}"
+      href="{{ url_for('pages.lesson', lesson_id=lesson.id, tab='test') }}"
+      >Test</a
     >
   </div>
 
@@ -45,6 +54,10 @@
     {% include "_finished_level.html" %}
   </div>
   {% endif %}
+  {% if lesson.words %}
+  {% set words_heading_id = "lesson-words-title" %}
+  {% include "_lesson_words.html" %}
+  {% endif %}
   <div class="stack-lg" id="lesson-sections">
     {% for section in lesson.sections %}
       {% if section.type == 'text' %}
@@ -52,14 +65,17 @@
       {% elif section.type == 'rule' %}
         <p class="rule-callout">{{ section.content | keep_affixes }}</p>
       {% elif section.type == 'examples' %}
+        {% set items = section.get('items', []) %}
+        {# Only show the Note column when at least one row has a note. #}
+        {% set has_notes = items | selectattr('note') | list | length > 0 %}
         <table class="examples">
-          <thead><tr><th lang="ca">Català</th><th>English</th><th>Note</th></tr></thead>
+          <thead><tr><th lang="ca">Català</th><th>English</th>{% if has_notes %}<th>Note</th>{% endif %}</tr></thead>
           <tbody>
-            {% for item in section.get('items', []) %}
+            {% for item in items %}
             <tr>
               <td class="examples__ca" lang="ca">{{ item.catalan }}</td>
               <td>{{ item.english }}</td>
-              <td class="examples__note">{{ item.note | keep_affixes }}</td>
+              {% if has_notes %}<td class="examples__note">{{ item.note | keep_affixes }}</td>{% endif %}
             </tr>
             {% endfor %}
           </tbody>
@@ -68,16 +84,16 @@
     {% endfor %}
   </div>
   {% if lesson.completed and (next_deck or next_lesson) %}
-  {# Lesson already done: point forward first, keep practice as a quieter option. #}
+  {# Lesson already done: point forward first, keep the test as a quieter option. #}
   {% if next_deck %}
   <a class="btn btn--primary btn--block" href="{{ url_for('pages.study', slug=next_deck.slug) }}">Study vocab: {{ next_deck.title }}</a>
   {% endif %}
   {% if next_lesson %}
   <a class="btn {{ 'btn--secondary' if next_deck else 'btn--primary' }} btn--block" href="{{ url_for('pages.lesson', lesson_id=next_lesson.id) }}">Next lesson: {{ next_lesson.title }}</a>
   {% endif %}
-  <a class="btn btn--ghost btn--block" href="{{ url_for('pages.lesson', lesson_id=lesson.id, tab='practice') }}">Practice again</a>
+  <a class="btn btn--ghost btn--block" href="{{ url_for('pages.lesson', lesson_id=lesson.id, tab='test') }}">Take the test again</a>
   {% else %}
-  <a class="btn btn--primary btn--block" href="{{ url_for('pages.lesson', lesson_id=lesson.id, tab='practice') }}">Go to Practice</a>
+  <a class="btn btn--primary btn--block" href="{{ url_for('pages.lesson', lesson_id=lesson.id, tab='test') }}">Take the test</a>
   {% endif %}
   <nav class="lesson-nav" aria-label="Course">
     {% if previous_in_course or next_in_course %}
@@ -104,7 +120,21 @@
   </nav>
   {% else %}
   <div class="stack-lg" id="practice-panel">
-    <div class="progress-group">
+    {% if lesson.practice %}
+    {# Shown until the learner starts: what the test asks and the words it uses. #}
+    <div class="stack-lg test-intro" id="test-intro">
+      <div class="test-intro__head">
+        <h2 class="heading-2" id="test-intro-title">{{ lesson.practice|length }} question{{ "s" if lesson.practice|length != 1 }}</h2>
+        <p class="text-body">Get every question right to complete the lesson. Questions you miss come back at the end.</p>
+      </div>
+      {% if lesson.words %}
+      {% set words_heading_id = "test-words-title" %}
+      {% include "_lesson_words.html" %}
+      {% endif %}
+      <button type="button" class="btn btn--primary btn--block" id="test-start">Start the test</button>
+    </div>
+    {% endif %}
+    <div class="progress-group" id="practice-progress" hidden>
       <div class="progress-meta">
         <span id="practice-progress-text">Loading…</span>
         {% if lesson.completed %}
@@ -116,12 +146,13 @@
       </div>
     </div>
     <div class="stack" id="practice-item" hidden></div>
-    <p class="text-muted" id="practice-empty" hidden>No practice items for this lesson yet.</p>
+    <p class="text-muted" id="practice-empty" hidden>No test questions for this lesson yet.</p>
     {% if not current_user %}
     {# Logged out: nothing is saved, so ask for an account in place of the completion step. #}
     <div class="stack" id="practice-done" hidden>
-      <h2 class="heading-3">Every answer right - well done.</h2>
-      <p class="text-body">Create a free account to save this lesson and keep going.</p>
+      {% include "_test_score.html" %}
+      <h2 class="heading-3">Test complete - well done.</h2>
+      <p class="text-body">Create a free account to save this lesson and your score, and keep going.</p>
       <a class="btn btn--primary btn--block" href="{{ url_for('pages.signup') }}">Create a free account</a>
       <a class="btn btn--secondary btn--block" href="{{ url_for('pages.signin') }}">Sign in</a>
       {% if next_lesson %}
@@ -130,6 +161,7 @@
     </div>
     {% else %}
     <div class="stack" id="practice-done" hidden>
+      {% include "_test_score.html" %}
       {% if finishes_level and not lesson.completed %}
       {% include "_finished_level.html" %}
       {% else %}
@@ -161,7 +193,7 @@
 </section>
 {% endblock %}
 {% block scripts %}
-{% if tab == 'practice' %}
+{% if tab == 'test' %}
 <script src="{{ url_for('static', filename='js/api.js') }}"></script>
 <script src="{{ url_for('static', filename='js/speech.js') }}"></script>
 <script src="{{ url_for('static', filename='js/practice.js') }}"></script>

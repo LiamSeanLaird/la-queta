@@ -5,8 +5,10 @@
 <section class="stack-lg" id="gate" data-mode="{{ mode }}">
   <div class="page-intro">
     <h1 class="heading-2" id="gate-title">{{ 'Sign in' if signin else 'Create a free account' }}</h1>
-    <p class="text-muted" id="gate-blurb">
-      {% if signin %}Sign in with your email and password.{% else %}Save your progress and pick up on any device.{% endif %}
+    {% set signup_blurb = "An account saves your progress on any device and adds vocab flashcards and a daily review." %}
+    {% set signin_blurb = "Sign in with your email and password." %}
+    <p class="text-muted" id="gate-blurb" data-signup="{{ signup_blurb }}" data-signin="{{ signin_blurb }}">
+      {{ signin_blurb if signin else signup_blurb }}
     </p>
   </div>
   <div class="tab-bar" role="tablist">

@@ -54,7 +54,7 @@ def test_practice_done_panel_offers_deck_then_next_lesson(
         seed_all()
     _register(migrated_client)
 
-    page = migrated_client.get("/lessons/noun-gender?tab=practice").get_data(
+    page = migrated_client.get("/lessons/noun-gender?tab=test").get_data(
         as_text=True
     )
     assert 'id="practice-done"' in page
@@ -67,7 +67,7 @@ def test_practice_done_panel_offers_deck_then_next_lesson(
 
     # Same choices once the lesson is done, and the Learn tab offers the deck too.
     _complete(migrated_client, "noun-gender")
-    page = migrated_client.get("/lessons/noun-gender?tab=practice").get_data(
+    page = migrated_client.get("/lessons/noun-gender?tab=test").get_data(
         as_text=True
     )
     assert "Next lesson: Definite Articles" in page
@@ -85,14 +85,14 @@ def test_learn_tab_of_completed_lesson_makes_vocab_primary(
 
     learn = migrated_client.get("/lessons/noun-gender").get_data(as_text=True)
     assert (
-        'btn--primary btn--block" href="/lessons/noun-gender?tab=practice">Go to Practice'
+        'btn--primary btn--block" href="/lessons/noun-gender?tab=test">Take the test'
         in learn
     )
     assert "Study vocab:" not in learn
 
     _complete(migrated_client, "noun-gender")
     learn = migrated_client.get("/lessons/noun-gender").get_data(as_text=True)
-    assert "Go to Practice" not in learn
+    assert ">Take the test</a>" not in learn
     assert (
         'btn--primary btn--block" href="/decks/everyday/study">Study vocab: Describing Words'
         in learn
@@ -102,13 +102,13 @@ def test_learn_tab_of_completed_lesson_makes_vocab_primary(
         in learn
     )
     assert (
-        'btn--ghost btn--block" href="/lessons/noun-gender?tab=practice">Practice again'
+        'btn--ghost btn--block" href="/lessons/noun-gender?tab=test">Take the test again'
         in learn
     )
     assert (
         learn.index("Study vocab:")
         < learn.index("Next lesson:")
-        < learn.index("Practice again")
+        < learn.index("Take the test again")
     )
 
 
@@ -121,7 +121,7 @@ def test_lesson_without_deck_makes_next_lesson_primary(migrated_app, migrated_cl
         db.session.commit()
     _register(migrated_client)
 
-    page = migrated_client.get("/lessons/numbers?tab=practice").get_data(as_text=True)
+    page = migrated_client.get("/lessons/numbers?tab=test").get_data(as_text=True)
     assert "Study vocab:" not in page
     assert 'btn--primary btn--block" href="/lessons/time-calendar"' in page
 

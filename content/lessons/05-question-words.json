@@ -4,6 +4,68 @@
   "order": 5,
   "summary": "The question words that let you ask your way through any conversation.",
   "deck": "social_phrases",
+  "words": [
+    {
+      "catalan": "qui?",
+      "english": "who?"
+    },
+    {
+      "catalan": "què?",
+      "english": "what?"
+    },
+    {
+      "catalan": "on?",
+      "english": "where?"
+    },
+    {
+      "catalan": "com?",
+      "english": "how?"
+    },
+    {
+      "catalan": "per què?",
+      "english": "why?"
+    },
+    {
+      "catalan": "quant / quanta?",
+      "english": "how much?"
+    },
+    {
+      "catalan": "quants / quantes?",
+      "english": "how many?"
+    },
+    {
+      "catalan": "quin / quina?",
+      "english": "which? / what?"
+    },
+    {
+      "catalan": "On és el bany?",
+      "english": "Where is the bathroom?"
+    },
+    {
+      "catalan": "Quant val?",
+      "english": "How much does it cost?"
+    },
+    {
+      "catalan": "Com es diu això?",
+      "english": "What is this called?"
+    },
+    {
+      "catalan": "Què vol dir...?",
+      "english": "What does ... mean?"
+    },
+    {
+      "catalan": "Parles anglès?",
+      "english": "Do you speak English?"
+    },
+    {
+      "catalan": "Puc fer servir el bany?",
+      "english": "Can I use the bathroom?"
+    },
+    {
+      "catalan": "Pots repetir?",
+      "english": "Can you repeat?"
+    }
+  ],
   "sections": [
     {
       "type": "text",

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
 LESSONS = Path(__file__).resolve().parent.parent / "content" / "lessons"
@@ -105,3 +106,166 @@ def test_question_words_teaches_agreement_and_yes_no_questions():
     assert "usar" not in text and "Pots explicar?" not in text
     answers = {item.get("answer") for item in lesson["practice"]}
     assert {"Quants", "Quina", "Parles anglès?", "Puc fer servir el bany?"} <= answers
+
+
+def _word_forms(lesson: dict) -> set[str]:
+    """Every single Catalan word in a lesson's `words` list, lowercased."""
+    forms = set()
+    for word in lesson["words"]:
+        for part in word["catalan"].replace("/", " ").split():
+            forms.add(part.lower())
+    return forms
+
+
+def test_noun_gender_words_cover_everything_the_test_asks_for():
+    lesson = _lesson("01-noun-gender.json")
+    forms = _word_forms(lesson)
+    nouns = [w["catalan"] for w in lesson["words"] if w["catalan"].startswith(("el ", "la "))]
+    # Nouns are listed with their article, so the gender is learned with the word.
+    assert {"el gat", "la porta", "el cotxe", "la taula", "el pa", "la mà"} <= set(nouns)
+    asked = []
+    for item in lesson["practice"]:
+        asked += item.get("answers", [])
+        if item["kind"] == "cloze":
+            asked.append(item["answer"])
+        if item.get("speak"):
+            asked.append(item["speak"])
+        if item["kind"] == "multiple_choice" and item["answer"] not in {
+            "Masculine",
+            "Feminine",
+        }:
+            asked += item["options"]
+        # Words the question names, like 'porta' (door).
+        asked += re.findall(r"'([^']+)' \(", item.get("question", ""))
+    missing = {
+        token
+        for phrase in asked
+        for token in phrase.lower().split()
+        if token not in forms
+    }
+    assert not missing
+    # Every word in the list is also shown in a Learn example.
+    examples = _text(lesson).lower()
+    for word in lesson["words"]:
+        for part in word["catalan"].split(" / "):
+            assert part.lower() in examples, part
+
+
+# Grammar words taught in lessons 1 and 2, allowed in any test without being
+# listed again in each lesson's words.
+GRAMMAR_WORDS = {"el", "la", "els", "les", "l'", "un", "una", "uns", "unes", "i", "de", "d'"}
+
+# Names of people and places spelled the same in English, which a test may use
+# without teaching them. Names spelled differently, like Londres, are words.
+PROPER_NAMES = {"barcelona", "girona", "marta"}
+
+# Multiple-choice answers that are English, so they ask for no Catalan word.
+ENGLISH_ANSWERS = {
+    "Masculine",
+    "Feminine",
+    "It contracts to l'",
+    "No - 'parlo' already means 'I speak'",
+    "Open",
+    "Closed",
+    "Free entry",
+    "No smoking",
+}
+
+_EDGE_PUNCTUATION = ".,;:?!¿¡…«»\"()"
+
+
+def _tokens(phrase: str) -> list[str]:
+    """Lowercased words of a Catalan phrase, with a (ser)-style note removed."""
+    phrase = re.sub(r"\([^)]*\)", " ", phrase)
+    tokens = []
+    for raw in phrase.replace("/", " ").split():
+        token = raw.strip(_EDGE_PUNCTUATION).lower()
+        if token and token != "-":
+            tokens.append(token)
+    return tokens
+
+
+def _asked_phrases(lesson: dict) -> list[str]:
+    """Every Catalan phrase the lesson's test asks the learner to produce or recognise."""
+    asked = []
+    for item in lesson["practice"]:
+        asked += item.get("answers", [])
+        if item.get("speak"):
+            asked.append(item["speak"])
+        if item["kind"] == "cloze":
+            asked.append(item["answer"])
+        if item["kind"] == "multiple_choice" and item["answer"] not in ENGLISH_ANSWERS:
+            asked.append(item["answer"])
+        # Catalan signs quoted in a question, like «Obert».
+        asked += re.findall(r"«([^»]+)»", item.get("question", ""))
+    return asked
+
+
+def _is_taught(token: str, forms: set[str]) -> bool:
+    if token in forms or token in GRAMMAR_WORDS or token in PROPER_NAMES:
+        return True
+    # l'estació is taught if its parts are: the article and estació.
+    parts = [p for p in re.split(r"(?<=')|-", token) if p]
+    return len(parts) > 1 and all(_is_taught(p, forms) for p in parts)
+
+
+def _lesson_files() -> list[Path]:
+    return sorted(LESSONS.glob("*.json"))
+
+
+def test_every_lesson_has_a_words_list():
+    for path in _lesson_files():
+        words = json.loads(path.read_text(encoding="utf-8")).get("words")
+        assert words, path.name
+
+
+def test_every_test_only_uses_words_its_lesson_teaches():
+    for path in _lesson_files():
+        lesson = json.loads(path.read_text(encoding="utf-8"))
+        forms = set()
+        for word in lesson["words"]:
+            for token in _tokens(word["catalan"]):
+                # dues-centes and l'esquerra teach the whole word and each of
+                # its parts, so a cloze can blank just 'centes' or 'esquerra'.
+                forms.add(token)
+                forms.update(part for part in re.split(r"(?<=')|-", token) if part)
+        missing = sorted(
+            {
+                token
+                for phrase in _asked_phrases(lesson)
+                for token in _tokens(phrase)
+                if not _is_taught(token, forms)
+            }
+        )
+        assert not missing, f"{path.name}: {missing}"
+
+
+def test_every_listed_word_is_shown_on_the_learn_tab():
+    for path in _lesson_files():
+        lesson = json.loads(path.read_text(encoding="utf-8"))
+        learn = _text(lesson).lower()
+        for word in lesson["words"]:
+            assert word["english"].strip(), f"{path.name}: {word}"
+            for part in word["catalan"].split(" / "):
+                assert part.lower() in learn, f"{path.name}: {part}"
+
+
+def _strings(value):
+    if isinstance(value, str):
+        yield value
+    elif isinstance(value, dict):
+        for item in value.values():
+            yield from _strings(item)
+    elif isinstance(value, list):
+        for item in value:
+            yield from _strings(item)
+
+
+def test_lessons_write_apostrophes_straight():
+    # The course and the decks write l'estació and I'm with a straight
+    # apostrophe, so the same word looks the same everywhere. A curly ’ is
+    # only used to close a ‘quoted’ phrase.
+    for path in _lesson_files():
+        lesson = json.loads(path.read_text(encoding="utf-8"))
+        for text in _strings(lesson):
+            assert text.count("’") == text.count("‘"), f"{path.name}: {text}"
