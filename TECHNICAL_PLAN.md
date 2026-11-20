@@ -218,7 +218,7 @@ Only `/`, `/lessons`, `/faq` and `/lessons/<id>` are indexable.
   Carry-over: when a logged-out visitor finishes the Test, `practice.js` stores `{lesson_id, exercises_correct, exercises_total, first_try_correct}` in `sessionStorage` (`laqueta.pendingCompletion`, this tab only).
   After register or login succeeds, `gate.js` removes the entry, reads the lesson's `completed` state, re-posts it to `POST /api/lessons/<id>/complete` (the same validation as the logged-in path), and lands on `/lessons/<id>?saved=1`, which shows "Saved to your account." when the lesson is complete.
   It adds `&finished=1` only when the lesson was not already complete before the POST.
-  No redirect target comes from the URL; without a pending entry, or if either request fails (including a network error), the gate goes to `/levels`.
+  No redirect target comes from the URL; without a pending entry, or if either request fails (including a network error), the gate falls back to its usual landing page (`/continue` after sign-up, `/levels` after sign-in).
 - Unknown URLs: the app-wide 404 handler (`register_not_found` in `app/__init__.py`) returns `{"error": "Not found"}` under `/api/` and the branded, noindex `not_found.html` everywhere else.
   A logged-out visit to an unknown `/lessons/<id>` is a real 404 too, not a redirect home, which crawlers would read as a soft 404; logged in, it still redirects to `/levels`.
 - Every lesson's Learn tab ends with a course nav: previous and next lesson in plain course order (`lesson_neighbours`, which ignores progress, so the links are the same for everyone and a crawler can walk the course), plus "All lessons".
