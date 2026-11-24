@@ -229,20 +229,9 @@
   },
   {
     "id": "tr_029",
-    "catalan": "Em puc ajudar?",
-    "pronunciation": "um pook uh-zhoo-DA",
-    "english": "Can I help you?",
-    "hint": "",
-    "tags": [
-      "phrases"
-    ],
-    "pos": "phrase"
-  },
-  {
-    "id": "tr_031",
-    "catalan": "Estic perdut / perduda",
-    "pronunciation": "uhs-TEEK pur-DOOT / pur-DOO-duh",
-    "english": "I'm lost",
+    "catalan": "Et puc ajudar?",
+    "pronunciation": "ut pook uh-zhoo-DA",
+    "english": "Can I help you? (informal)",
     "hint": "",
     "tags": [
       "phrases"
